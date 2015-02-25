@@ -22,7 +22,7 @@ namespace FrontEnd.Controllers
         {
             PerfildeacessoRepository = perfildeacessoRepository;
             EmpresaRepository = empresaRepository;
-
+            
         }
 
         public override ActionResult Visualizar(Guid Id)
