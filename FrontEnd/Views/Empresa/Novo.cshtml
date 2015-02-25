@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h2>Nova Empresa</h2>
+@model FrontEnd.Models.EmpresaNovo
+
+@using (Html.BeginForm("Incluir", "Empresa", FormMethod.Post))
+{ 
+    @Html.TextBoxFor(e => e.RazaoSocial, new { placeholder = "Razão Social", @class = "form-control"})<br />
+    @Html.TextBoxFor(e => e.Cnpj, new { placeholder = "CNPJ", @class = "form-control" })<br />
+    @Html.TextBoxFor(e => e.NomeFantasia, new { placeholder = "Nome Fantasia", @class = "form-control" })<br />
+    <input type="submit" value="Inserir" class="btn btn-outline btn-success"/>
+}
+
+

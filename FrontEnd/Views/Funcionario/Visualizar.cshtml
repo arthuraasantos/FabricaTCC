@@ -1,0 +1,39 @@
+﻿@using Dominio.Model;
+@{
+    ViewBag.Title = "Visualizar";
+    Layout = "~/Views/Templates/TemplateSistema.cshtml";
+}
+<h2>Visualizar Funcionarios</h2>
+@model FrontEnd.Models.FuncionarioEditar
+ 
+@{
+    var listaDePerfis = (IEnumerable<SelectListItem>)ViewBag.ListagemdePerfis;
+    var listaDeEmpresas = (IEnumerable<SelectListItem>)ViewBag.ListagemdeEmpresas;
+
+
+    using (Html.BeginForm("Editar", "Empresa", FormMethod.Post))
+    {
+        @Html.HiddenFor(p => p.Id)
+        @Html.LabelFor(p => p.Nome)
+        @Html.TextBoxFor(e => e.Nome)
+        @Html.LabelFor(p => p.Cpf)
+        @Html.TextBoxFor(e => e.Cpf)
+        @Html.LabelFor(p => p.Email)
+        @Html.TextBoxFor(e => e.Email)
+        @Html.LabelFor(p => p.Bairro)
+        @Html.TextBoxFor(e => e.Bairro)
+        @Html.LabelFor(p => p.Cep)
+        @Html.TextBoxFor(e => e.Cep)
+        @Html.LabelFor(p => p.Cidade)
+        @Html.TextBoxFor(e => e.Cidade)
+        @Html.LabelFor(p => p.DataNascimento)
+        @Html.TextBoxFor(e => e.DataNascimento)
+        @Html.LabelFor(p => p.IdEmpresa)
+        @Html.DropDownListFor(e => e.IdEmpresa, listaDeEmpresas)
+        @Html.LabelFor(p => p.IdPerfilDeAcesso)
+        @Html.DropDownListFor(e => e.IdPerfilDeAcesso, listaDePerfis)
+        <input type="submit" value="Salvar Alterações" />
+    }
+}
+
+
