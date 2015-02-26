@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+
+
+<h1 class="page-header">Listagem de Perfis de Acesso</h1>
+
+@model FrontEnd.Models.PerfilDeAcessoNovo
+
+@using (Html.BeginForm("Incluir", "PerfilDeAcesso", FormMethod.Post))
+{
+    <fieldset class="col-lg-4">
+        @Html.LabelFor(p => p.Descricao)
+        @Html.TextBoxFor(p => p.Descricao, new { @class = "form-control" })
+        <br />
+        <input type="submit" value="Inserir Perfil" class="btn btn-success" />
+    </fieldset>
+
+}

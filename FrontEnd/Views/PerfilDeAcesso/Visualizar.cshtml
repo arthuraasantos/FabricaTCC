@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+
+}
+
+<h1 class="page-header">Edição de Perfil de Acesso</h1>
+
+@model FrontEnd.Models.PerfilDeAcessoEditar
+<br />
+@using (Html.BeginForm("Editar", "PerfilDeAcesso", FormMethod.Post))
+{
+    <fieldset class="col-sm-3">
+        @Html.HiddenFor(p => p.Id)
+        <div class="input-group">
+            <span class="input-group-addon">Descrição</span>
+            @Html.TextBoxFor(p => p.Descricao, new { @class = "form-control" })
+        </div>
+        <br />
+        @Html.ActionLink("Voltar", "Index", "PerfilDeAcesso", new { @class = "btn btn-outline btn-warning"})
+        <input type="submit" value="Salvar" class="btn btn-outline btn-primary" />
+    </fieldset>
+
+    <p>
+        @ViewBag.Mensagem
+    </p>
+
+
+}
+
