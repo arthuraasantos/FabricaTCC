@@ -14,7 +14,7 @@ namespace FrontEnd.Models.Conversores
             destino.RazaoSocial = origem.RazaoSocial;
             destino.NomeFantasia = origem.NomeFantasia;
             destino.Cnpj = origem.Cnpj;
-            destino.Rua = origem.Rua;
+            destino.Logradouro = origem.Logradouro;
             destino.NumeroEndereco = origem.NumeroEndereco;
             destino.Bairro = origem.Bairro;
             destino.Cidade = origem.Cidade;
@@ -31,7 +31,7 @@ namespace FrontEnd.Models.Conversores
             destino.RazaoSocial = origem.RazaoSocial;
             destino.NomeFantasia = origem.NomeFantasia;
             destino.Cnpj = origem.Cnpj;
-            destino.Rua = origem.Rua;
+            destino.Logradouro = origem.Logradouro;
             destino.NumeroEndereco = origem.NumeroEndereco;
             destino.Bairro = origem.Bairro;
             destino.Cidade = origem.Cidade;
