@@ -23,6 +23,7 @@ namespace FrontEnd.Controllers
             PontoService = pontoService;
         }
 
+        //[Authorize]
         public ActionResult Index()
         {
 
@@ -37,7 +38,7 @@ namespace FrontEnd.Controllers
                                             })
                                             .ToList();
 
-            return View(listaDeFuncionarios);
+            return View();
         }
 
         public ActionResult MarcarPonto()

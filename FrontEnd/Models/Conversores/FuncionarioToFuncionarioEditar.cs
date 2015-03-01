@@ -1,5 +1,5 @@
 ﻿using Dominio.Model;
-using Dominio.Repositorios;
+using Dominio.Repository;
 using Dominio.Repository;
 using Seedwork.Conversores;
 using System;
@@ -22,14 +22,14 @@ namespace FrontEnd.Models.Conversores
         {
             destino.Senha = origem.Senha;
             destino.SalarioBase = origem.SalarioBase;
-            destino.Rua = origem.Rua;
+            destino.Logradouro = origem.Logradouro;
             destino.Pais = origem.Pais;
             destino.NumeroEndereco = origem.NumeroEndereco;
             destino.Nome = origem.Nome;
             destino.Identidade = origem.Identidade;
             destino.Estado = origem.Estado;
             destino.IdEmpresa = origem.Empresa.Id;
-            destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id;
+            destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id; 
             destino.Email = origem.Email;
             destino.DataNascimento = origem.DataNascimento;
             destino.Cpf = origem.Cpf;
@@ -43,7 +43,7 @@ namespace FrontEnd.Models.Conversores
         {
             destino.Senha = origem.Senha;
             destino.SalarioBase = origem.SalarioBase;
-            destino.Rua = origem.Rua;
+            destino.Logradouro = origem.Logradouro;
             destino.Pais = origem.Pais;
             destino.NumeroEndereco = origem.NumeroEndereco;
             destino.Nome = origem.Nome;

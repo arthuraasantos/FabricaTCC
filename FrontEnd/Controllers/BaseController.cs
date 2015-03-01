@@ -85,7 +85,7 @@ namespace FrontEnd.Controllers
                 Repository.PesquisarPeloId(Id);
             Repository.Remover(entity);
             Context.SaveChanges();
-
+            ViewBag.Mensagem = "Excluído com sucesso!";
             return RedirectToAction("Index");
         }
     }

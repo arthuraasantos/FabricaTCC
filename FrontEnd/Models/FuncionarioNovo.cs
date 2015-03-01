@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FrontEnd.Models
 {
@@ -19,8 +20,11 @@ namespace FrontEnd.Models
 
         public DateTime? DataNascimento { get; set; }
 
-        public Guid IdEmpresa { get; set; }
-        public Guid IdPerfilDeAcesso { get; set; }
+        public Guid? IdEmpresa { get; set; }
+        public Guid? IdPerfilDeAcesso { get; set; }
+
+        public IEnumerable<SelectListItem> Empresas { get; set; }
+        public IEnumerable<SelectListItem> PerfisDeAcesso { get; set; }
 
 
         

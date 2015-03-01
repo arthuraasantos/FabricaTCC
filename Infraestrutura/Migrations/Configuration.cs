@@ -38,7 +38,7 @@ namespace Infraestrutura.Migrations
                 NomeFantasia = "Craque do Pão",
                 NumeroEndereco = 1330,
                 Pais = "Brasil",
-                Rua = "Estrada do Campinho"
+                Logradouro = "Estrada do Campinho"
                 
             };
             context.Set<Empresa>().Add(empresa);

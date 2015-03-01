@@ -42,5 +42,9 @@ namespace Dominio.Model
         public virtual Empresa Empresa { get; set; }
 
         public virtual PerfilDeAcesso PerfilDeAcesso { get; set; }
+
+        public string TESTE { get; set;}
+ 
+        
     }
 }

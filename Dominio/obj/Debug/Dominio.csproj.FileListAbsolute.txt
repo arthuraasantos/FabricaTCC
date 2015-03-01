@@ -16,3 +16,12 @@ C:\@TCC\TCCPontoEletronico\Dominio\bin\Debug\EntityFramework.xml
 C:\@TCC\TCCPontoEletronico\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
 C:\@TCC\TCCPontoEletronico\Dominio\obj\Debug\Dominio.dll
 C:\@TCC\TCCPontoEletronico\Dominio\obj\Debug\Dominio.pdb
+C:\@FabricaTCC\Dominio\bin\Debug\Dominio.dll
+C:\@FabricaTCC\Dominio\bin\Debug\Dominio.pdb
+C:\@FabricaTCC\Dominio\bin\Debug\Seedwork.dll
+C:\@FabricaTCC\Dominio\bin\Debug\EntityFramework.dll
+C:\@FabricaTCC\Dominio\bin\Debug\Seedwork.pdb
+C:\@FabricaTCC\Dominio\bin\Debug\EntityFramework.xml
+C:\@FabricaTCC\Dominio\obj\Debug\Dominio.csprojResolveAssemblyReference.cache
+C:\@FabricaTCC\Dominio\obj\Debug\Dominio.dll
+C:\@FabricaTCC\Dominio\obj\Debug\Dominio.pdb

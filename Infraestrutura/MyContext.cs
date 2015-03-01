@@ -20,6 +20,7 @@ namespace Infraestrutura
             modelBuilder.Configurations.Add(new PerfilDeAcessoDbMapping());
             modelBuilder.Configurations.Add(new PontoDbMapping());
             modelBuilder.Configurations.Add(new EmpresaDbMapping());
+
             base.OnModelCreating(modelBuilder);
         }
 

@@ -1,6 +1,6 @@
 ﻿using Dominio;
 using Dominio.Model;
-using Dominio.Repositorios;
+using Dominio.Repository;
 using Dominio.Repository;
 using Seedwork.Repository;
 using System;

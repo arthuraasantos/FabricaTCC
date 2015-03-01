@@ -11,25 +11,22 @@
 <h2>Novo Funcionário</h2>
 @model FrontEnd.Models.FuncionarioNovo
 
-@{
-    var listaDeEmpresas = (IEnumerable<SelectListItem>)ViewBag.ListagemDeEmpresas;
-    var listaDePerfis = (IEnumerable<SelectListItem>)ViewBag.ListagemDePerfis;
-        using (Html.BeginForm("Incluir", "Funcionario", FormMethod.Post))
-        {
+ 
+@using (Html.BeginForm("Incluir", "Funcionario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.HiddenFor(f => f.Id)
         @Html.TextBoxFor(f => f.Nome, new { placeholder = "Nome", @class = "form-control" })<br />
         @Html.TextBoxFor(f => f.Cpf, new { placeholder = "Cpf", @class = "form-control", type = "cpf" })<br />
         @Html.TextBoxFor(f => f.DataNascimento, new { placeholder = "Data Nascimento", @class = "form-control", type = "date" })<br />
         @Html.TextBoxFor(f => f.Email, new { placeholder = "Email", @class = "form-control", type = "email" })<br />
         @Html.TextBoxFor(f => f.Identidade, new { placeholder = "Identidade(RG)", @class = "form-control" })<br />
-        @Html.LabelFor(f => f.IdEmpresa)
-        @Html.DropDownListFor(f => f.IdEmpresa, listaDeEmpresas)
-        @Html.LabelFor(f=> f.IdPerfilDeAcesso)
-        @Html.DropDownListFor(f => f.IdPerfilDeAcesso, listaDePerfis)
-    
-
-
-    <input type="text" value="@ViewBag.Empresa.NomeFantasia" class="form-control" disabled /><br />
+        @Html.LabelFor(f => f.IdEmpresa)<br />
+        @Html.DropDownListFor(f => f.IdEmpresa, Model.Empresas)<br />
+        @Html.LabelFor(f => f.IdPerfilDeAcesso)<br />
+        @Html.DropDownListFor(f => f.IdPerfilDeAcesso, Model.PerfisDeAcesso)<br />
+    </div>
     <input type="submit" value="Inserir" class="btn btn-outline btn-success" />
-    }
-    }
+}
+  
 

@@ -26,3 +26,17 @@ C:\@TCC\TCCPontoEletronico\Infraestrutura\bin\Debug\EntityFramework.SqlServer.xm
 C:\@TCC\TCCPontoEletronico\Infraestrutura\obj\Debug\Infraestrutura.csprojResolveAssemblyReference.cache
 C:\@TCC\TCCPontoEletronico\Infraestrutura\obj\Debug\Infraestrutura.dll
 C:\@TCC\TCCPontoEletronico\Infraestrutura\obj\Debug\Infraestrutura.pdb
+C:\@FabricaTCC\Infraestrutura\bin\Debug\Infraestrutura.dll.config
+C:\@FabricaTCC\Infraestrutura\bin\Debug\Infraestrutura.dll
+C:\@FabricaTCC\Infraestrutura\bin\Debug\Infraestrutura.pdb
+C:\@FabricaTCC\Infraestrutura\bin\Debug\Dominio.dll
+C:\@FabricaTCC\Infraestrutura\bin\Debug\EntityFramework.dll
+C:\@FabricaTCC\Infraestrutura\bin\Debug\EntityFramework.SqlServer.dll
+C:\@FabricaTCC\Infraestrutura\bin\Debug\Seedwork.dll
+C:\@FabricaTCC\Infraestrutura\bin\Debug\Dominio.pdb
+C:\@FabricaTCC\Infraestrutura\bin\Debug\Seedwork.pdb
+C:\@FabricaTCC\Infraestrutura\bin\Debug\EntityFramework.xml
+C:\@FabricaTCC\Infraestrutura\bin\Debug\EntityFramework.SqlServer.xml
+C:\@FabricaTCC\Infraestrutura\obj\Debug\Infraestrutura.csprojResolveAssemblyReference.cache
+C:\@FabricaTCC\Infraestrutura\obj\Debug\Infraestrutura.dll
+C:\@FabricaTCC\Infraestrutura\obj\Debug\Infraestrutura.pdb

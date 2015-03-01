@@ -1,5 +1,5 @@
 ﻿using Dominio.Model;
-using Dominio.Repositorios;
+using Dominio.Repository;
 using Dominio.Repository;
 using FrontEnd.Models;
 using FrontEnd.Models.Conversores;
@@ -35,11 +35,40 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Novo()
         {
-            ViewBag.ListagemDeEmpresas = EmpresaRepository.Listar().ToList().Select(p => new SelectListItem() { Text = p.NomeFantasia, Value = p.Id.ToString() });
-            ViewBag.ListagemDePerfis = PerfildeacessoRepository.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
+            var novo = new FuncionarioNovo();
 
-            return base.Novo();
+            novo.Empresas =
+                EmpresaRepository
+                    .Listar()
+                    .ToList()
+                    .Select(p => new SelectListItem() { Text = p.NomeFantasia, Value = p.Id.ToString() });
+
+  //          novo.Empresas.Add(new SelectListItem() { Text = "* Selecione *", Value = null });
+
+            novo.PerfisDeAcesso = PerfildeacessoRepository
+                .Listar()
+                .ToList()
+                .Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
+                
+//            novo.PerfisDeAcesso.Add(new SelectListItem() { Text = "* Selecione *", Value = null });            
+
+            return View("Novo", novo);
         }
 
+        private object PerfilDeAcessoPadrao()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ActionResult Incluir(FuncionarioNovo novo)
+        {
+            var entity = ConversorInsert.Converter(novo);
+            entity.Id = Guid.NewGuid();
+
+            Repository.Salvar(entity);
+            Context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }

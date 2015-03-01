@@ -5,10 +5,13 @@
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
 
-<h2>Index</h2>
+<h1 class="page-header">Listagem de Funcionários</h1>
 @model List<Funcionario>
 
-@Html.ActionLink("Criar Novo", "Novo", new { @class = "btn btn-outline btn-primary" })
+@Html.ActionLink("Criar Novo", "Novo", "Funcionario",
+        new { @class = "btn btn-outline btn-default" })
+<br />
+<br />
 
 <div class="row">
     <div class="col col-lg-12">
