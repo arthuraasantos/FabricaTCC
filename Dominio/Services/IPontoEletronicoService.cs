@@ -12,6 +12,8 @@ namespace Dominio.Services
         void EfetuarMarcacaoDePonto(Funcionario funcionario);
 
         TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionario(Funcionario funcionario, DateTime Dia);
+
+        string HorasBatidasPorDiaPorFuncionario(Funcionario funcionario, DateTime dia);
          
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Dominio.Services
 {
     public class PontoEletronicoService : IPontoEletronicoService
-    {        
+    {
 
         private IPontoRepository PontoRepository { get; set; }
         public PontoEletronicoService(IPontoRepository pontoRepository)
@@ -35,17 +35,39 @@ namespace Dominio.Services
 
             if (marcacoesDoDia.Count % 2 != 0)
                 return new TimeSpan();
-               
+
             var totalDeCiclos = marcacoesDoDia.Count / 2;
 
             var horasTrabalhadas = new TimeSpan();
 
-            for (int i = 0; i < totalDeCiclos; i = i+2)
+            for (int i = 0; i < totalDeCiclos; i = i + 2)
             {
                 horasTrabalhadas = horasTrabalhadas.Add(marcacoesDoDia[i + 1].DataDaMarcacao - marcacoesDoDia[i].DataDaMarcacao);
             }
 
-            return horasTrabalhadas;            
+            return horasTrabalhadas;
+        }
+
+        public string HorasBatidasPorDiaPorFuncionario(Funcionario funcionario, DateTime dia)
+        {
+
+            string hora = string.Empty;
+            string separador = " - ";
+            var marcacoesDoDia = PontoRepository.Listar().ToList().Where(p => p.DataDaMarcacao.Date == dia.Date).OrderBy(p => p.DataDaMarcacao).ToList();
+
+            foreach (var ciclo in marcacoesDoDia)
+            {
+                if (hora.Equals(string.Empty))
+                {
+                    hora = ciclo.DataDaMarcacao.ToString();
+
+                }
+                else
+                {
+                    hora = hora + separador + ciclo.DataDaMarcacao.ToString();
+                }
+            }
+            return hora;
         }
     }
 }
