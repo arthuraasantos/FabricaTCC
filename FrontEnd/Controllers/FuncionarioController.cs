@@ -1,6 +1,5 @@
 ﻿using Dominio.Model;
 using Dominio.Repository;
-using Dominio.Repository;
 using FrontEnd.Models;
 using FrontEnd.Models.Conversores;
 using Infraestrutura;

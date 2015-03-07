@@ -6,6 +6,7 @@ using FrontEnd.Models;
 using Dominio.Services;
 using System;
 using Dominio.Repository;
+using Dominio.Model;
 
 namespace FrontEnd.Controllers
 {
@@ -27,18 +28,28 @@ namespace FrontEnd.Controllers
         public ActionResult Index()
         {
 
-            var listaDeFuncionarios = FuncionarioRepository
-                                            .Listar()
-                                            .ToList()
-                                            .Select(p => new FuncionarioComHorasTrabalhadas() {
-                                                Nome =p.Nome,
-                                                Email = p.Email,
-                                                Perfil = p.PerfilDeAcesso.Descricao,
-                                                HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(p, DateTime.Now)
-                                            })
-                                            .ToList();
+            Funcionario funcionario = new Funcionario();
+            funcionario.Empresa = new Empresa();
+
+            funcionario = (Funcionario)Session["funcionario"];
+
+            if (funcionario != null)
+            {
+                ViewBag.NomeFuncionario = funcionario.Nome;
+                ViewBag.Empresa = funcionario.Empresa.NomeFantasia;
+                ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(funcionario, DateTime.Now);
+                ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(funcionario, DateTime.Now, DateTime.Now.AddDays(-30));
+            }
+            else
+            {
+                ViewBag.NomeFuncionario = "[ Funcionário não definido ]";
+                ViewBag.Empresa = "[ Empresa não definida ]";
+                ViewBag.HorariosMarcadosHoje = "00:00 - 00:00 - 00:00 - 00:00";
+                ViewBag.HorasTrabalhadas = "[ Não foi possível calcular a hora sem um funcionário definido ]";
+            }
 
             return View();
+
         }
 
         public ActionResult MarcarPonto()

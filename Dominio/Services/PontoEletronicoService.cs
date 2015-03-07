@@ -29,9 +29,14 @@ namespace Dominio.Services
             PontoRepository.Executar();
         }
 
-        public TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionario(Funcionario funcionario, DateTime Dia)
+        public TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionario(Funcionario funcionario, DateTime diaInicio, DateTime diaFinal)
         {
-            var marcacoesDoDia = PontoRepository.Listar().ToList().Where(p => p.DataDaMarcacao.Date == Dia.Date).OrderBy(p => p.DataDaMarcacao).ToList();
+            var marcacoesDoDia = PontoRepository.
+                                    Listar().
+                                    ToList().
+                                    Where(p => p.DataDaMarcacao.Date >= diaInicio.Date).
+                                    Where(p => p.DataDaMarcacao.Date <= diaFinal.Date).
+                                    OrderBy(p => p.DataDaMarcacao).ToList();
 
             if (marcacoesDoDia.Count % 2 != 0)
                 return new TimeSpan();

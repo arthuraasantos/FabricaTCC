@@ -16,7 +16,7 @@ namespace FrontEnd.Controllers
     {
         // GET: Ponto
         MyContext Context;
-        private IPontoRepository PontoRepository {get; set; }
+        private IPontoRepository PontoRepository { get; set; }
         private IPontoEletronicoService PontoEletronicoService { get; set; }
 
         public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService)
@@ -24,33 +24,18 @@ namespace FrontEnd.Controllers
             Context = context;
             PontoRepository = pontoRepository;
             PontoEletronicoService = pontoEletronicoService;
-            
+
         }
+
         public ActionResult Index()
-        {   
-            Funcionario funcionario = new Funcionario();
-            funcionario.Empresa = new Empresa();
-
-            funcionario = (Funcionario)Session["funcionario"];
-
-            if (funcionario != null)
-            {
-                ViewBag.Horarios = PontoEletronicoService.HorasBatidasPorDiaPorFuncionario(funcionario, DateTime.Now);
-                ViewBag.Empresa = funcionario.Empresa.NomeFantasia;
-            }
-            else
-            {
-                ViewBag.Horarios = "Sem horários";
-                ViewBag.Empresa = "-";
-            }
-
+        {
             return View();
         }
 
         public ActionResult Marcar()
         {
-            
-            return View();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
