@@ -1,6 +1,5 @@
 ﻿using Dominio.Model;
 using Dominio.Repository;
-using Dominio.Repository;
 using FrontEnd.Models;
 using FrontEnd.Models.Conversores;
 using Infraestrutura;
@@ -12,6 +11,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Controllers
 {
+    [Authorize]
     public class FuncionarioController : BaseController<Funcionario, FuncionarioNovo, FuncionarioEditar>
     {
         public IPerfilDeAcessoRepository PerfildeacessoRepository;
@@ -43,15 +43,11 @@ namespace FrontEnd.Controllers
                     .ToList()
                     .Select(p => new SelectListItem() { Text = p.NomeFantasia, Value = p.Id.ToString() });
 
-  //          novo.Empresas.Add(new SelectListItem() { Text = "* Selecione *", Value = null });
-
-            novo.PerfisDeAcesso = PerfildeacessoRepository
+              novo.PerfisDeAcesso = PerfildeacessoRepository
                 .Listar()
                 .ToList()
                 .Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
                 
-//            novo.PerfisDeAcesso.Add(new SelectListItem() { Text = "* Selecione *", Value = null });            
-
             return View("Novo", novo);
         }
 
@@ -62,12 +58,10 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Incluir(FuncionarioNovo novo)
         {
-            var entity = ConversorInsert.Converter(novo);
-            entity.Id = Guid.NewGuid();
-
-            Repository.Salvar(entity);
-            Context.SaveChanges();
-
+            if (ModelState.IsValid)
+            {
+                return base.Incluir(novo);
+            }
             return RedirectToAction("Index");
         }
     }

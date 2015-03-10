@@ -1,4 +1,5 @@
 ﻿using Dominio.Model;
+using Dominio.Repository;
 using Seedwork.Conversores;
 using System;
 using System.Collections.Generic;
@@ -15,15 +16,22 @@ namespace FrontEnd.Models.Conversores
             destino.DataNascimento = origem.DataNascimento;
             destino.Cpf = origem.Cpf;
             destino.Identidade = origem.Identidade;
-
+            destino.Email = origem.Email;
+            destino.IdEmpresa = origem.Empresa.Id;
+            destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id;
         }
 
         public override void AplicarValores(FuncionarioNovo origem, Funcionario destino)
         {
-            origem.Nome = destino.Nome;
-            origem.DataNascimento = destino.DataNascimento;
-            origem.Cpf = destino.Cpf;
-            origem.Identidade = destino.Identidade;
+            destino.Nome = origem.Nome;
+            destino.DataNascimento = origem.DataNascimento;
+            destino.Cpf = origem.Cpf;
+            destino.Identidade = origem.Identidade;
+            destino.Email = origem.Email;
+            destino.Empresa = new Empresa();
+            destino.Empresa.Id = (Guid)origem.IdEmpresa;
+            destino.PerfilDeAcesso = new PerfilDeAcesso();
+            destino.PerfilDeAcesso.Id = (Guid)origem.IdPerfilDeAcesso;
         }
     }
 }
