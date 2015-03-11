@@ -2,6 +2,7 @@
 using Dominio.Model;
 using Dominio.Repository;
 using Dominio.Services;
+using FrontEnd.Models;
 using Infraestrutura;
 using Infraestrutura.Repositorios;
 using System;
@@ -12,18 +13,21 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Controllers
 {
+    [Authorize]
     public class PontoController : Controller
     {
         // GET: Ponto
         MyContext Context;
         private IPontoRepository PontoRepository { get; set; }
         private IPontoEletronicoService PontoEletronicoService { get; set; }
+        private FuncionarioRepository FuncionarioRepository { get; set; }
 
         public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService)
         {
             Context = context;
             PontoRepository = pontoRepository;
             PontoEletronicoService = pontoEletronicoService;
+            FuncionarioRepository = new FuncionarioRepository(context);
 
         }
 
@@ -32,10 +36,24 @@ namespace FrontEnd.Controllers
             return View();
         }
 
-        public ActionResult Marcar()
+        public ActionResult Marcar(string email, string senha)
         {
 
+            var funcionarioParaMarcar = new Funcionario();
+            funcionarioParaMarcar = FuncionarioRepository.PesquisaParaLogin(email, senha);
+
+            if (funcionarioParaMarcar != null)
+            {
+                PontoEletronicoService.EfetuarMarcacaoDePonto(funcionarioParaMarcar);
+                ViewBag.Mensagem = new Mensagem() { TextoResumido = "Marcação efetuada com sucesso!" };
+            }
+            else
+            {
+                ViewBag.Mensagem = new Mensagem() { TextoResumido = "Atenção: Email ou senha" };
+            }
+
             return RedirectToAction("Index", "Home");
+
         }
     }
 }

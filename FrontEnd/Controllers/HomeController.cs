@@ -10,6 +10,7 @@ using Dominio.Model;
 
 namespace FrontEnd.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
 
@@ -24,7 +25,6 @@ namespace FrontEnd.Controllers
             PontoService = pontoService;
         }
 
-        //[Authorize]
         public ActionResult Index()
         {
 
@@ -35,30 +35,32 @@ namespace FrontEnd.Controllers
 
             if (funcionario != null)
             {
-                ViewBag.NomeFuncionario = funcionario.Nome;
+                ViewBag.EmailFuncionario = funcionario.Email;
+                ViewBag.Funcionario = funcionario.Nome;
                 ViewBag.Empresa = funcionario.Empresa.NomeFantasia;
                 ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(funcionario, DateTime.Now);
                 ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(funcionario, DateTime.Now, DateTime.Now.AddDays(-30));
             }
             else
             {
-                ViewBag.NomeFuncionario = "[ Funcionário não definido ]";
-                ViewBag.Empresa = "[ Empresa não definida ]";
-                ViewBag.HorariosMarcadosHoje = "00:00 - 00:00 - 00:00 - 00:00";
-                ViewBag.HorasTrabalhadas = "[ Não foi possível calcular a hora sem um funcionário definido ]";
+                ViewBag.EmailFuncionario = "[ Funcionário não definido ]";
+                ViewBag.Funcionario = "[ Funcionário não definido ]";
+                ViewBag.Empresa = "[ Empresa não definida ]"; ;
+                ViewBag.HorariosMarcadosHoje = "[ Não será possível calcular as batidas sem um funcionário definido ]";
+                ViewBag.HorasTrabalhadas = "[ Não será possível calcular a hora sem um funcionário definido ]";
             }
 
             return View();
 
         }
 
-        public ActionResult MarcarPonto()
-        {
+        //public ActionResult MarcarPonto()
+        //{
 
-            ViewBag.ListaDeMarcacoes = PontoRepository.Listar().OrderByDescending(p => p.DataDaMarcacao).ToList();
-            ViewBag.Mensagem = new Mensagem();
-            return View("View", new MarcarPontoViewModel());
-        }
+        //    ViewBag.ListaDeMarcacoes = PontoRepository.Listar().OrderByDescending(p => p.DataDaMarcacao).ToList();
+        //    ViewBag.Mensagem = new Mensagem();
+        //    return View("View", new MarcarPontoViewModel());
+        //}
 
         public ActionResult EfetuarMarcacaoDoPonto(MarcarPontoViewModel marcarPonto)
         {

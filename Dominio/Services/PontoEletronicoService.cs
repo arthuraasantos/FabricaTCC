@@ -10,7 +10,7 @@ namespace Dominio.Services
 {
     public class PontoEletronicoService : IPontoEletronicoService
     {
-
+        private string FormatoHora = "HH:mm";
         private IPontoRepository PontoRepository { get; set; }
         public PontoEletronicoService(IPontoRepository pontoRepository)
         {
@@ -58,18 +58,22 @@ namespace Dominio.Services
 
             string hora = string.Empty;
             string separador = " - ";
-            var marcacoesDoDia = PontoRepository.Listar().ToList().Where(p => p.DataDaMarcacao.Date == dia.Date).OrderBy(p => p.DataDaMarcacao).ToList();
+            var marcacoesDoDia = PontoRepository.
+                                    Listar().
+                                    ToList().
+                                    Where(p => p.DataDaMarcacao.Date == dia.Date).
+                                    OrderBy(p => p.DataDaMarcacao).ToList();
 
             foreach (var ciclo in marcacoesDoDia)
             {
                 if (hora.Equals(string.Empty))
                 {
-                    hora = ciclo.DataDaMarcacao.ToString();
+                    hora = ciclo.DataDaMarcacao.ToString(FormatoHora);
 
                 }
                 else
                 {
-                    hora = hora + separador + ciclo.DataDaMarcacao.ToString();
+                    hora = hora + separador + ciclo.DataDaMarcacao.ToString(FormatoHora);
                 }
             }
             return hora;
