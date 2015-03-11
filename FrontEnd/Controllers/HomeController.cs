@@ -10,7 +10,7 @@ using Dominio.Model;
 
 namespace FrontEnd.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
 

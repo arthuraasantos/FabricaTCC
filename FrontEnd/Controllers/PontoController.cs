@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class PontoController : Controller
     {
         // GET: Ponto
