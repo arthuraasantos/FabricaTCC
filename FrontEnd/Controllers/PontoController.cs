@@ -55,5 +55,23 @@ namespace FrontEnd.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+
+        public ActionResult Consultar(string Email, DateTime? Data)
+        {
+            DateTime _Data = DateTime.MinValue;
+            if (Data != null) { _Data = DateTime.Parse(Data.ToString()); }
+
+            string _Email = String.Empty;
+            if (Email != String.Empty) { _Email = Email; }
+
+            var lista = PontoRepository.
+                            Listar().
+                            ToList().
+                            Where(p => p.DataDaMarcacao.Date == _Data.Date ).
+                            Where(p => p.Funcionario.Email == _Email).
+                            ToList();
+
+            return View(lista);
+        }
     }
 }

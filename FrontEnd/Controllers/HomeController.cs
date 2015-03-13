@@ -19,7 +19,8 @@ namespace FrontEnd.Controllers
         private IPontoEletronicoService PontoService { get; set; }
         private IPontoRepository PontoRepository { get; set; }
 
-        public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pontoService, IPontoRepository pontoRepository) {
+        public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pontoService, IPontoRepository pontoRepository)
+        {
             PontoRepository = pontoRepository;
             FuncionarioRepository = funcionarioRepository;
             PontoService = pontoService;
@@ -77,6 +78,6 @@ namespace FrontEnd.Controllers
 
             return RedirectToAction("MarcarPonto");
         }
- 
+
     }
 }

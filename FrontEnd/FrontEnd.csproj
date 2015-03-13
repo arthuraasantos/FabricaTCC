@@ -937,6 +937,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Ponto\Index.cshtml" />
+    <Content Include="Views\Ponto\Consultar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
