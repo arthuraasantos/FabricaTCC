@@ -69,6 +69,7 @@ namespace FrontEnd.Controllers
                             ToList().
                             Where(p => p.DataDaMarcacao.Date == _Data.Date ).
                             Where(p => p.Funcionario.Email == _Email).
+                            OrderBy(p => p.DataDaMarcacao).
                             ToList();
 
             return View(lista);
