@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace FrontEnd.Controllers
 {
-    [Authorize]
+    
     public class FuncionarioController : BaseController<Funcionario, FuncionarioNovo, FuncionarioEditar>
     {
         public IPerfilDeAcessoRepository PerfildeacessoRepository;

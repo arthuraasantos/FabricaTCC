@@ -22,7 +22,7 @@ namespace Infraestrutura.Repositorios
         {
             try
             {
-                return Contexto.Set<Funcionario>().Where(f => f.Email.Equals(email) && f.Senha.Equals(senha)).SingleOrDefault();; 
+                return Contexto.Set<Funcionario>().Where(f => f.Email.Equals(email) && f.Senha.Equals(senha)).SingleOrDefault();
             }
             catch (Exception)
             {

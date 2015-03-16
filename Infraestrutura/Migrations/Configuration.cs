@@ -14,6 +14,7 @@ namespace Infraestrutura.Migrations
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
+            
         }
 
         protected override void Seed(Infraestrutura.MyContext context)
@@ -49,7 +50,7 @@ namespace Infraestrutura.Migrations
             {
                 Id = Guid.NewGuid(),
                 Nome = "Arthur",
-                Email = "arthur@vvssistemas.com.br",
+                Email = "arthuraasantos@hotmail.com",
                 Senha = "admin",
                 Empresa = empresa,
                 PerfilDeAcesso = perfil

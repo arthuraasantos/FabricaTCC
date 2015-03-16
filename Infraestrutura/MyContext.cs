@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,12 @@ namespace Infraestrutura
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Configurations.Add(new FuncionarioDbMapping());
             modelBuilder.Configurations.Add(new PerfilDeAcessoDbMapping());
             modelBuilder.Configurations.Add(new PontoDbMapping());
             modelBuilder.Configurations.Add(new EmpresaDbMapping());
-
+            
             base.OnModelCreating(modelBuilder);
         }
 

@@ -16,6 +16,7 @@ namespace Infraestrutura.Mapeamento
             HasKey(p => p.Id);
             HasRequired(p => p.PerfilDeAcesso);
             HasRequired(p => p.Empresa);
+            
         }
     }
 }
