@@ -1,8 +1,8 @@
-﻿
-using Dominio.Model;
+﻿using Dominio.Model;
 using Dominio.Repository;
 using Dominio.Services;
 using FrontEnd.Models;
+using FrontEnd.Models.Conversores;
 using Infraestrutura;
 using Infraestrutura.Repositorios;
 using System;
@@ -14,7 +14,7 @@ using System.Web.Mvc;
 namespace FrontEnd.Controllers
 {
     //[Authorize]
-    public class PontoController : Controller
+    public class PontoController : BaseController<Ponto, PontoMarcar , PontoEditar>
     {
         // GET: Ponto
         MyContext Context;
@@ -22,18 +22,12 @@ namespace FrontEnd.Controllers
         private IPontoEletronicoService PontoEletronicoService { get; set; }
         private FuncionarioRepository FuncionarioRepository { get; set; }
 
-        public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService)
+        public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService) : base(context, pontoRepository, null, new PontoToPontoAjustar())
         {
             Context = context;
             PontoRepository = pontoRepository;
             PontoEletronicoService = pontoEletronicoService;
             FuncionarioRepository = new FuncionarioRepository(context);
-
-        }
-
-        public ActionResult Index()
-        {
-            return View();
         }
 
         public ActionResult Marcar(string email, string senha)
@@ -56,7 +50,7 @@ namespace FrontEnd.Controllers
 
         }
 
-        public ActionResult Consultar(string Email, DateTime? Data)
+        public ActionResult Index(string Email, DateTime? Data)
         {
             DateTime _Data = DateTime.MinValue;
             if (Data != null) { _Data = DateTime.Parse(Data.ToString()); }
@@ -67,12 +61,13 @@ namespace FrontEnd.Controllers
             var lista = PontoRepository.
                             Listar().
                             ToList().
-                            Where(p => p.DataDaMarcacao.Date == _Data.Date ).
+                            Where(p => p.DataDaMarcacao.Date == _Data.Date).
                             Where(p => p.Funcionario.Email == _Email).
                             OrderBy(p => p.DataDaMarcacao).
                             ToList();
 
             return View(lista);
         }
+
     }
 }

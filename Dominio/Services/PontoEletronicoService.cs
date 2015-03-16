@@ -19,11 +19,14 @@ namespace Dominio.Services
         public void EfetuarMarcacaoDePonto(Funcionario funcionario)
         {
             var novoPonto = new Ponto()
-            {
-                Id = Guid.NewGuid(),
-                DataDaMarcacao = DateTime.Now,
-                Funcionario = funcionario
-            };
+           {
+               Id = Guid.NewGuid(),
+               DataDaMarcacao = DateTime.Now,
+               DataAjuste= DateTime.Now,
+               MotivoAjuste = String.Empty,
+               AjusteAprovado = false,
+               Funcionario = funcionario
+           };
 
             PontoRepository.Salvar(novoPonto);
             PontoRepository.Executar();

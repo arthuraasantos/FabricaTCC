@@ -43,5 +43,6 @@ namespace Dominio.Model
 
         public virtual PerfilDeAcesso PerfilDeAcesso { get; set; }
 
+        
     }
 }

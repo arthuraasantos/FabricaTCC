@@ -23,6 +23,5 @@ C:\@FabricaTCC\Seedwork\bin\Debug\EntityFramework.dll
 C:\@FabricaTCC\Seedwork\bin\Debug\EntityFramework.SqlServer.dll
 C:\@FabricaTCC\Seedwork\bin\Debug\EntityFramework.xml
 C:\@FabricaTCC\Seedwork\bin\Debug\EntityFramework.SqlServer.xml
-C:\@FabricaTCC\Seedwork\obj\Debug\Seedwork.csprojResolveAssemblyReference.cache
 C:\@FabricaTCC\Seedwork\obj\Debug\Seedwork.dll
 C:\@FabricaTCC\Seedwork\obj\Debug\Seedwork.pdb

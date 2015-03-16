@@ -11,5 +11,8 @@ namespace Dominio.Model
     {
         public virtual Funcionario Funcionario { get; set; }
         public DateTime DataDaMarcacao { get; set; }
+        public DateTime DataAjuste { get; set; }
+        public String MotivoAjuste { get; set; }
+        public Boolean AjusteAprovado { get; set; }
     }
 }

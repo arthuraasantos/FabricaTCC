@@ -63,7 +63,7 @@ namespace FrontEnd.Controllers
         //    return View("View", new MarcarPontoViewModel());
         //}
 
-        public ActionResult EfetuarMarcacaoDoPonto(MarcarPontoViewModel marcarPonto)
+        public ActionResult EfetuarMarcacaoDoPonto(PontoMarcar marcarPonto)
         {
             var funcionario = FuncionarioRepository.Listar().SingleOrDefault(p => p.Email == marcarPonto.Email && p.Senha == marcarPonto.Senha);
             if (funcionario == null)
