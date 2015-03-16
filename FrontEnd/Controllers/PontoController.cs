@@ -50,13 +50,13 @@ namespace FrontEnd.Controllers
 
         }
 
-        public ActionResult Index(string Email, DateTime? Data)
+        public override ActionResult Index()  //(string Email, DateTime? Data)
         {
             DateTime _Data = DateTime.MinValue;
-            if (Data != null) { _Data = DateTime.Parse(Data.ToString()); }
+            //if (Data != null) { _Data = DateTime.Parse(Data.ToString()); }
 
             string _Email = String.Empty;
-            if (Email != String.Empty) { _Email = Email; }
+            //if (Email != String.Empty) { _Email = Email; }
 
             var lista = PontoRepository.
                             Listar().
