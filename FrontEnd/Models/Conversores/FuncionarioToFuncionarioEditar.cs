@@ -1,6 +1,5 @@
 ﻿using Dominio.Model;
 using Dominio.Repository;
-using Dominio.Repository;
 using Seedwork.Conversores;
 using System;
 using System.Collections.Generic;

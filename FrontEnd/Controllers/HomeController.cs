@@ -6,9 +6,11 @@ using FrontEnd.Models;
 using Dominio.Services;
 using System;
 using Dominio.Repository;
+using Dominio.Model;
 
 namespace FrontEnd.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
 
@@ -17,37 +19,49 @@ namespace FrontEnd.Controllers
         private IPontoEletronicoService PontoService { get; set; }
         private IPontoRepository PontoRepository { get; set; }
 
-        public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pontoService, IPontoRepository pontoRepository) {
+        public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pontoService, IPontoRepository pontoRepository)
+        {
             PontoRepository = pontoRepository;
             FuncionarioRepository = funcionarioRepository;
             PontoService = pontoService;
         }
 
-        //[Authorize]
         public ActionResult Index()
         {
 
-            var listaDeFuncionarios = FuncionarioRepository
-                                            .Listar()
-                                            .ToList()
-                                            .Select(p => new FuncionarioComHorasTrabalhadas() {
-                                                Nome =p.Nome,
-                                                Email = p.Email,
-                                                Perfil = p.PerfilDeAcesso.Descricao,
-                                                HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(p, DateTime.Now)
-                                            })
-                                            .ToList();
+            Funcionario funcionario = new Funcionario();
+            funcionario.Empresa = new Empresa();
+
+            funcionario = (Funcionario)Session["funcionario"];
+
+            if (funcionario != null)
+            {
+                ViewBag.EmailFuncionario = funcionario.Email;
+                ViewBag.Funcionario = funcionario.Nome;
+                ViewBag.Empresa = funcionario.Empresa.NomeFantasia;
+                ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(funcionario, DateTime.Now);
+                ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(funcionario, DateTime.Now, DateTime.Now.AddDays(-30));
+            }
+            else
+            {
+                ViewBag.EmailFuncionario = "[ Funcionário não definido ]";
+                ViewBag.Funcionario = "[ Funcionário não definido ]";
+                ViewBag.Empresa = "[ Empresa não definida ]"; ;
+                ViewBag.HorariosMarcadosHoje = "[ Não será possível calcular as batidas sem um funcionário definido ]";
+                ViewBag.HorasTrabalhadas = "[ Não será possível calcular a hora sem um funcionário definido ]";
+            }
 
             return View();
+
         }
 
-        public ActionResult MarcarPonto()
-        {
+        //public ActionResult MarcarPonto()
+        //{
 
-            ViewBag.ListaDeMarcacoes = PontoRepository.Listar().OrderByDescending(p => p.DataDaMarcacao).ToList();
-            ViewBag.Mensagem = new Mensagem();
-            return View("View", new MarcarPontoViewModel());
-        }
+        //    ViewBag.ListaDeMarcacoes = PontoRepository.Listar().OrderByDescending(p => p.DataDaMarcacao).ToList();
+        //    ViewBag.Mensagem = new Mensagem();
+        //    return View("View", new MarcarPontoViewModel());
+        //}
 
         public ActionResult EfetuarMarcacaoDoPonto(MarcarPontoViewModel marcarPonto)
         {
@@ -64,6 +78,6 @@ namespace FrontEnd.Controllers
 
             return RedirectToAction("MarcarPonto");
         }
- 
+
     }
 }

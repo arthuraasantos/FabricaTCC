@@ -10,7 +10,7 @@ namespace Dominio.Services
 {
     public class PontoEletronicoService : IPontoEletronicoService
     {
-
+        private string FormatoHora = "HH:mm";
         private IPontoRepository PontoRepository { get; set; }
         public PontoEletronicoService(IPontoRepository pontoRepository)
         {
@@ -29,9 +29,14 @@ namespace Dominio.Services
             PontoRepository.Executar();
         }
 
-        public TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionario(Funcionario funcionario, DateTime Dia)
+        public TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionario(Funcionario funcionario, DateTime diaInicio, DateTime diaFinal)
         {
-            var marcacoesDoDia = PontoRepository.Listar().ToList().Where(p => p.DataDaMarcacao.Date == Dia.Date).OrderBy(p => p.DataDaMarcacao).ToList();
+            var marcacoesDoDia = PontoRepository.
+                                    Listar().
+                                    ToList().
+                                    Where(p => p.DataDaMarcacao.Date >= diaInicio.Date).
+                                    Where(p => p.DataDaMarcacao.Date <= diaFinal.Date).
+                                    OrderBy(p => p.DataDaMarcacao).ToList();
 
             if (marcacoesDoDia.Count % 2 != 0)
                 return new TimeSpan();
@@ -53,18 +58,22 @@ namespace Dominio.Services
 
             string hora = string.Empty;
             string separador = " - ";
-            var marcacoesDoDia = PontoRepository.Listar().ToList().Where(p => p.DataDaMarcacao.Date == dia.Date).OrderBy(p => p.DataDaMarcacao).ToList();
+            var marcacoesDoDia = PontoRepository.
+                                    Listar().
+                                    ToList().
+                                    Where(p => p.DataDaMarcacao.Date == dia.Date).
+                                    OrderBy(p => p.DataDaMarcacao).ToList();
 
             foreach (var ciclo in marcacoesDoDia)
             {
                 if (hora.Equals(string.Empty))
                 {
-                    hora = ciclo.DataDaMarcacao.ToString();
+                    hora = ciclo.DataDaMarcacao.ToString(FormatoHora);
 
                 }
                 else
                 {
-                    hora = hora + separador + ciclo.DataDaMarcacao.ToString();
+                    hora = hora + separador + ciclo.DataDaMarcacao.ToString(FormatoHora);
                 }
             }
             return hora;
