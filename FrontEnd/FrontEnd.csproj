@@ -939,7 +939,7 @@
     <Content Include="Views\PerfilDeAcesso\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Ponto\Index.cshtml" />
+    <Content Include="Views\Ponto\Ajustar.cshtml" />
     <Content Include="Views\Ponto\Visualizar.cshtml" />
   </ItemGroup>
   <ItemGroup>

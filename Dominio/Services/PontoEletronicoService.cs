@@ -22,7 +22,7 @@ namespace Dominio.Services
            {
                Id = Guid.NewGuid(),
                DataDaMarcacao = DateTime.Now,
-               DataAjuste= DateTime.Now,
+               DataAjuste = null,
                MotivoAjuste = String.Empty,
                AjusteAprovado = false,
                Funcionario = funcionario
@@ -67,16 +67,24 @@ namespace Dominio.Services
                                     Where(p => p.DataDaMarcacao.Date == dia.Date).
                                     OrderBy(p => p.DataDaMarcacao).ToList();
 
+
             foreach (var ciclo in marcacoesDoDia)
             {
+
+                DateTime dataValida = ciclo.DataDaMarcacao;
+                if (ciclo.AjusteAprovado)
+                {
+                    dataValida = ciclo.DataAjuste.GetValueOrDefault(dataValida);
+                }
+
                 if (hora.Equals(string.Empty))
                 {
-                    hora = ciclo.DataDaMarcacao.ToString(FormatoHora);
+                    hora = dataValida.ToString(FormatoHora);
 
                 }
                 else
                 {
-                    hora = hora + separador + ciclo.DataDaMarcacao.ToString(FormatoHora);
+                    hora = hora + separador + dataValida.ToString(FormatoHora);
                 }
             }
             return hora;

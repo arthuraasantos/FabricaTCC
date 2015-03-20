@@ -13,7 +13,7 @@ namespace FrontEnd.Models
         public DateTime DataDaMarcacao { get; set; }
 
         [Description("Data do Ajuste")]
-        public DateTime DataAjuste { get; set; }
+        public DateTime? DataAjuste { get; set; }
 
         [Description("Motivo do Ajuste")]
         public String MotivoAjuste { get; set; }

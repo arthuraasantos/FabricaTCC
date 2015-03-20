@@ -21,14 +21,14 @@ namespace Infraestrutura.Migrations
         {
             var perfil = new PerfilDeAcesso()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("09c15773-d1a5-4daa-a3b3-e8c6741d63fd"),
                 Descricao = "Gerente"
             };
             context.Set<PerfilDeAcesso>().Add(perfil);
 
             var empresa = new Empresa()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("e6a1d40d-05bf-4a81-b1fd-72893c07a23e"),
                 RazaoSocial = "Craque do Pão e Pizzaria",
                 Bairro = "Campo Grande",
                 Bloqueado = "N",
@@ -48,7 +48,7 @@ namespace Infraestrutura.Migrations
 
             var funcionario = new Funcionario()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("69d2fad2-9ffe-4f2d-ad85-3ff4b277f805"),
                 Nome = "Arthur",
                 Email = "arthuraasantos@hotmail.com",
                 Senha = "admin",
