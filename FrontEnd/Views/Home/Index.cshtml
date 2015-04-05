@@ -4,7 +4,7 @@
 }
 
 
-<h1 class="page-header">DashBoard</h1>
+<h1 class="page-header">@ViewBag.Empresa</h1>
 @*@Html.ActionLink("Marcar Ponto", "Index", "Ponto",
     new { @class = "btn btn-outline btn-default" })*@
 
@@ -12,7 +12,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">Marcar ponto</button>
-        @Html.ActionLink("Ajustar marcações", "Ajustar", "Ponto", new { }, new { @class = "btn btn-default btn-sm" })
+        @Html.ActionLink("Consultar horários", "ListaAjustar", "Ponto", new { }, new { @class = "btn btn-default btn-sm", @style = "float: right; margin: 7px 0;" })
     </div>
     <div class="panel-body">
         <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -40,10 +40,14 @@
                 </div>
             </div>
         </div>
-        <div>Empresa: @ViewBag.Empresa</div>
         <div>Funcionário: @ViewBag.Funcionario</div>
-        <div>Horários: @ViewBag.HorariosMarcadosHoje</div>
         <div>Saldo de horas: @ViewBag.HorasTrabalhadas</div>
+        <div>
+            <h2>Folha de ponto</h2>
+        
+        @ViewBag.HorariosMarcadosHoje
+        
+        </div>
     </div>
 </div>
 

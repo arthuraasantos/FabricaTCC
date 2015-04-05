@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Seedwork.Entity;
+using Seedwork.Const;
 
 namespace FrontEnd.Models.Conversores
 {
@@ -11,16 +13,16 @@ namespace FrontEnd.Models.Conversores
     {
         public override void AplicarValores(Ponto origem, PontoEditar destino)
         {
-            destino.DataAjuste = origem.DataAjuste;
+            destino.DataAjuste = String.Format("{0: dd/MM/yyyy}", origem.DataValida);
+            destino.HoraAjuste = String.Format("{0: HH:mm}", origem.DataValida);
             destino.MotivoAjuste = origem.MotivoAjuste;
-            destino.AjusteAprovado = origem.AjusteAprovado;
         }
 
         public override void AplicarValores(PontoEditar origem, Ponto destino)
         {
-            destino.DataAjuste = origem.DataAjuste;
+            destino.DataAjuste = DateTime.Parse(origem.DataAjuste + " " + origem.HoraAjuste);
             destino.MotivoAjuste = origem.MotivoAjuste;
-            destino.AjusteAprovado = origem.AjusteAprovado;
+            destino.AjusteAprovado = (int)EnumPonto.Aprovacao.Nada;
         }
     }
 }

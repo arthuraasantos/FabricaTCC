@@ -40,7 +40,7 @@ namespace FrontEnd.Controllers
                 ViewBag.Funcionario = funcionario.Nome;
                 ViewBag.Empresa = funcionario.Empresa.NomeFantasia;
                 ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(funcionario, DateTime.Now);
-                ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(funcionario, DateTime.Now, DateTime.Now.AddDays(-30));
+                ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(funcionario, DateTime.Now.AddDays(-30), DateTime.Now);
             }
             else
             {

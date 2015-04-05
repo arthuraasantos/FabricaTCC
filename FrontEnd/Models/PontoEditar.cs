@@ -9,17 +9,14 @@ namespace FrontEnd.Models
     public class PontoEditar : EntityModel
     {
 
-        [Description("Data Marcada")]
-        public DateTime DataDaMarcacao { get; set; }
-
         [Description("Data do Ajuste")]
-        public DateTime? DataAjuste { get; set; }
+        public string DataAjuste { get; set; }
+
+        [Description("Hora do Ajuste")]
+        public string HoraAjuste { get; set; }
 
         [Description("Motivo do Ajuste")]
         public String MotivoAjuste { get; set; }
-
-        [Description("Status")]
-        public Boolean AjusteAprovado { get; set; }
 
     }
 }

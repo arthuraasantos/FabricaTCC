@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Seedwork;
+using Seedwork.Const;
 
 namespace Dominio.Services
 {
@@ -22,9 +24,10 @@ namespace Dominio.Services
            {
                Id = Guid.NewGuid(),
                DataDaMarcacao = DateTime.Now,
+               DataValida = DateTime.Now,
                DataAjuste = null,
                MotivoAjuste = String.Empty,
-               AjusteAprovado = false,
+               AjusteAprovado = (int)EnumPonto.Aprovacao.Nada,
                Funcionario = funcionario
            };
 
@@ -71,20 +74,13 @@ namespace Dominio.Services
             foreach (var ciclo in marcacoesDoDia)
             {
 
-                DateTime dataValida = ciclo.DataDaMarcacao;
-                if (ciclo.AjusteAprovado)
-                {
-                    dataValida = ciclo.DataAjuste.GetValueOrDefault(dataValida);
-                }
-
                 if (hora.Equals(string.Empty))
                 {
-                    hora = dataValida.ToString(FormatoHora);
-
+                    hora = ciclo.DataValida.ToString(FormatoHora);
                 }
                 else
                 {
-                    hora = hora + separador + dataValida.ToString(FormatoHora);
+                    hora = hora + separador + ciclo.DataValida.ToString(FormatoHora);
                 }
             }
             return hora;

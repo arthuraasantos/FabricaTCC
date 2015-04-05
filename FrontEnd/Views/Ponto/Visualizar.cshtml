@@ -10,9 +10,10 @@
 @using (Html.BeginForm("Editar", "Ponto", FormMethod.Post))
 {
     @Html.HiddenFor(p => p.Id)
+    @Html.HiddenFor(p => p.DataAjuste)
 
     @Html.LabelFor(p => p.DataAjuste)
-    @Html.TextBoxFor(e => e.DataAjuste, new { @class = "form-control" })<br />
+    @Html.TextBoxFor(e => e.HoraAjuste, new { @class = "form-control", @id = "MaskHora" })<br />
 
     @Html.LabelFor(p => p.MotivoAjuste)
     @Html.TextBoxFor(e => e.MotivoAjuste, new { @class = "form-control" })<br />

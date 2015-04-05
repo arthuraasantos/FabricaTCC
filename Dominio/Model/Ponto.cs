@@ -13,6 +13,8 @@ namespace Dominio.Model
         public DateTime DataDaMarcacao { get; set; }
         public DateTime? DataAjuste { get; set; }
         public String MotivoAjuste { get; set; }
-        public Boolean AjusteAprovado { get; set; }
+        public int AjusteAprovado { get; set; }
+        public DateTime DataValida { get; set; }
+
     }
 }
