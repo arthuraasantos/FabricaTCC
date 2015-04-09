@@ -17,12 +17,11 @@ namespace Infraestrutura
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Configurations.Add(new FuncionarioDbMapping());
             modelBuilder.Configurations.Add(new PerfilDeAcessoDbMapping());
             modelBuilder.Configurations.Add(new PontoDbMapping());
             modelBuilder.Configurations.Add(new EmpresaDbMapping());
-            
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }
 

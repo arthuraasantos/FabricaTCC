@@ -12,7 +12,7 @@ namespace Seedwork.Repository
         IQueryable<TEntidade> Listar();
         void Salvar(TEntidade entidade);
         void Remover(TEntidade entidade);
-        TEntidade PesquisarPeloId(Guid chave);
+        TEntidade PesquisarPeloId(Guid? chave);
 
         void Executar();
 

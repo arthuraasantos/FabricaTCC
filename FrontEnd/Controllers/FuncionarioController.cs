@@ -3,11 +3,13 @@ using Dominio.Repository;
 using FrontEnd.Models;
 using FrontEnd.Models.Conversores;
 using Infraestrutura;
+using Seedwork.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 
 namespace FrontEnd.Controllers
 {
@@ -18,7 +20,7 @@ namespace FrontEnd.Controllers
         public IEmpresaRepository EmpresaRepository;
 
         public FuncionarioController(MyContext context, IFuncionarioRepository funcionarioRepository, IPerfilDeAcessoRepository perfildeacessoRepository, IEmpresaRepository empresaRepository)
-            : base(context, funcionarioRepository, new FuncionarioToFuncionarioNovo(), new FuncionarioToFuncionarioEditar(empresaRepository, perfildeacessoRepository))
+            : base(context, funcionarioRepository, new FuncionarioToFuncionarioNovo(perfildeacessoRepository, empresaRepository), new FuncionarioToFuncionarioEditar(empresaRepository, perfildeacessoRepository))
         {
             PerfildeacessoRepository = perfildeacessoRepository;
             EmpresaRepository = empresaRepository;
@@ -64,5 +66,13 @@ namespace FrontEnd.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public JsonResult AtualizaDadosEndereco(string cep)
+        {
+            Tools t = new Tools();
+            return this.Json(t.BuscaCep(cep), JsonRequestBehavior.AllowGet);
+        }   
+
     }
 }
