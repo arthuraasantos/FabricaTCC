@@ -1,41 +1,204 @@
 ﻿@using Dominio.Model;
 @{
     ViewBag.Title = "Visualizar";
-    Layout = "~/Views/Templates/TemplateSistema.cshtml";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
-<h2>Visualizar Funcionarios</h2>
-@model FrontEnd.Models.FuncionarioEditar
- 
-@{
-    var listaDePerfis = (IEnumerable<SelectListItem>)ViewBag.ListagemdePerfis;
-    var listaDeEmpresas = (IEnumerable<SelectListItem>)ViewBag.ListagemdeEmpresas;
-
-
-    using (Html.BeginForm("Editar", "Empresa", FormMethod.Post))
-    {
-        @Html.HiddenFor(p => p.Id)
-        @Html.LabelFor(p => p.Nome)
-        @Html.TextBoxFor(e => e.Nome)
-        @Html.LabelFor(p => p.Cpf)
-        @Html.TextBoxFor(e => e.Cpf)
-        @Html.LabelFor(p => p.Email)
-        @Html.TextBoxFor(e => e.Email)
-        @Html.LabelFor(p => p.Logradouro)
-        @Html.TextBoxFor(e => e.Logradouro)
-        @Html.LabelFor(p => p.Bairro)
-        @Html.TextBoxFor(e => e.Bairro)
-        @Html.LabelFor(p => p.Cep)
-        @Html.TextBoxFor(e => e.Cep)
-        @Html.LabelFor(p => p.Cidade)
-        @Html.TextBoxFor(e => e.Cidade)
-        @Html.LabelFor(p => p.DataNascimento)
-        @Html.TextBoxFor(e => e.DataNascimento)
-        @Html.LabelFor(p => p.IdEmpresa)
-        @Html.DropDownListFor(e => e.IdEmpresa, listaDeEmpresas)
-        @Html.LabelFor(p => p.IdPerfilDeAcesso)
-        @Html.DropDownListFor(e => e.IdPerfilDeAcesso, listaDePerfis)
-        <input type="submit" value="Salvar Alterações" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<style>
+    .dados {
+        float: left;
+        width: 350px;
+        height: 400px;
+        padding: 10px;
     }
-}
+
+    .email {
+        padding: 15px;
+        /*background-color: #337ab7;
+        background-color: rgba(51, 122, 183, 0.15);*/
+        border-color: rgba(51, 122, 183, 0.80);
+        border-style: solid;
+        border-radius: 10px;
+    }
+
+    .botoes {
+        padding: 10px;
+        float: left;
+        width: 900px;
+        position: relative;
+    }
+</style>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.maskedinput.js"></script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        $("#Cpf").mask("999.999.999-99", { placeholder: " " });
+        $("#Identidade").mask("99.999.999-*", { placeholder: " " });
+    });
+
+    function atualizaEndereco() {
+        var cep = document.getElementById('Cep').value;
+
+        $.ajax({
+            url: "/Funcionario/AtualizaDadosEndereco",
+            data: {
+                cep: cep
+            },
+            type: "GET",
+            datatype: "json",
+            contenttype: "application/json; charset=utf-8",
+            success: function (data) {
+                $("#txtlogradouro").val(data.logradouro);
+                $("#txtbairro").val(data.bairro);
+                $("txtcidade").val(data.cidade);
+            },
+        });
+    };
+
+    function listaUFs() {
+        $("#Estado").add('AC');
+        $("#Estado").add('AD');
+        $("#Estado").add('AE');
+        $("#Estado").add('AF');
+        $("#Estado").add('AG');
+    }
+
+</script>
+
+<section>
+    <header>
+        <h2>Editar Funcionários</h2>
+    </header>
+    @model FrontEnd.Models.FuncionarioEditar
+
+    @{
+        var listaDePerfis = (IEnumerable<SelectListItem>)ViewBag.ListagemdePerfis;
+        var listaDeEmpresas = (IEnumerable<SelectListItem>)ViewBag.ListagemdeEmpresas;
+        using (Html.BeginForm("Editar", "Funcionario", FormMethod.Post))
+        {
+            <div class="formulario">
+                <div class="dados">
+                    @Html.HiddenFor(p => p.Id)
+                    @Html.LabelFor(p => p.Nome)
+                    @Html.TextBoxFor(e => e.Nome, new { @class = "form-control" })
+                    <br />
+                    @Html.LabelFor(p => p.Cpf)
+                    @Html.TextBoxFor(e => e.Cpf, new { @class = "form-control", @maxlength = "11" })
+                    <br />
+                    @Html.LabelFor(p => p.Identidade)
+                    @Html.TextBoxFor(e => e.Identidade, new { @class = "form-control" })
+                    <br />
+                    @Html.LabelFor(p => p.DataNascimento)
+                    @Html.TextBoxFor(e => e.DataNascimento, new { @class = "form-control", @type = "date" })
+                    <br />
+
+                    @Html.LabelFor(p => p.SalarioBase)
+                    @Html.TextBoxFor(e => e.SalarioBase, new { @class = "form-control" })
+                    <br />
+
+                </div>
+                <div class="dados">
+                    @Html.LabelFor(p => p.Logradouro)
+                    @Html.TextBoxFor(e => e.Logradouro, new { @class = "form-control", id = "txtlogradouro" })
+                    <br />
+
+                    @Html.LabelFor(p => p.NumeroEndereco)
+                    @Html.TextBoxFor(e => e.NumeroEndereco, new { @class = "form-control" })
+                    <br />
+
+                    @Html.LabelFor(p => p.Bairro)
+                    @Html.TextBoxFor(e => e.Bairro, new { @class = "form-control", id = "txtbairro" })
+                    <br />
+
+                    @Html.LabelFor(p => p.Cep)
+                    @Html.TextBoxFor(e => e.Cep, new { @class = "form-control", @onBlur = "atualizaEndereco()" })
+                    <br />
+
+                    @Html.LabelFor(p => p.Cidade)
+                    @Html.TextBoxFor(e => e.Cidade, new { @class = "form-control", id = "txtcidade" })
+                    <br />
+
+
+
+                </div>
+                <div class="dados">
+                    <div class="comp_endereco">
+                        @Html.LabelFor(p => p.Estado)
+                        <select id="Estado" class="form-control">
+                            <option>AC</option>
+                            <option>AL</option>
+                            <option>AP</option>
+                            <option>AM</option>
+                            <option>BA</option>
+                            <option>CE</option>
+                            <option>DF</option>
+                            <option>ES</option>
+                            <option>GO</option>
+                            <option>MA</option>
+                            <option>MT</option>
+                            <option>MS</option>
+                            <option>MG</option>
+                            <option>PA</option>
+                            <option>PB</option>
+                            <option>PR</option>
+                            <option>PE</option>
+                            <option>PI</option>
+                            <option>RJ</option>
+                            <option>RN</option>
+                            <option>RS</option>
+                            <option>RO</option>
+                            <option>RR</option>
+                            <option>SC</option>
+                            <option>SP</option>
+                            <option>SE</option>
+                            <option>TO</option>
+                        </select>
+                        <br />
+
+                        @Html.Label("País")
+                        @Html.TextBoxFor(e => e.Pais, new { @class = "form-control", id = "txtcidade" })
+                        <br />
+                    </div>
+
+
+                    <div class="relacionamentos">
+                        @Html.Label("Empregador")
+                        @Html.DropDownListFor(e => e.IdEmpresa, listaDeEmpresas, new { @class = "form-control" })
+                        <br />
+                        @Html.Label("Perfil de Acesso")
+                        @Html.DropDownListFor(e => e.IdPerfilDeAcesso, listaDePerfis, new { @class = "form-control" })
+                        <br />
+                    </div>
+                </div>
+                <div class="dados">
+                    <div class="email">
+                        @Html.LabelFor(p => p.Email)
+                        @Html.TextBoxFor(e => e.Email, new { @class = "form-control", @style = "font-weight: bold;" })
+                        <br />
+                        @Html.LabelFor(p => p.Senha)
+                        <span class="glyphicon glyphicon-lock"></span>
+                        <br />
+                        @Html.PasswordFor(p => p.Senha, new { @class = "form-control glyphicon glyphicon-lock", @style = "font-weight: bold;" })
+                        <br />
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="botoes">
+                <input type="submit" value="Salvar Alterações" class="btn btn-outline btn-success" />
+                <input type="submit" value="Voltar" class="btn btn-outline btn-warning">
+            </div>
+        }
+
+
+
+    }
+</section>
+
+
+
+
+
 
 

@@ -22,8 +22,11 @@ namespace Seedwork.Repository
             return Contexto.Set<TEntidade>().AsQueryable();
         }
 
-        public TEntidade PesquisarPeloId(Guid id){
-            return Listar().SingleOrDefault(p => p.Id == id);
+        public TEntidade PesquisarPeloId(Guid? id){
+            if(id.HasValue)
+                return Listar().SingleOrDefault(p => p.Id == (Guid)id);
+            else            
+                return null;            
         }
 
         public void Remover(TEntidade entidade)
@@ -52,7 +55,7 @@ namespace Seedwork.Repository
                     Contexto.Set<TEntidade>().Add(entidade);
 
             }
-            catch(Exception ex)
+            catch(Exception)
             { 
                 //Log se for necessario
                 throw;

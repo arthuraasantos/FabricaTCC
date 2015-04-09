@@ -4,6 +4,15 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.maskedinput.js"></script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        $("#Cpf").mask("999.999.999-99", { placeholder: " " });
+        $("#DataNascimento").getDate();
+    });
+</script>
+
 
 <h1 class="page-header">Listagem de Funcionários</h1>
 @model List<Funcionario>

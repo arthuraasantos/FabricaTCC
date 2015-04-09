@@ -55,7 +55,30 @@ namespace Infraestrutura.Migrations
                 Empresa = empresa,
                 PerfilDeAcesso = perfil
             };
+
+            var funcionarioMarlon = new Funcionario()
+            {
+                Id = Guid.NewGuid(),
+                Nome = "Marlon",
+                Email = "marlonvss@gmail.com",
+                Senha = "admin",
+                Empresa = empresa,
+                PerfilDeAcesso = perfil
+            };
+
+            var funcionarioCharles = new Funcionario()
+            {
+                Id = Guid.NewGuid(),
+                Nome = "Charles",
+                Email = "charles.info@ymail.com",
+                Senha = "admin",
+                Empresa = empresa,
+                PerfilDeAcesso = perfil
+            };            
+
             context.Set<Funcionario>().Add(funcionario);
+            context.Set<Funcionario>().Add(funcionarioMarlon);
+            context.Set<Funcionario>().Add(funcionarioCharles);
         }
     }
 }
