@@ -45,7 +45,7 @@ namespace FrontEnd.Controllers
 
             var entidade =
                  Repository.PesquisarPeloId(Id);
-                        
+
             var modelEditar = ConversorEdit.Converter(entidade);
 
             return View("Visualizar", modelEditar);

@@ -44,7 +44,7 @@
                               <tr>
                                   <td>@item.Nome</td>
                                   <td>@item.Cpf</td>
-                                  <td>@item.DataNascimento</td>
+                                  <td>@item.DataNascimento.GetValueOrDefault().ToString("dd/MM/yyyy")</td>
                                   <td>@item.Email</td>
                                   <td>@item.Identidade</td>
                                   <td>

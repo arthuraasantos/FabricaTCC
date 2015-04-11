@@ -7,8 +7,8 @@
 <style>
     .dados {
         float: left;
-        width: 350px;
-        height: 400px;
+        width: 40%;
+        height: 60%;
         padding: 10px;
     }
 
@@ -24,7 +24,7 @@
     .botoes {
         padding: 10px;
         float: left;
-        width: 900px;
+        width: 90%;
         position: relative;
     }
 </style>
@@ -34,6 +34,12 @@
     jQuery(function ($) {
         $("#Cpf").mask("999.999.999-99", { placeholder: " " });
         $("#Identidade").mask("99.999.999-*", { placeholder: " " });
+        var data = $("#DataNascimeneto").val();
+        alert('data' + data);
+        var data = $("#DataNascimeneto").getDate();
+        alert('getDate' + $("#DataNascimeneto"));
+        $("#DataNascimeneto").mask("dd/MM/yyyy", { placeholder: " " });
+
     });
 
     function atualizaEndereco() {
@@ -74,6 +80,7 @@
     @{
         var listaDePerfis = (IEnumerable<SelectListItem>)ViewBag.ListagemdePerfis;
         var listaDeEmpresas = (IEnumerable<SelectListItem>)ViewBag.ListagemdeEmpresas;
+        var listaUf = (IEnumerable<SelectListItem>)ViewBag.ListagemdeUF;
         using (Html.BeginForm("Editar", "Funcionario", FormMethod.Post))
         {
             <div class="formulario">
@@ -89,7 +96,7 @@
                     @Html.TextBoxFor(e => e.Identidade, new { @class = "form-control" })
                     <br />
                     @Html.LabelFor(p => p.DataNascimento)
-                    @Html.TextBoxFor(e => e.DataNascimento, new { @class = "form-control", @type = "date" })
+                    @Html.TextBoxFor(e => e.DataNascimento.GetValueOrDefault().Date, new { @class = "form-control", @type = "date"})
                     <br />
 
                     @Html.LabelFor(p => p.SalarioBase)
@@ -124,35 +131,7 @@
                 <div class="dados">
                     <div class="comp_endereco">
                         @Html.LabelFor(p => p.Estado)
-                        <select id="Estado" class="form-control">
-                            <option>AC</option>
-                            <option>AL</option>
-                            <option>AP</option>
-                            <option>AM</option>
-                            <option>BA</option>
-                            <option>CE</option>
-                            <option>DF</option>
-                            <option>ES</option>
-                            <option>GO</option>
-                            <option>MA</option>
-                            <option>MT</option>
-                            <option>MS</option>
-                            <option>MG</option>
-                            <option>PA</option>
-                            <option>PB</option>
-                            <option>PR</option>
-                            <option>PE</option>
-                            <option>PI</option>
-                            <option>RJ</option>
-                            <option>RN</option>
-                            <option>RS</option>
-                            <option>RO</option>
-                            <option>RR</option>
-                            <option>SC</option>
-                            <option>SP</option>
-                            <option>SE</option>
-                            <option>TO</option>
-                        </select>
+                        @Html.DropDownListFor(p => p.Estado, listaUf, new { @class = "form-control"})
                         <br />
 
                         @Html.Label("País")
@@ -168,6 +147,9 @@
                         @Html.Label("Perfil de Acesso")
                         @Html.DropDownListFor(e => e.IdPerfilDeAcesso, listaDePerfis, new { @class = "form-control" })
                         <br />
+                        <div class="clearfix">
+
+                        </div> 
                     </div>
                 </div>
                 <div class="dados">

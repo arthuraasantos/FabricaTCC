@@ -29,9 +29,11 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Visualizar(Guid Id)
         {
-
+            var uf = new UF();
             ViewBag.ListagemdeEmpresas = EmpresaRepository.Listar().ToList().Select(p => new SelectListItem() { Text = p.RazaoSocial, Value = p.Id.ToString() });
             ViewBag.ListagemdePerfis = PerfildeacessoRepository.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
+            ViewBag.ListagemdeUF = uf.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Valor.ToString() });
+
             return base.Visualizar(Id);
         }
 
@@ -72,7 +74,8 @@ namespace FrontEnd.Controllers
         {
             Tools t = new Tools();
             return this.Json(t.BuscaCep(cep), JsonRequestBehavior.AllowGet);
-        }   
+        }
+
 
     }
 }
