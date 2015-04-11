@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,13 +50,14 @@
   <ItemGroup>
     <Compile Include="Conversores\ConversorBase.cs" />
     <Compile Include="Conversores\IConversor.cs" />
+    <Compile Include="Entity\DadosEndereco.cs" />
     <Compile Include="Entity\EntityBase.cs" />
     <Compile Include="Const\Enumerados.cs" />
+    <Compile Include="Entity\Tools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
