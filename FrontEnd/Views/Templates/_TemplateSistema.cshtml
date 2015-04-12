@@ -15,10 +15,18 @@
     <link href="~/bower_components/dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="~/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- JQuery Scripts -->
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.mask.js"></script>
     <script>
-        jQuery("#MaskData").mask("99/99/9999");
-        jQuery("#MaskHora").mask("99:99");
-        jQuery("#MaskCPF").mask("999.999.999-99");
+        jQuery(function ($) {
+            $("#DiaMesAno").mask("99/99/9999");
+            $("#DiaMesAnoHoraMinuto").mask("99/99/9999 99:99");
+            $("#MesAno").mask("99/9999");
+            $("#HoraMinuto").mask("99:99");
+            $("#Telefone").mask("(99) 99999-9999");
+            $("#CPF").mask("999.999.999-99");
+        });
     </script>
     @* Jquery e jquery masked input para máscaras *@
     <script src="~/Scripts/jquery-1.10.2.js"></script>
@@ -241,6 +249,7 @@
                             <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
+                        </li>
                         <li>
                             @Html.ActionLink(" Logout", "Logout", "Login")
                             @*<a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>*@
@@ -262,21 +271,27 @@
                         </li>
                         <li><!--<i class="glyphicon glyphicon-th-large"></i>-->@Html.ActionLink(" Dashboard", "Index", "Home")</li>
                         <li>
-                            <a href="#"><i class="glyphicon glyphicon-list-alt"></i> Cadastros<span class="fa arrow"></span></a>
+                            <a href="#"><i class="glyphicon glyphicon-list"></i> Cadastros<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>@Html.ActionLink(" Empresas", "Index", "Empresa")</li>
                                 <li>@Html.ActionLink(" Funcionarios", "Index", "Funcionario")</li>
                              @*   <li>@Html.ActionLink(" Perfil de Acesso", "Index", "PerfilDeAcesso")</li>*@
                             </ul>
                         </li>
-                        <li>@Html.ActionLink(" Configurações", "Index", "Configuracoes")</li>
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-time"></i> Horários<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>@Html.ActionLink(" Alterados", "ListaAprovar", "Ponto")</li>
+                                <li>@Html.ActionLink(" Folhas de Ponto", "Index", "FolhaPonto")</li>
+                                <li>@Html.ActionLink(" Ajustes pendentes", "ListaAprovar", "Ponto")</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="glyphicon glyphicon-list-alt"></i> Relatórios<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
                                 <li>@Html.ActionLink(" Marcações", "Index", "Funcionarios")</li>
                             </ul>
                         </li>
+                        <li>@Html.ActionLink(" Configurações", "Index", "Configuracoes")</li>
                     </ul>
                 </div>
             </div>
@@ -310,4 +325,3 @@
     </script>
 </body>
 </html>
-

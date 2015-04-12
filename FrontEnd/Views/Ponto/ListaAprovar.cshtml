@@ -26,15 +26,14 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.Funcionario.Nome</td>
-                            <td>@item.DataDaMarcacao.ToString("dd/MM/yyyy HH:mm") </td>
-                            <td>@item.DataValida.ToString("dd/MM/yyyy HH:mm")</td>
-                            <td>@item.DataAjuste.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")</td>
-                            <td>@item.MotivoAjuste</td>
-                            <td>
-                                @Html.ActionLink("Aprovar", "AprovarAjuste", new { id = item.Id }, new { @class = "btn btn-outline btn-info" })
-                                @Html.ActionLink("Rejeitar", "RejeitarAjuste", new { id = item.Id }, new { @class = "btn btn-outline btn-danger" })
-                            </td>
+                            @*<td>@item.Funcionario.Nome</td>
+    <td>@item.DataMarcacao.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm") </td>
+    <td>@item.DataValida..ToString("dd/MM/yyyy HH:mm")</td>
+    <td>@item.Justificativa</td>
+    <td>
+        @Html.ActionLink("Aprovar", "AprovarRejeitarAjuste",  new { id = item.Id, status = Seedwork.Const.StatusPonto.Ajustado }, new { @class = "btn btn-outline btn-info" })
+        @Html.ActionLink("Rejeitar", "AprovarRejeitarAjuste", new { id = item.Id, status = Seedwork.Const.StatusPonto.AjusteRejeitado }, new { @class = "btn btn-outline btn-danger" })
+    </td>*@
                         </tr>
                     }
                 </tbody>

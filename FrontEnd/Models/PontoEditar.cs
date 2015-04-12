@@ -8,6 +8,9 @@ namespace FrontEnd.Models
 {
     public class PontoEditar : EntityModel
     {
+        public String EmailFuncionario { get; set; }
+        public String SenhaFuncionario { get; set; }   
+
 
         [Description("Data do Ajuste")]
         public string DataAjuste { get; set; }
@@ -15,8 +18,8 @@ namespace FrontEnd.Models
         [Description("Hora do Ajuste")]
         public string HoraAjuste { get; set; }
 
-        [Description("Motivo do Ajuste")]
-        public String MotivoAjuste { get; set; }
+        [Description("Justificativa")]
+        public String Justificativa { get; set; }
 
     }
 }

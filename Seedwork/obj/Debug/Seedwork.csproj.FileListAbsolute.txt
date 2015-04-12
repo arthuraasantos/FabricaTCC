@@ -25,5 +25,3 @@ C:\@FabricaTCC\Seedwork\bin\Debug\EntityFramework.xml
 C:\@FabricaTCC\Seedwork\bin\Debug\EntityFramework.SqlServer.xml
 C:\@FabricaTCC\Seedwork\obj\Debug\Seedwork.dll
 C:\@FabricaTCC\Seedwork\obj\Debug\Seedwork.pdb
-C:\@FabricaTCC\Seedwork\bin\Debug\Seedwork.dll.CodeAnalysisLog.xml
-C:\@FabricaTCC\Seedwork\bin\Debug\Seedwork.dll.lastcodeanalysissucceeded

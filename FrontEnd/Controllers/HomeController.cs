@@ -29,18 +29,13 @@ namespace FrontEnd.Controllers
         public ActionResult Index()
         {
 
-            Funcionario funcionario = new Funcionario();
-            funcionario.Empresa = new Empresa();
-
-            funcionario = (Funcionario)Session["funcionario"];
-
-            if (funcionario != null)
+            if (Sessao.FuncionarioLogado != null)
             {
-                ViewBag.EmailFuncionario = funcionario.Email;
-                ViewBag.Funcionario = funcionario.Nome;
-                ViewBag.Empresa = funcionario.Empresa.NomeFantasia;
-                ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(funcionario, DateTime.Now);
-                ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(funcionario, DateTime.Now.AddDays(-30), DateTime.Now);
+                ViewBag.EmailFuncionario = Sessao.FuncionarioLogado.Email;
+                ViewBag.Funcionario = Sessao.FuncionarioLogado.Nome;
+                ViewBag.Empresa = Sessao.FuncionarioLogado.Empresa.NomeFantasia;
+                ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now);
+                ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now.AddDays(-30), DateTime.Now);
             }
             else
             {
@@ -71,14 +66,6 @@ namespace FrontEnd.Controllers
             return View();
 
         }
-
-        //public ActionResult MarcarPonto()
-        //{
-
-        //    ViewBag.ListaDeMarcacoes = PontoRepository.Listar().OrderByDescending(p => p.DataDaMarcacao).ToList();
-        //    ViewBag.Mensagem = new Mensagem();
-        //    return View("View", new MarcarPontoViewModel());
-        //}
 
         public ActionResult EfetuarMarcacaoDoPonto(PontoMarcar marcarPonto)
         {

@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 @Html.Label("Mês/Ano")
-                @Html.TextBox("Data", String.Format("{0: MM/yyyy}", DateTime.Now), new { @class = "form-control", @placeholder = "Mês/Ano" })
+                @Html.TextBox("Data", String.Format("{0: MM/yyyy}", DateTime.Now), new { @class = "form-control", @placeholder = "Mês/Ano", @id = "MesAno" })
             </div>
             <input type="submit" value="atualizar" class="btn btn-outline btn-success form-control" />
         }

@@ -23,12 +23,10 @@ namespace Dominio.Services
             var novoPonto = new Ponto()
            {
                Id = Guid.NewGuid(),
-               DataDaMarcacao = DateTime.Now,
+               DataMarcacao = DateTime.Now,
                DataValida = DateTime.Now,
-               DataAjuste = null,
-               MotivoAjuste = String.Empty,
-               AjusteAprovado = (int)EnumPonto.Aprovacao.Nada,
-               Funcionario = funcionario
+               Funcionario = funcionario,
+               FolhaPonto = null // TODO : Passar objeto folha de ponto
            };
 
             PontoRepository.Salvar(novoPonto);
@@ -37,12 +35,14 @@ namespace Dominio.Services
 
         public TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionario(Funcionario funcionario, DateTime diaInicio, DateTime diaFinal)
         {
+            // TODO : Verificar esta função : QuantidadeDeHorasTrabalhadasPorFuncionario
             var marcacoesDoDia = PontoRepository.
                                     Listar().
                                     ToList().
-                                    Where(p => p.DataDaMarcacao.Date >= diaInicio.Date).
-                                    Where(p => p.DataDaMarcacao.Date <= diaFinal.Date).
-                                    OrderBy(p => p.DataDaMarcacao).ToList();
+                                    Where(p => p.DataValida.Date >= diaInicio.Date).
+                                    Where(p => p.DataValida.Date <= diaFinal.Date).
+                                    OrderBy(p => p.DataValida).
+                                    ToList();
 
             if (marcacoesDoDia.Count % 2 != 0)
                 return new TimeSpan();
@@ -53,7 +53,7 @@ namespace Dominio.Services
 
             for (int i = 0; i < totalDeCiclos; i = i + 2)
             {
-                horasTrabalhadas = horasTrabalhadas.Add(marcacoesDoDia[i + 1].DataDaMarcacao - marcacoesDoDia[i].DataDaMarcacao);
+                horasTrabalhadas = horasTrabalhadas.Add(marcacoesDoDia[i + 1].DataValida - marcacoesDoDia[i].DataValida);
             }
 
             return horasTrabalhadas;
@@ -67,8 +67,9 @@ namespace Dominio.Services
             var marcacoesDoDia = PontoRepository.
                                     Listar().
                                     ToList().
-                                    Where(p => p.DataDaMarcacao.Date == dia.Date).
-                                    OrderBy(p => p.DataDaMarcacao).ToList();
+                                    Where(p => p.DataValida.Date == dia.Date).
+                                    OrderBy(p => p.DataValida).
+                                    ToList();
 
 
             foreach (var ciclo in marcacoesDoDia)

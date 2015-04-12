@@ -21,13 +21,12 @@ namespace FrontEnd.Controllers
     public class PontoController : BaseController<Ponto, PontoMarcar, PontoEditar>
     {
         // GET: Ponto
-        MyContext Context;
+        //MyContext Context;
         private IPontoRepository PontoRepository { get; set; }
         private IPontoEletronicoService PontoEletronicoService { get; set; }
-        private FuncionarioRepository FuncionarioRepository { get; set; }
+        private IFuncionarioRepository FuncionarioRepository { get; set; }
 
-        public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService)
-            : base(context, pontoRepository, null, new PontoToPontoAjustar())
+        public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService) : base(context, pontoRepository, null, new PontoToPontoAjustar())
         {
             Context = context;
             PontoRepository = pontoRepository;
@@ -61,12 +60,11 @@ namespace FrontEnd.Controllers
             }
         }
 
+
         public ActionResult ListaAjustar(string Email, DateTime? Data)
         {
             // Pega email, ou default usuario logado
-            Funcionario funcionario = new Funcionario();
-            funcionario = (Funcionario)Session["funcionario"];
-            string _Email = funcionario.Email;
+            string _Email = Sessao.FuncionarioLogado.Email;
             if ((Email != null) && (Email != String.Empty)) { _Email = Email; }
             ViewBag.EmailLogado = _Email;
 
@@ -126,11 +124,37 @@ namespace FrontEnd.Controllers
 
             ViewBag.ListaBatidas = _ListaCompleta;
 
-            PontoEditar item = new PontoEditar();
-            item.DataAjuste = data.Date.ToString("dd/MM/yyyy");
+            PontoEditar item = new PontoEditar()
+            {
+                DataAjuste = data.Date.ToString("dd/MM/yyyy"),
+                SenhaFuncionario = String.Empty,
+                EmailFuncionario = Sessao.FuncionarioLogado.Email
+            };
 
             return View(item);
         }
+        public ActionResult Inclusao(DateTime data) {
+            return View();
+        }
+        public ActionResult Desconsiderar(DateTime data)
+        {
+            var _ListaCompleta = PontoRepository.
+                            Listar().
+                            ToList().
+                            Where(p => p.DataValida.Date == data.Date).
+                            OrderBy(p => p.DataValida).
+                            Select(p => new SelectListItem
+                            {
+                                Value = p.Id.ToString(),
+                                Text = p.DataValida.ToString("HH:mm")
+                            }).
+                            ToList();
+
+            ViewBag.ListaBatidas = _ListaCompleta;
+
+            return View();
+        }
+
 
         public override ActionResult Editar(PontoEditar editar)
         {
@@ -145,46 +169,7 @@ namespace FrontEnd.Controllers
             return RedirectToAction("ListaAjustar");
         }
 
-        public ActionResult ListaAprovar()
-        {
-            var lista = PontoRepository.
-                            Listar().
-                            ToList().
-                            Where(p => p.AjusteAprovado == (int)EnumPonto.Aprovacao.Nada).
-                            Where(p => p.DataAjuste != null).
-                            OrderBy(p => p.DataDaMarcacao).
-                            ToList();
-            return View(lista);
 
-        }
-
-        public ActionResult AprovarAjuste(Guid Id)
-        {
-
-            var Ponto = Repository.PesquisarPeloId(Id);
-
-            Ponto.DataValida = Ponto.DataAjuste.GetValueOrDefault();
-            Ponto.AjusteAprovado = (int)EnumPonto.Aprovacao.Aprovado;
-
-            Repository.Salvar(Ponto);
-            Context.SaveChanges();
-
-            return RedirectToAction("ListaAprovar");
-        }
-
-
-        public ActionResult RejeitarAjuste(Guid Id)
-        {
-
-            var Ponto = Repository.PesquisarPeloId(Id);
-
-            Ponto.AjusteAprovado = (int)EnumPonto.Aprovacao.Rejeitado;
-
-            Repository.Salvar(Ponto);
-            Context.SaveChanges();
-
-            return RedirectToAction("ListaAprovar");
-        }
 
         public override System.Web.Mvc.ActionResult Index()
         {

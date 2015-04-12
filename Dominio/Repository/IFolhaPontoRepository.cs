@@ -4,13 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Dominio.Repository
 {
-    public interface IFuncionarioRepository : IRepository<Funcionario>
+    public interface IFolhaPontoRepository : IRepository<FolhaPonto>
     {
-        Funcionario PesquisaParaLogin(string email, string senha);
-
     }
 }

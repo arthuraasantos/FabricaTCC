@@ -1,4 +1,5 @@
-﻿using Seedwork.Entity;
+﻿using Seedwork.Const;
+using Seedwork.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,9 @@ namespace Dominio.Model
 {
     public class Ponto : EntityBase
     {
+        public virtual FolhaPonto FolhaPonto { get; set; }
         public virtual Funcionario Funcionario { get; set; }
-        public DateTime DataDaMarcacao { get; set; }
-        public DateTime? DataAjuste { get; set; }
-        public String MotivoAjuste { get; set; }
-        public int AjusteAprovado { get; set; }
+        public DateTime? DataMarcacao { get; set; }
         public DateTime DataValida { get; set; }
-
     }
 }

@@ -13,16 +13,16 @@ namespace FrontEnd.Models.Conversores
     {
         public override void AplicarValores(Ponto origem, PontoEditar destino)
         {
-            destino.DataAjuste = String.Format("{0: dd/MM/yyyy}", origem.DataValida);
-            destino.HoraAjuste = String.Format("{0: HH:mm}", origem.DataValida);
-            destino.MotivoAjuste = origem.MotivoAjuste;
+            //destino.DataAjuste = String.Format("{0: dd/MM/yyyy}", origem.DataValida.GetValueOrDefault());
+            //destino.HoraAjuste = String.Format("{0: HH:mm}", origem.DataValida.GetValueOrDefault());
+            //destino.Justificativa = origem.Justificativa;
         }
 
         public override void AplicarValores(PontoEditar origem, Ponto destino)
         {
-            destino.DataAjuste = DateTime.Parse(origem.DataAjuste + " " + origem.HoraAjuste);
-            destino.MotivoAjuste = origem.MotivoAjuste;
-            destino.AjusteAprovado = (int)EnumPonto.Aprovacao.Nada;
+            //destino.DataAjuste = DateTime.Parse(origem.DataAjuste + " " + origem.HoraAjuste);
+            //destino.Justificativa = origem.Justificativa;
+            //destino.Status = StatusPonto.Nenhum;
         }
     }
 }

@@ -47,13 +47,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mapeamento\EmpresaDbMapping.cs" />
+    <Compile Include="Mapeamento\EntityTypeCOnfiguration.cs" />
+    <Compile Include="Mapeamento\FolhaPontoDbMapping.cs" />
     <Compile Include="Mapeamento\PontoDbMapping.cs" />
     <Compile Include="Mapeamento\PerfilDeAcessoDbMapping.cs" />
     <Compile Include="Mapeamento\FuncionarioDbMapping.cs" />
+    <Compile Include="Mapeamento\SolicitacaoDbMapping.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\EmpresaRepository.cs" />
+    <Compile Include="Repositorios\FolhaPontoRepository.cs" />
     <Compile Include="Repositorios\PontoRepository.cs" />
     <Compile Include="Repositorios\PerfilDeAcessoRepository.cs" />
     <Compile Include="Repositorios\FuncionarioRepository.cs" />
