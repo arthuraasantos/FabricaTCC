@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MarcarPonto</title>
+</head>
+<body>
+            <h1>Marcar Ponto</h1>
+        <div class="col-lg-4 col-lg-offset-4">
+            <br />
+            @model FrontEnd.Models.PontoMarcar
+            @using (Html.BeginForm("Marcar", "Ponto", FormMethod.Post))
+            {
+                
+                @Html.TextBoxFor(f => f.Email, new { @type = "email", @class = "form-control", @placeholder = "Email" })<br />
+                @Html.PasswordFor(f => f.Senha, new { @type = "password", @class = "form-control", @placeholder = "Senha" })<br />
+                <input type="hidden" id="parametro" name="parametro" value="True" />
+
+
+                <input type="submit" value="Marcar Ponto" class="btn btn-outline btn-success form-control" />
+            }
+        </div>
+        <p>
+            @ViewBag.Mensagem
+        </p>
+
+    
+</body>
+</html>
+
+
+
+

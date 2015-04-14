@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using Seedwork.Entity;
 using Seedwork.Const;
+using System.Web.UI;
 
 namespace FrontEnd.Controllers
 {
@@ -33,9 +34,8 @@ namespace FrontEnd.Controllers
             FuncionarioRepository = new FuncionarioRepository(context);
         }
 
-        public ActionResult Marcar(string email, string senha)
+        public ActionResult Marcar(string email, string senha, string parametro)
         {
-
             var funcionarioParaMarcar = new Funcionario();
             funcionarioParaMarcar = FuncionarioRepository.PesquisaParaLogin(email, senha);
 
@@ -49,8 +49,15 @@ namespace FrontEnd.Controllers
                 ViewBag.Mensagem = new Mensagem() { TextoResumido = "Atenção: Email ou senha" };
             }
 
-            return RedirectToAction("Index", "Home");
 
+            if ((parametro != string.Empty) && (parametro != null))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult ListaAjustar(string Email, DateTime? Data)
@@ -109,17 +116,17 @@ namespace FrontEnd.Controllers
                             ToList().
                             Where(p => p.DataValida.Date == data.Date).
                             OrderBy(p => p.DataValida).
-                            Select(p => new SelectListItem 
+                            Select(p => new SelectListItem
                                 {
-                                    Value = p.Id.ToString(), 
-                                    Text = p.DataValida.ToString("HH:mm") 
+                                    Value = p.Id.ToString(),
+                                    Text = p.DataValida.ToString("HH:mm")
                                 }).
                             ToList();
-            
+
             ViewBag.ListaBatidas = _ListaCompleta;
 
             PontoEditar item = new PontoEditar();
-            item.DataAjuste = data.Date.ToString("dd/MM/yyyy");            
+            item.DataAjuste = data.Date.ToString("dd/MM/yyyy");
 
             return View(item);
         }
@@ -177,5 +184,13 @@ namespace FrontEnd.Controllers
 
             return RedirectToAction("ListaAprovar");
         }
+
+        public override System.Web.Mvc.ActionResult Index()
+        {
+
+            return View();
+        }
+
+
     }
 }
