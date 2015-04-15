@@ -30,7 +30,7 @@ namespace FrontEnd.Controllers
         }
 
         [HttpPost]
-        public ActionResult Autenticar(FuncionarioLogin model)
+        public ActionResult Autenticar(FuncionarioLogin model, string manterLogado)
         {
             try
             {
@@ -46,8 +46,15 @@ namespace FrontEnd.Controllers
 
                     if (funcionarioParaLogin != null)
                     {
+                        if (manterLogado == "S")
+                        {
+                            Session.Add("Dados", "manterLogado");                                
+
+                        }
+
                         FormsAuthentication.SetAuthCookie(model.Email, false);
-                        Session.Add("Funcionario", funcionarioParaLogin);
+                        Session.Add("Funcionario", funcionarioParaLogin);                                
+
                         //Redireciona para a mesma view e o tratamento do que vai aparecer será nas views.
                         return RedirectToAction("Index", "Home");
                     }
@@ -63,6 +70,18 @@ namespace FrontEnd.Controllers
             }
 
             return RedirectToAction("Index","Login");
+        }
+
+        public ActionResult Logout()
+        {
+            //Destruir o Ticket de acesso do usuario...
+            FormsAuthentication.SignOut(); //remove a permissão...
+            //Destruir os dados da Session
+            Session.Remove("Funcionario");
+            Session.Abandon();
+
+            //redirecionar para a página de Login
+            return RedirectToAction("Index", "Login");
         }
     }
 }

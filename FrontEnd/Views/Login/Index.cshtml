@@ -1,19 +1,24 @@
 ﻿
-    <div class="container">
-        <img src="~/img/PontoEletronico.jpg" class="col-lg-4 col-lg-offset-4 img-responsive" style="text-align:center; height:300px; width:300px;">
-            <div class="col-lg-4 col-lg-offset-4">
-                <br />
-                @model FrontEnd.Models.FuncionarioLogin
-                @using (Html.BeginForm("Autenticar", "Login", FormMethod.Post))
-                {
-                    @Html.TextBoxFor(f => f.Email, new { @type = "email", @class = "form-control", @placeholder = "Email"})<br />
-                    @Html.PasswordFor(f => f.Senha, new { @type = "password", @class = "form-control", @placeholder = "Senha" })<br />
-                    <input type="submit" value="Login" class="btn btn-outline btn-success form-control" />
-                }
+<div class="container">
+    <img src="~/img/PontoEletronico.jpg" class="col-lg-4 col-lg-offset-4 img-responsive" style="text-align:center; height:300px; width:300px;">
+    <div class="col-lg-4 col-lg-offset-4">
+        <br />
+        @model FrontEnd.Models.FuncionarioLogin
+        @using (Html.BeginForm("Autenticar", "Login", FormMethod.Post))
+        {
+            @Html.TextBoxFor(f => f.Email, new { @type = "email", @class = "form-control", @placeholder = "Email" })<br />
+            @Html.PasswordFor(f => f.Senha, new { @type = "password", @class = "form-control", @placeholder = "Senha" })
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="manterLogado" checked> Manter Logado
+                </label>
             </div>
-        <p>
-            @ViewBag.Mensagem
-        </p>
+            <input type="submit" value="Login" class="btn btn-outline btn-success form-control" />
+        }
     </div>
+    <p>
+        @ViewBag.Mensagem
+    </p>
+</div>
 
 

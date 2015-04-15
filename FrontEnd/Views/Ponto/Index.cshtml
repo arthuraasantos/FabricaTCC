@@ -3,28 +3,53 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>MarcarPonto</title>
+    <style>
+        .titulo{
+            width:100%;
+            height:30%;
+            text-align:center;
+        }
+        .img{
+            padding:0;
+        }
+        .botao{
+            padding-left:20%;
+        }
+        .btn-success {
+            border-radius: 50%;
+            height: 80px;
+            width: 120px;
+            text-align:center;
+        }
+    </style>
 </head>
 <body>
-            <h1>Marcar Ponto</h1>
-        <div class="col-lg-4 col-lg-offset-4">
-            <br />
-            @model FrontEnd.Models.PontoMarcar
-            @using (Html.BeginForm("Marcar", "Ponto", FormMethod.Post))
-            {
-                
-                @Html.TextBoxFor(f => f.Email, new { @type = "email", @class = "form-control", @placeholder = "Email" })<br />
-                @Html.PasswordFor(f => f.Senha, new { @type = "password", @class = "form-control", @placeholder = "Senha" })<br />
-                <input type="hidden" id="parametro" name="parametro" value="True" />
-
-
-                <input type="submit" value="Marcar Ponto" class="btn btn-outline btn-success form-control" />
-            }
+    <div class="titulo ">
+        <h1>Marcar Ponto</h1>
+        <div class="img col-lg-4 col-lg-offset-4">
+            <img src="https://parceriaadm.files.wordpress.com/2012/04/fotolia_11067222_xs.jpg">
         </div>
-        <p>
-            @ViewBag.Mensagem
-        </p>
+    </div>
+    <div class="col-lg-4 col-lg-offset-4">
+        <br />
+        @model FrontEnd.Models.PontoMarcar
+        @using (Html.BeginForm("Marcar", "Ponto", FormMethod.Post))
+        {
 
-    
+            @Html.TextBoxFor(f => f.Email, new { @type = "email", @class = "form-control", @placeholder = "Email" })<br />
+            @Html.PasswordFor(f => f.Senha, new { @type = "password", @class = "form-control", @placeholder = "Senha" })<br />
+            <input type="hidden" id="parametro" name="parametro" value="True" />
+            <div class="botao">
+                <input type="submit" value="Marcar Ponto" class="btn btn-outline btn-success" />
+
+            </div>
+        }
+    </div>
+    <p>
+        @ViewBag.Mensagem
+    </p>
+
+
 </body>
 </html>
 
