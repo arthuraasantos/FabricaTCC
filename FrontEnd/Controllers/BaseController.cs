@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FrontEnd.Models;
+using Dominio.Model;
 
 namespace FrontEnd.Controllers
 {
@@ -37,6 +38,7 @@ namespace FrontEnd.Controllers
 
         public virtual ActionResult Index()
         {
+            
             var lista = Repository.Listar().ToList();
             return View("Index", lista);
         }

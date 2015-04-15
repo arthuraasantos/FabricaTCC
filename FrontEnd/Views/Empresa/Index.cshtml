@@ -30,7 +30,10 @@
                                 <th>Cnpj</th>
                                 <th>Cidade</th>
                                 <th>Estado</th>
-                                <th>Operações</th>
+                                @if (ViewBag.Permissao != "FUN")
+                                {
+                                    <th>Operações</th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -42,14 +45,26 @@
                                     <td> @item.Cnpj </td>
                                     <td> @item.Cidade </td>
                                     <td> @item.Estado </td>
-                                    <td>
-                                        @Html.ActionLink("Editar", "Visualizar",
-                                         new { id = item.Id },
-                                            new { @class = "btn btn-outline btn-info" })
-                                        @Html.ActionLink("Excluir  ", "Excluir",
-                                     new { id = item.Id },
-                                                                        new { @class = "btn btn-outline btn-warning" })
-                                    </td>
+
+                                    @if (ViewBag.Permissao == "GRH" || ViewBag.Permissao == "ADM")
+                                    {
+                                        <td class="col-sm-2">
+
+                                            @Html.ActionLink("Editar", "Visualizar",
+                                                new { id = item.Id },
+                                                new { @class = "btn btn-outline btn-info" })
+                                            @if (ViewBag.Permissao == "ADM")
+                                            {
+                                                @Html.ActionLink("Desativar", "#",
+                                                 new { id = item.Id },
+                                                 new { @class = "btn btn-outline btn-warning" })
+                                                
+                                                @Html.ActionLink("Excluir  ", "Excluir",
+                                                 new { id = item.Id },
+                                                 new { @class = "btn btn-outline btn-danger" })
+                                            }
+                                        </td>
+                                    }
                                 </tr>
                             }
                         </tbody>

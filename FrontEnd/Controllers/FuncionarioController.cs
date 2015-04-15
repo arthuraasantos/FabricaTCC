@@ -76,6 +76,11 @@ namespace FrontEnd.Controllers
             return this.Json(t.BuscaCep(cep), JsonRequestBehavior.AllowGet);
         }
 
+        public override System.Web.Mvc.ActionResult Index()
+        {
 
+
+            return base.Index();
+        }
     }
 }
