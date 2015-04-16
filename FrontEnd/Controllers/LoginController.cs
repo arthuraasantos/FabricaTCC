@@ -3,6 +3,7 @@ using Dominio.Model;
 using FrontEnd.Models;
 using Infraestrutura;
 using Infraestrutura.Repositorios;
+using SeedWork.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace FrontEnd.Controllers
                 {
                     var funcionarioParaLogin = new Funcionario();
                     funcionarioParaLogin = 
-                        FuncionarioRepository.PesquisaParaLogin(model.Email, model.Senha);
+                        FuncionarioRepository.PesquisaParaLogin(model.Email, Criptografia.Encrypt(model.Senha));
 
                     if (funcionarioParaLogin != null)
                     {

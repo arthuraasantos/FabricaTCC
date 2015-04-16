@@ -4,6 +4,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using Dominio;
 using Dominio.Model;
+using SeedWork.Tools;
 
 namespace Infraestrutura.Migrations
 {
@@ -93,7 +94,7 @@ namespace Infraestrutura.Migrations
                 Id = Guid.Parse("69d2fad2-9ffe-4f2d-ad85-3ff4b277f805"),
                 Nome = "Arthur",
                 Email = "arthuraasantos@hotmail.com",
-                Senha = "admin",
+                Senha = Criptografia.Encrypt("admin"),
                 Empresa = empresa,
                 PerfilDeAcesso = perfil
             };
@@ -103,7 +104,7 @@ namespace Infraestrutura.Migrations
                 Id = Guid.Parse("26341447-4897-4d49-851d-25890888e463"),
                 Nome = "Marlon",
                 Email = "marlonvss@gmail.com",
-                Senha = "admin",
+                Senha = Criptografia.Encrypt("admin"),
                 Empresa = empresa,
                 PerfilDeAcesso = perfil
             };
@@ -113,7 +114,7 @@ namespace Infraestrutura.Migrations
                 Id = Guid.Parse("73ee557e-bd03-469d-8ed4-034266e1e82f"),
                 Nome = "Charles",
                 Email = "charles.info@ymail.com",
-                Senha = "admin",
+                Senha = Criptografia.Encrypt("admin"),
                 Empresa = empresa,
                 PerfilDeAcesso = perfil
             };  
@@ -123,7 +124,7 @@ namespace Infraestrutura.Migrations
                 Id = Guid.Parse("4eb58c13-5077-4e24-ba4c-8d0173ed3942"),
                 Nome = "Usuário Teste",
                 Email = "administrador@fabricatcc.com",
-                Senha = "admin",
+                Senha = Criptografia.Encrypt("admin"),
                 Empresa = empresaRH,
                 PerfilDeAcesso = perfilFuncionario
             };
@@ -133,7 +134,7 @@ namespace Infraestrutura.Migrations
                 Id = Guid.Parse("01e9ba15-272a-4871-8377-6d2f4e621a67"),
                 Nome = "Usuário Teste RH",
                 Email = "rh@fabricatcc.com",
-                Senha = "admin",
+                Senha = Criptografia.Encrypt("admin"),
                 Empresa = empresaRH,
                 PerfilDeAcesso = perfilRH
             };            

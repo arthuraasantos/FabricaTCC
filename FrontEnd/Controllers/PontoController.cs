@@ -13,6 +13,7 @@ using System.Web.Mvc;
 using Seedwork.Entity;
 using Seedwork.Const;
 using System.Web.UI;
+using SeedWork.Tools;
 
 namespace FrontEnd.Controllers
 {
@@ -37,7 +38,7 @@ namespace FrontEnd.Controllers
         public ActionResult Marcar(string email, string senha, string parametro)
         {
             var funcionarioParaMarcar = new Funcionario();
-            funcionarioParaMarcar = FuncionarioRepository.PesquisaParaLogin(email, senha);
+            funcionarioParaMarcar = FuncionarioRepository.PesquisaParaLogin(email, Criptografia.Encrypt(senha));
 
             if (funcionarioParaMarcar != null)
             {
