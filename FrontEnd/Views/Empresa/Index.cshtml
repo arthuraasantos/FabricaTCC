@@ -8,14 +8,15 @@
 
 <h1 class="page-header">Listagem de Empresas</h1>
 
-<div class="navbar">
-
-
-    @Html.ActionLink("Adicionar Empresa", "Novo", "Empresa",
+@if (ViewBag.Permissao == "ADM")
+{
+    <div class="navbar">
+        @Html.ActionLink("Adicionar Empresa", "Novo", "Empresa",
                            new { @class = "btn btn-outline btn-default" })
-    <br />
-    <br />
-</div>
+        <br />
+        <br />
+    </div>
+}
 
 <div class="row">
     <div class="col-lg-12">
@@ -58,7 +59,7 @@
                                                 @Html.ActionLink("Desativar", "#",
                                                  new { id = item.Id },
                                                  new { @class = "btn btn-outline btn-warning" })
-                                                
+
                                                 @Html.ActionLink("Excluir  ", "Excluir",
                                                  new { id = item.Id },
                                                  new { @class = "btn btn-outline btn-danger" })

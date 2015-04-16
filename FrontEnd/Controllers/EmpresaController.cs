@@ -48,5 +48,16 @@ namespace FrontEnd.Controllers
             }
             return View("Index", lista);
         }
+
+        public override ActionResult Incluir(EmpresaNovo novo)
+        {
+            var entity = ConversorInsert.Converter(novo);
+            entity.Id = Guid.NewGuid();
+            entity.Bloqueado = "N";
+            Repository.Salvar(entity);
+            Context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
