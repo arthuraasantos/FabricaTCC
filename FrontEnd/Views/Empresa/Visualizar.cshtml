@@ -10,10 +10,10 @@
 {
     @Html.HiddenFor(p => p.Id)
 
-    @Html.LabelFor(p => p.RazaoSocial)
+    @Html.Label("Razão Social")
     @Html.TextBoxFor(e => e.RazaoSocial, new { @class = "form-control" })<br />
 
-    @Html.LabelFor(p => p.NomeFantasia)
+    @Html.Label("Nome Fantasia")
     @Html.TextBoxFor(e => e.NomeFantasia, new { @class = "form-control" })<br />
 
     @Html.LabelFor(p => p.Cnpj)
@@ -22,7 +22,7 @@
     @Html.LabelFor(p => p.Logradouro)
     @Html.TextBoxFor(e => e.Logradouro, new { @class = "form-control form-" })<br />
 
-    @Html.LabelFor(p => p.NumeroEndereco)
+    @Html.Label("Número")
     @Html.TextBoxFor(e => e.NumeroEndereco, new { @class = "form-control", @type="number"})<br />
 
     @Html.LabelFor(p => p.Bairro)
