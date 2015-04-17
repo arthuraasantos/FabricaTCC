@@ -27,7 +27,15 @@ namespace FrontEnd.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var funcionario = Session["Funcionario"];
+            if (funcionario != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
