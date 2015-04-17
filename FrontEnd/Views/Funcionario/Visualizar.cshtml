@@ -34,10 +34,6 @@
     jQuery(function ($) {
         $("#Cpf").mask("999.999.999-99", { placeholder: " " });
         $("#Identidade").mask("99.999.999-*", { placeholder: " " });
-        var data = $("#DataNascimeneto").val();
-        alert('data' + data);
-        var data = $("#DataNascimeneto").getDate();
-        alert('getDate' + $("#DataNascimeneto"));
         $("#DataNascimeneto").mask("dd/MM/yyyy", { placeholder: " " });
 
     });
@@ -60,15 +56,6 @@
             },
         });
     };
-
-    function listaUFs() {
-        $("#Estado").add('AC');
-        $("#Estado").add('AD');
-        $("#Estado").add('AE');
-        $("#Estado").add('AF');
-        $("#Estado").add('AG');
-    }
-
 </script>
 
 <section>

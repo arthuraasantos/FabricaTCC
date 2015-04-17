@@ -1,6 +1,7 @@
 ﻿using Dominio.Model;
 using Dominio.Repository;
 using Seedwork.Conversores;
+using SeedWork.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace FrontEnd.Models.Conversores
 
         public override void AplicarValores(FuncionarioEditar origem, Funcionario destino)
         {
-            destino.Senha = origem.Senha;
+            destino.Senha = Criptografia.Encrypt(origem.Senha);
             destino.SalarioBase = origem.SalarioBase;
             destino.Logradouro = origem.Logradouro;
             destino.Pais = origem.Pais;

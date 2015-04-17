@@ -23,7 +23,6 @@
     @* Jquery e jquery masked input para máscaras *@
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.maskedinput.js"></script>
-
 </head>
 <body>
     <div id="wrapper">
@@ -257,12 +256,7 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
+                                <h4>Funcionário: @ViewBag.Funcionario</h4>
                             </div>
                             <!-- /input-group -->
                         </li>
@@ -272,7 +266,7 @@
                             <ul class="nav nav-second-level">
                                 <li>@Html.ActionLink(" Empresas", "Index", "Empresa")</li>
                                 <li>@Html.ActionLink(" Funcionarios", "Index", "Funcionario")</li>
-                                <li>@Html.ActionLink(" Perfil de Acesso", "Index", "PerfilDeAcesso")</li>
+                             @*   <li>@Html.ActionLink(" Perfil de Acesso", "Index", "PerfilDeAcesso")</li>*@
                             </ul>
                         </li>
                         <li>@Html.ActionLink(" Configurações", "Index", "Configuracoes")</li>

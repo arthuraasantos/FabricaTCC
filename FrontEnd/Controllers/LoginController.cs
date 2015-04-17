@@ -27,9 +27,11 @@ namespace FrontEnd.Controllers
 
         public ActionResult Index()
         {
-            var funcionario = Session["Funcionario"];
+            var funcionario = (Funcionario)Session["Funcionario"];
             if (funcionario != null)
             {
+
+                ViewBag.Funcionario = FuncionarioRepository.Listar().Where(f => f.Email == funcionario.Email);
                 return RedirectToAction("Index", "Home");
             }
             else

@@ -8,6 +8,36 @@
 
 
 <link href="~/Content/Site.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.maskedinput.js"></script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        $("#Cpf").mask("999.999.999-99", { placeholder: " " });
+        $("#Identidade").mask("99.999.999-*", { placeholder: " " });
+        $("#DataNascimeneto").mask("dd/MM/yyyy", { placeholder: " " });
+
+    });
+
+    function atualizaEndereco() {
+        var cep = document.getElementById('Cep').value;
+
+        $.ajax({
+            url: "/Funcionario/AtualizaDadosEndereco",
+            data: {
+                cep: cep
+            },
+            type: "GET",
+            datatype: "json",
+            contenttype: "application/json; charset=utf-8",
+            success: function (data) {
+                $("#txtlogradouro").val(data.logradouro);
+                $("#txtbairro").val(data.bairro);
+                $("txtcidade").val(data.cidade);
+            },
+        });
+    };
+</script>
+
 <h2>Novo Funcionário</h2>
 @model FrontEnd.Models.FuncionarioNovo
 
@@ -21,9 +51,9 @@
         @Html.TextBoxFor(f => f.DataNascimento, new { placeholder = "Data Nascimento", @class = "form-control", type = "date" })<br />
         @Html.TextBoxFor(f => f.Email, new { placeholder = "Email", @class = "form-control", type = "email" })<br />
         @Html.TextBoxFor(f => f.Identidade, new { placeholder = "Identidade(RG)", @class = "form-control" })<br />
-        @Html.LabelFor(f => f.IdEmpresa)<br />
+        @Html.Label("Empregador")<br />
         @Html.DropDownListFor(f => f.IdEmpresa, Model.Empresas, new { @class = "form-control"})<br />
-        @Html.LabelFor(f => f.IdPerfilDeAcesso)<br />
+        @Html.Label("Perfil de Acesso")<br />
         @Html.DropDownListFor(f => f.IdPerfilDeAcesso, Model.PerfisDeAcesso, new { @class = "form-control" })<br />
     </div>
     <input type="submit" value="Inserir" class="btn btn-outline btn-success" />

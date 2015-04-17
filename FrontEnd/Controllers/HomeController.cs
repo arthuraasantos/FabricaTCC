@@ -51,6 +51,23 @@ namespace FrontEnd.Controllers
                 ViewBag.HorasTrabalhadas = "[ Não será possível calcular a hora sem um funcionário definido ]";
             }
 
+            #region 'Verificando permissões...'
+            
+            // Armazena a permissão na tela inicial - pode ser usada onde precisar na página inicial
+            if (funcionario.PerfilDeAcesso.Descricao == "Gerente/RH")
+            {
+                ViewBag.Permissao = "GRH";
+            }
+            else if (funcionario.PerfilDeAcesso.Descricao == "FuncionarioComum")
+            {
+                ViewBag.Permissao = "FUN";
+            }
+            else
+            {
+                ViewBag.Permissao = "ADM";
+            }
+            #endregion
+
             return View();
 
         }
