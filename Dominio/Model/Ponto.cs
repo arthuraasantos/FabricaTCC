@@ -10,9 +10,9 @@ namespace Dominio.Model
 {
     public class Ponto : EntityBase
     {
-        public virtual FolhaPonto FolhaPonto { get; set; }
         public virtual Funcionario Funcionario { get; set; }
         public DateTime? DataMarcacao { get; set; }
         public DateTime DataValida { get; set; }
+        public Boolean Contabilizar { get; set; }
     }
 }

@@ -18,7 +18,7 @@ using SeedWork.Tools;
 namespace FrontEnd.Controllers
 {
     //[Authorize]
-    public class PontoController : BaseController<Ponto, PontoMarcar, PontoEditar>
+    public class PontoController : BaseController<Ponto, PontoMarcar, null>
     {
         // GET: Ponto
         //MyContext Context;
@@ -26,7 +26,7 @@ namespace FrontEnd.Controllers
         private IPontoEletronicoService PontoEletronicoService { get; set; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
 
-        public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService) : base(context, pontoRepository, null, new PontoToPontoAjustar())
+        public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService) : base(context, pontoRepository, null, null)
         {
             Context = context;
             PontoRepository = pontoRepository;
@@ -107,31 +107,6 @@ namespace FrontEnd.Controllers
 
 
             return View(Dicionario);
-        }
-        public ActionResult Ajustar(DateTime data)
-        {
-            var _ListaCompleta = PontoRepository.
-                            Listar().
-                            ToList().
-                            Where(p => p.DataValida.Date == data.Date).
-                            OrderBy(p => p.DataValida).
-                            Select(p => new SelectListItem
-                                {
-                                    Value = p.Id.ToString(),
-                                    Text = p.DataValida.ToString("HH:mm")
-                                }).
-                            ToList();
-
-            ViewBag.ListaBatidas = _ListaCompleta;
-
-            PontoEditar item = new PontoEditar()
-            {
-                DataAjuste = data.Date.ToString("dd/MM/yyyy"),
-                SenhaFuncionario = String.Empty,
-                EmailFuncionario = Sessao.FuncionarioLogado.Email
-            };
-
-            return View(item);
         }
         public ActionResult Inclusao(DateTime data) {
             return View();

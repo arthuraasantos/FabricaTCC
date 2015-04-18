@@ -11,11 +11,11 @@ namespace Dominio.Model
     public class Solicitacao : EntityBase
     {
         public virtual Ponto Ponto { get; set; }
-        public DateTime Data { get; set; }
-        public TipoJustificativa TipoJustificativa { get; set; }
+        public virtual Funcionario Funcionario { get; set; }
+        public DateTime DataHora { get; set; }
         public String Justificativa { get; set; }
         public TipoSolicitacao Tipo { get; set; }
-        public bool Valida { get; set; }
+        public RespostaSolicitacao Resposta { get; set; }
 
     }
 }

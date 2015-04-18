@@ -25,8 +25,7 @@ namespace Dominio.Services
                Id = Guid.NewGuid(),
                DataMarcacao = DateTime.Now,
                DataValida = DateTime.Now,
-               Funcionario = funcionario,
-               FolhaPonto = null // TODO : Passar objeto folha de ponto
+               Funcionario = funcionario
            };
 
             PontoRepository.Salvar(novoPonto);
@@ -68,6 +67,7 @@ namespace Dominio.Services
                                     Listar().
                                     ToList().
                                     Where(p => p.DataValida.Date == dia.Date).
+                                    Where(p => p.Funcionario == funcionario).
                                     OrderBy(p => p.DataValida).
                                     ToList();
 

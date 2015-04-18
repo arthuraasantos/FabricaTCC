@@ -142,7 +142,6 @@
     <Compile Include="Models\Conversores\EmpresaToEmpresaNovo.cs" />
     <Compile Include="Models\Conversores\FuncionarioToFuncionarioEditar.cs" />
     <Compile Include="Models\Conversores\FuncionarioToFuncionarioNovo.cs" />
-    <Compile Include="Models\Conversores\PontoToPontoAjustar.cs" />
     <Compile Include="Models\EmpresaEditar.cs" />
     <Compile Include="Models\EmpresaNovo.cs" />
     <Compile Include="Models\EntityModel.cs" />
@@ -151,7 +150,6 @@
     <Compile Include="Models\FuncionarioLogin.cs" />
     <Compile Include="Models\FuncionarioNovo.cs" />
     <Compile Include="Models\Mensagem.cs" />
-    <Compile Include="Models\PontoEditar.cs" />
     <Compile Include="Models\PontoMarcar.cs" />
     <Compile Include="Models\PerfilDeAcessoPadrao.cs" />
     <Compile Include="Models\PerfilDeAcessoNovo.cs" />
@@ -946,14 +944,13 @@
     <Content Include="Views\PerfilDeAcesso\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Ponto\ListaAjustar.cshtml" />
-    <Content Include="Views\Ponto\Visualizar.cshtml" />
-    <Content Include="Views\Ponto\ListaAprovar.cshtml" />
-    <Content Include="Views\Ponto\Ajustar.cshtml" />
+    <Content Include="Views\Ponto\Lista.cshtml" />
+    <Content Include="Views\Solicitacao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Horarios\" />
+    <Folder Include="Views\Sessao\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

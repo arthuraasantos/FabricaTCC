@@ -40,14 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Empresa.cs" />
-    <Compile Include="Model\FolhaPonto.cs" />
     <Compile Include="Model\Funcionario.cs" />
     <Compile Include="Model\PerfilDeAcesso.cs" />
     <Compile Include="Model\Ponto.cs" />
     <Compile Include="Model\Solicitacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IFolhaPontoRepository.cs" />
     <Compile Include="Repository\IEmpresaRepository.cs" />
+    <Compile Include="Repository\ISolicitacaoRepository.cs" />
     <Compile Include="Repository\IPontoRepository.cs" />
     <Compile Include="Repository\IFuncionarioRepository.cs" />
     <Compile Include="Repository\IPerfilDeAcessoRepository.cs" />

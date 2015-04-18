@@ -1,5 +1,8 @@
-﻿using Dominio.Repository;
+﻿using Dominio.Model;
+using Dominio.Repository;
+using FrontEnd.Models;
 using Infraestrutura;
+using Seedwork.Const;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,88 +14,102 @@ namespace FrontEnd.Controllers
     public class SolicitacaoController : Controller
     {
         // GET: Solicitacao
+        private MyContext Context { get; set; }
+        private IPontoRepository PontoRepository { get; set; }
+        private ISolicitacaoRepository SolicitacaoRepository { get; set; }
 
-        //MyContext Context;
-        //private IPontoRepository PontoRepository { get; set; }
-        //private ISolicitacaoRepository SolicitacaoRepository { get; set; }
-
-        //public SolicitacaoController(
-        //    MyContext context, 
-        //    IPontoRepository pontoRepository, 
-        //    IPontoEletronicoService pontoEletronicoService)
-
-        //    : base(context, pontoRepository, null, new PontoToPontoAjustar())
-        //{
-        //    Context = context;
-        //    PontoRepository = pontoRepository;
-        //    PontoEletronicoService = pontoEletronicoService;
-        //    FuncionarioRepository = new FuncionarioRepository(context);
-        //}
-        //
-        // TODO : Refazer o Construtor da SolicitacaoController
+        public SolicitacaoController(MyContext context, IPontoRepository pontoRepository)
+        {
+            Context = context;
+            PontoRepository = pontoRepository;
+        }
 
         public ActionResult Index()
         {
-            return View();
+            var lista = SolicitacaoRepository.
+                            Listar().
+                            ToList().
+                            Where(p => p.Funcionario.Empresa == Sessao.EmpresaLogada).
+                            Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
+                            OrderBy(p => p.DataHora).
+                            ToList();
+
+            ViewBag.ListaAjustes = lista.Where(p => p.Tipo == TipoSolicitacao.Ajuste).ToList();
+            ViewBag.ListaInclusoes = lista.Where(p => p.Tipo == TipoSolicitacao.Inclusao).ToList();
+            ViewBag.ListaDesconsideracoes = lista.Where(p => p.Tipo == TipoSolicitacao.Desconsideracao).ToList();
+
+            return View(lista);
+        }
+
+        public ActionResult Solicitar(DateTime data)
+        {
+            var _ListaCompleta = PontoRepository.
+                            Listar().
+                            ToList().
+                            Where(p => p.DataValida.Date == data.Date).
+                            OrderBy(p => p.DataValida).
+                            Select(p => new SelectListItem
+                            {
+                                Value = p.Id.ToString(),
+                                Text = p.DataValida.ToString("HH:mm")
+                            }).
+                            ToList();
+
+            ViewBag.ListaBatidas = _ListaCompleta;
+
+            Solicitacao item = new Solicitacao()
+            {
+                DataHora = data;
+            };
+
+            return View(item);
         }
 
 
-        //public ActionResult ListaSolicitacoes()
-        //{
-        //    var lista = PontoRepository.
-        //                    Listar().
-        //                    ToList().
-        //                    Where(p => p.Status == StatusPonto.Nenhum).
-        //                    Where(p => p.DataAjuste != null).
-        //                    OrderBy(p => p.DataAjuste).
-        //                    ToList();
-        //    return View(lista);
+        public ActionResult AprovarRejeitarSolicitacao(Guid Id, RespostaSolicitacao Respt)
+        {
 
-        //}
-        //public ActionResult AprovarRejeitarAjuste(Guid Id)
-        //{
+            var Solicitacao = SolicitacaoRepository.PesquisarPeloId(Id);
+            var Ponto = Solicitacao.Ponto;
 
-        //    var Ponto = Repository.PesquisarPeloId(Id);
+            switch (Solicitacao.Tipo)
+            {
 
-        //    Ponto.Status = Status;
-        //    if (Status == StatusPonto.Ajustado)
-        //    {
-        //        Ponto.DataValida = Ponto.DataAjuste.GetValueOrDefault();
-        //    }
+                case TipoSolicitacao.Ajuste:
+                    if (Respt == RespostaSolicitacao.Aprovado)
+                    {
+                        Ponto.DataValida = Solicitacao.DataHora;
+                        PontoRepository.Salvar(Ponto);
+                    }
+                    break;
 
-        //    Repository.Salvar(Ponto);
-        //    Context.SaveChanges();
+                case TipoSolicitacao.Inclusao:
+                    if (Respt == RespostaSolicitacao.Aprovado)
+                    {
+                        Ponto.DataValida = Solicitacao.DataHora;
+                        Ponto.Funcionario = Solicitacao.Funcionario;
+                        Ponto.Contabilizar = true;
+                        PontoRepository.Salvar(Ponto);
+                    }
+                    break;
 
-        //    return RedirectToAction("ListaAprovar");
-        //}
-        //public ActionResult AprovarRejeitarInclusao(Guid Id)
-        //{
+                case TipoSolicitacao.Desconsideracao:
+                    if (Respt == RespostaSolicitacao.Aprovado)
+                    {
+                        Ponto.Contabilizar = false;
+                        PontoRepository.Salvar(Ponto);
+                    }
+                    break;
 
-        //    var Ponto = Repository.PesquisarPeloId(Id);
+            }
 
-        //    Ponto.Status = Status;
-        //    if (Status == StatusPonto.Incluido)
-        //    {
-        //        Ponto.DataValida = Ponto.DataAjuste.GetValueOrDefault();
-        //    }
+            Solicitacao.Resposta = Respt;
 
-        //    Repository.Salvar(Ponto);
-        //    Context.SaveChanges();
+            SolicitacaoRepository.Salvar(Solicitacao);
+            Context.SaveChanges();
 
-        //    return RedirectToAction("ListaAprovar");
-        //}
-        //public ActionResult AprovarRejeitarDesconsideracao(Guid Id)
-        //{
-
-        //    var Ponto = Repository.PesquisarPeloId(Id);
-
-        //    Ponto.Status = Status;
-
-        //    Repository.Salvar(Ponto);
-        //    Context.SaveChanges();
-
-        //    return RedirectToAction("ListaAprovar");
-        //}
+            return RedirectToAction("Index");
+        }
 
     }
 }

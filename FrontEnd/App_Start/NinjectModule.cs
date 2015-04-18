@@ -24,7 +24,6 @@ namespace FrontEnd.App_Start
             Bind<IFuncionarioRepository>().To<FuncionarioRepository>();
             Bind<IPerfilDeAcessoRepository>().To<PerfilDeAcessoRepository>();
             Bind<IPontoRepository>().To<PontoRepository>();
-            Bind<IFolhaPontoRepository>().To<FolhaPontoRepository>();
 
             //Servicos
             Bind<IPontoEletronicoService>().To<PontoEletronicoService>();
