@@ -13,7 +13,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
 
-        @using (Html.BeginForm("ListaAjustar", "Ponto", FormMethod.Post, new { @class = "form-inline" }))
+        @using (Html.BeginForm("Lista", "Ponto", FormMethod.Post, new { @class = "form-inline" }))
         {
             <div class="form-group">
                 @Html.Label("Email do Funcionário")
@@ -49,20 +49,16 @@
                                 <tr>
 
                                     <td>@data.Key.ToString("dd/MM/yyyy")</td>
-                                    <td>
-                                        @foreach (var hr in data.Value)
+                                    <td>@foreach (var hr in data.Value)
                                         {
-                                            if (hr.Contabilizar)
-                                            {
-                                                hr.DataValida.ToString("HH:mm");
-                                            }
+                                            @hr.DataValida.ToString("HH:mm - ");
                                         }
                                     </td>
                                     <td></td>
                                     <td>
-                                        @Html.ActionLink("Ajustar", "Solicitar", "Solicitacao", new { data = data.Key.Date, solicitacao = TipoSolicitacao.Ajuste }, new { @class = "btn btn-outline btn-info" })
-                                        @Html.ActionLink("Incluir", "Solicitar", "Solicitacao", new { data = data.Key.Date, solicitacao = TipoSolicitacao.Inclusao }, new { @class = "btn btn-outline btn-info" })
-                                        @Html.ActionLink("Desconsiderar", "Solicitar", "Solicitacao", new { data = data.Key.Date, solicitacao = TipoSolicitacao.Desconsideracao }, new { @class = "btn btn-outline btn-info" })
+                                        @Html.ActionLink("Ajustar", "Solicitar", "Solicitacao",
+                                            new { data = data.Key.Date },
+                                            new { @class = "btn btn-info btn-xs btn-block" })
                                     </td>
 
                                 </tr>

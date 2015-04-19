@@ -25,7 +25,8 @@ namespace Dominio.Services
                Id = Guid.NewGuid(),
                DataMarcacao = DateTime.Now,
                DataValida = DateTime.Now,
-               Funcionario = funcionario
+               Funcionario = funcionario,
+               Contabilizar = true
            };
 
             PontoRepository.Salvar(novoPonto);
@@ -40,19 +41,17 @@ namespace Dominio.Services
                                     ToList().
                                     Where(p => p.DataValida.Date >= diaInicio.Date).
                                     Where(p => p.DataValida.Date <= diaFinal.Date).
+                                    Where(p => p.Contabilizar == true).
                                     OrderBy(p => p.DataValida).
                                     ToList();
-
-            if (marcacoesDoDia.Count % 2 != 0)
-                return new TimeSpan();
 
             var totalDeCiclos = marcacoesDoDia.Count / 2;
 
             var horasTrabalhadas = new TimeSpan();
 
-            for (int i = 0; i < totalDeCiclos; i = i + 2)
+            for (int i = 1; i < totalDeCiclos; i = i + 2)
             {
-                horasTrabalhadas = horasTrabalhadas.Add(marcacoesDoDia[i + 1].DataValida - marcacoesDoDia[i].DataValida);
+                horasTrabalhadas = horasTrabalhadas.Add(marcacoesDoDia[i].DataValida - marcacoesDoDia[i - 1].DataValida);
             }
 
             return horasTrabalhadas;

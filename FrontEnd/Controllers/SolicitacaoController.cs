@@ -41,25 +41,30 @@ namespace FrontEnd.Controllers
             return View(lista);
         }
 
-        public ActionResult Solicitar(DateTime data)
+        public ActionResult Solicitar(DateTime data, Funcionario funcionario)
         {
-            var _ListaCompleta = PontoRepository.
-                            Listar().
-                            ToList().
-                            Where(p => p.DataValida.Date == data.Date).
-                            OrderBy(p => p.DataValida).
-                            Select(p => new SelectListItem
-                            {
-                                Value = p.Id.ToString(),
-                                Text = p.DataValida.ToString("HH:mm")
-                            }).
-                            ToList();
+            //Pega lista para carregar no ponto
+            var _ListaPontos = PontoRepository.
+                                Listar().
+                                ToList().
+                                Where(p => p.DataValida.Date == data.Date).
+                                Where(p => p.Funcionario.Id == funcionario.Id).
+                                Where(p => p.Contabilizar == true).
+                                OrderBy(p => p.DataValida).
+                                Select(p => new SelectListItem
+                                {
+                                    Value = p.Id.ToString(),
+                                    Text = p.DataValida.ToString("HH:mm")
+                                }).
+                                ToList();
 
-            ViewBag.ListaBatidas = _ListaCompleta;
+            ViewBag.ListaBatidas = _ListaPontos;
+
 
             Solicitacao item = new Solicitacao()
             {
-                DataHora = data;
+                DataHora = data,
+                Funcionario = Sessao.FuncionarioLogado
             };
 
             return View(item);

@@ -1,0 +1,13 @@
+﻿@model Dominio.Model.Solicitacao
+
+@{
+    ViewBag.Title = "Solicitar";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+
+<h1 class="page-header">Solicitar</h1>
+
+@using (Html.BeginForm("Lista", "Ponto", FormMethod.Post, new { @class = "form-inline" }))
+{
+    @Html.DropDownList("Ponto", new SelectList(ViewBag.ListaBatidas, "Value", "Text"))
+}
