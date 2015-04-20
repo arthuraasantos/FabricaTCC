@@ -7,7 +7,31 @@
 
 <h1 class="page-header">Solicitar</h1>
 
-@using (Html.BeginForm("Lista", "Ponto", FormMethod.Post, new { @class = "form-inline" }))
+@using (Html.BeginForm("Ajustar", "Solicitao", FormMethod.Post))
 {
-    @Html.DropDownList("Ponto", new SelectList(ViewBag.ListaBatidas, "Value", "Text"))
-}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="form-group">
+                @Html.Label("Selecione um horário para ajustar")
+                @Html.DropDownListFor(p => p.Ponto, new SelectList(@ViewBag.ListaBatidas, "value", "text"), new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.Tipo)
+                @Html.DropDownListFor(p => p.Tipo, Enum.GetValues(typeof(Seedwork.Const.TipoSolicitacao)).Cast<Seedwork.Const.TipoSolicitacao>().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }))
+            </div>
+            <div class="panel-body">
+
+
+                @Html.LabelFor(p => p.Funcionario)
+                @Html.TextBoxFor(p => p.Funcionario, new { @class = "form-control" })<br />
+
+                @Html.LabelFor(p => p.DataHora)
+                @Html.TextBoxFor(p => p.DataHora, new { @class = "form-control" })<br />
+
+                @Html.LabelFor(p => p.Justificativa)
+                @Html.TextBoxFor(p => p.Justificativa, new { @class = "form-control" })<br />
+
+                <input type="submit" value="Salvar Alterações" class="btn btn-outline btn-success" />
+            </div>
+        </div>
+        }

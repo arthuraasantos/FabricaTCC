@@ -70,6 +70,10 @@ namespace FrontEnd.Controllers
             return View(item);
         }
 
+        public ActionResult Criar(Solicitacao solicitacao)
+        { 
+            
+        }
 
         public ActionResult AprovarRejeitarSolicitacao(Guid Id, RespostaSolicitacao Respt)
         {
