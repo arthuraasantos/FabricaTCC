@@ -17,7 +17,6 @@ namespace FrontEnd.Controllers
         private IPontoRepository PontoRepository { get; set; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
 
-
         public SolicitacaoController(MyContext context, ISolicitacaoRepository solicitacaoRepository, IPontoRepository pontoRepository, IFuncionarioRepository funcionarioRepository)
             : base(context, solicitacaoRepository, new SolicitacaoToSolicitacaoCriar(), new SolicitacaoToSolicitacaoAjustar())
         {
@@ -30,8 +29,8 @@ namespace FrontEnd.Controllers
             var _lista = Repository.
                             Listar().
                             ToList().
-                            Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).
                             Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
+                            Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).
                             OrderBy(p => p.DataHora).
                             ToList();
 

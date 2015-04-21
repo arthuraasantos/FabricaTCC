@@ -21,6 +21,8 @@ namespace Infraestrutura
             modelBuilder.Configurations.Add(new PerfilDeAcessoDbMapping());
             modelBuilder.Configurations.Add(new PontoDbMapping());
             modelBuilder.Configurations.Add(new EmpresaDbMapping());
+            modelBuilder.Configurations.Add(new SolicitacaoDbMapping());
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
         }

@@ -18,14 +18,15 @@ using SeedWork.Tools;
 namespace FrontEnd.Controllers
 {
     //[Authorize]
-    public class PontoController : BaseController<Ponto, PontoMarcar, null>
+    public class PontoController : Controller
     {
         // GET: Ponto
-        //MyContext Context;
+        MyContext Context;
         private IPontoRepository PontoRepository { get; set; }
         private IPontoEletronicoService PontoEletronicoService { get; set; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
 
+        public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService)
         {
             Context = context;
             PontoRepository = pontoRepository;
@@ -58,9 +59,7 @@ namespace FrontEnd.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
-
-        public ActionResult ListaAjustar(string Email, DateTime? Data)
+        public ActionResult Lista(string Email, DateTime? Data)
         {
             // Pega email, ou default usuario logado
             string _Email = Sessao.FuncionarioLogado.Email;
@@ -107,47 +106,8 @@ namespace FrontEnd.Controllers
 
             return View(Dicionario);
         }
-        public ActionResult Inclusao(DateTime data) {
-            return View();
-        }
-        public ActionResult Desconsiderar(DateTime data)
+        public ActionResult Index()
         {
-            var _ListaCompleta = PontoRepository.
-                            Listar().
-                            ToList().
-                            Where(p => p.DataValida.Date == data.Date).
-                            OrderBy(p => p.DataValida).
-                            Select(p => new SelectListItem
-                            {
-                                Value = p.Id.ToString(),
-                                Text = p.DataValida.ToString("HH:mm")
-                            }).
-                            ToList();
-
-            ViewBag.ListaBatidas = _ListaCompleta;
-
-            return View();
-        }
-
-
-        public override ActionResult Editar(PontoEditar editar)
-        {
-
-            var entity = Repository.PesquisarPeloId(editar.Id);
-
-            ConversorEdit.AplicarValores(editar, entity);
-
-            Repository.Salvar(entity);
-            Context.SaveChanges();
-
-            return RedirectToAction("ListaAjustar");
-        }
-
-
-
-        public override System.Web.Mvc.ActionResult Index()
-        {
-
             return View();
         }
 

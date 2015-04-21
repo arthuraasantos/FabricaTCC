@@ -49,11 +49,11 @@ namespace FrontEnd.Controllers
             #region 'Verificando permissões...'
             
             // Armazena a permissão na tela inicial - pode ser usada onde precisar na página inicial
-            if (funcionario.PerfilDeAcesso.Descricao == "Gerente/RH")
+            if (Sessao.FuncionarioLogado.PerfilDeAcesso.Descricao == "Gerente/RH")
             {
                 ViewBag.Permissao = "GRH";
             }
-            else if (funcionario.PerfilDeAcesso.Descricao == "FuncionarioComum")
+            else if (Sessao.FuncionarioLogado.PerfilDeAcesso.Descricao == "FuncionarioComum")
             {
                 ViewBag.Permissao = "FUN";
             }

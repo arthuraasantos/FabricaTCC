@@ -49,19 +49,23 @@
                                 <tr>
 
                                     <td>@data.Key.ToString("dd/MM/yyyy")</td>
-                                    <td>@foreach (var hr in data.Value)
-                                        {
-                                            @hr.DataValida.ToString("HH:mm - ");
-                                        }
-                                    </td>
-                                    <td></td>
                                     <td>
-                                        @Html.ActionLink("Ajustar", "Solicitar", "Solicitacao",
+                                        @foreach (var hr in data.Value)
+                                        {
+                                            if (hr.Contabilizar)
+                                            {
+                                                @hr.DataValida.ToString("HH:mm - ");
+                                            }
+                                        }
+                                </td>
+                                <td></td>
+                                <td>
+                                    @Html.ActionLink("Ajustar", "Solicitar", "Solicitacao",
                                             new { data = data.Key.Date, email = ViewBag.EmailLogado },
                                             new { @class = "btn btn-info btn-xs btn-block" })
-                                    </td>
+                                </td>
 
-                                </tr>
+                            </tr>
                             }
                         </tbody>
                     </table>

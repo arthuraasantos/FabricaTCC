@@ -12,10 +12,9 @@ namespace Infraestrutura.Repositorios
 {
     public class SolicitacaoRepository : RepositoryBase<Solicitacao>, ISolicitacaoRepository
     {
-        public SolicitacaoRepository(MyContext context)
-            : base(context)
+        public SolicitacaoRepository(MyContext context) : base(context)
         {
-
+            
         }
     }
 
