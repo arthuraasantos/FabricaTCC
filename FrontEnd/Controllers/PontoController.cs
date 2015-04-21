@@ -26,7 +26,6 @@ namespace FrontEnd.Controllers
         private IPontoEletronicoService PontoEletronicoService { get; set; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
 
-        public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService) : base(context, pontoRepository, null, null)
         {
             Context = context;
             PontoRepository = pontoRepository;

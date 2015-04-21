@@ -13,7 +13,7 @@ namespace Infraestrutura.Mapeamento
         public SolicitacaoDbMapping()
         {
             HasKey(p => p.Id);
-            HasRequired(p => p.Ponto);
+            //HasRequired(p => p.Funcionario);
         }
     }
 }

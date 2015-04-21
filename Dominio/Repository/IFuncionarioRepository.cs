@@ -11,6 +11,7 @@ namespace Dominio.Repository
     public interface IFuncionarioRepository : IRepository<Funcionario>
     {
         Funcionario PesquisaParaLogin(string email, string senha);
+        Funcionario PesquisaPeloEmail(string email);
 
     }
 }

@@ -31,5 +31,18 @@ namespace Infraestrutura.Repositorios
 
         }
 
+        public Funcionario PesquisaPeloEmail(string email)
+        {
+            try
+            {
+                return Contexto.Set<Funcionario>().Where(f => f.Email.Equals(email)).SingleOrDefault();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
     }
 }

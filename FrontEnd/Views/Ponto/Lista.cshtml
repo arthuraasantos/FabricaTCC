@@ -57,7 +57,7 @@
                                     <td></td>
                                     <td>
                                         @Html.ActionLink("Ajustar", "Solicitar", "Solicitacao",
-                                            new { data = data.Key.Date },
+                                            new { data = data.Key.Date, email = ViewBag.EmailLogado },
                                             new { @class = "btn btn-info btn-xs btn-block" })
                                     </td>
 

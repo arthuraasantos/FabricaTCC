@@ -1,4 +1,4 @@
-﻿@model Dominio.Model.Solicitacao
+﻿@model FrontEnd.Models.SolicitacaoCriar
 
 @{
     ViewBag.Title = "Solicitar";
@@ -7,31 +7,51 @@
 
 <h1 class="page-header">Solicitar</h1>
 
-@using (Html.BeginForm("Ajustar", "Solicitao", FormMethod.Post))
+@using (Html.BeginForm("Criar", "Solicitacao", FormMethod.Post))
 {
+
+    //Lista de Pontos do dia
+    var listaDePontos = (IEnumerable<SelectListItem>)ViewBag.ListaBatidas;
+    
+    //Lista de Tipos [ Inclusão, Ajuste, Desconsideracao ]
+    var listaTipos = Enum.GetValues(typeof(Seedwork.Const.TipoSolicitacao)).Cast<Seedwork.Const.TipoSolicitacao>()
+            .Where(x => x.Equals(Seedwork.Const.TipoSolicitacao.Ajuste) || 
+                        x.Equals(Seedwork.Const.TipoSolicitacao.Inclusao) || 
+                        x.Equals(Seedwork.Const.TipoSolicitacao.Desconsideracao))
+            .Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() });
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="form-group">
+                @Html.LabelFor(p => p.Funcionario)
+                @Html.TextBoxFor(p => p.Funcionario, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="form-group">
                 @Html.Label("Selecione um horário para ajustar")
-                @Html.DropDownListFor(p => p.Ponto, new SelectList(@ViewBag.ListaBatidas, "value", "text"), new { @class = "form-control" })
+                @Html.DropDownListFor(p => p.Ponto, listaDePontos, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 @Html.LabelFor(p => p.Tipo)
-                @Html.DropDownListFor(p => p.Tipo, Enum.GetValues(typeof(Seedwork.Const.TipoSolicitacao)).Cast<Seedwork.Const.TipoSolicitacao>().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() }))
+                @Html.DropDownListFor(p => p.Tipo, listaTipos, new { @class = "form-control" })
             </div>
-            <div class="panel-body">
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(p => p.Data)
+                @Html.TextBoxFor(p => p.Data, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
 
-
-                @Html.LabelFor(p => p.Funcionario)
-                @Html.TextBoxFor(p => p.Funcionario, new { @class = "form-control" })<br />
-
-                @Html.LabelFor(p => p.DataHora)
-                @Html.TextBoxFor(p => p.DataHora, new { @class = "form-control" })<br />
+                @Html.LabelFor(p => p.Hora)
+                @Html.TextBoxFor(p => p.Hora, new { @class = "form-control" })<br />
+            </div>
+            <div class="form-group">
 
                 @Html.LabelFor(p => p.Justificativa)
                 @Html.TextBoxFor(p => p.Justificativa, new { @class = "form-control" })<br />
 
-                <input type="submit" value="Salvar Alterações" class="btn btn-outline btn-success" />
             </div>
+            <input type="submit" value="Salvar Alterações" class="btn btn-outline btn-success" />
         </div>
-        }
+    </div>
+}

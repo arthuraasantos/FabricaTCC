@@ -1,54 +1,54 @@
 ﻿using Dominio.Model;
 using Dominio.Repository;
 using FrontEnd.Models;
+using FrontEnd.Models.Conversores;
 using Infraestrutura;
-using Seedwork.Const;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Seedwork.Const;
 
 namespace FrontEnd.Controllers
 {
-    public class SolicitacaoController : Controller
+    public class SolicitacaoController : BaseController<Solicitacao, SolicitacaoCriar, SolicitacaoAprovar>
     {
-        // GET: Solicitacao
-        private MyContext Context { get; set; }
         private IPontoRepository PontoRepository { get; set; }
-        private ISolicitacaoRepository SolicitacaoRepository { get; set; }
+        private IFuncionarioRepository FuncionarioRepository { get; set; }
 
-        public SolicitacaoController(MyContext context, IPontoRepository pontoRepository)
+
+        public SolicitacaoController(MyContext context, ISolicitacaoRepository solicitacaoRepository, IPontoRepository pontoRepository, IFuncionarioRepository funcionarioRepository)
+            : base(context, solicitacaoRepository, new SolicitacaoToSolicitacaoCriar(), new SolicitacaoToSolicitacaoAjustar())
         {
-            Context = context;
             PontoRepository = pontoRepository;
+            FuncionarioRepository = funcionarioRepository;
         }
 
-        public ActionResult Index()
+        public override ActionResult Index()
         {
-            var lista = SolicitacaoRepository.
+            var _lista = Repository.
                             Listar().
                             ToList().
-                            Where(p => p.Funcionario.Empresa == Sessao.EmpresaLogada).
+                            Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).
                             Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
                             OrderBy(p => p.DataHora).
                             ToList();
 
-            ViewBag.ListaAjustes = lista.Where(p => p.Tipo == TipoSolicitacao.Ajuste).ToList();
-            ViewBag.ListaInclusoes = lista.Where(p => p.Tipo == TipoSolicitacao.Inclusao).ToList();
-            ViewBag.ListaDesconsideracoes = lista.Where(p => p.Tipo == TipoSolicitacao.Desconsideracao).ToList();
-
-            return View(lista);
+            return View(_lista);
         }
 
-        public ActionResult Solicitar(DateTime data, Funcionario funcionario)
+        public ActionResult Solicitar(DateTime data, string email)
         {
+            Funcionario func = new Funcionario();
+            func = FuncionarioRepository.PesquisaPeloEmail(email);
+
             //Pega lista para carregar no ponto
             var _ListaPontos = PontoRepository.
                                 Listar().
                                 ToList().
                                 Where(p => p.DataValida.Date == data.Date).
-                                Where(p => p.Funcionario.Id == funcionario.Id).
+                                Where(p => p.Funcionario.Id == func.Id).
                                 Where(p => p.Contabilizar == true).
                                 OrderBy(p => p.DataValida).
                                 Select(p => new SelectListItem
@@ -57,64 +57,89 @@ namespace FrontEnd.Controllers
                                     Text = p.DataValida.ToString("HH:mm")
                                 }).
                                 ToList();
-
             ViewBag.ListaBatidas = _ListaPontos;
 
 
-            Solicitacao item = new Solicitacao()
+            SolicitacaoCriar item = new SolicitacaoCriar()
             {
-                DataHora = data,
-                Funcionario = Sessao.FuncionarioLogado
+                Data = data.ToString("dd/MM/yyyy"),
+                Hora = data.TimeOfDay.ToString(),
+                Funcionario = func.Email,
+                Resposta = RespostaSolicitacao.Nenhuma
             };
 
             return View(item);
         }
 
-        public ActionResult Criar(Solicitacao solicitacao)
-        { 
-            
-        }
-
-        public ActionResult AprovarRejeitarSolicitacao(Guid Id, RespostaSolicitacao Respt)
+        public ActionResult Criar(SolicitacaoCriar SolicitacaoNovo)
         {
+            Solicitacao Solicitacao = new Solicitacao();
+            ConversorInsert.AplicarValores(SolicitacaoNovo, Solicitacao);
 
-            var Solicitacao = SolicitacaoRepository.PesquisarPeloId(Id);
-            var Ponto = Solicitacao.Ponto;
+            //Pega o Funcionario pelo Email
+            Solicitacao.Funcionario = FuncionarioRepository.PesquisaPeloEmail(SolicitacaoNovo.Funcionario);
 
-            switch (Solicitacao.Tipo)
+            if (SolicitacaoNovo.Tipo != TipoSolicitacao.Inclusao)
             {
-
-                case TipoSolicitacao.Ajuste:
-                    if (Respt == RespostaSolicitacao.Aprovado)
-                    {
-                        Ponto.DataValida = Solicitacao.DataHora;
-                        PontoRepository.Salvar(Ponto);
-                    }
-                    break;
-
-                case TipoSolicitacao.Inclusao:
-                    if (Respt == RespostaSolicitacao.Aprovado)
-                    {
-                        Ponto.DataValida = Solicitacao.DataHora;
-                        Ponto.Funcionario = Solicitacao.Funcionario;
-                        Ponto.Contabilizar = true;
-                        PontoRepository.Salvar(Ponto);
-                    }
-                    break;
-
-                case TipoSolicitacao.Desconsideracao:
-                    if (Respt == RespostaSolicitacao.Aprovado)
-                    {
-                        Ponto.Contabilizar = false;
-                        PontoRepository.Salvar(Ponto);
-                    }
-                    break;
-
+                //Pega ponto pelo GUID
+                Solicitacao.Ponto = PontoRepository.PesquisarPeloId(SolicitacaoNovo.Ponto);
             }
 
-            Solicitacao.Resposta = Respt;
+            Repository.Salvar(Solicitacao);
+            Context.SaveChanges();
 
-            SolicitacaoRepository.Salvar(Solicitacao);
+            return RedirectToAction("Lista", "Ponto");
+        }
+
+        public ActionResult AprovarRejeitarSolicitacao(Guid Id, RespostaSolicitacao resposta)
+        {
+
+            var Solicitacao = Repository.PesquisarPeloId(Id);
+            Ponto Pto = Solicitacao.Ponto;
+
+            Solicitacao.Resposta = resposta;
+            if (resposta == RespostaSolicitacao.Aprovado)
+            {
+
+                switch (Solicitacao.Tipo)
+                {
+
+                    case TipoSolicitacao.Ajuste:
+                        if (resposta == RespostaSolicitacao.Aprovado)
+                        {
+                            Pto.DataValida = Solicitacao.DataHora;
+                            PontoRepository.Salvar(Pto);
+                        }
+                        break;
+
+                    case TipoSolicitacao.Inclusao:
+                        if (resposta == RespostaSolicitacao.Aprovado)
+                        {
+                            Ponto NewPto = new Ponto()
+                            {
+                                Id = Guid.NewGuid(),
+                                DataValida = Solicitacao.DataHora,
+                                Funcionario = Solicitacao.Funcionario,
+                                Contabilizar = true
+                            };
+
+                            PontoRepository.Salvar(NewPto);
+                            Solicitacao.Ponto = NewPto;
+                        }
+                        break;
+
+                    case TipoSolicitacao.Desconsideracao:
+                        if (resposta == RespostaSolicitacao.Aprovado)
+                        {
+                            Pto.Contabilizar = false;
+                            PontoRepository.Salvar(Pto);
+                        }
+                        break;
+
+                }
+            }
+
+            Repository.Salvar(Solicitacao);
             Context.SaveChanges();
 
             return RedirectToAction("Index");
