@@ -593,6 +593,8 @@
     <Content Include="bower_components\raphael\license.txt" />
     <Content Include="bower_components\raphael\raphael-min.js" />
     <Content Include="bower_components\raphael\raphael.js" />
+    <Content Include="Content\bootstrap-dialog.css" />
+    <Content Include="Content\bootstrap-dialog.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="bower_components\dist\css\sb-admin-2.css" />
@@ -605,6 +607,8 @@
     <Content Include="bower_components\js\flot-data.js" />
     <Content Include="bower_components\js\morris-data.js" />
     <Content Include="img\PontoEletronico.jpg" />
+    <Content Include="Scripts\bootstrap-dialog.js" />
+    <Content Include="Scripts\bootstrap-dialog.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="bower_components\bootstrap-social\.bower.json" />
@@ -905,6 +909,7 @@
     <Content Include="bower_components\morrisjs\spec\viz\run.sh" />
     <Content Include="bower_components\raphael\.bower.json" />
     <Content Include="bower_components\raphael\bower.json" />
+    <Content Include="Content\bootstrap-dialog.less" />
     <None Include="Properties\PublishProfiles\PontoEletronicoTCC.pubxml" />
     <None Include="Properties\PublishProfiles\PontoEletronico_Local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -919,9 +924,11 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Mensagens.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\run_prettify.js" />
     <Content Include="Scripts\Validacoes.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
