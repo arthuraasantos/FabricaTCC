@@ -12,7 +12,57 @@
         $("#DataNascimento").getDate();
     });
 </script>
+<script>
+    function bloquearFuncionario(id) {
+        var titulo, msg, tipo;
 
+        $.ajax({
+            url: "/Funcionario/BloquearFuncionario",
+            data: {
+                id: id
+            },
+            type: "GET",
+            datatype: "json",
+            contenttype: "application/json; charset=utf-8",
+            success: function (data) {
+                titulo = "Aviso";
+                msg = "\"" + data + "\" bloqueado com sucesso";
+                MostraMensagem(msg, titulo, 'glyphicon glyphicon-ok', "");
+            },
+            error: function (data) {
+                titulo = "Aviso";
+                msg = "Erro ao bloquear \"" + data + "\" ";
+                MostraMensagem(msg, titulo, 'glyphicon glyphicon-remove', "");
+            },
+        });
+    };
+
+    function desbloquearFuncionario(id) {
+        var titulo, msg, tipo;
+
+        $.ajax({
+            url: "/Funcionario/DesbloquearFuncionario",
+            data: {
+                id: id
+            },
+            type: "GET",
+            datatype: "json",
+            contenttype: "application/json; charset=utf-8",
+            success: function (data) {
+                titulo = "Aviso";
+                msg = " \"" + data + "\" ativado com sucesso";
+                MostraMensagem(msg, titulo, 'glyphicon glyphicon-ok', "");
+            },
+            error: function (data) {
+                titulo = "Aviso";
+                msg = "Erro ao ativar \"" + data + "\" ";
+                MostraMensagem(msg, titulo, 'glyphicon glyphicon-remove', "");
+            },
+        });
+
+    };
+
+</script>
 
 <h1 class="page-header">Listagem de Funcionários</h1>
 @model List<Funcionario>
@@ -62,15 +112,17 @@
                                        @Html.ActionLink("Editar", "Visualizar",
                                          new { id = item.Id },
                                             new { @class = "btn btn-outline btn-info" })
+
                                         @if (ViewBag.Permissao == "ADM")
                                         {
-                                            @Html.ActionLink("Desativar", "#",
-                                                 new { id = item.Id },
-                                                 new { @class = "btn btn-outline btn-warning" })
-
-                                            @Html.ActionLink("Excluir  ", "Excluir",
-                                                 new { id = item.Id },
-                                                 new { @class = "btn btn-outline btn-warning" })
+                                            if (item.Bloqueado == "Y")
+                                            {
+                                                <input type="button" class="btn btn-outline btn-success" value="Ativar   " onclick="desbloquearFuncionario('@item.Id');" />
+                                            }
+                                            else
+                                            {
+                                                <input type="button" class="btn btn-outline btn-warning" value="Desativar" onclick="bloquearFuncionario('@item.Id');" />
+                                            }
                                         }
                                     </td>
                                   }

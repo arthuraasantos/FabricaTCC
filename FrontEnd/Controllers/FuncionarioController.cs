@@ -111,6 +111,33 @@ namespace FrontEnd.Controllers
 
             return View("Index", lista);
         }
-  
+
+        [HttpGet]
+        public JsonResult BloquearFuncionario(string Id)
+        {
+            var idfuncionario = Id.Replace("{", "").Replace("}", "").Replace("id =", "");
+            var funcionario =
+            (Funcionario)FuncionarioRepository.PesquisarPeloId(Guid.Parse(idfuncionario));
+            funcionario.Bloqueado = "Y";
+            FuncionarioRepository.Salvar(funcionario);
+            Context.SaveChanges();
+
+            return this.Json(funcionario.Nome, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult DesbloquearFuncionario(string Id)
+        {
+            var idfuncionario = Id.Replace("{", "").Replace("}", "").Replace("id =", "");
+
+            var funcionario =
+            (Funcionario)FuncionarioRepository.PesquisarPeloId(Guid.Parse(idfuncionario));
+            funcionario.Bloqueado = "N";
+            FuncionarioRepository.Salvar(funcionario);
+            Context.SaveChanges();
+
+            return this.Json(funcionario.Nome, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

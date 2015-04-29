@@ -25,6 +25,7 @@ namespace Dominio.Model
         public string Cidade { get; set; }
         public string Estado { get; set; }
         public string Pais { get; set; }
+        public string Bloqueado { get; set; }
         public virtual Empresa Empresa { get; set; }
         public virtual PerfilDeAcesso PerfilDeAcesso { get; set; }
     }

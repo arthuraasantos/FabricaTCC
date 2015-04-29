@@ -111,12 +111,10 @@
                                                 if (item.Bloqueado == "Y")
                                                 {
                                                     <input type="button" class="btn btn-outline btn-success" value="Ativar   " onclick="desbloquearEmpresa('@item.Id');" />
-                                                    <label id="idEmpresa" class="lblhidden">@item.Id</label>
                                                 }
                                                 else
                                                 {
                                                     <input type="button" class="btn btn-outline btn-warning" value="Desativar" onclick="bloquearEmpresa('@item.Id');" />
-                                                    <label id="idEmpresa" class="lblhidden">@item.Id</label>
                                                 }
 
                                             }
