@@ -4,6 +4,7 @@ using FrontEnd.Models;
 using FrontEnd.Models.Conversores;
 using Infraestrutura;
 using Infraestrutura.Repositorios;
+using Seedwork.Const;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,30 +26,17 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Index()
         {
-            var funcionario = new Funcionario();
-            funcionario = (Funcionario)Session["Funcionario"];
             List<Empresa> lista = new List<Empresa>();
 
-            if (funcionario.PerfilDeAcesso.Descricao == "Gerente/RH")
+            if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Administrador)// Se for administrador do sistema, mostrar todas as Empresas
             {
-                ViewBag.Permissao = "GRH";
-            }
-            else if (funcionario.PerfilDeAcesso.Descricao == "FuncionarioComum")
-            {
-                ViewBag.Permissao = "FUN";
+                lista = EmpresaRepository.Listar().ToList(); 
             }
             else
             {
-                ViewBag.Permissao = "ADM";
-                lista = EmpresaRepository.Listar().ToList(); // Se for administrador do sistema, mostrar todas as Empresas
+                lista = EmpresaRepository.Listar().Where(f => f.Id == Sessao.EmpresaLogada.Id).ToList();
             }
 
-            // Se a lista estiver vazia, não é o administrador, então passa a empresa 
-            //do funcionario como parametro para listar as empresas
-            if (lista.Count == 0)
-            {
-                lista = EmpresaRepository.Listar().Where(f => f.Id == funcionario.Empresa.Id).ToList();
-            }
             return View("Index", lista);
         }
 

@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Seedwork.Const
 {
+    public enum PerfilAcesso
+    {
+        Administrador,
+        Gerente,
+        Funcionario
+    }
 
     public enum TipoSolicitacao
     {

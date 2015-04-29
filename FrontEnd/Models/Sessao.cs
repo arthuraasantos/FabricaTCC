@@ -1,4 +1,5 @@
 ﻿using Dominio.Model;
+using Seedwork.Const;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace FrontEnd.Models
     {
         private static Funcionario _Funcionario;
         private static Empresa _Empresa;
+        private static PerfilAcesso _Perfil;
 
         public static Funcionario FuncionarioLogado
         {
@@ -26,6 +28,27 @@ namespace FrontEnd.Models
             {
                 _Empresa = FuncionarioLogado.Empresa;
                 return _Empresa;
+            }
+        }
+
+        public static PerfilAcesso PerfilFuncionarioLogado
+        { 
+            get
+            {
+                switch (Sessao.FuncionarioLogado.PerfilDeAcesso.Descricao)
+                {
+                    case "Gerente/RH":
+                        _Perfil = PerfilAcesso.Gerente;
+                        break;
+                    case "Administrador":
+                        _Perfil = PerfilAcesso.Administrador;
+                        break;
+                    default:
+                        _Perfil = PerfilAcesso.Funcionario;
+                        break;
+                }
+
+                return _Perfil;
             }
         }
 

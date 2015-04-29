@@ -17,7 +17,14 @@
         {
             <div class="form-group">
                 @Html.Label("Email do Funcionário")
-                @Html.TextBox("Email", (String)ViewBag.EmailLogado, new { @type = "email", @class = "form-control", @placeholder = "Email" })
+                @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == PerfilAcesso.Funcionario)
+                {
+                    @Html.TextBox("Email", (String)ViewBag.EmailLogado, new { @type = "email", @class = "form-control", @placeholder = "Email",  @readonly = "readonly"})
+                }
+                else
+                {
+                    @Html.TextBox("Email", (String)ViewBag.EmailLogado, new { @type = "email", @class = "form-control", @placeholder = "Email" })
+                }
             </div>
 
             <div class="form-group">
@@ -57,15 +64,15 @@
                                                 @hr.DataValida.ToString("HH:mm - ");
                                             }
                                         }
-                                </td>
-                                <td></td>
-                                <td>
-                                    @Html.ActionLink("Ajustar", "Solicitar", "Solicitacao",
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        @Html.ActionLink("Ajustar", "Solicitar", "Solicitacao",
                                             new { data = data.Key.Date, email = ViewBag.EmailLogado },
                                             new { @class = "btn btn-info btn-xs btn-block" })
-                                </td>
+                                    </td>
 
-                            </tr>
+                                </tr>
                             }
                         </tbody>
                     </table>

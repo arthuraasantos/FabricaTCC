@@ -36,20 +36,15 @@
             </div>
         </div>
         <div class="panel-body">
-            <div class="form-group">
-                @Html.LabelFor(p => p.Data)
-                @Html.TextBoxFor(p => p.Data, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
+            @Html.TextBoxFor(p => p.Data)
 
+            <div class="form-group">
                 @Html.LabelFor(p => p.Hora)
-                @Html.TextBoxFor(p => p.Hora, new { @class = "form-control" })<br />
+                @Html.TextBoxFor(p => p.Hora, new { @class = "form-control", @id = "HoraMinuto" })
             </div>
             <div class="form-group">
-
                 @Html.LabelFor(p => p.Justificativa)
-                @Html.TextBoxFor(p => p.Justificativa, new { @class = "form-control" })<br />
-
+                @Html.TextBoxFor(p => p.Justificativa, new { @class = "form-control" })
             </div>
             <input type="submit" value="Salvar Alterações" class="btn btn-outline btn-success" />
         </div>

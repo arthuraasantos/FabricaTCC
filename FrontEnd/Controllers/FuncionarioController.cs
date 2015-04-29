@@ -3,6 +3,7 @@ using Dominio.Repository;
 using FrontEnd.Models;
 using FrontEnd.Models.Conversores;
 using Infraestrutura;
+using Seedwork.Const;
 using Seedwork.Entity;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,15 @@ using System.Web.Services;
 
 namespace FrontEnd.Controllers
 {
-    
+
     public class FuncionarioController : BaseController<Funcionario, FuncionarioNovo, FuncionarioEditar>
     {
         public IPerfilDeAcessoRepository PerfildeacessoRepository;
         public IEmpresaRepository EmpresaRepository;
         public IFuncionarioRepository FuncionarioRepository;
+
+        private IEnumerable<SelectListItem> ListaPerfis;
+        private IEnumerable<SelectListItem> ListaEmpresas;
 
         public FuncionarioController(MyContext context, IFuncionarioRepository funcionarioRepository, IPerfilDeAcessoRepository perfildeacessoRepository, IEmpresaRepository empresaRepository)
             : base(context, funcionarioRepository, new FuncionarioToFuncionarioNovo(perfildeacessoRepository, empresaRepository), new FuncionarioToFuncionarioEditar(empresaRepository, perfildeacessoRepository))
@@ -26,16 +30,61 @@ namespace FrontEnd.Controllers
             PerfildeacessoRepository = perfildeacessoRepository;
             EmpresaRepository = empresaRepository;
             FuncionarioRepository = funcionarioRepository;
-            
+
+            // Pega a lista de Perfis de Acesso por permissao
+            switch (Sessao.PerfilFuncionarioLogado)
+            {
+
+                case PerfilAcesso.Administrador: // Traz todos os Perfis
+                    ListaPerfis = PerfildeacessoRepository
+                                    .Listar()
+                                    .ToList()
+                                    .Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
+                    break;
+                case PerfilAcesso.Gerente: // Traz os Perfis Gerente e Funcionario
+                    ListaPerfis = PerfildeacessoRepository
+                                    .Listar()
+                                    .Where(p => p.Descricao != "Administrador")
+                                    .ToList()
+                                    .Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
+                    break;
+                case PerfilAcesso.Funcionario: // Traz somente o Perfil Funcionario
+                    ListaPerfis = PerfildeacessoRepository
+                                    .Listar()
+                                    .Where(p => p.Descricao == "FuncionarioComum")
+                                    .ToList()
+                                    .Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
+                    break;
+            }
+
+
+            switch (Sessao.PerfilFuncionarioLogado)
+            {
+
+                case PerfilAcesso.Administrador: // Traz todos as Empresas
+                    ListaEmpresas = EmpresaRepository
+                                    .Listar()
+                                    .ToList()
+                                    .Select(p => new SelectListItem() { Text = p.NomeFantasia, Value = p.Id.ToString() });
+                    break;
+                default:
+                    ListaEmpresas = EmpresaRepository
+                                    .Listar()
+                                    .Where(e => e.Id == Sessao.EmpresaLogada.Id)
+                                    .ToList()
+                                    .Select(p => new SelectListItem() { Text = p.NomeFantasia, Value = p.Id.ToString() });
+                    break;
+            }
+
         }
+
 
         public override ActionResult Visualizar(Guid Id)
         {
             var uf = new UF();
-            var funcionario = (Funcionario)Session["Funcionario"];
 
-            ViewBag.ListagemdeEmpresas = EmpresaRepository.Listar().Where(e => e.Id == funcionario.Empresa.Id).ToList().Select(p => new SelectListItem() { Text = p.RazaoSocial, Value = p.Id.ToString() });
-            ViewBag.ListagemdePerfis = PerfildeacessoRepository.Listar().Where(p => p.Descricao != "Administrador").ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
+            ViewBag.ListagemdeEmpresas = ListaEmpresas;
+            ViewBag.ListagemdePerfis = ListaPerfis;
             ViewBag.ListagemdeUF = uf.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Valor.ToString() });
 
             return base.Visualizar(Id);
@@ -43,24 +92,12 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Novo()
         {
-            var novo = new FuncionarioNovo();
+            var novo = new FuncionarioNovo()
+            {
+                Empresas = ListaEmpresas,
+                PerfisDeAcesso = ListaPerfis
+            };
 
-            var funcionario = new Funcionario();
-            funcionario = (Funcionario)Session["Funcionario"];
-
-            novo.Empresas =
-                EmpresaRepository
-                    .Listar()
-                    .Where(e => e.Id == funcionario.Empresa.Id)
-                    .ToList()
-                    .Select(p => new SelectListItem() { Text = p.NomeFantasia, Value = p.Id.ToString() });
-
-              novo.PerfisDeAcesso = PerfildeacessoRepository
-                .Listar()
-                .Where(p => p.Descricao != "Administrador")
-                .ToList()
-                .Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
-                
             return View("Novo", novo);
         }
 
@@ -87,26 +124,19 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Index()
         {
-            var funcionario = new Funcionario();
-            funcionario = (Funcionario)Session["Funcionario"];
             List<Funcionario> lista = new List<Funcionario>();
 
-            if (funcionario.PerfilDeAcesso.Descricao == "Gerente/RH")
+            switch (Sessao.PerfilFuncionarioLogado)
             {
-                ViewBag.Permissao = "GRH";
-                lista = FuncionarioRepository.Listar().Where(f => f.Empresa.Id == funcionario.Empresa.Id).ToList();
-
-            }
-            else if (funcionario.PerfilDeAcesso.Descricao == "FuncionarioComum")
-            {
-                ViewBag.Permissao = "FUN";
-                lista = FuncionarioRepository.Listar().Where(f => f.Id == funcionario.Id).ToList();
-
-            }
-            else
-            {
-                ViewBag.Permissao = "ADM";
-                lista = FuncionarioRepository.Listar().ToList(); // Se for administrador do sistema, mostrar todas os funcionários
+                case PerfilAcesso.Gerente: // Se for administrador do sistema, mostrar todas os funcionários da mesma empresa
+                    lista = FuncionarioRepository.Listar().Where(f => f.Empresa.Id == Sessao.EmpresaLogada.Id).ToList();
+                    break;
+                case PerfilAcesso.Funcionario: // Se for administrador do sistema, mostrar somente o funcionário logado
+                    lista = FuncionarioRepository.Listar().Where(f => f.Id == Sessao.FuncionarioLogado.Id).ToList();
+                    break;
+                case PerfilAcesso.Administrador: // Se for administrador do sistema, mostrar todas os funcionários
+                    lista = FuncionarioRepository.Listar().ToList();
+                    break;
             }
 
             return View("Index", lista);

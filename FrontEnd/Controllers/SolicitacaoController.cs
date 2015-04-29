@@ -61,7 +61,7 @@ namespace FrontEnd.Controllers
 
             SolicitacaoCriar item = new SolicitacaoCriar()
             {
-                Data = data.ToString("dd/MM/yyyy"),
+                Data = data.Date,
                 Hora = data.TimeOfDay.ToString(),
                 Funcionario = func.Email,
                 Resposta = RespostaSolicitacao.Nenhuma
