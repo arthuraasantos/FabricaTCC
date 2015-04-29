@@ -66,8 +66,9 @@ namespace FrontEnd.Controllers
         [HttpGet]
         public JsonResult BloquearEmpresa(string Id)
         {
-            var empresa =
-            (Empresa)EmpresaRepository.PesquisarPeloId(Guid.Parse(Id));
+            var idempresa = Id.Replace("{", "").Replace("}", "").Replace("id =","");
+            var empresa = 
+            (Empresa)EmpresaRepository.PesquisarPeloId(Guid.Parse(idempresa));
             empresa.Bloqueado = "Y";
             EmpresaRepository.Salvar(empresa);
             Context.SaveChanges();
@@ -78,8 +79,10 @@ namespace FrontEnd.Controllers
         [HttpGet]
         public JsonResult DesbloquearEmpresa(string Id)
         {
+            var idempresa = Id.Replace("{", "").Replace("}", "").Replace("id =", "");
+         
             var empresa =
-            (Empresa)EmpresaRepository.PesquisarPeloId(Guid.Parse(Id));
+            (Empresa)EmpresaRepository.PesquisarPeloId(Guid.Parse(idempresa));
             empresa.Bloqueado = "N";
             EmpresaRepository.Salvar(empresa);
             Context.SaveChanges();

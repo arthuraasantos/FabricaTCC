@@ -7,16 +7,10 @@
 @model List<Empresa>
 
 
-
-@*<script src="~/Scripts/bootstrap-dialog.js"></script>
-    <script src="~/Scripts/Mensagens.js"></script>
-    <link href="~/Content/bootstrap-dialog.css" rel="stylesheet" />*@
-
 <script>
-    function bloquearEmpresa() {
-        var id = document.getElementById('idEmpresa').value;
+    function bloquearEmpresa(id) {
         var titulo, msg, tipo;
-
+        
         $.ajax({
             url: "/Empresa/BloquearEmpresa",
             data: {
@@ -38,8 +32,7 @@
         });
     };
 
-    function desbloquearEmpresa() {
-        var id = document.getElementById('idEmpresa').value;
+    function desbloquearEmpresa(id) {
         var titulo, msg, tipo;
 
         $.ajax({
@@ -62,7 +55,7 @@
             },
         });
 
-    }
+    };
 
 </script>
 <h1 class="page-header">Listagem de Empresas</h1>
@@ -117,15 +110,14 @@
                                             {
                                                 if (item.Bloqueado == "Y")
                                                 {
-                                                    <input type="button" id="@item.Id" class="btn btn-outline btn-success" value="Ativar   " onclick="desbloquearEmpresa();" />
-                                                    <input type="hidden" id="idEmpresa" value="@item.Id" />
+                                                    <input type="button" class="btn btn-outline btn-success" value="Ativar   " onclick="desbloquearEmpresa('@item.Id');" />
+                                                    <label id="idEmpresa" class="lblhidden">@item.Id</label>
                                                 }
                                                 else
                                                 {
-                                                    <input type="button" id="@item.Id" class="btn btn-outline btn-warning" value="Desativar" onclick="bloquearEmpresa();" />
-                                                    <input type="hidden" id="idEmpresa" value="@item.Id" />
+                                                    <input type="button" class="btn btn-outline btn-warning" value="Desativar" onclick="bloquearEmpresa('@item.Id');" />
+                                                    <label id="idEmpresa" class="lblhidden">@item.Id</label>
                                                 }
-
 
                                             }
                                         </td>
