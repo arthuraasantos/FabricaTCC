@@ -7,6 +7,7 @@ using Dominio.Services;
 using System;
 using Dominio.Repository;
 using Dominio.Model;
+using Seedwork.Const;
 
 namespace FrontEnd.Controllers
 {
@@ -36,35 +37,28 @@ namespace FrontEnd.Controllers
                 ViewBag.Empresa = Sessao.FuncionarioLogado.Empresa.NomeFantasia;
                 ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now);
                 ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now.AddDays(-30), DateTime.Now);
+
+                // Armazena a permissão na tela inicial - pode ser usada onde precisar na página inicial
+                switch (Sessao.PerfilFuncionarioLogado)
+                {
+                    case PerfilAcesso.Gerente:
+                        ViewBag.Permissao = "GRH";
+                        break;
+                    case PerfilAcesso.Funcionario:
+                        ViewBag.Permissao = "FUN";
+                        break;
+                    case PerfilAcesso.Administrador:
+                        ViewBag.Permissao = "ADM";
+                        break;
+                }
+
+                return View();
+
             }
             else
             {
-                ViewBag.EmailFuncionario = "[ Funcionário não definido ]";
-                ViewBag.Funcionario = "[ Funcionário não definido ]";
-                ViewBag.Empresa = "[ Empresa não definida ]"; ;
-                ViewBag.HorariosMarcadosHoje = "[ Não será possível calcular as batidas sem um funcionário definido ]";
-                ViewBag.HorasTrabalhadas = "[ Não será possível calcular a hora sem um funcionário definido ]";
+                return RedirectToAction("Index", "Login");
             }
-
-            #region 'Verificando permissões...'
-            
-            // Armazena a permissão na tela inicial - pode ser usada onde precisar na página inicial
-            if (Sessao.FuncionarioLogado.PerfilDeAcesso.Descricao == "Gerente/RH")
-            {
-                ViewBag.Permissao = "GRH";
-            }
-            else if (Sessao.FuncionarioLogado.PerfilDeAcesso.Descricao == "FuncionarioComum")
-            {
-                ViewBag.Permissao = "FUN";
-            }
-            else
-            {
-                ViewBag.Permissao = "ADM";
-            }
-            #endregion
-
-            return View();
-
         }
 
         public ActionResult EfetuarMarcacaoDoPonto(PontoMarcar marcarPonto)

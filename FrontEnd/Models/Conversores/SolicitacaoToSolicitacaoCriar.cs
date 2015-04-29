@@ -11,7 +11,7 @@ namespace FrontEnd.Models.Conversores
     {
         public override void AplicarValores(Solicitacao origem, SolicitacaoCriar destino)
         {
-            destino.Data = origem.DataHora.ToString("dd/MM/yyyy");
+            destino.Data = origem.DataHora.Date;
             destino.Hora = origem.DataHora.ToString("HH:mm");
 
             destino.Funcionario = origem.Funcionario.Email;

@@ -5,44 +5,44 @@
 
 
 <h1 class="page-header">@ViewBag.Empresa</h1>
-@*@Html.ActionLink("Marcar Ponto", "Index", "Ponto",
-    new { @class = "btn btn-outline btn-default" })*@
 
-<!-- Confirmação do ponto em Modal -->
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">Marcar ponto</button>
-        @Html.ActionLink("Consultar horários", "Lista", "Ponto", new { }, new { @class = "btn btn-default btn-sm", @style = "float: right; margin: 7px 0;" })
-    </div>
-    <div class="panel-body">
-        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    @using (Html.BeginForm("Marcar", "Ponto", FormMethod.Post))
-                    {
-                        <div class="modal-body">
+@if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Administrador)
+{
+    <!-- Confirmação do ponto em Modal -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">Marcar ponto</button>
+            @Html.ActionLink("Consultar horários", "Lista", "Ponto", new { }, new { @class = "btn btn-default btn-sm", @style = "float: right; margin: 7px 0;" })
+        </div>
+        <div class="panel-body">
+            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        @using (Html.BeginForm("Marcar", "Ponto", FormMethod.Post))
+                        {
+                            <div class="modal-body">
 
-                            <div class="form-group">
-                                @Html.Label("Email")
-                                @Html.TextBox("Email", (string)@ViewBag.EmailFuncionario, new { @type = "email", @class = "form-control", @placeholder = "Email", @readonly = "readonly" })
+                                <div class="form-group">
+                                    @Html.Label("Email")
+                                    @Html.TextBox("Email", (string)@ViewBag.EmailFuncionario, new { @type = "email", @class = "form-control", @placeholder = "Email", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Senha")
+                                    @Html.Password("Senha", "", new { @type = "password", @class = "form-control", @placeholder = "senha" })
+                                </div>
+
                             </div>
-                            <div class="form-group">
-                                @Html.Label("Senha")
-                                @Html.Password("Senha", "", new { @type = "password", @class = "form-control", @placeholder = "senha" })
+                            <div class="modal-footer">
+                                <input type="submit" value="Confirmar" class="btn btn-outline btn-success form-control" />
                             </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" value="Confirmar" class="btn btn-outline btn-success form-control" />
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
+            <div>Funcionário: @ViewBag.Funcionario</div>
+            <div>Saldo de horas: @ViewBag.HorasTrabalhadas</div>
+            <div>@ViewBag.HorariosMarcadosHoje</div>
         </div>
-        <div>Funcionário: @ViewBag.Funcionario</div>
-        <div>Saldo de horas: @ViewBag.HorasTrabalhadas</div>
-        <div>@ViewBag.HorariosMarcadosHoje</div>
     </div>
-</div>
-
+}
 

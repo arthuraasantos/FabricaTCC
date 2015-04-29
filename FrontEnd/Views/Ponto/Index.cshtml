@@ -15,20 +15,17 @@
         .botao{
             padding-left:20%;
         }
-        .btn-success {
+        /*.btn-success {
             border-radius: 50%;
             height: 80px;
             width: 120px;
             text-align:center;
-        }
+        }*/
     </style>
 </head>
 <body>
     <div class="titulo ">
-        <h1>Marcar Ponto</h1>
-        <div class="img col-lg-4 col-lg-offset-4">
-            <img src="https://parceriaadm.files.wordpress.com/2012/04/fotolia_11067222_xs.jpg">
-        </div>
+        <img src="~/img/ponto.png" class="col-lg-4 col-lg-offset-4 img-responsive" style="text-align:center; height:200px; width:310px;">
     </div>
     <div class="col-lg-4 col-lg-offset-4">
         <br />
@@ -39,10 +36,7 @@
             @Html.TextBoxFor(f => f.Email, new { @type = "email", @class = "form-control", @placeholder = "Email" })<br />
             @Html.PasswordFor(f => f.Senha, new { @type = "password", @class = "form-control", @placeholder = "Senha" })<br />
             <input type="hidden" id="parametro" name="parametro" value="True" />
-            <div class="botao">
-                <input type="submit" value="Marcar Ponto" class="btn btn-outline btn-success" />
-
-            </div>
+            <input type="submit" value="Marcar Ponto" class="btn btn-success btn-block" />
         }
     </div>
     <p>

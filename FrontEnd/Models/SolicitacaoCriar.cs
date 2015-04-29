@@ -14,8 +14,8 @@ namespace FrontEnd.Models
         public Guid Ponto { get; set; }
         [Required]
         public string Funcionario { get; set; }
-        [Required]
-        public String Data { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime Data { get; set; }
         [Required]
         public String Hora { get; set; }
         [Required]
