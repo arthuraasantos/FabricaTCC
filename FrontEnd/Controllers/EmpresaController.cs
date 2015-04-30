@@ -30,7 +30,7 @@ namespace FrontEnd.Controllers
 
             if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Administrador)// Se for administrador do sistema, mostrar todas as Empresas
             {
-                lista = EmpresaRepository.Listar().ToList(); 
+                lista = EmpresaRepository.Listar().ToList();
             }
             else
             {
@@ -54,28 +54,50 @@ namespace FrontEnd.Controllers
         [HttpGet]
         public JsonResult BloquearEmpresa(string Id)
         {
-            var idempresa = Id.Replace("{", "").Replace("}", "").Replace("id =","");
-            var empresa = 
-            (Empresa)EmpresaRepository.PesquisarPeloId(Guid.Parse(idempresa));
-            empresa.Bloqueado = "Y";
-            EmpresaRepository.Salvar(empresa);
-            Context.SaveChanges();
+            try
+            {
+                var idempresa = Id.Replace("{", "").Replace("}", "").Replace("id =", "");
+                var empresa =
+                (Empresa)EmpresaRepository.PesquisarPeloId(Guid.Parse(idempresa));
+                if (empresa != null)
+                {
+                    empresa.Bloqueado = "Y";
+                    EmpresaRepository.Salvar(empresa);
+                    Context.SaveChanges();
+                }
+                return this.Json(empresa.NomeFantasia, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
 
-            return this.Json(empresa.NomeFantasia, JsonRequestBehavior.AllowGet);
+                throw;
+            }
         }
 
         [HttpGet]
         public JsonResult DesbloquearEmpresa(string Id)
         {
-            var idempresa = Id.Replace("{", "").Replace("}", "").Replace("id =", "");
-         
-            var empresa =
-            (Empresa)EmpresaRepository.PesquisarPeloId(Guid.Parse(idempresa));
-            empresa.Bloqueado = "N";
-            EmpresaRepository.Salvar(empresa);
-            Context.SaveChanges();
+            try
+            {
+                var idempresa = Id.Replace("{", "").Replace("}", "").Replace("id =", "");
 
-            return this.Json(empresa.NomeFantasia, JsonRequestBehavior.AllowGet);
+                var empresa =
+                (Empresa)EmpresaRepository.PesquisarPeloId(Guid.Parse(idempresa));
+                if (empresa != null)
+                {
+                    empresa.Bloqueado = "N";
+                    EmpresaRepository.Salvar(empresa);
+                    Context.SaveChanges();
+                }
+                return this.Json(empresa.NomeFantasia, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
     }

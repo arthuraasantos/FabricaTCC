@@ -145,28 +145,46 @@ namespace FrontEnd.Controllers
         [HttpGet]
         public JsonResult BloquearFuncionario(string Id)
         {
-            var idfuncionario = Id.Replace("{", "").Replace("}", "").Replace("id =", "");
-            var funcionario =
-            (Funcionario)FuncionarioRepository.PesquisarPeloId(Guid.Parse(idfuncionario));
-            funcionario.Bloqueado = "Y";
-            FuncionarioRepository.Salvar(funcionario);
-            Context.SaveChanges();
-
-            return this.Json(funcionario.Nome, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var idfuncionario = Id.Replace("{", "").Replace("}", "").Replace("id =", "");
+                var funcionario =
+                (Funcionario)FuncionarioRepository.PesquisarPeloId(Guid.Parse(idfuncionario));
+                if (funcionario != null)
+                {
+                    funcionario.Bloqueado = "Y";
+                    FuncionarioRepository.Salvar(funcionario);
+                    Context.SaveChanges();
+                }
+                return this.Json(funcionario.Nome, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [HttpGet]
         public JsonResult DesbloquearFuncionario(string Id)
         {
-            var idfuncionario = Id.Replace("{", "").Replace("}", "").Replace("id =", "");
+            try
+            {
+                var idfuncionario = Id.Replace("{", "").Replace("}", "").Replace("id =", "");
+                var funcionario =
+                (Funcionario)FuncionarioRepository.PesquisarPeloId(Guid.Parse(idfuncionario));
+                if (funcionario != null)
+                {
+                    funcionario.Bloqueado = "N";
+                    FuncionarioRepository.Salvar(funcionario);
+                    Context.SaveChanges();
+                }
+                return this.Json(funcionario.Nome, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
 
-            var funcionario =
-            (Funcionario)FuncionarioRepository.PesquisarPeloId(Guid.Parse(idfuncionario));
-            funcionario.Bloqueado = "N";
-            FuncionarioRepository.Salvar(funcionario);
-            Context.SaveChanges();
-
-            return this.Json(funcionario.Nome, JsonRequestBehavior.AllowGet);
+                throw;
+            }
         }
 
     }
