@@ -87,14 +87,7 @@ namespace FrontEnd.Controllers
             ViewBag.ListagemdePerfis = ListaPerfis;
             ViewBag.ListagemdeUF = uf.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Valor.ToString() });
 
-
-            var entidade =
-                 Repository.PesquisarPeloId(Id);
-
-            var modelEditar = ConversorEdit.Converter(entidade);
-
-            return View("Visualizar", modelEditar);
-
+            return base.Visualizar(Id);
         }
 
         public override ActionResult Novo()

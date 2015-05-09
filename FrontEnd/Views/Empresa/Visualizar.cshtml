@@ -5,9 +5,6 @@
 <link href="~/Content/Site.css" rel="stylesheet" />
 <h2>Nova Empresa</h2>
 @model FrontEnd.Models.EmpresaEditar
-@{
-    var listaUf = (IEnumerable<SelectListItem>)ViewBag.ListagemdeUF;
-}
 
 @using (Html.BeginForm("Editar", "Empresa", FormMethod.Post))
 {
@@ -38,12 +35,15 @@
     @Html.TextBoxFor(e => e.Cidade, new { @class = "form-control" })<br />
 
     @Html.LabelFor(p => p.Estado)
-    @Html.DropDownListFor(e => e.Estado, listaUf, new { @class = "form-control" })<br />
+    @Html.TextBoxFor(e => e.Estado, new { @class = "form-control" })<br />
 
+    @Html.LabelFor(p => p.Pais)
+    @Html.TextBoxFor(e => e.Pais, new { @class = "form-control" })<br />
+    
     @Html.LabelFor(p => p.Bloqueado)<br />
     @Html.CheckBoxFor(e => e.Bloqueado, false)<br />
 
-    <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
+    <input type="submit" value="Salvar Alterações" class="btn btn-outline btn-success" />
 }
 
 

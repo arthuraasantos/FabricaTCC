@@ -133,7 +133,6 @@
     <Compile Include="Controllers\FuncionarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PontoController.cs" />
-    <Compile Include="Controllers\FeriasController.cs" />
     <Compile Include="Controllers\SolicitacaoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -144,9 +143,7 @@
     <Compile Include="Models\Conversores\EmpresaToEmpresaNovo.cs" />
     <Compile Include="Models\Conversores\FuncionarioToFuncionarioEditar.cs" />
     <Compile Include="Models\Conversores\FuncionarioToFuncionarioNovo.cs" />
-    <Compile Include="Models\Conversores\FeriasToFeriasAjustar.cs" />
     <Compile Include="Models\Conversores\SolicitacaoToSolicitacaoAjustar.cs" />
-    <Compile Include="Models\Conversores\FeriasToFeriasCriar.cs" />
     <Compile Include="Models\Conversores\SolicitacaoToSolicitacaoCriar.cs" />
     <Compile Include="Models\EmpresaEditar.cs" />
     <Compile Include="Models\EmpresaNovo.cs" />
@@ -161,9 +158,7 @@
     <Compile Include="Models\PerfilDeAcessoNovo.cs" />
     <Compile Include="Models\PerfilDeAcessoEditar.cs" />
     <Compile Include="Models\Sessao.cs" />
-    <Compile Include="Models\FeriasAprovar.cs" />
     <Compile Include="Models\SolicitacaoAprovar.cs" />
-    <Compile Include="Models\FeriasCriar.cs" />
     <Compile Include="Models\SolicitacaoCriar.cs" />
     <Compile Include="Models\UF.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -976,9 +971,6 @@
     <Content Include="Views\Solicitacao\Index.cshtml" />
     <Content Include="Views\Solicitacao\Solicitar.cshtml" />
     <Content Include="Views\Ponto\Index.cshtml" />
-    <Content Include="Views\Ferias\Index.cshtml" />
-    <Content Include="Views\Ferias\Solicitar.cshtml" />
-    <Content Include="Views\Login\RecuperarSenha.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
