@@ -26,12 +26,12 @@
             contenttype: "application/json; charset=utf-8",
             success: function (data) {
                 titulo = "Aviso";
-                msg = "\"" + data + "\" bloqueado com sucesso";
+                msg = "\"" + data + "\" desabilitado com sucesso";
                 MostraMensagem(msg, titulo, 'glyphicon glyphicon-ok', "");
             },
             error: function (data) {
                 titulo = "Aviso";
-                msg = "Erro ao bloquear \"" + data + "\" ";
+                msg = "Erro ao desabilitar \"" + data + "\" ";
                 MostraMensagem(msg, titulo, 'glyphicon glyphicon-remove', "");
             },
         });
@@ -50,12 +50,12 @@
             contenttype: "application/json; charset=utf-8",
             success: function (data) {
                 titulo = "Aviso";
-                msg = " \"" + data + "\" ativado com sucesso";
+                msg = " \"" + data + "\" habilitar com sucesso";
                 MostraMensagem(msg, titulo, 'glyphicon glyphicon-ok', "");
             },
             error: function (data) {
                 titulo = "Aviso";
-                msg = "Erro ao ativar \"" + data + "\" ";
+                msg = "Erro ao habilitar \"" + data + "\" ";
                 MostraMensagem(msg, titulo, 'glyphicon glyphicon-remove', "");
             },
         });

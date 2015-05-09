@@ -94,5 +94,10 @@ namespace FrontEnd.Controllers
             //redirecionar para a página de Login
             return RedirectToAction("Index", "Login");
         }
+
+        public ActionResult RecuperarSenha()
+        {
+            return View();
+        }
     }
 }

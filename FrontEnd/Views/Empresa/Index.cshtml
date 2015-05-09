@@ -21,12 +21,12 @@
             contenttype: "application/json; charset=utf-8",
             success: function (data) {
                 titulo = "Aviso";
-                msg = "\"" + data + "\" bloqueada com sucesso";
+                msg = "\"" + data + "\" habilitada com sucesso";
                 MostraMensagem(msg, titulo, 'glyphicon glyphicon-ok', "");
             },
             error: function (data) {
                 titulo = "Aviso";
-                msg = "Erro ao bloquear \"" + data + "\" ";
+                msg = "Erro ao desabilitar \"" + data + "\" ";
                 MostraMensagem(msg, titulo, 'glyphicon glyphicon-remove', "");
             },
         });
@@ -45,12 +45,12 @@
             contenttype: "application/json; charset=utf-8",
             success: function (data) {
                 titulo = "Aviso";
-                msg = " \"" + data + "\" ativada com sucesso";
+                msg = " \"" + data + "\" desabilitada com sucesso";
                 MostraMensagem(msg, titulo, 'glyphicon glyphicon-ok', "");
             },
             error: function (data) {
                 titulo = "Aviso";
-                msg = "Erro ao ativar \"" + data + "\" ";
+                msg = "Erro ao habilitar \"" + data + "\" ";
                 MostraMensagem(msg, titulo, 'glyphicon glyphicon-remove', "");
             },
         });
@@ -58,8 +58,15 @@
     };
 
 </script>
-<h1 class="page-header">Listagem de Empresas</h1>
 
+@if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Funcionario || FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Gerente)
+{                                    
+    <h1 class="page-header">@ViewBag.EmpresaLogada</h1>
+}
+else
+{
+    <h1 class="page-header">Listagem de Empresas</h1>
+}
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -103,11 +110,11 @@
                                             {
                                                 if (item.Bloqueado == "Y")
                                                 {
-                                                    <input type="button" class="btn btn-outline btn-xs btn-success" value="Ativar   " onclick="desbloquearEmpresa('@item.Id');" />
+                                                    <input type="button" class="btn btn-outline btn-xs btn-success" value="Habilitar  " onclick="desbloquearEmpresa('@item.Id');" />
                                                 }
                                                 else
                                                 {
-                                                    <input type="button" class="btn btn-outline btn-xs btn-warning" value="Desativar" onclick="bloquearEmpresa('@item.Id');" />
+                                                    <input type="button" class="btn btn-outline btn-xs btn-warning" value="Desabilitar" onclick="bloquearEmpresa('@item.Id');" />
                                                 }
 
                                             }

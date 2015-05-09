@@ -3,6 +3,32 @@
     ViewBag.Title = "Novo";
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
+<script>
+    function validaEmpresa(id) {
+        var titulo, msg, tipo;
+
+        $.ajax({
+            url: "/Empresa/ValidaDados",
+            data: {
+                id: id
+            },
+            type: "GET",
+            datatype: "json",
+            contenttype: "application/json; charset=utf-8",
+            success: function (data) {
+                titulo = "Aviso";
+                msg = "\"" + data + "\" cadastrada com sucesso";
+                MostraMensagem(msg, titulo, 'glyphicon glyphicon-ok', "");
+            },
+            error: function (data) {
+                titulo = "Aviso";
+                msg = "Erro ao cadastrar empresa";
+                MostraMensagem(msg, titulo, 'glyphicon glyphicon-remove', "");
+            },
+        });
+    };
+</script>
+
 <link href="~/Content/Site.css" rel="stylesheet" />
 <h2>Nova Empresa</h2>
 @model FrontEnd.Models.EmpresaNovo
@@ -12,7 +38,8 @@
     @Html.TextBoxFor(e => e.RazaoSocial, new { placeholder = "Razão Social", @class = "form-control"})<br />
     @Html.TextBoxFor(e => e.Cnpj, new { placeholder = "CNPJ", @class = "form-control" })<br />
     @Html.TextBoxFor(e => e.NomeFantasia, new { placeholder = "Nome Fantasia", @class = "form-control" })<br />
-    <input type="submit" value="Inserir" class="btn btn-outline btn-success"/>
+    <input type="submit" value="Salvar" class="btn btn-outline btn-success"/>
 }
 
 
+<a href="~/Views/Empresa/Novo.cshtml">~/Views/Empresa/Novo.cshtml</a>
