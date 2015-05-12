@@ -127,6 +127,9 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Models\Conversores\FeriasToFeriasCriar.cs" />
+    <Compile Include="Models\FeriasAprovar.cs" />
+    <Compile Include="Controllers\FeriasController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PerfilDeAcessoController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
@@ -148,6 +151,8 @@
     <Compile Include="Models\EmpresaEditar.cs" />
     <Compile Include="Models\EmpresaNovo.cs" />
     <Compile Include="Models\EntityModel.cs" />
+    <Compile Include="Models\FeriasCriar.cs" />
+    <Compile Include="Models\Conversores\FeriasToFeriasAjustar.cs" />
     <Compile Include="Models\FuncionarioComHorasTrabalhadas.cs" />
     <Compile Include="Models\FuncionarioEditar.cs" />
     <Compile Include="Models\FuncionarioLogin.cs" />
@@ -971,6 +976,7 @@
     <Content Include="Views\Solicitacao\Index.cshtml" />
     <Content Include="Views\Solicitacao\Solicitar.cshtml" />
     <Content Include="Views\Ponto\Index.cshtml" />
+    <Content Include="Views\Ferias\Solicitar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

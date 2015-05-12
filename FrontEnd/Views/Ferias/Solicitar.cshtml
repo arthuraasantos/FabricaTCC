@@ -1,0 +1,55 @@
+﻿@model FrontEnd.Models.FeriasCriar
+
+@{
+    ViewBag.Title = "Férias";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h1 class="page-header">Solicitar Férias</h1>
+@{
+    //Lista de Tipos [ Inclusão, Ajuste, Desconsideracao ]
+    var listaTipos = Enum.GetValues(typeof(Seedwork.Const.TipoSolicitacao)).Cast<Seedwork.Const.TipoSolicitacao>()
+            .Where(x => x.Equals(Seedwork.Const.TipoSolicitacao.Ajuste) ||
+                        x.Equals(Seedwork.Const.TipoSolicitacao.Inclusao) ||
+                        x.Equals(Seedwork.Const.TipoSolicitacao.Desconsideracao))
+            .Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() });
+            
+    if (ViewBag.Mensagem != null)
+    {
+        <div class="alert alert-info glyphicon glyphicon-asterisk" role="alert"> ViewBag.Mensagem</div>
+    }
+}
+    <div class="panel panel-default">
+        @using (Html.BeginForm("Criar", "Ferias", FormMethod.Post))
+        {
+            @Html.ValidationSummary()
+        <div class="panel-heading">
+            <div class="form-group">
+                @Html.LabelFor(p => p.Funcionario)
+                @Html.TextBoxFor(p => p.Funcionario, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label>Início das Férias</label>
+                <input type="date" id="Inicio" name="Inicio" class="form-control" aria-describedby="basic-addon">
+            </div>
+            <br />
+            <div class="form-group">
+                <label>Final das Férias</label>
+                <input type="date" id="Fim" name="Fim" class="form-control" aria-describedby="basic-addon2">
+            </div>
+            <br />
+            <div class="form-group">
+                <label>Justificativa</label>
+                
+                <textarea id="Justificativa" name="Justificativa" rows="5" class="form-control" placeholder="Sua justificativa ou observação..."></textarea>
+            </div>
+            <br />
+            @Html.HiddenFor(p => p.Resposta)
+            <input type="submit" value="Solicitar" class="btn btn-outline btn-success" />
+            
+        </div>
+            }
+    </div>
+

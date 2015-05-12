@@ -9,7 +9,24 @@
             cssClass: 'btn-info',
             action: function(dialogRef){
                 dialogRef.close();
-                location.reload();
+            }
+        }]
+    });
+}
+
+function MostraMensagem(mensagem)
+{
+    BootstrapDialog.show({
+        title: 'Mensagem do sistema',
+        closable: false,
+        message: mensagem,
+        type: BootstrapDialog.TYPE_INFO,
+        buttons: [{
+            icon: icone,
+            label: 'Fechar',
+            cssClass: 'btn-info',
+            action: function (dialogRef) {
+                dialogRef.close();
             }
         }]
     });

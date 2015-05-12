@@ -100,7 +100,7 @@
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-plane"></i> Férias<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>@Html.ActionLink("Solicitar", "Index", "Ferias")</li>
+                                <li>@Html.ActionLink("Solicitar", "Solicitar", "Ferias")</li>
                                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                 {
                                     <li>@Html.ActionLink("Aprovar/Rejeitar", "Editar", "Ferias")</li>

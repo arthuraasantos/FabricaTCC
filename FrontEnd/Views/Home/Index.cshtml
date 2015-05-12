@@ -5,7 +5,12 @@
 
 
 <h1 class="page-header">@ViewBag.Empresa</h1>
-
+@{
+    if (TempData["Mensagem"] != null)
+    {
+        <div class="alert alert-info glyphicon glyphicon-asterisk" role="alert"> @TempData["Mensagem"]</div>
+    }
+}
 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Administrador)
 {
     <!-- Confirmação do ponto em Modal -->
