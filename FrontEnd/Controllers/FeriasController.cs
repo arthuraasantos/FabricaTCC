@@ -43,22 +43,48 @@ namespace FrontEnd.Controllers
                 FeriasCriar _feriasCriar = new FeriasCriar();
                 _feriasCriar.Funcionario = Funcionario;
                 _feriasCriar.Inicio = Inicio;
-//                _feriasCriar.Inicio = DateTime.Parse(Inicio);
                 _feriasCriar.Fim = Fim;
-                //_feriasCriar.Fim = DateTime.Parse(Fim);
                 _feriasCriar.Funcionario = Funcionario;
+                //var valida = ValidaDados(_feriasCriar);
                 ConversorInsert.AplicarValores(_feriasCriar, _ferias);
                 _ferias.Funcionario = FuncionarioRepository.PesquisaPeloEmail(_feriasCriar.Funcionario);
 
                 Repository.Salvar(_ferias);
                 Context.SaveChanges();
-                return RedirectToAction("Index", "Home", TempData["Mensagem"] = "Férias solicitadas com sucesso!");
+                return RedirectToAction("Solicitar", "Ferias", TempData["Mensagem"] = "Férias solicitadas com sucesso!");
 
             }
             catch (Exception e)
             {
                 ViewBag.Mensagem = "Erro ao solicitar férias. Erro: "+ e.Message;
                 return RedirectToAction("Index", "Ferias", TempData["Mensagem"] = "Erro ao solicitar férias!");
+
+            }
+        }
+
+        protected bool ValidaDados(FeriasCriar dados)
+        {
+            bool valido = true;
+            string campoInvalido = null;
+            try
+            {
+                if (dados.Inicio.Equals(string.Empty))
+                {
+                    valido = false;
+                    campoInvalido = "Data de Início";
+                }
+                else if (dados.Fim.Equals(string.Empty))
+                {
+                    valido = false;
+                    campoInvalido = "Data de Início";
+                }
+                TempData["Mensagem"] = campoInvalido;
+                return valido;
+               
+            }
+            catch (Exception)
+            {
+                return valido;
 
             }
         }

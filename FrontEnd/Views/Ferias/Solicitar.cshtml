@@ -4,6 +4,9 @@
     ViewBag.Title = "Férias";
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
+<script>
+
+</script>
 <link href="~/Content/Site.css" rel="stylesheet" />
 <h1 class="page-header">Solicitar Férias</h1>
 @{
@@ -22,7 +25,6 @@
     <div class="panel panel-default">
         @using (Html.BeginForm("Criar", "Ferias", FormMethod.Post))
         {
-            @Html.ValidationSummary()
         <div class="panel-heading">
             <div class="form-group">
                 @Html.LabelFor(p => p.Funcionario)

@@ -19,6 +19,20 @@
 
     @* Referências Janelas de mensagem padrão *@
     <script src="~/Scripts/Mensagens.js"></script>
+
+    <script type="text/javascript">
+    $(function () {
+        $("#actionLinkId").on("click", function () {
+            var url = $(this).attr("href");
+            url += ((url.indexOf('?') == -1) ? '?' : '&');
+            url += $.param({
+                docItemId: $("#ItemSelecionadoId").val(),
+                vlrImobIcms: $("#VlrImobilizadoId").val()
+            });
+            $(this).attr("href", url);
+        });
+    })
+    </script>
 </head>
 <body>
     <div id="wrapper">
