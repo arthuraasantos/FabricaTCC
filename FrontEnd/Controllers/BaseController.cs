@@ -38,7 +38,7 @@ namespace FrontEnd.Controllers
 
         public virtual ActionResult Index()
         {
-            
+
             var lista = Repository.Listar().ToList();
             return View("Index", lista);
         }
@@ -59,7 +59,7 @@ namespace FrontEnd.Controllers
         }
 
         public virtual ActionResult Incluir(TInsertModel novo)
-        {             
+        {
             var entity = ConversorInsert.Converter(novo);
             entity.Id = Guid.NewGuid();
 
@@ -70,15 +70,20 @@ namespace FrontEnd.Controllers
         }
         public virtual ActionResult Editar(TEditModel editar)
         {
-            
-            var entity = Repository.PesquisarPeloId(editar.Id);
+            try
+            {
+                var entity = Repository.PesquisarPeloId(editar.Id);
+                ConversorEdit.AplicarValores(editar, entity);
+                Repository.Salvar(entity);
+                Context.SaveChanges();
+                return RedirectToAction("Index");
 
-            ConversorEdit.AplicarValores(editar, entity);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
 
-            Repository.Salvar(entity);
-            Context.SaveChanges();
-
-            return RedirectToAction("Index");
         }
 
         public virtual ActionResult Excluir(Guid Id)

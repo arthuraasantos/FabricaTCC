@@ -42,13 +42,23 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Incluir(EmpresaNovo novo)
         {
-            var entity = ConversorInsert.Converter(novo);
-            entity.Id = Guid.NewGuid();
-            entity.Bloqueado = "N";
-            Repository.Salvar(entity);
-            Context.SaveChanges();
+            try
+            {
+                var entity = ConversorInsert.Converter(novo);
+                entity.Id = Guid.NewGuid();
+                entity.Bloqueado = "N";
+                Repository.Salvar(entity);
+                Context.SaveChanges();
+                TempData["Mensagem"] = "Empresa cadastrada com sucesso!";
+                return RedirectToAction("Index");
 
-            return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                TempData["MensagemErro"] = "Erro ao cadastrar empresa!";
+                return RedirectToAction("Index");
+            }
+
         }
 
         [HttpGet]
@@ -100,5 +110,20 @@ namespace FrontEnd.Controllers
 
         }
 
+        public override ActionResult Visualizar(Guid Id)
+        {
+            try
+            {
+                var uf = new UF();
+                ViewBag.ListagemdeUF = uf.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Valor.ToString() });
+                TempData["Mensagem"] = "Funcionário editar com sucesso!";
+                return base.Visualizar(Id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

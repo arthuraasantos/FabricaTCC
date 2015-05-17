@@ -9,10 +9,16 @@
 
 @using (Html.BeginForm("Incluir", "Empresa", FormMethod.Post))
 { 
-    @Html.TextBoxFor(e => e.RazaoSocial, new { placeholder = "Razão Social", @class = "form-control"})<br />
-    @Html.TextBoxFor(e => e.Cnpj, new { placeholder = "CNPJ", @class = "form-control" })<br />
-    @Html.TextBoxFor(e => e.NomeFantasia, new { placeholder = "Nome Fantasia", @class = "form-control" })<br />
-    <input type="submit" value="Inserir" class="btn btn-outline btn-success"/>
+    @Html.Label("Razão Social")
+    @Html.TextBoxFor(e => e.RazaoSocial, new { @class = "form-control"})<br />
+    
+    @Html.Label("Nome Fantasia")
+    @Html.TextBoxFor(e => e.NomeFantasia, new { @class = "form-control" })<br />
+    
+    @Html.Label("CNPJ ")
+    @Html.TextBoxFor(e => e.Cnpj, new { @class = "form-control" })<br />
+    
+    <input type="submit" value="Salvar" class="btn btn-outline btn-success"/>
 }
 
 

@@ -18,6 +18,17 @@
     <script src="~/Scripts/jquery.maskedinput.js"></script>
 
     @* Referências Janelas de mensagem padrão *@
+    @*<script src="Script/jquery-1.10.2.js"></script>
+        <link href="Script/bootstrap-dialog.min.css" rel="stylesheet" />
+        <script src="Script/bootstrap.min.js"></script>
+        <script src="Script/run_prettify.js"></script>
+        <script src="Script/bootstrap-dialog.min.js"></script>*@
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/run_prettify.js"></script>
+    <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-dialog.min.js"></script>
     <script src="~/Scripts/Mensagens.js"></script>
 
     <script type="text/javascript">
@@ -52,23 +63,8 @@
                 <li>
                     <span><strong>Logado como @FrontEnd.Models.Sessao.PerfilFuncionarioLogado.ToString(): </strong>@FrontEnd.Models.Sessao.FuncionarioLogado.Email</span>
                 </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> Usuário</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-gear fa-fw"></i> Configurações</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            @Html.ActionLink(" Logout", "Logout", "Login")
-                        </li>
-                    </ul>
+                <li>
+                    <a href="Login/Logout"><i class="glyphicon glyphicon-off"></i> Sair</a>
                 </li>
             </ul>
             <!-- Navegação -->
@@ -77,14 +73,14 @@
                     <ul class="nav" id="side-menu">
                         <!--  Menu Dashboard  -->
                         <li>
-                            @Html.ActionLink(" Dashboard", "Index", "Home")
+                            @Html.ActionLink(" Página Inicial", "Index", "Home")
                         </li>
                         <!--  Menu Cadastros  -->
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-list"></i> Cadastros<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>@Html.ActionLink(" Empresas", "Index", "Empresa")</li>
-                                <li>@Html.ActionLink(" Funcionarios", "Index", "Funcionario")</li>
+                                <li>@Html.ActionLink(" Funcionários", "Index", "Funcionario")</li>
                                 <li>@Html.ActionLink(" Horários de expedientes", "Index", "HorarioExpediente")</li>
                             </ul>
                         </li>

@@ -71,13 +71,13 @@ namespace FrontEnd.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensagem = "Erro";
+                        TempData["Mensagem"] = "Usuário ou senha incorreta!";
                     }
                 }
             }
             catch (Exception e)
             {
-                ViewBag.Mensagem = "Erro de auteticação." + e.Message;
+                TempData["MensagemErro"] = "Erro de auteticação." + e.Message;
             }
 
             return RedirectToAction("Index","Login");

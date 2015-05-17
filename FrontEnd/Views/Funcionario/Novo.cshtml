@@ -46,16 +46,28 @@
 {
     <div>
         @Html.HiddenFor(f => f.Id)
-        @Html.TextBoxFor(f => f.Nome, new { placeholder = "Nome", @class = "form-control" })<br />
-        @Html.TextBoxFor(f => f.Cpf, new { placeholder = "Cpf", @class = "form-control"} )<br />
-        @Html.TextBoxFor(f => f.DataNascimento, new { placeholder = "Data Nascimento", @class = "form-control", type = "date" })<br />
-        @Html.TextBoxFor(f => f.Email, new { placeholder = "Email", @class = "form-control", type = "email" })<br />
-        @Html.TextBoxFor(f => f.Identidade, new { placeholder = "Identidade(RG)", @class = "form-control" })<br />
+        
+        @Html.Label("Nome")
+        @Html.TextBoxFor(f => f.Nome, new { @class = "form-control" })<br />
+        
+        @Html.Label("CPF ")
+        @Html.TextBoxFor(f => f.Cpf, new { @class = "form-control" })<br />
+        
+        @Html.Label("Nascimento")
+        @Html.TextBoxFor(f => f.DataNascimento, new { @class = "form-control", type = "date" })<br />
+        
+        @Html.Label("Email")
+        @Html.TextBoxFor(f => f.Email, new { @class = "form-control", type = "email", value = "" })<br />
+        
+        @Html.Label("Senha")
+        @Html.PasswordFor(f => f.Senha, new { @class = "form-control", type = "password", value = @Model.Senha })<br />
+        
         @Html.Label("Empregador")<br />
         @Html.DropDownListFor(f => f.IdEmpresa, Model.Empresas, new { @class = "form-control"})<br />
+        
         @Html.Label("Perfil de Acesso")<br />
         @Html.DropDownListFor(f => f.IdPerfilDeAcesso, Model.PerfisDeAcesso, new { @class = "form-control" })<br />
     </div>
-    <input type="submit" value="Inserir" class="btn btn-outline btn-success" />
+    <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
 }
 

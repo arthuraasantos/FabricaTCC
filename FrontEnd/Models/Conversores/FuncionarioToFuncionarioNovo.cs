@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SeedWork.Tools;
 
 namespace FrontEnd.Models.Conversores
 {
@@ -25,6 +26,7 @@ namespace FrontEnd.Models.Conversores
             destino.Cpf = origem.Cpf;
             destino.Identidade = origem.Identidade;
             destino.Email = origem.Email;
+            destino.Senha = origem.Senha;
             destino.IdEmpresa = origem.Empresa.Id;
             destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id;
         }
@@ -36,6 +38,7 @@ namespace FrontEnd.Models.Conversores
             destino.Cpf = origem.Cpf;
             destino.Identidade = origem.Identidade;
             destino.Email = origem.Email;
+            destino.Senha = Criptografia.Encrypt(origem.Senha);
             destino.Empresa = EmpresaRepository.PesquisarPeloId(origem.IdEmpresa);
             destino.PerfilDeAcesso = PerfilDeAcessoRepository.PesquisarPeloId(origem.IdPerfilDeAcesso);
         }
