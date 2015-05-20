@@ -87,6 +87,7 @@ namespace FrontEnd.Controllers
             Repository.Salvar(Solicitacao);
             Context.SaveChanges();
 
+            TempData["Mensagem"] = "Solicitação criada com sucesso!";
             return RedirectToAction("Lista", "Ponto");
         }
 

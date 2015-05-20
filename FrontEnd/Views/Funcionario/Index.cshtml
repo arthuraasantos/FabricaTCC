@@ -118,7 +118,7 @@ else
                                         <td class="col-sm-2">
 
                                             @Html.ActionLink("Editar", "Visualizar", new { id = item.Id }, new { @class = "btn btn-outline btn-xs btn-info" })
-                                            @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
+                                            @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                             {
                                                 if (item.Bloqueado == "Y")
                                                 {

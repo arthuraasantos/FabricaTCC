@@ -13,7 +13,7 @@
     <link href="~/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
     <link href="~/bower_components/dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="~/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
- 
+
     @* Jquery e jquery masked input para máscaras *@
     <script src="~/Scripts/jquery.maskedinput.js"></script>
 
@@ -32,17 +32,17 @@
     <script src="~/Scripts/Mensagens.js"></script>
 
     <script type="text/javascript">
-    $(function () {
-        $("#actionLinkId").on("click", function () {
-            var url = $(this).attr("href");
-            url += ((url.indexOf('?') == -1) ? '?' : '&');
-            url += $.param({
-                docItemId: $("#ItemSelecionadoId").val(),
-                vlrImobIcms: $("#VlrImobilizadoId").val()
+        $(function () {
+            $("#actionLinkId").on("click", function () {
+                var url = $(this).attr("href");
+                url += ((url.indexOf('?') == -1) ? '?' : '&');
+                url += $.param({
+                    docItemId: $("#ItemSelecionadoId").val(),
+                    vlrImobIcms: $("#VlrImobilizadoId").val()
+                });
+                $(this).attr("href", url);
             });
-            $(this).attr("href", url);
-        });
-    })
+        })
     </script>
 </head>
 <body>
@@ -61,10 +61,10 @@
             <!-- Topo a direita -->
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <span><strong>Logado como @FrontEnd.Models.Sessao.PerfilFuncionarioLogado.ToString(): </strong>@FrontEnd.Models.Sessao.FuncionarioLogado.Email</span>
+                    <span><strong>Logado como @FrontEnd.Models.Sessao.FuncionarioLogado.PerfilDeAcesso.Descricao : </strong>@FrontEnd.Models.Sessao.FuncionarioLogado.Email</span>
                 </li>
                 <li>
-                    <a href="Login/Logout"><i class="glyphicon glyphicon-off"></i> Sair</a>
+                    <a href="@Url.Action("Logout", "Login")"><i class=" glyphicon glyphicon-off"></i> Sair</a>
                 </li>
             </ul>
             <!-- Navegação -->
@@ -73,25 +73,25 @@
                     <ul class="nav" id="side-menu">
                         <!--  Menu Dashboard  -->
                         <li>
-                            @Html.ActionLink(" Página Inicial", "Index", "Home")
+                            <a href="@Url.Action("Index", "Home")"><i class="glyphicon glyphicon-home"></i> Página Inicial</a>
                         </li>
                         <!--  Menu Cadastros  -->
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-list"></i> Cadastros<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>@Html.ActionLink(" Empresas", "Index", "Empresa")</li>
-                                <li>@Html.ActionLink(" Funcionários", "Index", "Funcionario")</li>
-                                <li>@Html.ActionLink(" Horários de expedientes", "Index", "HorarioExpediente")</li>
+                                <li><a href="@Url.Action("Index", "Empresa")"><i class=""></i> Empresas</a></li>
+                                <li><a href="@Url.Action("Index", "Funcionario")"><i class=""></i> Funcionários</a></li>
+                                <li><a href="@Url.Action("Index", "HorarioExpediente")"><i class=""></i> Horários de expedientes</a></li>
                             </ul>
                         </li>
                         <!--  Menu Horários  -->
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-time"></i> Horários<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>@Html.ActionLink("Consultar horários", "Lista", "Ponto")</li>
+                                <li><a href="@Url.Action("Lista", "Ponto")"><i class=""></i> Consultar horários</a></li>
                                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                 {
-                                    <li>@Html.ActionLink("Ajustes pendentes", "Index", "Solicitacao")</li>
+                                    <li><a href="@Url.Action("Index", "Solicitacao")"><i class=""></i> Ajustes pendentes</a></li>
                                 }
                             </ul>
                         </li>
@@ -99,10 +99,10 @@
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-calendar"></i> Folgas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>@Html.ActionLink("Solicitar", "Index", "Folga")</li>
+                                <li><a href="@Url.Action("Index", "Folga")"><i class=""></i> Solicitar</a></li>
                                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                 {
-                                    <li>@Html.ActionLink("Aprovar/Rejeitar", "Editar", "Folga")</li>
+                                    <li><a href="@Url.Action("Editar", "Folga")"><i class=""></i> Aprovar/Rejeitar</a></li>
                                 }
                             </ul>
                         </li>
@@ -110,10 +110,10 @@
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-plane"></i> Férias<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>@Html.ActionLink("Solicitar", "Solicitar", "Ferias")</li>
+                                <li><a href="@Url.Action("Solicitar", "Ferias")"><i class=""></i> Solicitar</a></li>
                                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                 {
-                                    <li>@Html.ActionLink("Aprovar/Rejeitar", "Editar", "Ferias")</li>
+                                    <li><a href="@Url.Action("Editar", "Ferias")"><i class=""></i> Aprovar/Rejeitar</a></li>
                                 }
                             </ul>
                         </li>
@@ -121,12 +121,8 @@
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-list-alt"></i> Relatórios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>@Html.ActionLink(" Marcações efetuadas", "RelatorioMarcacoes", "Funcionarios")</li>
+                                <li><a href="@Url.Action("RelatorioMarcacoes", "Funcionarios")"><i class=""></i> Marcações efetuadas</a></li>
                             </ul>
-                        </li>
-                        <!--  Menu Configurações  -->
-                        <li>
-                            @Html.ActionLink(" Configurações", "Index", "Configuracoes")
                         </li>
                     </ul>
                 </div>
@@ -149,7 +145,7 @@
     <script src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/bower_components/metisMenu/dist/metisMenu.min.js"></script>
     <script src="~/bower_components/dist/js/sb-admin-2.js"></script>
-    
+
     @*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
     <script src="~/Scripts/jquery-1.10.2.mask.js"></script>
     <script>

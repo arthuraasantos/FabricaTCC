@@ -23,13 +23,13 @@
         }
     </div>
     <p>
-        @if (@TempData["Mensagem"] != null)
+        @if (TempData["MensagemAlerta"] != null)
         {
-            <script>MostraWarning('@TempData["Mensagem"]', false)</script>
+            <script>MostraWarning('@TempData["MensagemAlerta"]', false)</script>
         }
         else
         {
-            if (@TempData["MensagemErro"] != null)
+            if (TempData["MensagemErro"] != null)
             {
                 <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
             }

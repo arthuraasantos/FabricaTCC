@@ -47,31 +47,42 @@ namespace FrontEnd.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    throw new Exception();
+                    if (model.Email.ToString() == String.Empty) { TempData["MensagemAlerta"] = "Informe o login!"; }
+                    if (model.Senha.ToString() == String.Empty) { TempData["MensagemAlerta"] = "Informe a senha!"; }
                 }
                 else
                 {
                     var funcionarioParaLogin = new Funcionario();
                     funcionarioParaLogin = 
-                        FuncionarioRepository.PesquisaParaLogin(model.Email, Criptografia.Encrypt(model.Senha));
+                        FuncionarioRepository.
+                        PesquisaParaLogin(
+                            model.Email, 
+                            Criptografia.Encrypt(model.Senha));
 
                     if (funcionarioParaLogin != null)
                     {
-                        if (manterLogado == "S")
-                        {
-                            Session.Add("Dados", "manterLogado");                                
+                        if (funcionarioParaLogin.Bloqueado == "Y") {
+                            TempData["MensagemAlerta"] = "Este funcionário está bloqueado! Entre em contato com o Gerente!";
+                        } else {
+                            if (funcionarioParaLogin.Empresa.Bloqueado == "Y") {
+                                TempData["MensagemAlerta"] = "A empresa deste funcionário está bloqueada! Entre em contato com o Administrador do sistema!";
+                            } else {
+                                if (manterLogado == "S")
+                                {
+                                    Session.Add("Dados", "manterLogado");
+                                }
+                                
+                                FormsAuthentication.SetAuthCookie(model.Email, false);
+                                Session.Add("Funcionario", funcionarioParaLogin);                                
 
+                                //Redireciona para a mesma view e o tratamento do que vai aparecer será nas views.
+                                return RedirectToAction("Index", "Home");
+                            }
                         }
-
-                        FormsAuthentication.SetAuthCookie(model.Email, false);
-                        Session.Add("Funcionario", funcionarioParaLogin);                                
-
-                        //Redireciona para a mesma view e o tratamento do que vai aparecer será nas views.
-                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        TempData["Mensagem"] = "Usuário ou senha incorreta!";
+                        TempData["MensagemAlerta"] = "Usuário ou senha incorreta!";
                     }
                 }
             }
