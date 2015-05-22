@@ -81,13 +81,24 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Visualizar(Guid Id)
         {
-            var uf = new UF();
+            try
+            {
+                var uf = new UF();
 
-            ViewBag.ListagemdeEmpresas = ListaEmpresas;
-            ViewBag.ListagemdePerfis = ListaPerfis;
-            ViewBag.ListagemdeUF = uf.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Valor.ToString() });
+                ViewBag.ListagemdeEmpresas = ListaEmpresas;
+                ViewBag.ListagemdePerfis = ListaPerfis;
+                ViewBag.ListagemdeUF = uf.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Valor.ToString() });
 
-            return base.Visualizar(Id);
+                TempData["Mensagem"] = "Funcionário editar com sucesso!";
+                return base.Visualizar(Id);
+
+            }
+            catch (Exception)
+            {
+                TempData["Mensagem"] = "Erro ao editar funcionário";
+                return RedirectToAction("Index");                
+            }
+            
         }
 
         public override ActionResult Novo()
@@ -108,11 +119,27 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Incluir(FuncionarioNovo novo)
         {
-            if (ModelState.IsValid)
+            try
             {
-                return base.Incluir(novo);
+                if (ModelState.IsValid)
+                {
+                    var entity = ConversorInsert.Converter(novo);
+                    entity.Id = Guid.NewGuid();
+
+                    Repository.Salvar(entity);
+                    Context.SaveChanges();
+
+                    TempData["Mensagem"] = "Funcionário cadastrado com sucesso!";
+                }
+                return RedirectToAction("Index");
+                
             }
-            return RedirectToAction("Index");
+            catch (Exception)
+            {
+                TempData["Mensagem"] = "Erro ao cadastrar funcionário!";
+                return RedirectToAction("Index");
+            }
+            
         }
 
         [HttpGet]

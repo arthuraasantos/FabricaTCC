@@ -3,8 +3,15 @@
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
 <link href="~/Content/Site.css" rel="stylesheet" />
-<h2>Nova Empresa</h2>
+
+@{
+    var listaUf = (IEnumerable<SelectListItem>)ViewBag.ListagemdeUF;
+
+}
+
 @model FrontEnd.Models.EmpresaEditar
+
+<h2>Editar @Model.NomeFantasia</h2>
 
 @using (Html.BeginForm("Editar", "Empresa", FormMethod.Post))
 {
@@ -16,34 +23,34 @@
     @Html.Label("Nome Fantasia")
     @Html.TextBoxFor(e => e.NomeFantasia, new { @class = "form-control" })<br />
 
-    @Html.LabelFor(p => p.Cnpj)
+    @Html.Label("CNPJ ")
     @Html.TextBoxFor(e => e.Cnpj, new { @class = "form-control" })<br />
 
-    @Html.LabelFor(p => p.Logradouro)
+    @Html.Label("CEP ")
+    @Html.TextBoxFor(e => e.Cep, new { @class = "form-control" })<br />
+
+    @Html.Label("Logradouro")
     @Html.TextBoxFor(e => e.Logradouro, new { @class = "form-control form-" })<br />
 
     @Html.Label("Número")
-    @Html.TextBoxFor(e => e.NumeroEndereco, new { @class = "form-control", @type="number"})<br />
+    @Html.TextBoxFor(e => e.NumeroEndereco, new { @class = "form-control", @type = "number" })<br />
 
-    @Html.LabelFor(p => p.Bairro)
+    @Html.Label("Bairro")
     @Html.TextBoxFor(e => e.Bairro, new { @class = "form-control" })<br />
 
-    @Html.LabelFor(p => p.Cep)
-    @Html.TextBoxFor(e => e.Cep, new { @class = "form-control" })<br />
-        
-    @Html.LabelFor(p => p.Cidade)
+    @Html.Label("Cidade")
     @Html.TextBoxFor(e => e.Cidade, new { @class = "form-control" })<br />
 
-    @Html.LabelFor(p => p.Estado)
-    @Html.TextBoxFor(e => e.Estado, new { @class = "form-control" })<br />
+    @Html.Label("Estado")
+    @Html.DropDownListFor(p => p.Estado, listaUf, new { @class = "form-control" })<br />
 
-    @Html.LabelFor(p => p.Pais)
-    @Html.TextBoxFor(e => e.Pais, new { @class = "form-control" })<br />
-    
-    @Html.LabelFor(p => p.Bloqueado)<br />
-    @Html.CheckBoxFor(e => e.Bloqueado, false)<br />
+    @*@Html.LabelFor(p => p.Pais)
+    @Html.TextBoxFor(e => e.Pais, new { @class = "form-control" })<br />*@
 
-    <input type="submit" value="Salvar Alterações" class="btn btn-outline btn-success" />
+    @*@Html.LabelFor(p => p.Bloqueado)<br />
+        @Html.CheckBoxFor(e => e.Bloqueado, false)<br />*@
+
+    <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
 }
 
 

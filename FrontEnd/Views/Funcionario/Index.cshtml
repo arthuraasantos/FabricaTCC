@@ -26,17 +26,14 @@
             contenttype: "application/json; charset=utf-8",
             success: function (data) {
                 titulo = "Aviso";
-                msg = "\"" + data + "\" bloqueado com sucesso";
-                MostraMensagem(msg, titulo, 'glyphicon glyphicon-ok', "");
-                location.reload();
+                msg = "\"" + data + "\" desabilitado com sucesso";
+                MostraSuccess(msg, true);
 
             },
             error: function (data) {
                 titulo = "Aviso";
-                msg = "Erro ao bloquear \"" + data + "\" ";
-                MostraMensagem(msg, titulo, 'glyphicon glyphicon-remove', "");
-                location.reload();
-
+                msg = "Erro ao desabilitar \"" + data + "\" ";
+                MostraDanger(msg, titulo, 'glyphicon glyphicon-remove', "", true);
             },
         });
     };
@@ -54,17 +51,13 @@
             contenttype: "application/json; charset=utf-8",
             success: function (data) {
                 titulo = "Aviso";
-                msg = " \"" + data + "\" ativado com sucesso";
-                MostraMensagem(msg, titulo, 'glyphicon glyphicon-ok', "");
-                location.reload();
-
+                msg = " \"" + data + "\" habilitado com sucesso";
+                MostraSuccess(msg, true);
             },
             error: function (data) {
                 titulo = "Aviso";
-                msg = "Erro ao ativar \"" + data + "\" ";
-                MostraMensagem(msg, titulo, 'glyphicon glyphicon-remove', "");
-                location.reload();
-
+                msg = "Erro ao habilitar \"" + data + "\" ";
+                MostraDanger(msg, true);
             },
         });
 
@@ -75,6 +68,17 @@
 <h1 class="page-header">Listagem de Funcionários</h1>
 @model List<Funcionario>
 
+@if (@TempData["Mensagem"] != null)
+{
+    <script>MostraSuccess('@TempData["Mensagem"]', false)</script>
+}
+else
+{
+    if (@TempData["MensagemErro"] != null)
+    {
+        <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
+    }
+}
 <div class="row">
     <div class="col col-lg-12">
         <div class="panel panel-default">
@@ -114,15 +118,15 @@
                                         <td class="col-sm-2">
 
                                             @Html.ActionLink("Editar", "Visualizar", new { id = item.Id }, new { @class = "btn btn-outline btn-xs btn-info" })
-                                            @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
+                                            @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                             {
                                                 if (item.Bloqueado == "Y")
                                                 {
-                                                    <input type="button" class="btn btn-outline btn-xs btn-success" value="Ativar   " onclick="desbloquearFuncionario('@item.Id');" />
+                                                    <input type="button" class="btn btn-outline btn-xs btn-success" value="Habilitar  " onclick="desbloquearFuncionario('@item.Id');" />
                                                 }
                                                 else
                                                 {
-                                                    <input type="button" class="btn btn-outline btn-xs btn-warning" value="Desativar" onclick="bloquearFuncionario('@item.Id');" />
+                                                    <input type="button" class="btn btn-outline btn-xs btn-warning" value="Desabilitar" onclick="bloquearFuncionario('@item.Id');" />
                                                 }
                                             }
                                         </td>

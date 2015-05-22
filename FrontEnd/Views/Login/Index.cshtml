@@ -1,4 +1,10 @@
-﻿
+﻿<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/run_prettify.js"></script>
+<link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-dialog.min.js"></script>
+<script src="~/Scripts/Mensagens.js"></script>
+
 <div class="container">
     <img src="~/img/ponto.png" class="col-lg-4 col-lg-offset-4 img-responsive" style="text-align:center; height:200px; width:310px;">
     <div class="col-lg-4 col-lg-offset-4">
@@ -13,12 +19,20 @@
                     <input type="checkbox" id="manterLogado" checked> Manter Logado
                 </label>
             </div>
-            <input type="submit" value="Login" class="btn btn-outline btn-success form-control" />
+            <input type="submit" value="Entrar" class="btn btn-outline btn-success form-control" />
         }
     </div>
     <p>
-        @ViewBag.Mensagem
+        @if (TempData["MensagemAlerta"] != null)
+        {
+            <script>MostraWarning('@TempData["MensagemAlerta"]', false)</script>
+        }
+        else
+        {
+            if (TempData["MensagemErro"] != null)
+            {
+                <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
+            }
+        }
     </p>
 </div>
-
-
