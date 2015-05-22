@@ -18,10 +18,13 @@ namespace FrontEnd.Controllers
         // GET: Ferias
         private IFuncionarioRepository FuncionarioRepository { get; set; }
 
+        private IFeriasRepository FeriasRepository { get; set; }
+
         public FeriasController(MyContext context, IFeriasRepository feriasRepository, IFuncionarioRepository funcionarioRepository)
             : base(context, feriasRepository, new FeriasToFeriasCriar(), new FeriasToFeriasAjustar())
         {
             FuncionarioRepository = funcionarioRepository;
+            FeriasRepository = feriasRepository;
         }
 
         public ActionResult Solicitar()
@@ -39,54 +42,105 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                Ferias _ferias = new Ferias();
-                FeriasCriar _feriasCriar = new FeriasCriar();
-                _feriasCriar.Funcionario = Funcionario;
-                _feriasCriar.Inicio = Inicio;
-                _feriasCriar.Fim = Fim;
-                _feriasCriar.Funcionario = Funcionario;
-                //var valida = ValidaDados(_feriasCriar);
-                ConversorInsert.AplicarValores(_feriasCriar, _ferias);
-                _ferias.Funcionario = FuncionarioRepository.PesquisaPeloEmail(_feriasCriar.Funcionario);
-
-                Repository.Salvar(_ferias);
-                Context.SaveChanges();
-                return RedirectToAction("Solicitar", "Ferias", TempData["Mensagem"] = "Férias solicitadas com sucesso!");
-
-            }
-            catch (Exception e)
-            {
-                ViewBag.Mensagem = "Erro ao solicitar férias. Erro: "+ e.Message;
-                return RedirectToAction("Index", "Ferias", TempData["Mensagem"] = "Erro ao solicitar férias!");
-
-            }
-        }
-
-        protected bool ValidaDados(FeriasCriar dados)
-        {
-            bool valido = true;
-            string campoInvalido = null;
-            try
-            {
-                if (dados.Inicio.Equals(string.Empty))
+                if (ModelState.IsValid)
                 {
-                    valido = false;
-                    campoInvalido = "Data de Início";
+                    Ferias _ferias = new Ferias();
+                    FeriasCriar _feriasCriar = new FeriasCriar();
+                    _feriasCriar.Funcionario = Funcionario;
+                    _feriasCriar.Inicio = Inicio;
+                    _feriasCriar.Fim = Fim;
+                    _feriasCriar.Funcionario = Funcionario;
+                    _feriasCriar.Justificativa = Justificativa;
+                    ConversorInsert.AplicarValores(_feriasCriar, _ferias);
+                    _ferias.Funcionario = FuncionarioRepository.PesquisaPeloEmail(_feriasCriar.Funcionario);
+
+                    Repository.Salvar(_ferias);
+                    Context.SaveChanges();
+
+                    TempData["Mensagem"] = "Suas férias foram solicitadas com sucesso!";
+
+                    return RedirectToAction("Solicitar", "Ferias");
+
                 }
-                else if (dados.Fim.Equals(string.Empty))
-                {
-                    valido = false;
-                    campoInvalido = "Data de Início";
-                }
-                TempData["Mensagem"] = campoInvalido;
-                return valido;
-               
+                return RedirectToAction("Solicitar");
+
             }
             catch (Exception)
             {
-                return valido;
-
+                TempData["MensagemErro"] = "Erro ao solicitar férias!";
+                return RedirectToAction("Solicitar");
             }
+
+        }
+
+        public override ActionResult Index()
+        {
+            var lista = Repository.
+                            Listar().
+                            Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).
+                            OrderBy(o => new { o.Funcionario.Nome, o.Inicio, o.Fim }).
+
+                            ToList();
+
+            return View(lista);
+        }
+
+        public ActionResult AprovarRejeitarFerias(Guid Id, RespostaSolicitacao resposta)
+        {
+
+            var ferias = Repository.PesquisarPeloId(Id);
+            ferias.Resposta = resposta;
+            Context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult Lista(string Email, DateTime? Data)
+        {
+            // Pega email, ou default usuario logado
+            string _Email = Sessao.FuncionarioLogado.Email;
+            if ((Email != null) && (Email != String.Empty)) { _Email = Email; }
+            ViewBag.EmailLogado = _Email;
+
+            // Pega a data, ou default data atual
+            DateTime _Data = DateTime.Now;
+            if (Data != null) { _Data = DateTime.Parse(Data.ToString()); }
+
+            // Recupera a lista de pontos batidos 
+            var _ListaCompleta = FeriasRepository.
+                            Listar().
+                            Where(p => p.Inicio.Month == _Data.Month).
+                            Where(p => p.Inicio.Year == _Data.Year).
+                            Where(p => p.Funcionario.Email == _Email).
+                            OrderBy(o => new { o.Funcionario.Nome, o.Inicio, o.Fim }).
+                            ToList();
+
+            //DateTime _PrimeiraData = new DateTime(_Data.Year, _Data.Month, 1);
+            //int _Dias = DateTime.DaysInMonth(_Data.Year, _Data.Month);
+            //Dictionary<DateTime, List<Ferias>> Dicionario = new Dictionary<DateTime, List<Ponto>>();
+
+            //int Maior = 0;
+
+            //for (int i = 0; i < _Dias; i++)
+            //{
+
+            //    var _ListaPorDia = _ListaCompleta.Where(p => p.DataValida.Date == _PrimeiraData.AddDays(i).Date).ToList();
+
+            //    int _QtdeBatidas = _ListaPorDia.Count();
+            //    if (_QtdeBatidas > Maior)
+            //    {
+            //        Maior = _QtdeBatidas;
+            //    }
+
+            //    Dicionario.Add(_PrimeiraData.AddDays(i), _ListaPorDia);
+            //}
+
+
+            //ViewBag.MaiorBatidas = ((int)((Maior + 1) / 2)) * 2;
+
+
+            return View("Index",_ListaCompleta);
         }
     }
 }

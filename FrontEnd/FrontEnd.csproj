@@ -977,6 +977,7 @@
     <Content Include="Views\Solicitacao\Solicitar.cshtml" />
     <Content Include="Views\Ponto\Index.cshtml" />
     <Content Include="Views\Ferias\Solicitar.cshtml" />
+    <Content Include="Views\Ferias\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
