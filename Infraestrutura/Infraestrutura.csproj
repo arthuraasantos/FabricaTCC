@@ -49,6 +49,7 @@
     <Compile Include="Mapeamento\EmpresaDbMapping.cs" />
     <Compile Include="Mapeamento\EntityTypeCOnfiguration.cs" />
     <Compile Include="Mapeamento\FeriasDbMapping.cs" />
+    <Compile Include="Mapeamento\FolgaDbMapping.cs" />
     <Compile Include="Mapeamento\PontoDbMapping.cs" />
     <Compile Include="Mapeamento\PerfilDeAcessoDbMapping.cs" />
     <Compile Include="Mapeamento\FuncionarioDbMapping.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\EmpresaRepository.cs" />
     <Compile Include="Repositorios\FeriasRepository.cs" />
+    <Compile Include="Repositorios\FolgaRepository.cs" />
     <Compile Include="Repositorios\SolicitacaoRepository.cs" />
     <Compile Include="Repositorios\PontoRepository.cs" />
     <Compile Include="Repositorios\PerfilDeAcessoRepository.cs" />

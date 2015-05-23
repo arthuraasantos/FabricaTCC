@@ -1,13 +1,20 @@
 ﻿@using Dominio.Model;
 @using Seedwork.Const;
 @{
-    ViewBag.Title = "Consultar Férias Pendentes";
+    ViewBag.Title = "Consultar Folgas Pendentes";
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
 
-@model List<Ferias>
+@model List<Folga>
 
-<h1 class="page-header">Férias Solicitadas</h1>
+<h1 class="page-header">Folgas Solicitadas</h1>
+
+<script type="text/javascript">
+    $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+</script>
 @if (@TempData["Mensagem"] != null)
 {
     <script>MostraSuccess('@TempData["Mensagem"]', false)</script>
@@ -19,18 +26,11 @@ else
         <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
     }
 }
-<script type="text/javascript">
-    $('#myTab a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-    })
-</script>
-
 <div class="panel panel-default">
     <!--   TODOS   -->
     <div class="panel-heading">
 
-        @using (Html.BeginForm("Lista", "Ferias", FormMethod.Post, new { @class = "form-inline" }))
+        @using (Html.BeginForm("Lista", "Folga", FormMethod.Post, new { @class = "form-inline" }))
         {
             <div class="form-group">
                 @Html.Label("Email do Funcionário: ")
@@ -58,8 +58,7 @@ else
                 <thead>
                     <tr>
                         <th>Funcionario</th>
-                        <th>Data Início</th>
-                        <th>Data Fim</th>
+                        <th>Data</th>
                         <th>Justicativa</th>
                         <th>Resposta</th>
                         <th>Aprovar?</th>
@@ -71,17 +70,16 @@ else
                     {
                         <tr>
                             <td>@item.Funcionario.Nome</td>
-                            <td>@item.Inicio.ToString(@"dd/MM/yyyy")</td>
-                            <td>@item.Fim.ToString(@"dd/MM/yyyy")</td>
+                            <td>@item.Data.ToString(@"dd/MM/yyyy")</td>
                             <td>@item.Justificativa</td>
                             @if (item.Resposta == Seedwork.Const.RespostaSolicitacao.Aprovado)
                             {
-                                <td style="color:#0a6216; " ><b>@item.Resposta</b></td>
+                                <td style="color:#0a6216; "><b>@item.Resposta</b></td>
                             }
                             else if (item.Resposta == Seedwork.Const.RespostaSolicitacao.Reprovado)
                             {
-                                <td style="color:#840808;" ><b>@item.Resposta</b></td>
-                                
+                                <td style="color:#840808;"><b>@item.Resposta</b></td>
+
                             }
                             else
                             {
@@ -89,8 +87,8 @@ else
                             }
 
                             <td>
-                                @Html.ActionLink("Aprovar", "AprovarRejeitarFerias", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Aprovado }, new { @class = "btn btn-outline btn-xs btn-info" })
-                                @Html.ActionLink("Rejeitar", "AprovarRejeitarFerias", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Reprovado }, new { @class = "btn btn-outline btn-xs btn-danger" })
+                                @Html.ActionLink("Aprovar", "AprovarRejeitarFolga", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Aprovado }, new { @class = "btn btn-outline btn-xs btn-info" })
+                                @Html.ActionLink("Rejeitar", "AprovarRejeitarFolga", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Reprovado }, new { @class = "btn btn-outline btn-xs btn-danger" })
                             </td>
                         </tr>
                     }

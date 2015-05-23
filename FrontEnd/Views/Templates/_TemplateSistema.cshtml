@@ -99,10 +99,10 @@
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-calendar"></i> Folgas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="@Url.Action("Index", "Folga")"><i class=""></i> Solicitar</a></li>
+                                <li><a href="@Url.Action("Solicitar", "Folga")"><i class=""></i> Solicitar</a></li>
                                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                 {
-                                    <li><a href="@Url.Action("Editar", "Folga")"><i class=""></i> Aprovar/Rejeitar</a></li>
+                                    <li><a href="@Url.Action("Index", "Folga")"><i class=""></i> Aprovar/Rejeitar</a></li>
                                 }
                             </ul>
                         </li>
@@ -113,7 +113,7 @@
                                 <li><a href="@Url.Action("Solicitar", "Ferias")"><i class=""></i> Solicitar</a></li>
                                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                 {
-                                    <li><a href="@Url.Action("Editar", "Ferias")"><i class=""></i> Aprovar/Rejeitar</a></li>
+                                    <li><a href="@Url.Action("Index", "Ferias")"><i class=""></i> Aprovar/Rejeitar</a></li>
                                 }
                             </ul>
                         </li>

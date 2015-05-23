@@ -127,7 +127,10 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\FolgaController.cs" />
     <Compile Include="Models\Conversores\FeriasToFeriasCriar.cs" />
+    <Compile Include="Models\Conversores\FolgaToFolgaAprovar.cs" />
+    <Compile Include="Models\Conversores\FolgaToFolgaCriar.cs" />
     <Compile Include="Models\FeriasAprovar.cs" />
     <Compile Include="Controllers\FeriasController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -153,6 +156,8 @@
     <Compile Include="Models\EntityModel.cs" />
     <Compile Include="Models\FeriasCriar.cs" />
     <Compile Include="Models\Conversores\FeriasToFeriasAjustar.cs" />
+    <Compile Include="Models\FolgaAprovar.cs" />
+    <Compile Include="Models\FolgaCriar.cs" />
     <Compile Include="Models\FuncionarioComHorasTrabalhadas.cs" />
     <Compile Include="Models\FuncionarioEditar.cs" />
     <Compile Include="Models\FuncionarioLogin.cs" />
@@ -978,6 +983,8 @@
     <Content Include="Views\Ponto\Index.cshtml" />
     <Content Include="Views\Ferias\Solicitar.cshtml" />
     <Content Include="Views\Ferias\Index.cshtml" />
+    <Content Include="Views\Folga\Index.cshtml" />
+    <Content Include="Views\Folga\Solicitar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
