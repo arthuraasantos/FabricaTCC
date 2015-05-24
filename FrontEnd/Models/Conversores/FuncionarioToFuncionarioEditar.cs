@@ -20,7 +20,7 @@ namespace FrontEnd.Models.Conversores
         }
         public override void AplicarValores(Funcionario origem, FuncionarioEditar destino)
         {
-            destino.Senha = origem.Senha;
+            destino.Senha = origem.Senha.ToString();
             destino.SalarioBase = origem.SalarioBase;
             destino.Logradouro = origem.Logradouro;
             destino.Pais = origem.Pais;

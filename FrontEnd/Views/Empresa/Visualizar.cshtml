@@ -1,56 +1,66 @@
-﻿@{
-    ViewBag.Title = "Novo";
-    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
-}
-<link href="~/Content/Site.css" rel="stylesheet" />
+﻿<link href="~/Content/Site.css" rel="stylesheet" />
 
 @{
-    var listaUf = (IEnumerable<SelectListItem>)ViewBag.ListagemdeUF;
-
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
 
 @model FrontEnd.Models.EmpresaEditar
 
-<h2>Editar @Model.NomeFantasia</h2>
+<h2 class="page-header">Editando empresa: @Model.NomeFantasia</h2>
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel panel-body">
 
-@using (Html.BeginForm("Editar", "Empresa", FormMethod.Post))
-{
-    @Html.HiddenFor(p => p.Id)
+                @using (Html.BeginForm("Editar", "Empresa", FormMethod.Post))
+                {
 
-    @Html.Label("Razão Social")
-    @Html.TextBoxFor(e => e.RazaoSocial, new { @class = "form-control" })<br />
-
-    @Html.Label("Nome Fantasia")
-    @Html.TextBoxFor(e => e.NomeFantasia, new { @class = "form-control" })<br />
-
-    @Html.Label("CNPJ ")
-    @Html.TextBoxFor(e => e.Cnpj, new { @class = "form-control" })<br />
-
-    @Html.Label("CEP ")
-    @Html.TextBoxFor(e => e.Cep, new { @class = "form-control" })<br />
-
-    @Html.Label("Logradouro")
-    @Html.TextBoxFor(e => e.Logradouro, new { @class = "form-control form-" })<br />
-
-    @Html.Label("Número")
-    @Html.TextBoxFor(e => e.NumeroEndereco, new { @class = "form-control", @type = "number" })<br />
-
-    @Html.Label("Bairro")
-    @Html.TextBoxFor(e => e.Bairro, new { @class = "form-control" })<br />
-
-    @Html.Label("Cidade")
-    @Html.TextBoxFor(e => e.Cidade, new { @class = "form-control" })<br />
-
-    @Html.Label("Estado")
-    @Html.DropDownListFor(p => p.Estado, listaUf, new { @class = "form-control" })<br />
-
-    @*@Html.LabelFor(p => p.Pais)
-    @Html.TextBoxFor(e => e.Pais, new { @class = "form-control" })<br />*@
-
-    @*@Html.LabelFor(p => p.Bloqueado)<br />
-        @Html.CheckBoxFor(e => e.Bloqueado, false)<br />*@
-
-    <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
-}
+                    var listaUf = (IEnumerable<SelectListItem>)ViewBag.ListagemdeUF;
+                    @Html.HiddenFor(p => p.Id)
+                    <div class="form-group">
+                        @Html.Label("Razão Social")
+                        @Html.TextBoxFor(e => e.RazaoSocial, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Nome Fantasia")
+                        @Html.TextBoxFor(e => e.NomeFantasia, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("CNPJ ")
+                        @Html.TextBoxFor(e => e.Cnpj, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("CEP ")
+                        @Html.TextBoxFor(e => e.Cep, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Logradouro")
+                        @Html.TextBoxFor(e => e.Logradouro, new { @class = "form-control form-" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Número")
+                        @Html.TextBoxFor(e => e.NumeroEndereco, new { @class = "form-control", @type = "number" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Bairro")
+                        @Html.TextBoxFor(e => e.Bairro, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Cidade")
+                        @Html.TextBoxFor(e => e.Cidade, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Estado")
+                        @Html.DropDownListFor(p => p.Estado, listaUf, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
 

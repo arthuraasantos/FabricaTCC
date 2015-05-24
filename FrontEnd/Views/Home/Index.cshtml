@@ -4,7 +4,7 @@
 }
 
 
-<h1 class="page-header">@ViewBag.Empresa</h1>
+<h2 class="page-header">@ViewBag.Empresa</h2>
 
 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Administrador)
 {
@@ -39,9 +39,18 @@
                     </div>
                 </div>
             </div>
-            <div>Funcionário: @ViewBag.Funcionario</div>
-            <div>Saldo de horas: @ViewBag.HorasTrabalhadas</div>
+            <div><strong>Funcionário:</strong> @ViewBag.Funcionario</div>
+            <div><strong>Saldo de horas:</strong> @ViewBag.HorasTrabalhadas</div>
             <div>@ViewBag.HorariosMarcadosHoje</div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div><strong>Quantidade total de Empresas:</strong> @ViewBag.QtdeEmpresas</div>
+            <div><strong>Quantidade total de Funcionários:</strong> @ViewBag.QtdeFuncionario</div>
         </div>
     </div>
 }
