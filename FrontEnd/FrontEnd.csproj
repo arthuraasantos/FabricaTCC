@@ -158,6 +158,7 @@
     <Compile Include="Models\Conversores\FeriasToFeriasAjustar.cs" />
     <Compile Include="Models\FolgaAprovar.cs" />
     <Compile Include="Models\FolgaCriar.cs" />
+    <Compile Include="Models\FuncionarioAlterarSenha.cs" />
     <Compile Include="Models\FuncionarioComHorasTrabalhadas.cs" />
     <Compile Include="Models\FuncionarioEditar.cs" />
     <Compile Include="Models\FuncionarioLogin.cs" />
@@ -985,6 +986,7 @@
     <Content Include="Views\Ferias\Index.cshtml" />
     <Content Include="Views\Folga\Index.cshtml" />
     <Content Include="Views\Folga\Solicitar.cshtml" />
+    <Content Include="Views\Funcionario\AlterarSenha.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

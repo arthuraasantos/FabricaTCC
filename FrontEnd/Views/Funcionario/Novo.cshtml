@@ -36,6 +36,31 @@
             },
         });
     };
+
+    $(document).ready(function () {
+        $('#form').validate({
+            rules: {
+                Senha: {
+                    required: true
+                },
+                SenhaConfirmacao: {
+                    required: true,
+                    equalTo: "#senha"
+                }
+            },
+            messages: {
+                Senha: {
+                    required: "O campo senha é obrigatório."
+                },
+                SenhaConfirmacao: {
+                    required: "O campo senha é obrigatório.",
+                    equalTo: "O campo confirmação de senha deve ser identico ao campo senha."
+                }
+            }
+
+        });
+    });
+
 </script>
 
 @model FrontEnd.Models.FuncionarioNovo
@@ -54,11 +79,7 @@
                     </div>
                     <div class="form-group">
                         @Html.Label("CPF ")
-                        @Html.TextBoxFor(f => f.Cpf, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        @Html.Label("Nascimento")
-                        @Html.TextBoxFor(f => f.DataNascimento, new { @class = "form-control", type = "date" })
+                        @Html.TextBoxFor(f => f.Cpf, new { @class = "form-control", id = "CPF" })
                     </div>
                     <div class="form-group">
                         @Html.Label("Email")
@@ -66,7 +87,11 @@
                     </div>
                     <div class="form-group">
                         @Html.Label("Senha")
-                        @Html.PasswordFor(f => f.Senha, new { @class = "form-control", type = "password", value = @Model.Senha })
+                        @Html.PasswordFor(f => f.Senha, new { name = "Senha", @class = "form-control", type = "password", @maxlength = "10", id = "senha" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Confirmação de senha")
+                        @Html.PasswordFor(f => f.SenhaConfirmacao, new { name = "ConfirmaSenha", @class = "form-control", type = "password", @maxlength = "10" })
                     </div>
                     if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
                     {

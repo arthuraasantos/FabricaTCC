@@ -5,6 +5,7 @@ using FrontEnd.Models.Conversores;
 using Infraestrutura;
 using Infraestrutura.Repositorios;
 using Seedwork.Const;
+using Seedwork.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,14 +117,40 @@ namespace FrontEnd.Controllers
             {
                 var uf = new UF();
                 ViewBag.ListagemdeUF = uf.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Valor.ToString() });
-                TempData["Mensagem"] = "Funcionário editar com sucesso!";
                 return base.Visualizar(Id);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                TempData["Mensagem"] = "Erro ao editar empresa. " + e.Message;
+                return RedirectToAction("Index");
             }
         }
+
+        public override ActionResult Editar(EmpresaEditar editar)
+        {
+            try
+            {
+                var entity = Repository.PesquisarPeloId(editar.Id);
+                ConversorEdit.AplicarValores(editar, entity);
+                Repository.Salvar(entity);
+                Context.SaveChanges();
+                TempData["Mensagem"] = "Empresa alterada com sucesso!";
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = "Erro ao alterar empresa! " + e.Message;
+                return RedirectToAction("Index");
+            }
+
+        }
+
+        public JsonResult AtualizaDadosEndereco(string cep)
+        {
+            Tools t = new Tools();
+            return this.Json(t.BuscaCep(cep), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

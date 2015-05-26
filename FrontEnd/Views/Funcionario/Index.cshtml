@@ -95,12 +95,8 @@ else
                             <tr>
                                 <th>Nome</th>
                                 <th>CPF</th>
-                                <th>Data Nascimento</th>
                                 <th>Email</th>
-                                @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
-                                {
-                                    <th>Operações</th>
-                                }
+                                <th>Operações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -109,26 +105,23 @@ else
                                 <tr>
                                     <td>@item.Nome</td>
                                     <td>@item.Cpf</td>
-                                    <td>@item.DataNascimento.GetValueOrDefault().ToString("dd/MM/yyyy")</td>
                                     <td>@item.Email</td>
-                                    @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
-                                    {
-                                        <td class="col-sm-2">
+                                    <td class="col-sm-3">
+                                        @Html.ActionLink("Alterar Senha", "AlterarSenha", new { id = item.Id }, new { @class = "btn btn-outline btn-xs btn-info" })
+                                        @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
+                                        {
 
                                             @Html.ActionLink("Editar", "Visualizar", new { id = item.Id }, new { @class = "btn btn-outline btn-xs btn-info" })
-                                            @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
+                                            if (item.Bloqueado == "Y")
                                             {
-                                                if (item.Bloqueado == "Y")
-                                                {
-                                                    <input type="button" class="btn btn-outline btn-xs btn-success" value="Habilitar  " onclick="desbloquearFuncionario('@item.Id');" />
-                                                }
-                                                else
-                                                {
-                                                    <input type="button" class="btn btn-outline btn-xs btn-warning" value="Desabilitar" onclick="bloquearFuncionario('@item.Id');" />
-                                                }
+                                                <input type="button" class="btn btn-outline btn-xs btn-success" value="Habilitar  " onclick="desbloquearFuncionario('@item.Id');" />
                                             }
-                                        </td>
-                                    }
+                                            else
+                                            {
+                                                <input type="button" class="btn btn-outline btn-xs btn-warning" value="Desabilitar" onclick="bloquearFuncionario('@item.Id');" />
+                                            }
+                                        }
+                                    </td>
                                 </tr>
                             }
                         </tbody>

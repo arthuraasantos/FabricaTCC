@@ -5,7 +5,7 @@
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
 
-<h2 class="page-header">Solicitar</h2>
+<h2 class="page-header">Solicitar ajuste</h2>
 
 @using (Html.BeginForm("Criar", "Solicitacao", FormMethod.Post))
 {
@@ -27,16 +27,16 @@
                 @Html.TextBoxFor(p => p.Funcionario, new { @class = "form-control", @readonly = "readonly" })
             </div>
             <div class="form-group">
-                @Html.Label("Selecione um horário para ajustar")
-                @Html.DropDownListFor(p => p.Ponto, listaDePontos, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
                 @Html.LabelFor(p => p.Tipo)
                 @Html.DropDownListFor(p => p.Tipo, listaTipos, new { @class = "form-control" })
             </div>
+            <div class="form-group">
+                @Html.Label("Selecione um horário para ajustar")
+                @Html.DropDownListFor(p => p.Ponto, listaDePontos, new { @class = "form-control" })
+            </div>
         </div>
         <div class="panel-body">
-            @Html.TextBoxFor(p => p.Data)
+            @Html.HiddenFor(p => p.DataSolicitacao)
 
             <div class="form-group">
                 @Html.LabelFor(p => p.Hora)
@@ -46,7 +46,7 @@
                 @Html.LabelFor(p => p.Justificativa)
                 @Html.TextBoxFor(p => p.Justificativa, new { @class = "form-control" })
             </div>
-            <input type="submit" value="Salvar Alterações" class="btn btn-outline btn-success" />
+            <input type="submit" value="Solicitar" class="btn btn-outline btn-success" />
         </div>
     </div>
 }

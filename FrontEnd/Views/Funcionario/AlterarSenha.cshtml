@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Alteração de Senha";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+@model FrontEnd.Models.FuncionarioAlterarSenha
+
+<h2 class="page-header">Alteração de senha</h2>
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel panel-body">
+                @using (Html.BeginForm("GravaAlteracaoSenha", "Funcionario", FormMethod.Post))
+                {
+                    @Html.HiddenFor(f => f.Id)
+                    <div class="form-group">
+                        @Html.Label("Senha atual")
+                        @Html.PasswordFor(f => f.SenhaAtual, new { @class = "form-control", type = "password", @maxlength = "10" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Nova senha")
+                        @Html.PasswordFor(f => f.SenhaNova, new { @class = "form-control", type = "password", @maxlength = "10" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Confirmação da nova senha")
+                        @Html.PasswordFor(f => f.SenhaNovaConfirmacao, new { @class = "form-control", type = "password", @maxlength = "10" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

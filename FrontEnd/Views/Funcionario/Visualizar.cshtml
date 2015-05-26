@@ -51,6 +51,7 @@
                 $("#txtlogradouro").val(data.logradouro);
                 $("#txtbairro").val(data.bairro);
                 $("txtcidade").val(data.cidade);
+                $("txtestado").chosen(data.uf);
             },
         });
     };
@@ -77,7 +78,7 @@
                         </div>
                         <div class="form-group">
                             @Html.Label("CPF ")
-                            @Html.TextBoxFor(e => e.Cpf, new { @class = "form-control", @maxlength = "11" })
+                            @Html.TextBoxFor(e => e.Cpf, new { @class = "form-control", id = "CPF" })
                         </div>
                         <div class="form-group">
                             @Html.Label("Nascimento")
@@ -88,12 +89,8 @@
                             @Html.TextBoxFor(e => e.Email, new { @class = "form-control", @style = "font-weight: bold;" })
                         </div>
                         <div class="form-group">
-                            @Html.Label("Senha")<br />
-                            @Html.PasswordFor(p => p.Senha, new { @class = "form-control glyphicon glyphicon-lock", @style = "font-weight: bold;" })
-                        </div>
-                        <div class="form-group">
                             @Html.Label("CEP ")
-                            @Html.TextBoxFor(e => e.Cep, new { @class = "form-control", @onBlur = "atualizaEndereco()" })
+                            @Html.TextBoxFor(e => e.Cep, new { @class = "form-control", @onBlur = "atualizaEndereco()", id = "CEP" })
                         </div>
                         <div class="form-group">
                             @Html.Label("Logradouro")
@@ -101,7 +98,7 @@
                         </div>
                         <div class="form-group">
                             @Html.Label("Número")
-                            @Html.TextBoxFor(e => e.NumeroEndereco, new { @class = "form-control" })
+                            @Html.TextBoxFor(e => e.NumeroEndereco, new { @class = "form-control", id = "Numero" })
                         </div>
                         <div class="form-group">
                             @Html.Label("Bairro")
@@ -113,7 +110,7 @@
                         </div>
                         <div class="form-group">
                             @Html.Label("Estado")
-                            @Html.DropDownListFor(p => p.Estado, listaUf, new { @class = "form-control" })
+                            @Html.DropDownListFor(p => p.Estado, listaUf, new { @class = "form-control", id = "txtestado" })
                         </div>
                         <div class="form-group">
                             @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)

@@ -11,9 +11,7 @@ namespace FrontEnd.Models.Conversores
     {
         public override void AplicarValores(Solicitacao origem, SolicitacaoCriar destino)
         {
-            destino.Data = origem.DataHora.Date;
             destino.Hora = origem.DataHora.ToString("HH:mm");
-
             destino.Funcionario = origem.Funcionario.Email;
             destino.Justificativa = origem.Justificativa;
             destino.Ponto = origem.Ponto.Id;
@@ -24,7 +22,7 @@ namespace FrontEnd.Models.Conversores
         public override void AplicarValores(SolicitacaoCriar origem, Solicitacao destino)
         {
             destino.Id = Guid.NewGuid();
-            destino.DataHora = DateTime.Parse(origem.Data.ToString("dd/MM/yyyy") + " " + origem.Hora);
+            destino.DataHora = DateTime.Parse(origem.DataSolicitacao + " " + origem.Hora);
 
             destino.Justificativa = origem.Justificativa;
             destino.Resposta = origem.Resposta;

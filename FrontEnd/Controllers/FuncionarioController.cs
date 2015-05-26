@@ -5,6 +5,7 @@ using FrontEnd.Models.Conversores;
 using Infraestrutura;
 using Seedwork.Const;
 using Seedwork.Entity;
+using SeedWork.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,18 +88,16 @@ namespace FrontEnd.Controllers
 
                 ViewBag.ListagemdeEmpresas = ListaEmpresas;
                 ViewBag.ListagemdePerfis = ListaPerfis;
-                ViewBag.ListagemdeUF = uf.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Valor.ToString() });
-
-                TempData["Mensagem"] = "Funcionário editar com sucesso!";
+                ViewBag.ListagemdeUF = uf.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Valor });
                 return base.Visualizar(Id);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                TempData["Mensagem"] = "Erro ao editar funcionário";
-                return RedirectToAction("Index");                
+                TempData["Mensagem"] = "Erro ao editar funcionário. " + e.Message;
+                return RedirectToAction("Index");
             }
-            
+
         }
 
         public override ActionResult Novo()
@@ -132,14 +131,14 @@ namespace FrontEnd.Controllers
                     TempData["Mensagem"] = "Funcionário cadastrado com sucesso!";
                 }
                 return RedirectToAction("Index");
-                
+
             }
             catch (Exception)
             {
                 TempData["Mensagem"] = "Erro ao cadastrar funcionário!";
                 return RedirectToAction("Index");
             }
-            
+
         }
 
         [HttpGet]
@@ -212,6 +211,74 @@ namespace FrontEnd.Controllers
 
                 throw;
             }
+        }
+
+        public ActionResult AlterarSenha(Guid id)
+        {
+
+            var func = Repository.PesquisarPeloId(id);
+            var modelAlterarSenha = new FuncionarioAlterarSenha()
+            {
+                Id = func.Id,
+                Nome = func.Nome
+            };
+
+            return View(modelAlterarSenha);
+        }
+
+        public ActionResult GravaAlteracaoSenha(FuncionarioAlterarSenha funcSenha)
+        {
+            try
+            {
+                var entity = Repository.PesquisarPeloId(funcSenha.Id);
+
+                if (entity.Senha == Criptografia.Encrypt(funcSenha.SenhaAtual))
+                {
+                    if (Criptografia.Encrypt(funcSenha.SenhaNova) == Criptografia.Encrypt(funcSenha.SenhaNovaConfirmacao))
+                    {
+                        entity.Senha = Criptografia.Encrypt(funcSenha.SenhaNova);
+
+                        Repository.Salvar(entity);
+                        Context.SaveChanges();
+
+                        TempData["Mensagem"] = "Senha alterada com sucesso!";
+                    }
+                    else
+                    {
+                        TempData["MensagemErro"] = "A confirmação de senha não confere com a nova senha! Tente novamente!";
+                    }
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Senha informada não confere com a antiga! Tente novamente!";
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = "Erro ao alterar a senha do funcionário!" + e.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        public override ActionResult Editar(FuncionarioEditar editar)
+        {
+            try
+            {
+                var entity = Repository.PesquisarPeloId(editar.Id);
+                ConversorEdit.AplicarValores(editar, entity);
+                Repository.Salvar(entity);
+                Context.SaveChanges();
+                TempData["Mensagem"] = "Funcionário alterado com sucesso!";
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["MensagemErro"] = "Erro ao alterar o funcionário! " + e.Message;
+                return RedirectToAction("Index");
+            }
+
         }
 
     }

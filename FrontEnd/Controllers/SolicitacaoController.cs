@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Seedwork.Const;
+using System.Globalization;
 
 namespace FrontEnd.Controllers
 {
@@ -58,10 +59,11 @@ namespace FrontEnd.Controllers
                                 ToList();
             ViewBag.ListaBatidas = _ListaPontos;
 
+            CultureInfo cult = new CultureInfo("pt-BR");
 
             SolicitacaoCriar item = new SolicitacaoCriar()
             {
-                Data = data.Date,
+                DataSolicitacao = data.Date.ToString("dd/MM/yyyy"),
                 Hora = data.TimeOfDay.ToString(),
                 Funcionario = func.Email,
                 Resposta = RespostaSolicitacao.Nenhuma

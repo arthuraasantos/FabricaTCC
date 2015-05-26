@@ -156,6 +156,12 @@
             $("#HoraMinuto").mask("99:99");
             $("#Telefone").mask("(99) 99999-9999");
             $("#CPF").mask("999.999.999-99");
+            $("#CNPJ").mask("99.999.999/9999-99");
+            $("#CEP").mask("99999-999");
+            $("#Numero2").mask('0', { definitions: { '0': { pattern: /[SN0-9]/ } } });
+            $.mask.definitions['S'] = '[Ss0-9 ]';
+            $.mask.definitions['N'] = '[Nn0-9 ]';
+            $("#Numero").mask("99999");
         });
     </script>
 

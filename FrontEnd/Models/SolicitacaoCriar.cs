@@ -14,12 +14,11 @@ namespace FrontEnd.Models
         public Guid Ponto { get; set; }
         [Required]
         public string Funcionario { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime Data { get; set; }
+        public string DataSolicitacao { get; set; }
         [Required]
-        public String Hora { get; set; }
+        public string Hora { get; set; }
         [Required]
-        public String Justificativa { get; set; }
+        public string Justificativa { get; set; }
         public TipoSolicitacao Tipo { get; set; }
         public RespostaSolicitacao Resposta { get; set; }
     }
