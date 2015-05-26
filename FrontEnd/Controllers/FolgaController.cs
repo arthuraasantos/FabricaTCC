@@ -66,7 +66,6 @@ namespace FrontEnd.Controllers
             return RedirectToAction("Index");
         }
 
-
         public ActionResult Criar(string Funcionario, DateTime Data, string Justificativa)
         {
             try
@@ -98,30 +97,6 @@ namespace FrontEnd.Controllers
                 return RedirectToAction("Solicitar");
             }
 
-        }
-
-        public ActionResult Lista(string Email, DateTime? Data)
-        {
-
-            // Pega email, ou default usuario logado
-            string _Email = Sessao.FuncionarioLogado.Email;
-            if ((Email != null) && (Email != String.Empty)) { _Email = Email; }
-            ViewBag.EmailLogado = _Email;
-
-            // Pega a data, ou default data atual
-            DateTime _Data = DateTime.Now;
-            if (Data != null) { _Data = DateTime.Parse(Data.ToString()); }
-
-            // Recupera a lista de pontos batidos 
-            var _ListaCompleta = FolgaRepository.
-                            Listar().
-                            Where(p => p.Data.Month == _Data.Month).
-                            Where(p => p.Data.Year == _Data.Year).
-                            Where(p => p.Funcionario.Email == _Email).
-                            OrderBy(o => new { o.Funcionario.Nome, o.Data }).
-                            ToList();
-
-            return View("Index", _ListaCompleta);
         }
     }
 }

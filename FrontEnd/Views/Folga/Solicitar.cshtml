@@ -8,7 +8,6 @@
 
 </script>
 <link href="~/Content/Site.css" rel="stylesheet" />
-<h1 class="page-header">Solicitar Folga</h1>
 @{
     if (@TempData["Mensagem"] != null)
     {
@@ -22,33 +21,32 @@
         }
     }
 }
-<div class="panel panel-default">
-    @using (Html.BeginForm("Criar", "Folga", FormMethod.Post))
-    {
-        @Html.ValidationSummary()
-        <fieldset>
-            <div class="panel-heading">
-                <div class="form-group">
-                    @Html.LabelFor(p => p.Funcionario)
-                    @Html.TextBoxFor(p => p.Funcionario, new { @class = "form-control", @readonly = "readonly" })
-                </div>
+<h2 class="page-header">Solicitar férias</h2>
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel panel-body">
+                @using (Html.BeginForm("Criar", "Folga", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        @Html.Label("Funcionário")
+                        @Html.TextBoxFor(p => p.Funcionario, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Data para folga")
+                        <input type="date" id="Data" name="Data" class="form-control" aria-describedby="basic-addon" required oninvalid="setCustomValidity('A data da folga deve ser informada!')">
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Justificativa")
+                        <textarea id="Justificativa" name="Justificativa" rows="5" class="form-control" placeholder="Sua justificativa ou observação..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(p => p.Resposta)
+                        <input type="submit" value="Solicitar" class="btn btn-outline btn-success" />
+                    </div>
+                }
             </div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label>Data para Folga</label>
-                    <input type="date" id="Data" name="Data" class="form-control" aria-describedby="basic-addon" required oninvalid="setCustomValidity('A data da folga deve ser informada!')">
-                </div>
-                <br />
-                <div class="form-group">
-                    <label>Justificativa</label>
-
-                    <textarea id="Justificativa" name="Justificativa" rows="5" class="form-control" placeholder="Sua justificativa ou observação..."></textarea>
-                </div>
-                <br />
-                @Html.HiddenFor(p => p.Resposta)
-                <input type="submit" value="Solicitar" class="btn btn-outline btn-success" />
-            </div>
-        </fieldset>
-    }
+        </div>
+    </div>
 </div>
 

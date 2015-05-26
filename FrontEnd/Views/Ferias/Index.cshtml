@@ -7,7 +7,7 @@
 
 @model List<Ferias>
 
-<h1 class="page-header">Férias Solicitadas</h1>
+<h2 class="page-header">Férias Solicitadas</h2>
 @if (@TempData["Mensagem"] != null)
 {
     <script>MostraSuccess('@TempData["Mensagem"]', false)</script>
@@ -28,30 +28,6 @@ else
 
 <div class="panel panel-default">
     <!--   TODOS   -->
-    <div class="panel-heading">
-
-        @using (Html.BeginForm("Lista", "Ferias", FormMethod.Post, new { @class = "form-inline" }))
-        {
-            <div class="form-group">
-                @Html.Label("Email do Funcionário: ")
-                @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == PerfilAcesso.Funcionario)
-                {
-                    @Html.TextBox("Email", (String)ViewBag.EmailLogado, new { @type = "email", @class = "form-control", @placeholder = "Email", @readonly = "readonly" })
-                }
-                else
-                {
-                    @Html.TextBox("Email", (String)ViewBag.EmailLogado, new { @type = "email", @class = "form-control", @placeholder = "Email" })
-                }
-            </div>
-
-            <div class="form-group">
-                @Html.Label("Mês/Ano")
-                @Html.TextBox("Data", String.Format("{0: MM/yyyy}", DateTime.Now), new { @class = "form-control", @placeholder = "Mês/Ano", @id = "MesAno" })
-            </div>
-            <input type="submit" value="Atualizar" class="btn btn-outline btn-success form-control" />
-        }
-
-    </div>
     <div class="panel-body">
         <div class="dataTable_wrapper">
             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -88,7 +64,7 @@ else
                                 <td>@item.Resposta</td>
                             }
 
-                            <td>
+                            <td class="col-sm-2">
                                 @Html.ActionLink("Aprovar", "AprovarRejeitarFerias", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Aprovado }, new { @class = "btn btn-outline btn-xs btn-info" })
                                 @Html.ActionLink("Rejeitar", "AprovarRejeitarFerias", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Reprovado }, new { @class = "btn btn-outline btn-xs btn-danger" })
                             </td>
