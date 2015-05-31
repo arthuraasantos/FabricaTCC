@@ -3,54 +3,155 @@
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
 
+@if (@TempData["Mensagem"] != null)
+{
+    <script>MostraSuccess('@TempData["Mensagem"]', false)</script>
+}
+else
+{
+    if (@TempData["MensagemErro"] != null)
+    {
+        <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
+    }
+    else
+    {
+        if (@TempData["MensagemAlerta"] != null)
+        {
+                    <script>MostraWarning('@TempData["MensagemAlerta"]', false)</script>
+
+        }
+    }
+}
+
 
 <h2 class="page-header">@ViewBag.Empresa</h2>
 
 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Administrador)
 {
     <!-- Confirmação do ponto em Modal -->
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">Marcar ponto</button>
-            @Html.ActionLink("Consultar horários", "Lista", "Ponto", new { }, new { @class = "btn btn-default btn-sm", @style = "float: right; margin: 7px 0;" })
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm">Marcar ponto</button>
+                @Html.ActionLink("Consultar horários", "Lista", "Ponto", new { }, new { @class = "btn btn-default btn-sm", @style = "float: right; margin: 7px 0;" })
+            </div>
+            <div class="panel-body">
+                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            @using (Html.BeginForm("Marcar", "Ponto", FormMethod.Post))
+                            {
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        @Html.Label("Email")
+                                        @Html.TextBox("Email", (string)@ViewBag.EmailFuncionario, new { @type = "email", @class = "form-control", @placeholder = "Email", @readonly = "readonly" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.Label("Senha")
+                                        @Html.Password("Senha", "", new { @type = "password", @class = "form-control", @placeholder = "senha" })
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" value="Confirmar" class="btn btn-outline btn-success form-control" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div><strong>Funcionário:</strong> @ViewBag.Funcionario</div>
+                <div><strong>Saldo de horas:</strong> @ViewBag.HorasTrabalhadas</div>
+                <div>@ViewBag.HorariosMarcadosHoje</div>
+            </div>
         </div>
-        <div class="panel-body">
-            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        @using (Html.BeginForm("Marcar", "Ponto", FormMethod.Post))
-                        {
-                            <div class="modal-body">
+    </div>
 
-                                <div class="form-group">
-                                    @Html.Label("Email")
-                                    @Html.TextBox("Email", (string)@ViewBag.EmailFuncionario, new { @type = "email", @class = "form-control", @placeholder = "Email", @readonly = "readonly" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.Label("Senha")
-                                    @Html.Password("Senha", "", new { @type = "password", @class = "form-control", @placeholder = "senha" })
-                                </div>
 
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <br />
+                    <div class="col-lg-4 col-md-1">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="glyphicon glyphicon-time fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">@ViewBag.QtdeRespostasHoras</div>
+                                        <div>Solicitações de ajustes</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <input type="submit" value="Confirmar" class="btn btn-outline btn-success form-control" />
+                            <a href="@Url.Action("Respostas", "Solicitacao")">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Ver respostas das solicitações</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-1">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="glyphicon glyphicon-calendar fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">@ViewBag.QtdeRespostasFolgas</div>
+                                        <div>Solicitações de folgas</div>
+                                    </div>
+                                </div>
                             </div>
-                        }
+                            <a href="@Url.Action("Respostas", "Folga")">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Ver respostas das solicitações</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-1">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="glyphicon glyphicon-plane fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">@ViewBag.QtdeRespostasFerias</div>
+                                        <div>Solicitações de férias</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="@Url.Action("Respostas", "Ferias")">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Ver respostas das solicitações</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div><strong>Funcionário:</strong> @ViewBag.Funcionario</div>
-            <div><strong>Saldo de horas:</strong> @ViewBag.HorasTrabalhadas</div>
-            <div>@ViewBag.HorariosMarcadosHoje</div>
         </div>
     </div>
 }
 else
 {
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div><strong>Quantidade total de Empresas:</strong> @ViewBag.QtdeEmpresas</div>
-            <div><strong>Quantidade total de Funcionários:</strong> @ViewBag.QtdeFuncionario</div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div><strong>Quantidade total de Empresas:</strong> @ViewBag.QtdeEmpresas</div>
+                <div><strong>Quantidade total de Funcionários:</strong> @ViewBag.QtdeFuncionario</div>
+            </div>
         </div>
     </div>
 }

@@ -41,18 +41,37 @@
 
                     var listaUf = (IEnumerable<SelectListItem>)ViewBag.ListagemdeUF;
                     @Html.HiddenFor(p => p.Id)
-                    <div class="form-group">
-                        @Html.Label("Razão Social")
-                        @Html.TextBoxFor(e => e.RazaoSocial, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        @Html.Label("Nome Fantasia")
-                        @Html.TextBoxFor(e => e.NomeFantasia, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        @Html.Label("CNPJ ")
-                        @Html.TextBoxFor(e => e.Cnpj, new { @class = "form-control", id = "CNPJ" })
-                    </div>
+                    
+                    if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
+                    {
+                        <div class="form-group">
+                            @Html.Label("Razão Social")
+                            @Html.TextBoxFor(e => e.RazaoSocial, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Nome Fantasia")
+                            @Html.TextBoxFor(e => e.NomeFantasia, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("CNPJ ")
+                            @Html.TextBoxFor(e => e.Cnpj, new { @class = "form-control", id = "CNPJ" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            @Html.Label("Razão Social")
+                            @Html.TextBoxFor(e => e.RazaoSocial, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Nome Fantasia")
+                            @Html.TextBoxFor(e => e.NomeFantasia, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("CNPJ ")
+                            @Html.TextBoxFor(e => e.Cnpj, new { @class = "form-control", id = "CNPJ", @readonly = "readonly" })
+                        </div>
+                    }
                     <div class="form-group">
                         @Html.Label("CEP ")
                         @Html.TextBoxFor(e => e.Cep, new { @class = "form-control", @onBlur = "atualizaEndereco()", id = "CEP" })

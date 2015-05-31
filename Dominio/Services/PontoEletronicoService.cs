@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Seedwork;
 using Seedwork.Const;
+using System.Globalization;
 
 namespace Dominio.Services
 {
@@ -20,11 +21,15 @@ namespace Dominio.Services
         }
         public void EfetuarMarcacaoDePonto(Funcionario funcionario)
         {
+
+            CultureInfo cult = new CultureInfo("pt-BR");
+            string StrData = DateTime.Now.ToString("dd/MM/yyyy HH:mm", cult);
+
             var novoPonto = new Ponto()
            {
                Id = Guid.NewGuid(),
-               DataMarcacao = DateTime.Now,
-               DataValida = DateTime.Now,
+               DataMarcacao = DateTime.Parse(StrData,cult),
+               DataValida = DateTime.Parse(StrData, cult),
                Funcionario = funcionario,
                Contabilizar = true
            };
@@ -33,28 +38,44 @@ namespace Dominio.Services
             PontoRepository.Executar();
         }
 
-        public TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionario(Funcionario funcionario, DateTime diaInicio, DateTime diaFinal)
+        public TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionario(Funcionario funcionario, DateTime diaInicio, DateTime diaFinal, Boolean descontarHoras = true)
         {
             // TODO : Verificar esta função : QuantidadeDeHorasTrabalhadasPorFuncionario
-            var marcacoesDoDia = PontoRepository.
+            var _marcacoesDoDia = PontoRepository.
                                     Listar().
                                     ToList().
+                                    Where(p => p.Funcionario.Id == funcionario.Id).
                                     Where(p => p.DataValida.Date >= diaInicio.Date).
                                     Where(p => p.DataValida.Date <= diaFinal.Date).
                                     Where(p => p.Contabilizar == true).
                                     OrderBy(p => p.DataValida).
                                     ToList();
 
-            var totalDeCiclos = marcacoesDoDia.Count / 2;
-
+            int _Dias = diaFinal.Subtract(diaInicio).Days;
             var horasTrabalhadas = new TimeSpan();
 
-            for (int i = 1; i < totalDeCiclos; i = i + 2)
+            for (int i = 0; i <= _Dias; i++)
             {
-                horasTrabalhadas = horasTrabalhadas.Add(marcacoesDoDia[i].DataValida - marcacoesDoDia[i - 1].DataValida);
-            }
+                DateTime DataTeste = diaInicio.AddDays(i).Date;
+                var _ListaPorDia = _marcacoesDoDia.Where(p => p.DataValida.Date == DataTeste).ToList();
 
+                for (int j = 1; j < _ListaPorDia.Count; j = j + 2)
+                {
+                    horasTrabalhadas = horasTrabalhadas.Add(_ListaPorDia[j].DataValida.TimeOfDay - _ListaPorDia[j-1].DataValida.TimeOfDay);
+                }
+
+                if ((_ListaPorDia.Count >= 4) && (descontarHoras))
+                { 
+                    horasTrabalhadas = horasTrabalhadas.Subtract(new TimeSpan(8,0,0));
+                }
+
+            }
+            
             return horasTrabalhadas;
+        }
+        public TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionarioPorDia(Funcionario funcionario, DateTime dia)
+        {
+            return this.QuantidadeDeHorasTrabalhadasPorFuncionario(funcionario,dia,dia,false);
         }
 
         public string HorasBatidasPorDiaPorFuncionario(Funcionario funcionario, DateTime dia)
@@ -66,7 +87,8 @@ namespace Dominio.Services
                                     Listar().
                                     ToList().
                                     Where(p => p.DataValida.Date == dia.Date).
-                                    Where(p => p.Funcionario == funcionario).
+                                    Where(p => p.Funcionario.Id == funcionario.Id).
+                                    Where(p => p.Contabilizar == true).
                                     OrderBy(p => p.DataValida).
                                     ToList();
 

@@ -987,6 +987,9 @@
     <Content Include="Views\Folga\Index.cshtml" />
     <Content Include="Views\Folga\Solicitar.cshtml" />
     <Content Include="Views\Funcionario\AlterarSenha.cshtml" />
+    <Content Include="Views\Solicitacao\Respostas.cshtml" />
+    <Content Include="Views\Ferias\Respostas.cshtml" />
+    <Content Include="Views\Folga\Respostas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

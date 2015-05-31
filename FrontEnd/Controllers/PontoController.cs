@@ -42,16 +42,17 @@ namespace FrontEnd.Controllers
             if (funcionarioParaMarcar != null)
             {
                 PontoEletronicoService.EfetuarMarcacaoDePonto(funcionarioParaMarcar);
-                ViewBag.Mensagem = new Mensagem() { TextoResumido = "Marcação efetuada com sucesso!" };
+                TempData["Mensagem"] = "Marcação efetuada com sucesso!";
             }
             else
             {
-                ViewBag.Mensagem = new Mensagem() { TextoResumido = "Atenção: Email ou senha" };
+                TempData["MensagemAlerta"] = "Senha incorreta";
             }
 
 
             if ((parametro != string.Empty) && (parametro != null))
             {
+                // Registro de ponto sem Login
                 return RedirectToAction("Index");
             }
             else
@@ -83,6 +84,7 @@ namespace FrontEnd.Controllers
             DateTime _PrimeiraData = new DateTime(_Data.Year, _Data.Month, 1);
             int _Dias = DateTime.DaysInMonth(_Data.Year, _Data.Month);
             Dictionary<DateTime, List<Ponto>> Dicionario = new Dictionary<DateTime, List<Ponto>>();
+            Dictionary<DateTime, TimeSpan> DicionarioHoras = new Dictionary<DateTime, TimeSpan>();
 
             int Maior = 0;
 
@@ -96,13 +98,14 @@ namespace FrontEnd.Controllers
                 {
                     Maior = _QtdeBatidas;
                 }
-
+                
                 Dicionario.Add(_PrimeiraData.AddDays(i), _ListaPorDia);
+                DicionarioHoras.Add(_PrimeiraData.AddDays(i), PontoEletronicoService.QuantidadeDeHorasTrabalhadasPorFuncionarioPorDia(Sessao.FuncionarioLogado, _PrimeiraData.AddDays(i)));
             }
 
 
             ViewBag.MaiorBatidas = ((int)((Maior + 1) / 2)) * 2;
-
+            ViewBag.DicionarioHoras = DicionarioHoras;
 
             return View(Dicionario);
         }

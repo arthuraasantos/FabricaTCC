@@ -1,0 +1,35 @@
+﻿@using Dominio.Model;
+
+@{
+    ViewBag.Title = "Respostas";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+
+@model List<Ferias>
+
+<h2 class="page-header">Respostas das solicitações de férias</h2>
+
+<div class="dataTable_wrapper">
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+        <thead>
+            <tr>
+                <th>Data Início</th>
+                <th>Data Fim</th>
+                <th>Justicativa</th>
+                <th>Resposta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Inicio.ToString(@"dd/MM/yyyy")</td>
+                    <td>@item.Fim.ToString(@"dd/MM/yyyy")</td>
+                    <td>@item.Funcionario
+                    <td>
+                    <td>@item.Resposta.ToString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,48 @@
+﻿@using Dominio.Model;
+
+@{
+    ViewBag.Title = "Respostas";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+
+@model List<Solicitacao>
+
+<h2 class="page-header">Respostas das solicitações de ajustes</h2>
+
+<div class="dataTable_wrapper">
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Data/Hora Marcada</th>
+                <th>Data/Hora Válida</th>
+                <th>Data/Hora Solicitada</th>
+                <th>Justicativa</th>
+                <th>Resposta</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Tipo</td>
+                    @if (@item.Ponto != null)
+                    {
+                        <td>@item.Ponto.DataMarcacao.GetValueOrDefault().ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@item.Ponto.DataValida.ToString("dd/MM/yyyy HH:mm")</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                        <td></td>
+                    }
+
+                    <td>@item.DataHora.ToString("dd/MM/yyyy HH:mm") </td>
+                    <td>@item.Justificativa</td>
+                    <td>@item.Resposta.ToString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

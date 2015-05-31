@@ -4,11 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using FrontEnd.Models;
+using SeedWork.Tools;
+using System.Web.Security;
 
 namespace FrontEnd.Models
 {
     public static class Sessao
     {
+
         private static Funcionario _Funcionario;
         private static Empresa _Empresa;
         private static PerfilAcesso _Perfil;
@@ -51,6 +56,11 @@ namespace FrontEnd.Models
                 return _Perfil;
             }
         }
+
+        //public static ActionResult Deslogar()
+        //{
+            
+        //} 
 
     }
 }

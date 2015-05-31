@@ -25,6 +25,7 @@ namespace FrontEnd.Controllers
             PontoRepository = pontoRepository;
             FuncionarioRepository = funcionarioRepository;
             PontoService = pontoService;
+            Context = context;
         }
 
         public ActionResult Index()
@@ -32,24 +33,26 @@ namespace FrontEnd.Controllers
 
             if (Sessao.FuncionarioLogado != null)
             {
+
                 ViewBag.EmailFuncionario = Sessao.FuncionarioLogado.Email;
                 ViewBag.Funcionario = Sessao.FuncionarioLogado.Nome;
-                ViewBag.Empresa = Sessao.FuncionarioLogado.Empresa.NomeFantasia;
-                ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now);
-                ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now.AddDays(-30), DateTime.Now);
+                ViewBag.Empresa = Sessao.EmpresaLogada.NomeFantasia;
 
-                // Armazena a permissão na tela inicial - pode ser usada onde precisar na página inicial
-                switch (Sessao.PerfilFuncionarioLogado)
+                if (Sessao.PerfilFuncionarioLogado != PerfilAcesso.Administrador)
                 {
-                    case PerfilAcesso.Gerente:
-                        ViewBag.Permissao = "GRH";
-                        break;
-                    case PerfilAcesso.Funcionario:
-                        ViewBag.Permissao = "FUN";
-                        break;
-                    case PerfilAcesso.Administrador:
-                        ViewBag.Permissao = "ADM";
-                        break;
+                    DateTime PrimeiroDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                    DateTime UltimoDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
+                    ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(Sessao.FuncionarioLogado, PrimeiroDiaDoMes, UltimoDiaDoMes).ToString();
+                    ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now);
+
+                    ViewBag.QtdeRespostasHoras = Context.Set<Solicitacao>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Id == Sessao.FuncionarioLogado.Id).Count();
+                    ViewBag.QtdeRespostasFolgas = Context.Set<Folga>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Id == Sessao.FuncionarioLogado.Id).Count();
+                    ViewBag.QtdeRespostasFerias = Context.Set<Ferias>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Id == Sessao.FuncionarioLogado.Id).Count();
+                }
+                else
+                {
+                    ViewBag.QtdeEmpresas = Context.Set<Empresa>().Count();
+                    ViewBag.QtdeFuncionario = Context.Set<Funcionario>().Count();
                 }
 
                 return View();
@@ -66,15 +69,15 @@ namespace FrontEnd.Controllers
             var funcionario = FuncionarioRepository.Listar().SingleOrDefault(p => p.Email == marcarPonto.Email && p.Senha == marcarPonto.Senha);
             if (funcionario == null)
             {
-                ViewBag.Mensagem = new Mensagem() { TextoResumido = "Funcionario Não Encontrado" };
-                return View();
+                TempData["Mensagem"] = "Senha incorreta.";
             }
-
-            PontoService.EfetuarMarcacaoDePonto(funcionario);
-
-            ViewBag.Mensagem = new Mensagem() { TextoResumido = "Ponto Marcado Com Sucesso!" };
-
-            return RedirectToAction("MarcarPonto");
+            else
+            {
+                PontoService.EfetuarMarcacaoDePonto(funcionario);
+                TempData["Mensagem"] = "Ponto marcado com sucesso.";
+            }
+ 
+            return RedirectToAction("Index");
         }
 
     }

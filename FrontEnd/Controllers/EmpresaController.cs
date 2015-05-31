@@ -51,7 +51,8 @@ namespace FrontEnd.Controllers
                 Repository.Salvar(entity);
                 Context.SaveChanges();
                 TempData["Mensagem"] = "Empresa cadastrada com sucesso!";
-                return RedirectToAction("Index");
+                TempData["Empresa"] = entity;
+                return RedirectToAction("Novo","Funcionario");
 
             }
             catch (Exception)

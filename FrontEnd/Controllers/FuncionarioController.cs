@@ -102,11 +102,19 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Novo()
         {
+
+            Empresa emp = (Empresa)TempData["Empresa"];
+
             var novo = new FuncionarioNovo()
             {
                 Empresas = ListaEmpresas,
                 PerfisDeAcesso = ListaPerfis
             };
+
+            if (emp != null)
+            {
+                novo.IdEmpresa = emp.Id;
+            }
 
             return View("Novo", novo);
         }

@@ -146,6 +146,18 @@ namespace FrontEnd.Controllers
 
             return RedirectToAction("Index");
         }
+        public ActionResult Respostas()
+        {
+            var _lista = Repository.
+                            Listar().
+                            ToList().
+                            Where(p => p.Funcionario.Id == Sessao.FuncionarioLogado.Id).
+                            Where(p => p.Resposta != RespostaSolicitacao.Nenhuma).
+                            OrderByDescending(p => p.DataHora).
+                            ToList();
+
+            return View(_lista);
+        }
 
     }
 }

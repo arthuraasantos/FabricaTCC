@@ -20,6 +20,9 @@ else
     }
 }
 
+@{
+    Dictionary<DateTime, TimeSpan> DicionarioHoras = ViewBag.DicionarioHoras;
+}
 <h1 class="page-header">Consultar horários</h1>
 
 <div class="panel panel-default">
@@ -77,7 +80,9 @@ else
                                             }
                                         }
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        @DicionarioHoras[data.Key]
+                                    </td>
                                     <td>
                                         @Html.ActionLink("Solicitar Ajuste", "Solicitar", "Solicitacao",
                                             new { data = data.Key.Date, email = ViewBag.EmailLogado },

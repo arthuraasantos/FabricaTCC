@@ -6,7 +6,7 @@
 
 @model List<Solicitacao>
 
-<h1 class="page-header">Solicitações no ponto</h1>
+<h2 class="page-header">Solicitações no ponto</h2>
 
 <script type="text/javascript">
     $('#myTab a').click(function (e) {
@@ -64,7 +64,7 @@
 
                                     <td>@item.DataHora.ToString("dd/MM/yyyy HH:mm") </td>
                                     <td>@item.Justificativa</td>
-                                    <td>
+                                    <td class="col-sm-2">
                                         @Html.ActionLink("Aprovar", "AprovarRejeitarSolicitacao", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Aprovado }, new { @class = "btn btn-outline btn-xs btn-info" })
                                         @Html.ActionLink("Rejeitar", "AprovarRejeitarSolicitacao", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Reprovado }, new { @class = "btn btn-outline btn-xs btn-danger" })
                                     </td>
@@ -112,7 +112,7 @@
 
                                     <td>@item.DataHora.ToString("dd/MM/yyyy HH:mm") </td>
                                     <td>@item.Justificativa</td>
-                                    <td>
+                                    <td class="col-sm-2">
                                         @Html.ActionLink("Aprovar", "AprovarRejeitarSolicitacao", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Aprovado }, new { @class = "btn btn-outline btn-xs btn-info" })
                                         @Html.ActionLink("Rejeitar", "AprovarRejeitarSolicitacao", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Reprovado }, new { @class = "btn btn-outline btn-xs btn-danger" })
                                     </td>
@@ -160,7 +160,7 @@
 
                                     <td>@item.DataHora.ToString("dd/MM/yyyy HH:mm") </td>
                                     <td>@item.Justificativa</td>
-                                    <td>
+                                    <td class="col-sm-2">
                                         @Html.ActionLink("Aprovar", "AprovarRejeitarSolicitacao", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Aprovado }, new { @class = "btn btn-outline btn-xs btn-info" })
                                         @Html.ActionLink("Rejeitar", "AprovarRejeitarSolicitacao", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Reprovado }, new { @class = "btn btn-outline btn-xs btn-danger" })
                                     </td>
@@ -208,7 +208,7 @@
 
                                     <td>@item.DataHora.ToString("dd/MM/yyyy HH:mm") </td>
                                     <td>@item.Justificativa</td>
-                                    <td>
+                                    <td class="col-sm-2">
                                         @Html.ActionLink("Aprovar", "AprovarRejeitarSolicitacao", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Aprovado }, new { @class = "btn btn-outline btn-xs btn-info" })
                                         @Html.ActionLink("Rejeitar", "AprovarRejeitarSolicitacao", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Reprovado }, new { @class = "btn btn-outline btn-xs btn-danger" })
                                     </td>

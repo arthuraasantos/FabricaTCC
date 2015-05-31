@@ -79,9 +79,15 @@
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-list"></i> Cadastros<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="@Url.Action("Index", "Empresa")"><i class=""></i> Empresas</a></li>
+                                @if (@FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
+                                {
+                                    <li><a href="@Url.Action("Index", "Empresa")"><i class=""></i> Empresas</a></li>
+                                }
                                 <li><a href="@Url.Action("Index", "Funcionario")"><i class=""></i> Funcionários</a></li>
-                                <li><a href="@Url.Action("Index", "HorarioExpediente")"><i class=""></i> Horários de expedientes</a></li>
+                                @if (@FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
+                                {
+                                    <li><a href="@Url.Action("Index", "HorarioExpediente")"><i class=""></i> Horários de expedientes</a></li>
+                                }
                             </ul>
                         </li>
                         <!--  Menu Horários  -->
@@ -93,6 +99,7 @@
                                 {
                                     <li><a href="@Url.Action("Index", "Solicitacao")"><i class=""></i> Ajustes pendentes</a></li>
                                 }
+                                <li><a href="@Url.Action("Respostas", "Solicitacao")"><i class=""></i> Respostas</a></li>
                             </ul>
                         </li>
                         <!--  Menu Folgas  -->
@@ -104,6 +111,7 @@
                                 {
                                     <li><a href="@Url.Action("Index", "Folga")"><i class=""></i> Aprovar/Rejeitar</a></li>
                                 }
+                                <li><a href="@Url.Action("Respostas", "Folga")"><i class=""></i> Respostas</a></li>
                             </ul>
                         </li>
                         <!--  Menu Férias  -->
@@ -115,6 +123,7 @@
                                 {
                                     <li><a href="@Url.Action("Index", "Ferias")"><i class=""></i> Aprovar/Rejeitar</a></li>
                                 }
+                                <li><a href="@Url.Action("Respostas", "Ferias")"><i class=""></i> Respostas</a></li>
                             </ul>
                         </li>
                         <!--  Menu Relatórios  -->
