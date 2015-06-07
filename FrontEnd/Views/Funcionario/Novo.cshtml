@@ -100,6 +100,10 @@
                             @Html.DropDownListFor(f => f.IdEmpresa, Model.Empresas, new { @class = "form-control" })
                         </div>
                     }
+                    else
+                    {
+                        @Html.HiddenFor(f => f.IdEmpresa)
+                    }
                     <div class="form-group">
                         @Html.Label("Perfil de Acesso")<br />
                         @Html.DropDownListFor(f => f.IdPerfilDeAcesso, Model.PerfisDeAcesso, new { @class = "form-control" })

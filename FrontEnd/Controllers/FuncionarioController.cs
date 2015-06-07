@@ -107,10 +107,13 @@ namespace FrontEnd.Controllers
 
             var novo = new FuncionarioNovo()
             {
+                IdEmpresa = Sessao.EmpresaLogada.Id,
                 Empresas = ListaEmpresas,
                 PerfisDeAcesso = ListaPerfis
             };
 
+
+            // Quando cadastra uma empresa, vem direto para o cadastro do funcionario com a empresa cadastrada
             if (emp != null)
             {
                 novo.IdEmpresa = emp.Id;
@@ -126,12 +129,21 @@ namespace FrontEnd.Controllers
 
         public override ActionResult Incluir(FuncionarioNovo novo)
         {
+
             try
             {
                 if (ModelState.IsValid)
                 {
                     var entity = ConversorInsert.Converter(novo);
                     entity.Id = Guid.NewGuid();
+
+                    ////Quando for cadastrado pelo Gerente
+                    //if (entity.Empresa == null)
+                    //{
+                    //    Empresa emp = new Empresa();
+                    //    emp = Sessao.EmpresaLogada;
+                    //    entity.Empresa = emp;
+                    //}
 
                     Repository.Salvar(entity);
                     Context.SaveChanges();
@@ -141,9 +153,9 @@ namespace FrontEnd.Controllers
                 return RedirectToAction("Index");
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                TempData["Mensagem"] = "Erro ao cadastrar funcionário!";
+                TempData["MensagemErro"] = "Erro ao cadastrar funcionário! " + e.Message;
                 return RedirectToAction("Index");
             }
 

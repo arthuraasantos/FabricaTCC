@@ -118,6 +118,10 @@
                                 @Html.Label("Empresa")
                                 @Html.DropDownListFor(e => e.IdEmpresa, listaDeEmpresas, new { @class = "form-control" })
                             }
+                            else
+                            {
+                                @Html.HiddenFor(e => e.IdEmpresa)
+                            }
                         </div>
                         <div class="form-group">
                             @Html.Label("Perfil de Acesso")
