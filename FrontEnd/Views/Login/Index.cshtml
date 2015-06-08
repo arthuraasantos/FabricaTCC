@@ -13,7 +13,7 @@
         @using (Html.BeginForm("Autenticar", "Login", FormMethod.Post))
         {
             @Html.TextBoxFor(f => f.Email, new { @type = "email", @class = "form-control", @placeholder = "Email" })<br />
-            @Html.PasswordFor(f => f.Senha, new { @type = "password", @class = "form-control", @placeholder = "Senha" })
+            @Html.PasswordFor(f => f.Senha, new { @type = "password", @class = "form-control", @placeholder = "Senha", @required = "required", @oninvalid = "setCustomValidity('A senha é obrigatória!')" })
             <div class="checkbox">
                 <label>
                     <input type="checkbox" id="manterLogado" checked> Manter Logado
