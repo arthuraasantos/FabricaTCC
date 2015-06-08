@@ -12,7 +12,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 
 
-namespace FrontEnd.Controllers
+namespace FrontEnd.Models
 {
     public class LoginController : Controller
     {

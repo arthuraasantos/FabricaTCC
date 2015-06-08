@@ -15,7 +15,7 @@ using Seedwork.Const;
 using System.Web.UI;
 using SeedWork.Tools;
 
-namespace FrontEnd.Controllers
+namespace FrontEnd.Models
 {
     //[Authorize]
     public class PontoController : Controller

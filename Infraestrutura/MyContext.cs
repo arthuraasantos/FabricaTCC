@@ -24,6 +24,7 @@ namespace Infraestrutura
             modelBuilder.Configurations.Add(new SolicitacaoDbMapping());
             modelBuilder.Configurations.Add(new FeriasDbMapping());
             modelBuilder.Configurations.Add(new FolgaDbMapping());
+            modelBuilder.Configurations.Add(new HorarioDeExpedienteDBMapping());
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace FrontEnd.Controllers
+namespace FrontEnd.Models
 {
     public class FolgaController : BaseController<Folga, FolgaCriar, FolgaAprovar>
     {

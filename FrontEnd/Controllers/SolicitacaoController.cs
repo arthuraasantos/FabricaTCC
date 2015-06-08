@@ -11,7 +11,7 @@ using System.Web.Mvc;
 using Seedwork.Const;
 using System.Globalization;
 
-namespace FrontEnd.Controllers
+namespace FrontEnd.Models
 {
     public class SolicitacaoController : BaseController<Solicitacao, SolicitacaoCriar, SolicitacaoAprovar>
     {

@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Visualizar";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<h2>
+    Editando Horário de: @ViewBag.Empresa
+</h2>
+@model FrontEnd.Models.HorarioDeExpedienteEditar
+<div class="panel-body">
+    <div class="row">
+        <div class="col col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel panel-body">
+                    @using (Html.BeginForm("Editar", "HorarioDeExpediente", FormMethod.Post))
+                    {
+                        var listaDeEmpresas = (IEnumerable<SelectListItem>)ViewBag.ListagemdeEmpresas;
+
+                        <div class="form-group">
+                            @Html.HiddenFor(e => e.IdEmpresa)
+                            @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
+                            {
+                                <label>Empresa</label>
+                                @Html.DropDownListFor(e => e.IdEmpresa, listaDeEmpresas, new { @class = "form-control" })
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label>Descricao</label>
+                            @Html.TextBoxFor(e => e.Descricao, new { @class = "form-control", required = "required", oninvalid = "A descrição para o Horário de Expediente é obrigatória!" })
+                            @*<input type="text"  id="Descricao" name="Descricao" class="form-control" required oninvalid="setCustomValidity('A descrição para o Horário de Expediente é obrigatória!')" />*@
+                        </div>
+                        <div class="form-group">
+                            <label>Número de Horas Por Dia</label>
+                            @Html.TextBoxFor(e => e.NumeroHorasPorDia,new { htmlAttributes = new { min = 1, max = 24 }, type = "number", required = "required", oninvalid = "O número de horas por dia é obrigatório!", @class="form-control" })
+                            @*<input type="text" id="NumeroHorasPorDia" name="NumeroHorasPorDia" class="form-control" min="1" max="1" required oninvalid="setCustomValidity('O número de horas por dia é obrigatório!')" />*@
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

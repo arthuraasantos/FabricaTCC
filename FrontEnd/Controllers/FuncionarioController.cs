@@ -13,7 +13,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
 
-namespace FrontEnd.Controllers
+namespace FrontEnd.Models
 {
 
     public class FuncionarioController : BaseController<Funcionario, FuncionarioNovo, FuncionarioEditar>

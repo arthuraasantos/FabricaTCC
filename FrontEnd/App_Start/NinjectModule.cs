@@ -27,6 +27,7 @@ namespace FrontEnd.App_Start
             Bind<ISolicitacaoRepository>().To<SolicitacaoRepository>();
             Bind<IFeriasRepository>().To<FeriasRepository>();
             Bind<IFolgaRepository>().To<FolgaRepository>();
+            Bind<IHorarioDeExpedienteRepository>().To<HorarioDeExpedienteRepository>();
             //Servicos
             Bind<IPontoEletronicoService>().To<PontoEletronicoService>();
         }

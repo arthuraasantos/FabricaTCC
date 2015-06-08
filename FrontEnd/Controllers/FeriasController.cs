@@ -11,7 +11,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 
-namespace FrontEnd.Controllers
+namespace FrontEnd.Models
 {
     public class FeriasController : BaseController<Ferias, FeriasCriar, FeriasAprovar>
     {

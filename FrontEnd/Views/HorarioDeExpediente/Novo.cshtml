@@ -1,0 +1,54 @@
+﻿<link href="~/Content/Site.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Novo";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+
+@model FrontEnd.Models.HorarioDeExpedienteNovo
+@{
+    var listaDeEmpresas = (IEnumerable<SelectListItem>)ViewBag.ListagemdeEmpresas;
+}
+<h2 class="page-header">Novo Horário de Expediente</h2>
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel panel-body">
+
+
+
+                @using (Html.BeginForm("Incluir", "HorarioDeExpediente", FormMethod.Post))
+                {
+                    if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
+                    {
+                        <div class="form-group">
+                            @Html.Label("Empresa")<br />
+                            @Html.DropDownListFor(f => f.IdEmpresa, Model.Empresas, new { @class = "form-control" })
+                        </div>
+                    }
+                    else
+                    {
+                        <strong>Horário para: </strong>@FrontEnd.Models.Sessao.EmpresaLogada.NomeFantasia
+                        <br />
+                    }
+                    <br />
+                    <div class="form-group">
+                        @Html.Label("Descrição")
+                        <input type="text" id="Descricao" name="Descricao" class="form-control" aria-describedby="basic-addon" required oninvalid="setCustomValidity('A descrição para o Horário de Expediente é obrigatória!')">
+                        @*@Html.TextBoxFor(e => e.Descricao, new { @class = "form-control", @required="true", @oninvalid="setCustomValidity('A descrição é obrigatória!')" })*@
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Número de Horas Por Dia")
+                        @Html.TextBoxFor(e => e.NumeroHorasPorDia, new { @class = "form-control", @type = "number", @min = "1", @max = "24" })
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

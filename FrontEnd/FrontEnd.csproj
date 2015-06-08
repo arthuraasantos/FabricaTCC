@@ -128,6 +128,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FolgaController.cs" />
+    <Compile Include="Controllers\HorarioDeExpedienteController.cs" />
+    <Compile Include="Models\Conversores\HorarioDeExpedienteToHorarioDeExpedienteEditar.cs" />
+    <Compile Include="Models\Conversores\HorarioDeExpedienteToHorarioDeExpedienteNovo.cs" />
+    <Compile Include="Models\HorarioDeExpedienteEditar.cs" />
     <Compile Include="Models\Conversores\FeriasToFeriasCriar.cs" />
     <Compile Include="Models\Conversores\FolgaToFolgaAprovar.cs" />
     <Compile Include="Models\Conversores\FolgaToFolgaCriar.cs" />
@@ -163,6 +167,7 @@
     <Compile Include="Models\FuncionarioEditar.cs" />
     <Compile Include="Models\FuncionarioLogin.cs" />
     <Compile Include="Models\FuncionarioNovo.cs" />
+    <Compile Include="Models\HorarioDeExpedienteNovo.cs" />
     <Compile Include="Models\Mensagem.cs" />
     <Compile Include="Models\PontoMarcar.cs" />
     <Compile Include="Models\PerfilDeAcessoPadrao.cs" />
@@ -990,6 +995,9 @@
     <Content Include="Views\Solicitacao\Respostas.cshtml" />
     <Content Include="Views\Ferias\Respostas.cshtml" />
     <Content Include="Views\Folga\Respostas.cshtml" />
+    <Content Include="Views\HorarioDeExpediente\Index.cshtml" />
+    <Content Include="Views\HorarioDeExpediente\Visualizar.cshtml" />
+    <Content Include="Views\HorarioDeExpediente\Novo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

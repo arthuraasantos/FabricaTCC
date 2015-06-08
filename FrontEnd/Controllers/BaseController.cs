@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using FrontEnd.Models;
 using Dominio.Model;
 
-namespace FrontEnd.Controllers
+namespace FrontEnd.Models
 {
     /// <summary>
     /// Sempre será necessario 3 views para a controller base funcionar, Uma Index (Listagem), Uma Vizualição (Visualizar) e Um NovoRegistro (Novo)

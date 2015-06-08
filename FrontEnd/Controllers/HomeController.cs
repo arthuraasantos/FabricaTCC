@@ -9,7 +9,7 @@ using Dominio.Repository;
 using Dominio.Model;
 using Seedwork.Const;
 
-namespace FrontEnd.Controllers
+namespace FrontEnd.Models
 {
     //[Authorize]
     public class HomeController : Controller

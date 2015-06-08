@@ -14,7 +14,7 @@ using System.Web.Mvc;
 using System.Web.Services;
 using System.Web.UI;
 
-namespace FrontEnd.Controllers
+namespace FrontEnd.Models
 {
     public class EmpresaController : BaseController<Empresa, EmpresaNovo, EmpresaEditar>
     {
