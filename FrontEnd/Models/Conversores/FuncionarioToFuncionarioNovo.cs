@@ -14,10 +14,12 @@ namespace FrontEnd.Models.Conversores
     {
         public IPerfilDeAcessoRepository PerfilDeAcessoRepository { get; set; }
         public IEmpresaRepository EmpresaRepository { get; set; }
-        public FuncionarioToFuncionarioNovo(IPerfilDeAcessoRepository perfilDeAcessoRepository, IEmpresaRepository empresaRepository)
+        public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository { get; set; }
+        public FuncionarioToFuncionarioNovo(IPerfilDeAcessoRepository perfilDeAcessoRepository, IEmpresaRepository empresaRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
         {
             EmpresaRepository = empresaRepository;
             PerfilDeAcessoRepository = perfilDeAcessoRepository;
+            HorarioDeExpedienteRepository = horarioDeExpedienteRepository;
         }
         public override void AplicarValores(Funcionario origem, FuncionarioNovo destino)
         {
@@ -29,6 +31,7 @@ namespace FrontEnd.Models.Conversores
             destino.Senha = origem.Senha;
             destino.IdEmpresa = origem.Empresa.Id;
             destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id;
+            destino.IdHorarioDeExpediente = origem.HorarioDeExpediente.Id;
         }
 
         public override void AplicarValores(FuncionarioNovo origem, Funcionario destino)
@@ -41,6 +44,7 @@ namespace FrontEnd.Models.Conversores
             destino.Senha = Criptografia.Encrypt(origem.Senha);
             destino.Empresa = EmpresaRepository.PesquisarPeloId(origem.IdEmpresa);
             destino.PerfilDeAcesso = PerfilDeAcessoRepository.PesquisarPeloId(origem.IdPerfilDeAcesso);
+            destino.HorarioDeExpediente = HorarioDeExpedienteRepository.PesquisarPeloId(origem.IdHorarioDeExpediente);
         }
     }
 }

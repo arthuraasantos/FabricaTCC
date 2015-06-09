@@ -13,10 +13,12 @@ namespace FrontEnd.Models.Conversores
     {
         public IEmpresaRepository EmpresaRepository;
         public IPerfilDeAcessoRepository PerfilDeAcesspRepository;
-        public FuncionarioToFuncionarioEditar(IEmpresaRepository empresaRepository, IPerfilDeAcessoRepository perfilDeAcesspRepository)
+        public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository;
+        public FuncionarioToFuncionarioEditar(IEmpresaRepository empresaRepository, IPerfilDeAcessoRepository perfilDeAcesspRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
         {
             EmpresaRepository = empresaRepository;
             PerfilDeAcesspRepository = perfilDeAcesspRepository;
+            HorarioDeExpedienteRepository = horarioDeExpedienteRepository;
         }
         public override void AplicarValores(Funcionario origem, FuncionarioEditar destino)
         {
@@ -28,7 +30,8 @@ namespace FrontEnd.Models.Conversores
             destino.Identidade = origem.Identidade;
             destino.Estado = origem.Estado;
             destino.IdEmpresa = origem.Empresa.Id;
-            destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id; 
+            destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id;
+            destino.IdHorarioDeExpediente = origem.HorarioDeExpediente.Id;
             destino.Email = origem.Email;
             destino.DataNascimento = origem.DataNascimento;
             destino.Cpf = origem.Cpf;
@@ -49,6 +52,7 @@ namespace FrontEnd.Models.Conversores
             destino.Estado = origem.Estado;
             destino.Empresa = EmpresaRepository.PesquisarPeloId(origem.IdEmpresa);
             destino.PerfilDeAcesso = PerfilDeAcesspRepository.PesquisarPeloId(origem.IdPerfilDeAcesso);
+            destino.HorarioDeExpediente = HorarioDeExpedienteRepository.PesquisarPeloId(origem.IdHorarioDeExpediente);
             destino.Email = origem.Email;
             destino.DataNascimento = origem.DataNascimento;
             destino.Cpf = origem.Cpf;
