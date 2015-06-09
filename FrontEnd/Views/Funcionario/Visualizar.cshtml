@@ -68,6 +68,7 @@
                 @{
                     var listaDePerfis = (IEnumerable<SelectListItem>)ViewBag.ListagemdePerfis;
                     var listaDeEmpresas = (IEnumerable<SelectListItem>)ViewBag.ListagemdeEmpresas;
+                    var listaDeHorariosDeExpedietne = (IEnumerable<SelectListItem>)ViewBag.ListagemdeHorariosDeExpediente;
                     var listaUf = (IEnumerable<SelectListItem>)ViewBag.ListagemdeUF;
                     using (Html.BeginForm("Editar", "Funcionario", FormMethod.Post))
                     {
@@ -126,6 +127,10 @@
                         <div class="form-group">
                             @Html.Label("Perfil de Acesso")
                             @Html.DropDownListFor(e => e.IdPerfilDeAcesso, listaDePerfis, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Horário de Expediente")
+                            @Html.DropDownListFor(e => e.IdHorarioDeExpediente, listaDeHorariosDeExpedietne , new { @class = "form-control" })
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Salvar" class="btn btn-outline btn-success" />

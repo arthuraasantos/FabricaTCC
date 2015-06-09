@@ -109,6 +109,10 @@
                         @Html.DropDownListFor(f => f.IdPerfilDeAcesso, Model.PerfisDeAcesso, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
+                            @Html.Label("Horário de Expediente")<br />
+                            @Html.DropDownListFor(f => f.IdHorarioDeExpediente, Model.HorarioDeExpedientes, new { @class = "form-control" })
+                        </div>
+                    <div class="form-group">
                         <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
                     </div>
                 }

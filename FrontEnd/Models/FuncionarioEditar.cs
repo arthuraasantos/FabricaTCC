@@ -43,5 +43,7 @@ namespace FrontEnd.Models
         public Guid IdEmpresa { get; set; }
         public Guid IdPerfilDeAcesso { get; set; }
 
+        public Guid IdHorarioDeExpediente { get; set; }
+
     }
 }

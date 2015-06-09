@@ -26,8 +26,12 @@ namespace FrontEnd.Models
         public Guid? IdEmpresa { get; set; }
         public Guid? IdPerfilDeAcesso { get; set; }
 
+        public Guid? IdHorarioDeExpediente { get; set; }
+
         public IEnumerable<SelectListItem> Empresas { get; set; }
         public IEnumerable<SelectListItem> PerfisDeAcesso { get; set; }
+
+        public IEnumerable<SelectListItem> HorarioDeExpedientes { get; set; }
 
 
         

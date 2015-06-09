@@ -21,16 +21,20 @@ namespace FrontEnd.Models
         public IPerfilDeAcessoRepository PerfildeacessoRepository;
         public IEmpresaRepository EmpresaRepository;
         public IFuncionarioRepository FuncionarioRepository;
+        public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository;
 
         private IEnumerable<SelectListItem> ListaPerfis;
         private IEnumerable<SelectListItem> ListaEmpresas;
+        private IEnumerable<SelectListItem> ListaHorariosDeExpediente;
 
-        public FuncionarioController(MyContext context, IFuncionarioRepository funcionarioRepository, IPerfilDeAcessoRepository perfildeacessoRepository, IEmpresaRepository empresaRepository)
-            : base(context, funcionarioRepository, new FuncionarioToFuncionarioNovo(perfildeacessoRepository, empresaRepository), new FuncionarioToFuncionarioEditar(empresaRepository, perfildeacessoRepository))
+
+        public FuncionarioController(MyContext context, IFuncionarioRepository funcionarioRepository, IPerfilDeAcessoRepository perfildeacessoRepository, IEmpresaRepository empresaRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
+            : base(context, funcionarioRepository, new FuncionarioToFuncionarioNovo(perfildeacessoRepository, empresaRepository, horarioDeExpedienteRepository), new FuncionarioToFuncionarioEditar(empresaRepository, perfildeacessoRepository, horarioDeExpedienteRepository))
         {
             PerfildeacessoRepository = perfildeacessoRepository;
             EmpresaRepository = empresaRepository;
             FuncionarioRepository = funcionarioRepository;
+            HorarioDeExpedienteRepository = horarioDeExpedienteRepository;
 
             // Pega a lista de Perfis de Acesso por permissao
             switch (Sessao.PerfilFuncionarioLogado)
@@ -77,6 +81,25 @@ namespace FrontEnd.Models
                     break;
             }
 
+            switch (Sessao.PerfilFuncionarioLogado)
+            {
+
+                case PerfilAcesso.Administrador: // Traz todos os Horários de Expediente
+                    ListaHorariosDeExpediente = HorarioDeExpedienteRepository
+                                    .Listar()
+                                    .Where(p => p.Id != null)
+                                    .ToList()
+                                    .Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
+                    break;
+                default:
+                    ListaHorariosDeExpediente = HorarioDeExpedienteRepository
+                                    .Listar()
+                                    .Where(e => e.Empresa.Id == Sessao.EmpresaLogada.Id)
+                                    .ToList()
+                                    .Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
+                    break;
+            }            
+
         }
 
 
@@ -88,6 +111,7 @@ namespace FrontEnd.Models
 
                 ViewBag.ListagemdeEmpresas = ListaEmpresas;
                 ViewBag.ListagemdePerfis = ListaPerfis;
+                ViewBag.ListagemdeHorariosDeExpediente = ListaHorariosDeExpediente;
                 ViewBag.ListagemdeUF = uf.Listar().ToList().Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Valor });
                 return base.Visualizar(Id);
 
@@ -109,7 +133,8 @@ namespace FrontEnd.Models
             {
                 IdEmpresa = Sessao.EmpresaLogada.Id,
                 Empresas = ListaEmpresas,
-                PerfisDeAcesso = ListaPerfis
+                PerfisDeAcesso = ListaPerfis,
+                HorarioDeExpedientes = ListaHorariosDeExpediente
             };
 
 
