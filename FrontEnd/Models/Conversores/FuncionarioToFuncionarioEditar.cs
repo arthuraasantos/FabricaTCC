@@ -30,8 +30,14 @@ namespace FrontEnd.Models.Conversores
             destino.Identidade = origem.Identidade;
             destino.Estado = origem.Estado;
             destino.IdEmpresa = origem.Empresa.Id;
-            destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id;
-            destino.IdHorarioDeExpediente = origem.HorarioDeExpediente.Id;
+            if (origem.PerfilDeAcesso != null)
+            {
+                destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id;
+            }
+            if (origem.HorarioDeExpediente != null)
+            {
+                destino.IdHorarioDeExpediente = origem.HorarioDeExpediente.Id;
+            }
             destino.Email = origem.Email;
             destino.DataNascimento = origem.DataNascimento;
             destino.Cpf = origem.Cpf;

@@ -38,7 +38,10 @@ else
                         <th>Data Fim</th>
                         <th>Justicativa</th>
                         <th>Resposta</th>
-                        <th>Aprovar?</th>
+                        @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
+                        {
+                            <th>Aprovar?</th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -64,10 +67,13 @@ else
                                 <td>@item.Resposta</td>
                             }
 
-                            <td class="col-sm-2">
-                                @Html.ActionLink("Aprovar", "AprovarRejeitarFerias", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Aprovado }, new { @class = "btn btn-outline btn-xs btn-info" })
-                                @Html.ActionLink("Rejeitar", "AprovarRejeitarFerias", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Reprovado }, new { @class = "btn btn-outline btn-xs btn-danger" })
-                            </td>
+                            @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
+                            {
+                                <td class="col-sm-2">
+                                    @Html.ActionLink("Aprovar", "AprovarRejeitarFerias", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Aprovado }, new { @class = "btn btn-outline btn-xs btn-info" })
+                                    @Html.ActionLink("Rejeitar", "AprovarRejeitarFerias", new { id = item.Id, resposta = Seedwork.Const.RespostaSolicitacao.Reprovado }, new { @class = "btn btn-outline btn-xs btn-danger" })
+                                </td>
+                            }
                         </tr>
                     }
                 </tbody>

@@ -75,15 +75,38 @@ namespace FrontEnd.Models
 
         public override ActionResult Index()
         {
-            var lista = Repository.
+            if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
+            {
+                var lista = Repository.
                             Listar().
                             Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).
                             Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
                             OrderBy(o => new { o.Funcionario.Nome, o.Inicio, o.Fim }).
-
                             ToList();
-
-            return View(lista);
+                return View(lista);
+            }
+            else
+            {
+                if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Funcionario)
+                {
+                    var lista = Repository.
+                                Listar().
+                                Where(p => p.Funcionario.Id == Sessao.FuncionarioLogado.Id).
+                                Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
+                                OrderBy(o => new { o.Funcionario.Nome, o.Inicio, o.Fim }).
+                                ToList();
+                    return View(lista);
+                }
+                else
+                {
+                    var lista = Repository.
+                                Listar().
+                                Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
+                                OrderBy(o => new { o.Funcionario.Nome, o.Inicio, o.Fim }).
+                                ToList();
+                    return View(lista);
+                }
+            }
         }
 
         public ActionResult AprovarRejeitarFerias(Guid Id, RespostaSolicitacao resposta)
@@ -98,16 +121,71 @@ namespace FrontEnd.Models
 
         public ActionResult Respostas()
         {
-            var _lista = Repository.
+            if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
+            {
+                var _lista = Repository.
                             Listar().
                             ToList().
-                            Where(p => p.Funcionario.Id == Sessao.FuncionarioLogado.Id).
+                            Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).
                             Where(p => p.Resposta != RespostaSolicitacao.Nenhuma).
                             OrderByDescending(p => p.Inicio).
                             ToList();
-
-            return View(_lista);
+                return View(_lista);
+            }
+            else
+            {
+                if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Funcionario)
+                {
+                    var _lista = Repository.
+                                Listar().
+                                ToList().
+                                Where(p => p.Funcionario.Id == Sessao.FuncionarioLogado.Id).
+                                Where(p => p.Resposta != RespostaSolicitacao.Nenhuma).
+                                OrderByDescending(p => p.Inicio).
+                                ToList();
+                    return View(_lista);
+                }
+                else
+                {
+                    var _lista = Repository.
+                                Listar().
+                                ToList().
+                                Where(p => p.Resposta != RespostaSolicitacao.Nenhuma).
+                                OrderByDescending(p => p.Inicio).
+                                ToList();
+                    return View(_lista);
+                }
+            }
         }
-    
+
+        public ActionResult RelatorioFeriasPorAno(string ano)
+        {
+            DateTime _ano = DateTime.MinValue;
+            if (ano != null)
+            {
+                _ano = new DateTime(int.Parse(ano),1,1);
+                ViewBag.Ano = ano;
+            }
+            else
+            {
+                ViewBag.Ano = "";
+            }
+            
+            var _lista = Repository.
+                        Listar().
+                        Where(p => p.Inicio.Year == _ano.Year || p.Fim.Year == _ano.Year).
+                        Where(p => p.Resposta == RespostaSolicitacao.Aprovado).
+                        OrderBy(o => new { o.Inicio, o.Fim }).
+                        ToList();
+
+            if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
+            {
+                return View(_lista.Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).ToList());
+            }
+            else
+            {
+                return View(_lista);
+            }
+        }
     }
 }

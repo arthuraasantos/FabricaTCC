@@ -118,7 +118,7 @@ namespace FrontEnd.Models
             }
             catch (Exception e)
             {
-                TempData["Mensagem"] = "Erro ao editar funcionário. " + e.Message;
+                TempData["MensagemErro"] = "Erro ao editar funcionário: " + e.Message;
                 return RedirectToAction("Index");
             }
 

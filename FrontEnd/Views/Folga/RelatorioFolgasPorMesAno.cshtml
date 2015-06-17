@@ -1,0 +1,52 @@
+﻿@using Dominio.Model;
+@using Seedwork.Const;
+
+@{
+    ViewBag.Title = "RelatorioFolgasPorMesAno";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+
+@model List<Folga>
+
+<h2 class="page-header">Relatório de folgas por Mês/Ano</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+
+        @using (Html.BeginForm("RelatorioFolgasPorMesAno", "Folga", FormMethod.Post, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                @Html.Label("Mês/Ano")
+                @Html.TextBox("MesAno", (String)ViewBag.MesAno, new { @class = "form-control", @placeholder = "MesAno", @id = "MesAno" })
+            </div>
+            <input type="submit" value="atualizar" class="btn btn-outline btn-success form-control" />
+        }
+
+    </div>
+    <div class="panel-body">
+
+        <div class="dataTable_wrapper">
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                    <tr>
+                        <th>Funcionário</th>
+                        <th>Data</th>
+                        <th>Justicativa</th>
+                        <th>Resposta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Funcionario.Nome</td>
+                            <td>@item.Data.ToString(@"dd/MM/yyyy")</td>
+                            <td>@item.Justificativa</td>
+                            <td>@item.Resposta.ToString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

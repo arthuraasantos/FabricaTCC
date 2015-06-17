@@ -27,14 +27,38 @@ namespace FrontEnd.Models
         // GET: Folga
         public override ActionResult Index()
         {
-            var lista = Repository.
+            if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
+            {
+                var lista = Repository.
                             Listar().
                             Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).
                             Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
                             OrderBy(o => new { o.Funcionario.Nome, o.Data }).
                             ToList();
-
-            return View(lista);
+                return View(lista);
+            }
+            else
+            {
+                if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Funcionario)
+                {
+                    var lista = Repository.
+                                Listar().
+                                Where(p => p.Funcionario.Id == Sessao.FuncionarioLogado.Id).
+                                Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
+                                OrderBy(o => new { o.Funcionario.Nome, o.Data }).
+                                ToList();
+                    return View(lista);
+                }
+                else
+                {
+                    var lista = Repository.
+                                Listar().
+                                Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
+                                OrderBy(o => new { o.Funcionario.Nome, o.Data }).
+                                ToList();
+                    return View(lista);
+                }
+            }
         }
 
         public ActionResult Solicitar()
@@ -62,7 +86,7 @@ namespace FrontEnd.Models
                 TempData["MensagemErro"] = "Erro ao Aprovar/Rejeitar folga!";
                 throw;
             }
-            
+
             return RedirectToAction("Index");
         }
 
@@ -100,16 +124,72 @@ namespace FrontEnd.Models
         }
         public ActionResult Respostas()
         {
-            var _lista = Repository.
+            if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
+            {
+                var _lista = Repository.
                             Listar().
                             ToList().
-                            Where(p => p.Funcionario.Id == Sessao.FuncionarioLogado.Id).
+                            Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).
                             Where(p => p.Resposta != RespostaSolicitacao.Nenhuma).
                             OrderByDescending(p => p.Data).
                             ToList();
+                return View(_lista);
+            }
+            else
+            {
+                if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Funcionario)
+                {
+                    var _lista = Repository.
+                                Listar().
+                                ToList().
+                                Where(p => p.Funcionario.Id == Sessao.FuncionarioLogado.Id).
+                                Where(p => p.Resposta != RespostaSolicitacao.Nenhuma).
+                                OrderByDescending(p => p.Data).
+                                ToList();
+                    return View(_lista);
+                }
+                else
+                {
+                    var _lista = Repository.
+                                Listar().
+                                ToList().
+                                Where(p => p.Resposta != RespostaSolicitacao.Nenhuma).
+                                OrderByDescending(p => p.Data).
+                                ToList();
+                    return View(_lista);
+                }
+            }
 
-            return View(_lista);
         }
+        public ActionResult RelatorioFolgasPorMesAno(string MesAno)
+        {
 
+            DateTime _MesAno = DateTime.MinValue;
+            if (MesAno != null)
+            {
+                _MesAno = DateTime.Parse(MesAno + "/01");
+                ViewBag.MesAno = MesAno;
+            }
+            else
+            {
+                ViewBag.MesAno = "";
+            }
+
+            var _lista = Repository.
+                        Listar().
+                        Where(p => p.Data.Month == _MesAno.Month || p.Data.Year == _MesAno.Year).
+                        Where(p => p.Resposta == RespostaSolicitacao.Aprovado).
+                        OrderBy(o => new { o.Data }).
+                        ToList();
+
+            if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
+            {
+                return View(_lista.Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).ToList());
+            }
+            else
+            {
+                return View(_lista);
+            }
+        }
     }
 }

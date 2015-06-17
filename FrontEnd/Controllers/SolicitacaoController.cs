@@ -27,15 +27,41 @@ namespace FrontEnd.Models
 
         public override ActionResult Index()
         {
-            var _lista = Repository.
+            if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
+            {
+                var _lista = Repository.
                             Listar().
                             ToList().
                             Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
                             Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).
                             OrderBy(p => p.DataHora).
                             ToList();
-
-            return View(_lista);
+                return View(_lista);
+            }
+            else
+            {
+                if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Funcionario)
+                {
+                    var _lista = Repository.
+                            Listar().
+                            ToList().
+                            Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
+                            Where(p => p.Funcionario.Id == Sessao.FuncionarioLogado.Id).
+                            OrderBy(p => p.DataHora).
+                            ToList();
+                    return View(_lista);
+                }
+                else
+                {
+                    var _lista = Repository.
+                            Listar().
+                            ToList().
+                            Where(p => p.Resposta == RespostaSolicitacao.Nenhuma).
+                            OrderBy(p => p.DataHora).
+                            ToList();
+                    return View(_lista);
+                }
+            }
         }
 
         public ActionResult Solicitar(DateTime data, string email)
@@ -148,15 +174,41 @@ namespace FrontEnd.Models
         }
         public ActionResult Respostas()
         {
-            var _lista = Repository.
+            if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
+            {
+                var _lista = Repository.
                             Listar().
                             ToList().
-                            Where(p => p.Funcionario.Id == Sessao.FuncionarioLogado.Id).
+                            Where(p => p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).
                             Where(p => p.Resposta != RespostaSolicitacao.Nenhuma).
                             OrderByDescending(p => p.DataHora).
                             ToList();
-
-            return View(_lista);
+                return View(_lista);
+            }
+            else
+            {
+                if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Funcionario)
+                {
+                    var _lista = Repository.
+                                Listar().
+                                ToList().
+                                Where(p => p.Funcionario.Id == Sessao.FuncionarioLogado.Id).
+                                Where(p => p.Resposta != RespostaSolicitacao.Nenhuma).
+                                OrderByDescending(p => p.DataHora).
+                                ToList();
+                    return View(_lista);
+                }
+                else
+                {
+                    var _lista = Repository.
+                                Listar().
+                                ToList().
+                                Where(p => p.Resposta != RespostaSolicitacao.Nenhuma).
+                                OrderByDescending(p => p.DataHora).
+                                ToList();
+                    return View(_lista);
+                }
+            }
         }
 
     }

@@ -94,10 +94,14 @@
                         <li>
                             <a href="#"><i class="glyphicon glyphicon-time"></i> Horários<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="@Url.Action("Lista", "Ponto")"><i class=""></i> Consultar horários</a></li>
+                                <li><a href="@Url.Action("Lista", "Ponto")"><i class=""></i> Consultar marcações</a></li>
                                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                 {
                                     <li><a href="@Url.Action("Index", "Solicitacao")"><i class=""></i> Ajustes pendentes</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Solicitacao")"><i class=""></i> Solicitações</a></li>
                                 }
                                 <li><a href="@Url.Action("Respostas", "Solicitacao")"><i class=""></i> Respostas</a></li>
                             </ul>
@@ -111,6 +115,10 @@
                                 {
                                     <li><a href="@Url.Action("Index", "Folga")"><i class=""></i> Aprovar/Rejeitar</a></li>
                                 }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Folga")"><i class=""></i> Solicitações</a></li>
+                                }
                                 <li><a href="@Url.Action("Respostas", "Folga")"><i class=""></i> Respostas</a></li>
                             </ul>
                         </li>
@@ -123,16 +131,25 @@
                                 {
                                     <li><a href="@Url.Action("Index", "Ferias")"><i class=""></i> Aprovar/Rejeitar</a></li>
                                 }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Index", "Ferias")"><i class=""></i> Solicitações</a></li>
+                                }
                                 <li><a href="@Url.Action("Respostas", "Ferias")"><i class=""></i> Respostas</a></li>
                             </ul>
                         </li>
                         <!--  Menu Relatórios  -->
-                        <li>
-                            <a href="#"><i class="glyphicon glyphicon-list-alt"></i> Relatórios<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li><a href="@Url.Action("RelatorioMarcacoes", "Funcionarios")"><i class=""></i> Marcações efetuadas</a></li>
-                            </ul>
-                        </li>
+                        @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
+                        {
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-list-alt"></i> Relatórios<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="@Url.Action("RelatorioMarcacoes", "Ponto")"><i class=""></i> Marcações efetuadas</a></li>
+                                    <li><a href="@Url.Action("RelatorioFolgasPorMesAno", "Folga")"><i class=""></i> Folgas por Mes/Ano</a></li>
+                                    <li><a href="@Url.Action("RelatorioFeriasPorAno", "Ferias")"><i class=""></i> Férias por Ano</a></li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -162,6 +179,7 @@
             $("#DiaMesAno").mask("99/99/9999");
             $("#DiaMesAnoHoraMinuto").mask("99/99/9999 99:99");
             $("#MesAno").mask("99/9999");
+            $("#Ano").mask("9999");
             $("#HoraMinuto").mask("99:99");
             $("#Telefone").mask("(99) 99999-9999");
             $("#CPF").mask("999.999.999-99");

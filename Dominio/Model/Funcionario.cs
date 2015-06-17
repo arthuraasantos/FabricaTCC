@@ -28,6 +28,7 @@ namespace Dominio.Model
         public string Bloqueado { get; set; }
         public virtual Empresa Empresa { get; set; }
         public virtual PerfilDeAcesso PerfilDeAcesso { get; set; }
+        public virtual HorarioDeExpediente HorarioDeExpediente { get; set; }
     }
 
 }

@@ -73,64 +73,71 @@
                     using (Html.BeginForm("Editar", "Funcionario", FormMethod.Post))
                     {
                         @Html.HiddenFor(p => p.Id)
-                        <div class="form-group">
-                            @Html.Label("Nome")
-                            @Html.TextBoxFor(e => e.Nome, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("CPF ")
-                            @Html.TextBoxFor(e => e.Cpf, new { @class = "form-control", id = "CPF" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("Nascimento")
-                            @Html.TextBoxFor(e => e.DataNascimento.GetValueOrDefault().Date, new { @class = "form-control", @type = "date" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("Email")
-                            @Html.TextBoxFor(e => e.Email, new { @class = "form-control", @style = "font-weight: bold;" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("CEP ")
-                            @Html.TextBoxFor(e => e.Cep, new { @class = "form-control", @onBlur = "atualizaEndereco()", id = "CEP" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("Logradouro")
-                            @Html.TextBoxFor(e => e.Logradouro, new { @class = "form-control", id = "txtlogradouro" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("Número")
-                            @Html.TextBoxFor(e => e.NumeroEndereco, new { @class = "form-control", id = "Numero" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("Bairro")
-                            @Html.TextBoxFor(e => e.Bairro, new { @class = "form-control", id = "txtbairro" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("Cidade")
-                            @Html.TextBoxFor(e => e.Cidade, new { @class = "form-control", id = "txtcidade" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("Estado")
-                            @Html.DropDownListFor(p => p.Estado, listaUf, new { @class = "form-control", id = "txtestado" })
-                        </div>
-                        <div class="form-group">
-                            @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
-                            {
-                                @Html.Label("Empresa")
-                                @Html.DropDownListFor(e => e.IdEmpresa, listaDeEmpresas, new { @class = "form-control" })
-                            }
-                            else
-                            {
-                                @Html.HiddenFor(e => e.IdEmpresa)
-                            }
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("Perfil de Acesso")
-                            @Html.DropDownListFor(e => e.IdPerfilDeAcesso, listaDePerfis, new { @class = "form-control" })
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("Horário de Expediente")
-                            @Html.DropDownListFor(e => e.IdHorarioDeExpediente, listaDeHorariosDeExpedietne , new { @class = "form-control" })
+                        <div class="row">
+                            <div class="col-lg-4 col-md-1">
+                                <div class="form-group">
+                                    @Html.Label("Nome")
+                                    @Html.TextBoxFor(e => e.Nome, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("CPF ")
+                                    @Html.TextBoxFor(e => e.Cpf, new { @class = "form-control", id = "CPF" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Nascimento")
+                                    @Html.TextBoxFor(e => e.DataNascimento.GetValueOrDefault().Date, new { @class = "form-control", @type = "date" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Email")
+                                    @Html.TextBoxFor(e => e.Email, new { @class = "form-control", @style = "font-weight: bold;" })
+                                </div>
+                                <div class="form-group">
+                                    @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
+                                    {
+                                        @Html.Label("Empresa")
+                                        @Html.DropDownListFor(e => e.IdEmpresa, listaDeEmpresas, new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.HiddenFor(e => e.IdEmpresa)
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Perfil de Acesso")
+                                    @Html.DropDownListFor(e => e.IdPerfilDeAcesso, listaDePerfis, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Horário de Expediente")
+                                    @Html.DropDownListFor(e => e.IdHorarioDeExpediente, listaDeHorariosDeExpedietne, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-1">
+
+                                <div class="form-group">
+                                    @Html.Label("CEP ")
+                                    @Html.TextBoxFor(e => e.Cep, new { @class = "form-control", @onBlur = "atualizaEndereco()", id = "CEP" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Logradouro")
+                                    @Html.TextBoxFor(e => e.Logradouro, new { @class = "form-control", id = "txtlogradouro" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Número")
+                                    @Html.TextBoxFor(e => e.NumeroEndereco, new { @class = "form-control", id = "Numero" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Bairro")
+                                    @Html.TextBoxFor(e => e.Bairro, new { @class = "form-control", id = "txtbairro" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Cidade")
+                                    @Html.TextBoxFor(e => e.Cidade, new { @class = "form-control", id = "txtcidade" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Estado")
+                                    @Html.DropDownListFor(p => p.Estado, listaUf, new { @class = "form-control", id = "txtestado" })
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Salvar" class="btn btn-outline btn-success" />

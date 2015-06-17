@@ -13,6 +13,7 @@
     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
         <thead>
             <tr>
+                <th>Funcionario</th>
                 <th>Data</th>
                 <th>Justicativa</th>
                 <th>Resposta</th>
@@ -23,6 +24,7 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>@item.Funcionario.Nome</td>
                     <td>@item.Data.ToString(@"dd/MM/yyyy")</td>
                     <td>@item.Justificativa</td>
                     <td>@item.Resposta.ToString()</td>

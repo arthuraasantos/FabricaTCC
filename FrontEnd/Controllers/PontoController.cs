@@ -98,7 +98,7 @@ namespace FrontEnd.Models
                 {
                     Maior = _QtdeBatidas;
                 }
-                
+
                 Dicionario.Add(_PrimeiraData.AddDays(i), _ListaPorDia);
                 DicionarioHoras.Add(_PrimeiraData.AddDays(i), PontoEletronicoService.QuantidadeDeHorasTrabalhadasPorFuncionarioPorDia(Sessao.FuncionarioLogado, _PrimeiraData.AddDays(i)));
             }
@@ -114,6 +114,39 @@ namespace FrontEnd.Models
             return View();
         }
 
+        public ActionResult RelatorioMarcacoes(DateTime? Data)
+        {
+            DateTime _Data = DateTime.MinValue;
+            if (Data != null)
+            {
+                _Data = Data.GetValueOrDefault();
+                ViewBag.Data = Data.GetValueOrDefault().ToString();
+            }
+            else
+            {
+                ViewBag.Data = "";
+            }
 
+            var _listaFull = PontoRepository.
+                             Listar().
+                             ToList().
+                             Where( p => p.DataMarcacao.GetValueOrDefault(DateTime.MaxValue).Date.Equals(_Data.Date) ).
+                             OrderBy(o => new { o.Funcionario.Nome }).
+                             ToList();
+
+            Dictionary<Funcionario, List<Ponto>> Dicionario = new Dictionary<Funcionario, List<Ponto>>();
+            foreach (var a in _listaFull)
+            {
+                if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Administrador || a.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id)
+                {
+                    if (!Dicionario.ContainsKey(a.Funcionario))
+                    {
+                        var _lista = _listaFull.Where(p => p.Funcionario.Id == a.Funcionario.Id).ToList();
+                        Dicionario.Add(a.Funcionario, _lista);
+                    }
+                }
+            }
+            return View(Dicionario);
+        }
     }
 }

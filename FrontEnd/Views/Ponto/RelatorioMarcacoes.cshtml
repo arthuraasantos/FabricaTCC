@@ -1,0 +1,54 @@
+﻿@using Dominio.Model;
+@using Seedwork.Const;
+
+@{
+    ViewBag.Title = "Relatório de Marcações";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+
+@model Dictionary<Funcionario, List<Ponto>>
+
+<h2 class="page-header">Relatório de Marcações</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+
+        @using (Html.BeginForm("RelatorioMarcacoes", "Ponto", FormMethod.Post, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                @Html.Label("Data")
+                @Html.TextBox("Data", (String)ViewBag.Data, new { @class = "form-control", @placeholder = "Data", @type = "date" })
+            </div>
+            <input type="submit" value="atualizar" class="btn btn-outline btn-success form-control" />
+        }
+
+    </div>
+    <div class="panel-body">
+
+        <div class="dataTable_wrapper">
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                    <tr>
+                        <th>Funcionário</th>
+                        <th>Marcações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>@item.Key.Nome</td>
+                            <td>
+                                @foreach (var hr in item.Value)
+                                {
+                                    @hr.DataMarcacao.GetValueOrDefault().ToString("HH:mm - ");
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -998,6 +998,9 @@
     <Content Include="Views\HorarioDeExpediente\Index.cshtml" />
     <Content Include="Views\HorarioDeExpediente\Visualizar.cshtml" />
     <Content Include="Views\HorarioDeExpediente\Novo.cshtml" />
+    <Content Include="Views\Folga\RelatorioFolgasPorMesAno.cshtml" />
+    <Content Include="Views\Ferias\RelatorioFeriasPorAno.cshtml" />
+    <Content Include="Views\Ponto\RelatorioMarcacoes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
