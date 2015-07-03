@@ -40,7 +40,13 @@ namespace Dominio.Services
 
         public TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionario(Funcionario funcionario, DateTime diaInicio, DateTime diaFinal, Boolean descontarHoras = true)
         {
-            // TODO : Verificar esta função : QuantidadeDeHorasTrabalhadasPorFuncionario
+
+            var _horaExpediente = 8;
+            if (funcionario.HorarioDeExpediente != null)
+            {
+                _horaExpediente = funcionario.HorarioDeExpediente.NumeroHorasPorDia;
+            }
+
             var _marcacoesDoDia = PontoRepository.
                                     Listar().
                                     ToList().
@@ -65,8 +71,8 @@ namespace Dominio.Services
                 }
 
                 if ((_ListaPorDia.Count >= 4) && (descontarHoras))
-                { 
-                    horasTrabalhadas = horasTrabalhadas.Subtract(new TimeSpan(8,0,0));
+                {
+                    horasTrabalhadas = horasTrabalhadas.Subtract(new TimeSpan(_horaExpediente, 0, 0));
                 }
 
             }

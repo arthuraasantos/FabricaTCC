@@ -127,12 +127,14 @@ namespace FrontEnd.Models
                 ViewBag.Data = "";
             }
 
-            var _listaFull = PontoRepository.
+            var temp_listaFull = PontoRepository.
                              Listar().
                              ToList().
-                             Where( p => p.DataMarcacao.GetValueOrDefault(DateTime.MaxValue).Date.Equals(_Data.Date) ).
-                             OrderBy(o => new { o.Funcionario.Nome }).
+                             Where( p => p.DataMarcacao.HasValue ).
                              ToList();
+            
+            var _listaFull = temp_listaFull.Where(p => p.DataMarcacao.GetValueOrDefault(DateTime.MaxValue).Date == _Data.Date).ToList();
+
 
             Dictionary<Funcionario, List<Ponto>> Dicionario = new Dictionary<Funcionario, List<Ponto>>();
             foreach (var a in _listaFull)
