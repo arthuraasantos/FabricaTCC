@@ -19,10 +19,12 @@ namespace FrontEnd.Models
     public class EmpresaController : BaseController<Empresa, EmpresaNovo, EmpresaEditar>
     {
         public IEmpresaRepository EmpresaRepository { get; set; }
-        public EmpresaController(MyContext context, IEmpresaRepository empresaRepository, IFuncionarioRepository funcionarioRepository)
+        public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository { get; set; }
+        public EmpresaController(MyContext context, IEmpresaRepository empresaRepository, IFuncionarioRepository funcionarioRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
             : base(context, empresaRepository, new EmpresaToEmpresaNovo(), new EmpresaToEmpresaEditar())
         {
             EmpresaRepository = empresaRepository;
+            HorarioDeExpedienteRepository = horarioDeExpedienteRepository;
         }
 
         public override ActionResult Index()
@@ -54,6 +56,15 @@ namespace FrontEnd.Models
                     Context.SaveChanges();
                     //TempData["Mensagem"] = "Empresa cadastrada com sucesso!";
                     TempData["Empresa"] = entity;
+
+                    // Cria um horário padrão
+                    HorarioDeExpediente horarioPadrao = new HorarioDeExpediente();
+                    horarioPadrao.Empresa = entity;
+                    horarioPadrao.Descricao = "Horário Padrão";
+                    horarioPadrao.NumeroHorasPorDia = 8;
+                    HorarioDeExpedienteRepository.Salvar(horarioPadrao);
+                    Context.SaveChanges();
+
                     return RedirectToAction("Novo", "Funcionario");
                 }
                 else

@@ -10,6 +10,7 @@
 <link href="~/Content/Site.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery.maskedinput.js"></script>
+<script src="~/Scripts/Horario/funcionarioNovo.js"></script>
 <script type="text/javascript">
     jQuery(function ($) {
         //$("#Cpf").mask("999.999.999-99", { placeholder: " " });
@@ -37,28 +38,11 @@
         });
     };
 
+    
     $(document).ready(function () {
-        //$('#form').validate({
-        //    rules: {
-        //        Senha: {
-        //            required: true
-        //        },
-        //        SenhaConfirmacao: {
-        //            required: true,
-        //            equalTo: "#senha"
-        //        }
-        //    },
-        //    messages: {
-        //        Senha: {
-        //            required: "O campo senha é obrigatório."
-        //        },
-        //        SenhaConfirmacao: {
-        //            required: "O campo senha é obrigatório.",
-        //            equalTo: "O campo confirmação de senha deve ser identico ao campo senha."
-        //        }
-        //    }
-
-        //});
+        $("#IdEmpresa").change(function (e) {
+            atualizaListaHorarios();
+        });
     });
 
 </script>
@@ -119,9 +103,9 @@ else
                         @Html.DropDownListFor(f => f.IdPerfilDeAcesso, Model.PerfisDeAcesso, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
-                            @Html.Label("Horário de Expediente")<br />
-                            @Html.DropDownListFor(f => f.IdHorarioDeExpediente, Model.HorarioDeExpedientes, new { @class = "form-control" })
-                        </div>
+                        @Html.Label("Horário de Expediente")<br />
+                        @Html.DropDownListFor(f => f.IdHorarioDeExpediente, Model.HorarioDeExpedientes, new { @class = "form-control" })
+                    </div>
                     <div class="form-group">
                         <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
                     </div>

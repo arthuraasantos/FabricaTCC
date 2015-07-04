@@ -148,6 +148,7 @@ namespace FrontEnd.Models
             return View("Novo", novo);
         }
 
+
         private object PerfilDeAcessoPadrao()
         {
             throw new NotImplementedException();
@@ -192,6 +193,15 @@ namespace FrontEnd.Models
         {
             Tools t = new Tools();
             return this.Json(t.BuscaCep(cep), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult AtualizaListaHorarios(string Empresa)
+        {
+            Guid empresaGuid = Guid.Parse(Empresa);
+            var lista = HorarioDeExpedienteRepository.Listar().Where(a => a.Empresa.Id == empresaGuid).AsQueryable();
+            
+            return this.Json(lista, JsonRequestBehavior.AllowGet);
         }
 
         public override ActionResult Index()
