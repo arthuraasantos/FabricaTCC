@@ -40,7 +40,7 @@ else
                     {
                         @Html.TextBox("Email", (String)ViewBag.EmailLogado, new { @type = "email", @class = "form-control", @placeholder = "Email" })
                     }*@
-                <select class="form-control" name="Funcionario">
+                <select class="form-control" name="Email">
                     @{
                         var ListaFunc = (IEnumerable<SelectListItem>)ViewBag.ListaFuncionarios;
                         foreach (var item in ListaFunc)
@@ -56,6 +56,7 @@ else
                         }
                     }
                 </select>
+
             </div>
 
             <div class="form-group">
