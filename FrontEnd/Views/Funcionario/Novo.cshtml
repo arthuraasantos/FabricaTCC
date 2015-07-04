@@ -12,9 +12,9 @@
 <script src="~/Scripts/jquery.maskedinput.js"></script>
 <script type="text/javascript">
     jQuery(function ($) {
-        $("#Cpf").mask("999.999.999-99", { placeholder: " " });
-        $("#Identidade").mask("99.999.999-*", { placeholder: " " });
-        $("#DataNascimeneto").mask("dd/MM/yyyy", { placeholder: " " });
+        //$("#Cpf").mask("999.999.999-99", { placeholder: " " });
+        //$("#Identidade").mask("99.999.999-*", { placeholder: " " });
+        //$("#DataNascimeneto").mask("dd/MM/yyyy", { placeholder: " " });
 
     });
 
@@ -38,33 +38,43 @@
     };
 
     $(document).ready(function () {
-        $('#form').validate({
-            rules: {
-                Senha: {
-                    required: true
-                },
-                SenhaConfirmacao: {
-                    required: true,
-                    equalTo: "#senha"
-                }
-            },
-            messages: {
-                Senha: {
-                    required: "O campo senha é obrigatório."
-                },
-                SenhaConfirmacao: {
-                    required: "O campo senha é obrigatório.",
-                    equalTo: "O campo confirmação de senha deve ser identico ao campo senha."
-                }
-            }
+        //$('#form').validate({
+        //    rules: {
+        //        Senha: {
+        //            required: true
+        //        },
+        //        SenhaConfirmacao: {
+        //            required: true,
+        //            equalTo: "#senha"
+        //        }
+        //    },
+        //    messages: {
+        //        Senha: {
+        //            required: "O campo senha é obrigatório."
+        //        },
+        //        SenhaConfirmacao: {
+        //            required: "O campo senha é obrigatório.",
+        //            equalTo: "O campo confirmação de senha deve ser identico ao campo senha."
+        //        }
+        //    }
 
-        });
+        //});
     });
 
 </script>
 
 @model FrontEnd.Models.FuncionarioNovo
-
+@if (@TempData["Mensagem"] != null)
+{
+    <script>MostraSuccess('@TempData["Mensagem"]', false)</script>
+}
+else
+{
+    if (@TempData["MensagemErro"] != null)
+    {
+        <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
+    }
+}
 <h2 class="page-header">Novo funcionário</h2>
 <div class="row">
     <div class="col col-lg-12">

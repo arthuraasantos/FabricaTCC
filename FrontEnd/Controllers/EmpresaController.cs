@@ -45,14 +45,22 @@ namespace FrontEnd.Models
         {
             try
             {
-                var entity = ConversorInsert.Converter(novo);
-                entity.Id = Guid.NewGuid();
-                entity.Bloqueado = "N";
-                Repository.Salvar(entity);
-                Context.SaveChanges();
-                TempData["Mensagem"] = "Empresa cadastrada com sucesso!";
-                TempData["Empresa"] = entity;
-                return RedirectToAction("Novo","Funcionario");
+                if (ModelState.IsValid)
+                {
+                    var entity = ConversorInsert.Converter(novo);
+                    entity.Id = Guid.NewGuid();
+                    entity.Bloqueado = "N";
+                    Repository.Salvar(entity);
+                    Context.SaveChanges();
+                    //TempData["Mensagem"] = "Empresa cadastrada com sucesso!";
+                    TempData["Empresa"] = entity;
+                    return RedirectToAction("Novo", "Funcionario");
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Dados inválidos";
+                    return View("Novo");
+                }
 
             }
             catch (Exception)

@@ -141,6 +141,7 @@ namespace FrontEnd.Models
             // Quando cadastra uma empresa, vem direto para o cadastro do funcionario com a empresa cadastrada
             if (emp != null)
             {
+                TempData["Mensagem"] = "Empresa cadastrada com sucesso!";
                 novo.IdEmpresa = emp.Id;
             }
 
