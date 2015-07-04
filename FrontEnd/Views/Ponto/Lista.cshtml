@@ -32,14 +32,30 @@ else
         {
             <div class="form-group">
                 @Html.Label("Email do Funcionário")
-                @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == PerfilAcesso.Funcionario)
-                {
-                    @Html.TextBox("Email", (String)ViewBag.EmailLogado, new { @type = "email", @class = "form-control", @placeholder = "Email",  @readonly = "readonly"})
-                }
-                else
-                {
-                    @Html.TextBox("Email", (String)ViewBag.EmailLogado, new { @type = "email", @class = "form-control", @placeholder = "Email" })
-                }
+                @*@if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == PerfilAcesso.Funcionario)
+                    {
+                        @Html.TextBox("Email", (String)ViewBag.EmailLogado, new { @type = "email", @class = "form-control", @placeholder = "Email",  @readonly = "readonly"})
+                    }
+                    else
+                    {
+                        @Html.TextBox("Email", (String)ViewBag.EmailLogado, new { @type = "email", @class = "form-control", @placeholder = "Email" })
+                    }*@
+                <select class="form-control" name="Funcionario">
+                    @{
+                        var ListaFunc = (IEnumerable<SelectListItem>)ViewBag.ListaFuncionarios;
+                        foreach (var item in ListaFunc)
+                        {
+                            if (ViewBag.EmailLogado == item.Value)
+                            {
+                                <option value="@item.Value" selected>@item.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        }
+                    }
+                </select>
             </div>
 
             <div class="form-group">

@@ -44,5 +44,15 @@ namespace Infraestrutura.Repositorios
 
         }
 
+        public IQueryable<Funcionario> ListarComPerfil( PerfilDeAcesso Perfil )
+        {
+            var Lista = base.Listar();
+            if (Perfil.Descricao != "Administrador")
+            {
+                Lista = Lista.Where(p => p.PerfilDeAcesso.Descricao != "Administrador");
+            }
+            return Lista;
+        }
+
     }
 }

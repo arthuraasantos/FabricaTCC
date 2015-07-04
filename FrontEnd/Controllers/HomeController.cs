@@ -83,7 +83,7 @@ namespace FrontEnd.Models
 
         public ActionResult EfetuarMarcacaoDoPonto(PontoMarcar marcarPonto)
         {
-            var funcionario = FuncionarioRepository.Listar().SingleOrDefault(p => p.Email == marcarPonto.Email && p.Senha == marcarPonto.Senha);
+            var funcionario = FuncionarioRepository.ListarComPerfil(Sessao.FuncionarioLogado.PerfilDeAcesso).SingleOrDefault(p => p.Email == marcarPonto.Email && p.Senha == marcarPonto.Senha);
             if (funcionario == null)
             {
                 TempData["Mensagem"] = "Senha incorreta.";

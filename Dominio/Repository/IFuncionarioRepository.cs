@@ -12,6 +12,7 @@ namespace Dominio.Repository
     {
         Funcionario PesquisaParaLogin(string email, string senha);
         Funcionario PesquisaPeloEmail(string email);
+        IQueryable<Funcionario> ListarComPerfil(PerfilDeAcesso Perfil);
 
     }
 }

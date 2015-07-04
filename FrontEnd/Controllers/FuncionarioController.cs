@@ -200,13 +200,13 @@ namespace FrontEnd.Models
             switch (Sessao.PerfilFuncionarioLogado)
             {
                 case PerfilAcesso.Gerente: // Se for administrador do sistema, mostrar todas os funcionários da mesma empresa
-                    lista = FuncionarioRepository.Listar().Where(f => f.Empresa.Id == Sessao.EmpresaLogada.Id).ToList();
+                    lista = FuncionarioRepository.ListarComPerfil(Sessao.FuncionarioLogado.PerfilDeAcesso).Where(f => f.Empresa.Id == Sessao.EmpresaLogada.Id).ToList();
                     break;
                 case PerfilAcesso.Funcionario: // Se for administrador do sistema, mostrar somente o funcionário logado
-                    lista = FuncionarioRepository.Listar().Where(f => f.Id == Sessao.FuncionarioLogado.Id).ToList();
+                    lista = FuncionarioRepository.ListarComPerfil(Sessao.FuncionarioLogado.PerfilDeAcesso).Where(f => f.Id == Sessao.FuncionarioLogado.Id).ToList();
                     break;
                 case PerfilAcesso.Administrador: // Se for administrador do sistema, mostrar todas os funcionários
-                    lista = FuncionarioRepository.Listar().ToList();
+                    lista = FuncionarioRepository.ListarComPerfil(Sessao.FuncionarioLogado.PerfilDeAcesso).ToList();
                     break;
             }
 

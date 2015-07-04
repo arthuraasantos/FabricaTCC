@@ -71,6 +71,21 @@ namespace FrontEnd.Models
             DateTime _Data = DateTime.Now;
             if (Data != null) { _Data = DateTime.Parse(Data.ToString()); }
 
+
+
+            var ListaFuncionarios = FuncionarioRepository.ListarComPerfil(Sessao.FuncionarioLogado.PerfilDeAcesso).ToList();
+
+            switch (Sessao.PerfilFuncionarioLogado)
+            {
+                case PerfilAcesso.Funcionario:
+                    ListaFuncionarios = ListaFuncionarios.Where(p => p.Id == Sessao.FuncionarioLogado.Id).ToList();
+                    break;
+                case PerfilAcesso.Gerente: 
+                    ListaFuncionarios = ListaFuncionarios.Where(p => p.Empresa.Id == Sessao.EmpresaLogada.Id).ToList();
+                    break;
+            }
+
+
             // Recupera a lista de pontos batidos 
             var _ListaCompleta = PontoRepository.
                             Listar().
@@ -106,6 +121,7 @@ namespace FrontEnd.Models
 
             ViewBag.MaiorBatidas = ((int)((Maior + 1) / 2)) * 2;
             ViewBag.DicionarioHoras = DicionarioHoras;
+            ViewBag.ListaFuncionarios = ListaFuncionarios.Select(p => new SelectListItem() { Text = p.Email, Value = p.Email });
 
             return View(Dicionario);
         }
@@ -130,9 +146,9 @@ namespace FrontEnd.Models
             var temp_listaFull = PontoRepository.
                              Listar().
                              ToList().
-                             Where( p => p.DataMarcacao.HasValue ).
+                             Where(p => p.DataMarcacao.HasValue).
                              ToList();
-            
+
             var _listaFull = temp_listaFull.Where(p => p.DataMarcacao.GetValueOrDefault(DateTime.MaxValue).Date == _Data.Date).ToList();
 
 
