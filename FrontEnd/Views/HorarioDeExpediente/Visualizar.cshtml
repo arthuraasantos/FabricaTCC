@@ -21,6 +21,7 @@
 
                         <div class="form-group">
                             @Html.HiddenFor(e => e.IdEmpresa)
+                            @Html.HiddenFor(e => e.Id)
                             @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
                             {
                                 <label>Empresa</label>

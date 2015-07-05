@@ -161,6 +161,15 @@ namespace FrontEnd.Models
             {
                 if (ModelState.IsValid)
                 {
+                    if (novo.Cpf != null)
+                    {
+                        if (!SeedWork.Tools.Validacao.IsCPFValid(novo.Cpf))
+                        {
+                            TempData["MensagemAtencao"] = "O CPF digitado não é válido! Funcionário não cadastrado!";
+                            return RedirectToAction("Index");
+                        }
+                    }
+
                     var entity = ConversorInsert.Converter(novo);
                     entity.Id = Guid.NewGuid();
 
@@ -321,6 +330,14 @@ namespace FrontEnd.Models
         {
             try
             {
+                if (editar.Cpf != null)
+                {
+                    if (!SeedWork.Tools.Validacao.IsCPFValid(editar.Cpf))
+                    {
+                        TempData["MensagemAtencao"] = "O CPF digitado não é válido! Funcionário não alterado!";
+                        return RedirectToAction("Index");
+                    }
+                }
                 var entity = Repository.PesquisarPeloId(editar.Id);
                 ConversorEdit.AplicarValores(editar, entity);
                 Repository.Salvar(entity);

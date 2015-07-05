@@ -26,13 +26,8 @@ namespace FrontEnd.Controllers
 
         public override void AplicarValores(HorarioDeExpedienteEditar origem, HorarioDeExpediente destino)
         {
-            destino = new HorarioDeExpediente();
             destino.Descricao = origem.Descricao;
             destino.NumeroHorasPorDia = origem.NumeroHorasPorDia;
-            //Empresa e = new Empresa();
-            //e = EmpresaRepository.PesquisarPeloId(origem.IdEmpresa);
-            destino.Empresa = new Empresa();
-            destino.Empresa = EmpresaRepository.PesquisarPeloId(origem.IdEmpresa);
         }
     }
 }

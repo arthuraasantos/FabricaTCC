@@ -75,9 +75,23 @@ namespace Infraestrutura.Migrations
 
             #endregion
 
+            #region 'Horarios de Expediente'
+
+            HorarioDeExpediente horarioPadrao = new HorarioDeExpediente()
+            {
+                Id = Guid.Parse("182E32E3-1546-435F-9F00-D509C3161C95"),
+                Empresa = empresa,
+                Descricao = "Horário Padrão",
+                NumeroHorasPorDia = 8
+            };
+            var horario = context.Set<HorarioDeExpediente>().FirstOrDefault(p => p.Id == horarioPadrao.Id);
+            if (horario == null) { context.Set<HorarioDeExpediente>().Add(horarioPadrao); }
+
+            #endregion
+
             #region 'Funcionários'
 
-            
+
             var funcionarioAdministrador = new Funcionario()
             {
                 Id = Guid.Parse("69d2fad2-9ffe-4f2d-ad85-3ff4b277f805"),
@@ -85,7 +99,8 @@ namespace Infraestrutura.Migrations
                 Email = "administrador@fabricatcc.com",
                 Senha = Criptografia.Encrypt("admin"),
                 Empresa = empresa,
-                PerfilDeAcesso = perfilAdminitrador
+                PerfilDeAcesso = perfilAdminitrador,
+                HorarioDeExpediente = horarioPadrao
             };
 
             var funcionarioGerente = new Funcionario()
@@ -95,7 +110,8 @@ namespace Infraestrutura.Migrations
                 Email = "gerente@fabricatcc.com",
                 Senha = Criptografia.Encrypt("admin"),
                 Empresa = empresa,
-                PerfilDeAcesso = perfilGerente
+                PerfilDeAcesso = perfilGerente,
+                HorarioDeExpediente = horarioPadrao
             };
 
             var funcionarioComum = new Funcionario()
@@ -105,7 +121,8 @@ namespace Infraestrutura.Migrations
                 Email = "funcionario@fabricatcc.com",
                 Senha = Criptografia.Encrypt("admin"),
                 Empresa = empresa,
-                PerfilDeAcesso = perfilFuncionario
+                PerfilDeAcesso = perfilFuncionario,
+                HorarioDeExpediente = horarioPadrao
             };  
 
 

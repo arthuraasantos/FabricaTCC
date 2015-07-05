@@ -105,12 +105,15 @@ namespace FrontEnd.Models
             {
                 if (ModelState.IsValid)
                 {
-                    if (novo.IdEmpresa == null)
-                    {
-                        novo.Id = Sessao.EmpresaLogada.Id;
-                    }
                     var entity = ConversorInsert.Converter(novo);
                     entity.Id = Guid.NewGuid();
+
+                    if (entity.Empresa == null)
+                    {
+                        Empresa emp = new Empresa();
+                        emp = EmpresaRepository.PesquisarPeloId(Sessao.EmpresaLogada.Id);
+                        entity.Empresa = emp;
+                    }
 
                     Repository.Salvar(entity);
                     Context.SaveChanges();
@@ -120,9 +123,9 @@ namespace FrontEnd.Models
                 return RedirectToAction("Index");
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                TempData["MensagemErro"] = "Erro ao cadastrar Horário de Expediente!";
+                TempData["MensagemErro"] = "Erro ao cadastrar Horário de Expediente!" + e.Message; ;
                 return RedirectToAction("Index");
             }
         }
@@ -136,6 +139,11 @@ namespace FrontEnd.Models
 
                     var entity = Repository.PesquisarPeloId(editar.Id);
                     ConversorEdit.AplicarValores(editar, entity);
+
+                    Empresa emp = new Empresa();
+                    emp = EmpresaRepository.PesquisarPeloId(editar.IdEmpresa);
+                    entity.Empresa = emp;
+
                     Repository.Salvar(entity);
                     Context.SaveChanges();
                     TempData["Mensagem"] = "Horário de Expediente alterado com sucesso!";

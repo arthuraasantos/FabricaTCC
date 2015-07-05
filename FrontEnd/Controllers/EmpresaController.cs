@@ -49,6 +49,14 @@ namespace FrontEnd.Models
             {
                 if (ModelState.IsValid)
                 {
+                    if (novo.Cnpj != null)
+                    {
+                        if (!SeedWork.Tools.Validacao.IsCNPJValid(novo.Cnpj))
+                        {
+                            TempData["MensagemAtencao"] = "O CNPJ digitado não é válido! Empresa não cadastrada!";
+                            return RedirectToAction("Index");
+                        }
+                    }
                     var entity = ConversorInsert.Converter(novo);
                     entity.Id = Guid.NewGuid();
                     entity.Bloqueado = "N";
@@ -59,6 +67,7 @@ namespace FrontEnd.Models
 
                     // Cria um horário padrão
                     HorarioDeExpediente horarioPadrao = new HorarioDeExpediente();
+                    horarioPadrao.Id = Guid.NewGuid();
                     horarioPadrao.Empresa = entity;
                     horarioPadrao.Descricao = "Horário Padrão";
                     horarioPadrao.NumeroHorasPorDia = 8;
@@ -74,9 +83,9 @@ namespace FrontEnd.Models
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                TempData["MensagemErro"] = "Erro ao cadastrar empresa!";
+                TempData["MensagemErro"] = "Erro ao cadastrar empresa! " + e.Message;
                 return RedirectToAction("Index");
             }
 
@@ -150,6 +159,14 @@ namespace FrontEnd.Models
         {
             try
             {
+                if (editar.Cnpj != null)
+                {
+                    if (!SeedWork.Tools.Validacao.IsCNPJValid(editar.Cnpj))
+                    {
+                        TempData["MensagemAtencao"] = "O CNPJ digitado não é válido! Empresa não alterada!";
+                        return RedirectToAction("Index");
+                    }
+                }
                 var entity = Repository.PesquisarPeloId(editar.Id);
                 ConversorEdit.AplicarValores(editar, entity);
                 Repository.Salvar(entity);
