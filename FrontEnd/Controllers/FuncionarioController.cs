@@ -306,6 +306,14 @@ namespace FrontEnd.Models
                         Repository.Salvar(entity);
                         Context.SaveChanges();
 
+                        // Se funcionario editado for o usuário logado, atualiza a Sessao do usuário logado...
+                        if (entity.Id == Sessao.FuncionarioLogado.Id)
+                        {
+                            Session.Remove("Funcionario");
+                            Session.Add("Funcionario", entity);
+                        }
+
+
                         TempData["Mensagem"] = "Senha alterada com sucesso!";
                     }
                     else
@@ -342,6 +350,14 @@ namespace FrontEnd.Models
                 ConversorEdit.AplicarValores(editar, entity);
                 Repository.Salvar(entity);
                 Context.SaveChanges();
+
+                // Se funcionario editado for o usuário logado, atualiza a Sessao do usuário logado...
+                if (entity.Id == Sessao.FuncionarioLogado.Id)
+                {
+                    Session.Remove("Funcionario");
+                    Session.Add("Funcionario", entity);
+                }
+
                 TempData["Mensagem"] = "Funcionário alterado com sucesso!";
 
                 return RedirectToAction("Index");

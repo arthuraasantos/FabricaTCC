@@ -73,7 +73,7 @@ namespace FrontEnd.Models
                                 }
                                 
                                 FormsAuthentication.SetAuthCookie(model.Email, false);
-                                Session.Add("Funcionario", funcionarioParaLogin);                                
+                                Session.Add("Funcionario", funcionarioParaLogin);
 
                                 //Redireciona para a mesma view e o tratamento do que vai aparecer será nas views.
                                 return RedirectToAction("Index", "Home");

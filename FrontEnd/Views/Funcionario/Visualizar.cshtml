@@ -31,10 +31,10 @@
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery.maskedinput.js"></script>
 <script type="text/javascript">
-    jQuery(function ($) {
-        $("#Cpf").mask("999.999.999-99", { placeholder: " " });
-        $("#DataNascimeneto").mask("dd/MM/yyyy", { placeholder: " " });
-    });
+    //jQuery(function ($) {
+    //    $("#Cpf").mask("999.999.999-99", { placeholder: " " });
+    //    $("#DataNascimeneto").mask("dd/MM/yyyy", { placeholder: " " });
+    //});
 
     function atualizaEndereco() {
         var cep = document.getElementById('Cep').value;
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="form-group">
                                     @Html.Label("Nascimento")
-                                    @Html.TextBoxFor(e => e.DataNascimento.GetValueOrDefault().Date, new { @class = "form-control", @type = "date" })
+                                    @Html.TextBoxFor(e => e.DataNascimento, new { @class = "form-control", id = "DiaMesAno" })
                                 </div>
                                 <div class="form-group">
                                     @Html.Label("Email")
