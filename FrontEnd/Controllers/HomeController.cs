@@ -58,7 +58,7 @@ namespace FrontEnd.Models
                     var FeriasFuncionario = FeriasRepository.Listar().Where(p => p.Inicio <= Hoje.Date && p.Fim >= Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
                     if (FeriasFuncionario != null)
                     {
-                        ViewBag.Aviso = "Este funcionário está gozando de férias no período " + FeriasFuncionario.Inicio.Date.ToString("dd/MM/yyyy") + " até " + FeriasFuncionario.Fim.Date.ToString("dd/MM/yyyy");
+                        ViewBag.Aviso = "Este funcionário está está em período de férias entre " + FeriasFuncionario.Inicio.Date.ToString("dd/MM/yyyy") + " e " + FeriasFuncionario.Fim.Date.ToString("dd/MM/yyyy");
                     } else 
                     {
                         var FolgasFuncionario = FolgaRepository.Listar().Where(p => p.Data == Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
