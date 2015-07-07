@@ -9,13 +9,16 @@ using System.Text;
 
 namespace FrontEnd.Controllers
 {
-    public class HorarioDeExpedienteToHorarioDeExpedienteEditar: ConversorBase<HorarioDeExpediente,HorarioDeExpedienteEditar>
+    public class HorarioDeExpedienteToHorarioDeExpedienteEditar : ConversorBase<HorarioDeExpediente, HorarioDeExpedienteEditar>
     {
-                public IEmpresaRepository EmpresaRepository;
+        public IEmpresaRepository EmpresaRepository;
+
+        
         public HorarioDeExpedienteToHorarioDeExpedienteEditar(IEmpresaRepository empresaRepository)
         {
 
         }
+
 
         public override void AplicarValores(HorarioDeExpediente origem, HorarioDeExpedienteEditar destino)
         {
@@ -23,7 +26,6 @@ namespace FrontEnd.Controllers
             destino.NumeroHorasPorDia = origem.NumeroHorasPorDia;
             destino.IdEmpresa = origem.Empresa.Id;
         }
-
         public override void AplicarValores(HorarioDeExpedienteEditar origem, HorarioDeExpediente destino)
         {
             destino.Descricao = origem.Descricao;

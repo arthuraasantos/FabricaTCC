@@ -20,12 +20,15 @@ namespace FrontEnd.Models
     {
         public IEmpresaRepository EmpresaRepository { get; set; }
         public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository { get; set; }
+        
+        
         public EmpresaController(MyContext context, IEmpresaRepository empresaRepository, IFuncionarioRepository funcionarioRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
             : base(context, empresaRepository, new EmpresaToEmpresaNovo(), new EmpresaToEmpresaEditar())
         {
             EmpresaRepository = empresaRepository;
             HorarioDeExpedienteRepository = horarioDeExpedienteRepository;
         }
+
 
         public override ActionResult Index()
         {
@@ -42,7 +45,6 @@ namespace FrontEnd.Models
 
             return View("Index", lista);
         }
-
         public override ActionResult Incluir(EmpresaNovo novo)
         {
             try
@@ -90,7 +92,6 @@ namespace FrontEnd.Models
             }
 
         }
-
         [HttpGet]
         public JsonResult BloquearEmpresa(string Id)
         {
@@ -113,7 +114,6 @@ namespace FrontEnd.Models
                 throw;
             }
         }
-
         [HttpGet]
         public JsonResult DesbloquearEmpresa(string Id)
         {
@@ -139,7 +139,6 @@ namespace FrontEnd.Models
             }
 
         }
-
         public override ActionResult Visualizar(Guid Id)
         {
             try
@@ -154,7 +153,6 @@ namespace FrontEnd.Models
                 return RedirectToAction("Index");
             }
         }
-
         public override ActionResult Editar(EmpresaEditar editar)
         {
             try
@@ -182,7 +180,6 @@ namespace FrontEnd.Models
             }
 
         }
-
         public JsonResult AtualizaDadosEndereco(string cep)
         {
             Tools t = new Tools();

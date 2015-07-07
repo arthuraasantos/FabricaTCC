@@ -19,11 +19,14 @@ namespace FrontEnd.Models
 
         public MyContext Contexto { get; set; }
         public FuncionarioRepository FuncionarioRepository { get; set; }
+        
+        
         public LoginController()
         {
             Contexto = new MyContext();
             FuncionarioRepository = new FuncionarioRepository(Contexto);
         }
+
 
         public ActionResult Index()
         {
@@ -39,7 +42,6 @@ namespace FrontEnd.Models
                 return View();
             }
         }
-
         [HttpPost]
         public ActionResult Autenticar(FuncionarioLogin model, string manterLogado)
         {
@@ -93,7 +95,6 @@ namespace FrontEnd.Models
 
             return RedirectToAction("Index","Login");
         }
-
         public ActionResult Logout()
         {
             //Destruir o Ticket de acesso do usuario...

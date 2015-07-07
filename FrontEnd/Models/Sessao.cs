@@ -26,7 +26,6 @@ namespace FrontEnd.Models
                 return _Funcionario;
             }
         }
-
         public static Empresa EmpresaLogada
         {
             get
@@ -35,7 +34,6 @@ namespace FrontEnd.Models
                 return _Empresa;
             }
         }
-
         public static PerfilAcesso PerfilFuncionarioLogado
         { 
             get
@@ -56,11 +54,5 @@ namespace FrontEnd.Models
                 return _Perfil;
             }
         }
-
-        //public static ActionResult Deslogar()
-        //{
-            
-        //} 
-
     }
 }

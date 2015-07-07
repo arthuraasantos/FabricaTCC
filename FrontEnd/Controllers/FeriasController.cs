@@ -15,10 +15,9 @@ namespace FrontEnd.Models
 {
     public class FeriasController : BaseController<Ferias, FeriasCriar, FeriasAprovar>
     {
-        // GET: Ferias
         private IFuncionarioRepository FuncionarioRepository { get; set; }
-
         private IFeriasRepository FeriasRepository { get; set; }
+
 
         public FeriasController(MyContext context, IFeriasRepository feriasRepository, IFuncionarioRepository funcionarioRepository)
             : base(context, feriasRepository, new FeriasToFeriasCriar(), new FeriasToFeriasAjustar())
@@ -26,6 +25,7 @@ namespace FrontEnd.Models
             FuncionarioRepository = funcionarioRepository;
             FeriasRepository = feriasRepository;
         }
+
 
         public ActionResult Solicitar()
         {
@@ -37,7 +37,6 @@ namespace FrontEnd.Models
             ViewBag.Mensagem = ViewBag.Mensagem;
             return View(_ferias);
         }
-
         public ActionResult Criar(string Funcionario, DateTime Inicio, DateTime Fim, string Justificativa)
         {
             try
@@ -72,7 +71,6 @@ namespace FrontEnd.Models
             }
 
         }
-
         public override ActionResult Index()
         {
             if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
@@ -108,7 +106,6 @@ namespace FrontEnd.Models
                 }
             }
         }
-
         public ActionResult AprovarRejeitarFerias(Guid Id, RespostaSolicitacao resposta)
         {
 
@@ -118,7 +115,6 @@ namespace FrontEnd.Models
 
             return RedirectToAction("Index");
         }
-
         public ActionResult Respostas()
         {
             if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
@@ -157,7 +153,6 @@ namespace FrontEnd.Models
                 }
             }
         }
-
         public ActionResult RelatorioFeriasPorAno(string ano)
         {
             DateTime _ano = DateTime.MinValue;

@@ -91,7 +91,6 @@ namespace Infraestrutura.Migrations
 
             #region 'Funcionários'
 
-
             var funcionarioAdministrador = new Funcionario()
             {
                 Id = Guid.Parse("69d2fad2-9ffe-4f2d-ad85-3ff4b277f805"),
@@ -103,37 +102,9 @@ namespace Infraestrutura.Migrations
                 HorarioDeExpediente = horarioPadrao
             };
 
-            var funcionarioGerente = new Funcionario()
-            {
-                Id = Guid.Parse("26341447-4897-4d49-851d-25890888e463"),
-                Nome = "Gerente",
-                Email = "gerente@fabricatcc.com",
-                Senha = Criptografia.Encrypt("admin"),
-                Empresa = empresa,
-                PerfilDeAcesso = perfilGerente,
-                HorarioDeExpediente = horarioPadrao
-            };
-
-            var funcionarioComum = new Funcionario()
-            {
-                Id = Guid.Parse("73ee557e-bd03-469d-8ed4-034266e1e82f"),
-                Nome = "Funcionario",
-                Email = "funcionario@fabricatcc.com",
-                Senha = Criptografia.Encrypt("admin"),
-                Empresa = empresa,
-                PerfilDeAcesso = perfilFuncionario,
-                HorarioDeExpediente = horarioPadrao
-            };  
-
 
             var func = context.Set<Funcionario>().FirstOrDefault(p => p.Email == funcionarioAdministrador.Email);
             if (func == null) { context.Set<Funcionario>().Add(funcionarioAdministrador); }
-
-            func = context.Set<Funcionario>().FirstOrDefault(p => p.Email == funcionarioGerente.Email);
-            if (func == null) { context.Set<Funcionario>().Add(funcionarioGerente); }
-
-            func = context.Set<Funcionario>().FirstOrDefault(p => p.Email == funcionarioComum.Email);
-            if (func == null) { context.Set<Funcionario>().Add(funcionarioComum); }
 
             #endregion
         }

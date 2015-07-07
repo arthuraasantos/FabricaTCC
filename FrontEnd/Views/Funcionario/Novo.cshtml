@@ -34,6 +34,28 @@
                 $("#txtlogradouro").val(data.logradouro);
                 $("#txtbairro").val(data.bairro);
                 $("txtcidade").val(data.cidade);
+                $("txtestado").chosen(data.uf);
+            },
+        });
+    };
+
+
+    function ValidaCPF() {
+        var cpf = document.getElementById('CPF').value;
+
+        $.ajax({
+            url: "/Funcionario/ValidaCPF",
+            data: {
+                aCPF: cpf
+            },
+            type: "GET",
+            datatype: "bool",
+            contenttype: "application/json; charset=utf-8",
+            success:
+                function (data) {
+                    if (msg == "TRUE") {
+                        
+                    }
             },
         });
     };
@@ -73,7 +95,7 @@ else
                     </div>
                     <div class="form-group">
                         @Html.Label("CPF ")
-                        @Html.TextBoxFor(f => f.Cpf, new { @class = "form-control", id = "CPF" })
+                        @Html.TextBoxFor(f => f.Cpf, new { @class = "form-control", @onBlur = "ValidaCPF()", id = "CPF" })
                     </div>
                     <div class="form-group">
                         @Html.Label("Email")

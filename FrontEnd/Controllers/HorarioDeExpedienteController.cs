@@ -17,7 +17,6 @@ namespace FrontEnd.Models
         // GET: HorarioDeExpediente
         public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository;
         public IEmpresaRepository EmpresaRepository;
-
         private IEnumerable<SelectListItem> ListaEmpresas;
 
 
@@ -46,6 +45,7 @@ namespace FrontEnd.Models
             }
         }
 
+
         public override ActionResult Index()
         {
             List<HorarioDeExpediente> lista = new List<HorarioDeExpediente>();
@@ -61,7 +61,6 @@ namespace FrontEnd.Models
 
             return View("Index", lista);
         }
-
         public override ActionResult Visualizar(Guid Id)
         {
             try
@@ -80,7 +79,6 @@ namespace FrontEnd.Models
                 return RedirectToAction("Index");
             }
         }
-
         public override ActionResult Novo()
         {
 
@@ -98,7 +96,6 @@ namespace FrontEnd.Models
 
             return View("Novo", novo);
         }
-
         public override ActionResult Incluir(HorarioDeExpedienteNovo novo)
         {
             try
@@ -129,7 +126,6 @@ namespace FrontEnd.Models
                 return RedirectToAction("Index");
             }
         }
-
         public override ActionResult Editar(HorarioDeExpedienteEditar editar)
         {
             try

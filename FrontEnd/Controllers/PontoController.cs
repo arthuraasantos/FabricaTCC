@@ -20,11 +20,11 @@ namespace FrontEnd.Models
     //[Authorize]
     public class PontoController : Controller
     {
-        // GET: Ponto
         MyContext Context;
         private IPontoRepository PontoRepository { get; set; }
         private IPontoEletronicoService PontoEletronicoService { get; set; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
+
 
         public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService)
         {
@@ -33,6 +33,7 @@ namespace FrontEnd.Models
             PontoEletronicoService = pontoEletronicoService;
             FuncionarioRepository = new FuncionarioRepository(context);
         }
+
 
         public ActionResult Marcar(string email, string senha, string parametro)
         {
@@ -132,7 +133,6 @@ namespace FrontEnd.Models
         {
             return View();
         }
-
         public ActionResult RelatorioMarcacoes(DateTime? Data)
         {
             DateTime _Data = DateTime.MinValue;

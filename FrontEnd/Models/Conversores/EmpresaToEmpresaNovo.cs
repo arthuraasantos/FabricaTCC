@@ -15,7 +15,6 @@ namespace FrontEnd.Models.Conversores
             destino.Cnpj = origem.Cnpj;
             destino.NomeFantasia = origem.NomeFantasia;
         }
-
         public override void AplicarValores(EmpresaNovo origem, Empresa destino)
         {
             destino.RazaoSocial = origem.RazaoSocial;

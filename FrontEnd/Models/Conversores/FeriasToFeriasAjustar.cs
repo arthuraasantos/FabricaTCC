@@ -9,7 +9,6 @@ namespace FrontEnd.Models.Conversores
 {
     public class FeriasToFeriasAjustar: ConversorBase<Ferias, FeriasAprovar>
     {
-
         public override void AplicarValores(Ferias origem, FeriasAprovar destino)
         {
             destino.Funcionario = origem.Funcionario.Email;
@@ -18,7 +17,6 @@ namespace FrontEnd.Models.Conversores
             destino.Tipo = origem.Tipo;
             destino.Resposta = origem.Resposta;
         }
-
         public override void AplicarValores(FeriasAprovar origem, Ferias destino)
         {
             destino.Funcionario.Email = origem.Funcionario;

@@ -18,12 +18,14 @@ namespace FrontEnd.Models
         private IPontoRepository PontoRepository { get; set; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
 
+
         public SolicitacaoController(MyContext context, ISolicitacaoRepository solicitacaoRepository, IPontoRepository pontoRepository, IFuncionarioRepository funcionarioRepository)
             : base(context, solicitacaoRepository, new SolicitacaoToSolicitacaoCriar(), new SolicitacaoToSolicitacaoAjustar())
         {
             PontoRepository = pontoRepository;
             FuncionarioRepository = funcionarioRepository;
         }
+
 
         public override ActionResult Index()
         {
@@ -63,7 +65,6 @@ namespace FrontEnd.Models
                 }
             }
         }
-
         public ActionResult Solicitar(DateTime data, string email)
         {
             Funcionario func = new Funcionario();
@@ -97,7 +98,6 @@ namespace FrontEnd.Models
 
             return View(item);
         }
-
         public ActionResult Criar(SolicitacaoCriar SolicitacaoNovo)
         {
             Solicitacao Solicitacao = new Solicitacao();
@@ -118,7 +118,6 @@ namespace FrontEnd.Models
             TempData["Mensagem"] = "Solicitação criada com sucesso!";
             return RedirectToAction("Lista", "Ponto");
         }
-
         public ActionResult AprovarRejeitarSolicitacao(Guid Id, RespostaSolicitacao resposta)
         {
 

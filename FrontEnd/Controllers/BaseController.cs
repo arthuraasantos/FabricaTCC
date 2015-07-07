@@ -28,6 +28,8 @@ namespace FrontEnd.Models
         public IRepository<TEntidade> Repository { get; set; }
         public IConversor<TEntidade, TInsertModel> ConversorInsert { get; set; }
         public IConversor<TEntidade, TEditModel> ConversorEdit { get; set; }
+
+
         public BaseController(MyContext context, IRepository<TEntidade> repository, IConversor<TEntidade, TInsertModel> conversorInsert, IConversor<TEntidade, TEditModel> conversorEdit)
         {
             Context = context;
@@ -35,6 +37,7 @@ namespace FrontEnd.Models
             ConversorEdit = conversorEdit;
             ConversorInsert = conversorInsert;
         }
+
 
         public virtual ActionResult Index()
         {
@@ -52,12 +55,10 @@ namespace FrontEnd.Models
 
             return View("Visualizar", modelEditar);
         }
-
         public virtual ActionResult Novo()
         {
             return View("Novo", Activator.CreateInstance<TInsertModel>());
         }
-
         public virtual ActionResult Incluir(TInsertModel novo)
         {
             var entity = ConversorInsert.Converter(novo);
@@ -85,7 +86,6 @@ namespace FrontEnd.Models
             }
 
         }
-
         public virtual ActionResult Excluir(Guid Id)
         {
             var entity =

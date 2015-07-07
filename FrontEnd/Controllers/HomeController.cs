@@ -19,14 +19,21 @@ namespace FrontEnd.Models
         private IFuncionarioRepository FuncionarioRepository { get; set; }
         private IPontoEletronicoService PontoService { get; set; }
         private IPontoRepository PontoRepository { get; set; }
+        private IFolgaRepository FolgaRepository { get; set; }
+        private IFeriasRepository FeriasRepository { get; set; }
 
-        public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pontoService, IPontoRepository pontoRepository)
+
+
+        public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pontoService, IPontoRepository pontoRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository)
         {
             PontoRepository = pontoRepository;
             FuncionarioRepository = funcionarioRepository;
             PontoService = pontoService;
             Context = context;
+            FolgaRepository = folgaRepository;
+            FeriasRepository = feriasRepository;
         }
+
 
         public ActionResult Index()
         {
@@ -44,6 +51,23 @@ namespace FrontEnd.Models
                     DateTime UltimoDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
                     ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(Sessao.FuncionarioLogado, PrimeiroDiaDoMes, UltimoDiaDoMes).ToString();
                     ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now);
+                    
+                    
+                    DateTime Hoje = DateTime.Now;
+                    ViewBag.Aviso = "";
+                    var FeriasFuncionario = FeriasRepository.Listar().Where(p => p.Inicio <= Hoje.Date && p.Fim >= Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
+                    if (FeriasFuncionario != null)
+                    {
+                        ViewBag.Aviso = "Este funcionário está gozando de férias no período " + FeriasFuncionario.Inicio.Date.ToString("dd/MM/yyyy") + " até " + FeriasFuncionario.Fim.Date.ToString("dd/MM/yyyy");
+                    } else 
+                    {
+                        var FolgasFuncionario = FolgaRepository.Listar().Where(p => p.Data == Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
+                        if (FolgasFuncionario != null)
+                        {
+                            ViewBag.Aviso = ViewBag.Aviso + "Este funcionário está cumprindo folga hoje";
+                        }
+                    }
+
 
                     if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
                     {
@@ -80,7 +104,6 @@ namespace FrontEnd.Models
                 return RedirectToAction("Index", "Login");
             }
         }
-
         public ActionResult EfetuarMarcacaoDoPonto(PontoMarcar marcarPonto)
         {
             var funcionario = FuncionarioRepository.ListarComPerfil(Sessao.FuncionarioLogado.PerfilDeAcesso).SingleOrDefault(p => p.Email == marcarPonto.Email && p.Senha == marcarPonto.Senha);

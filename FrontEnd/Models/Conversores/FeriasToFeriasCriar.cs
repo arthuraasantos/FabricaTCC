@@ -19,7 +19,6 @@ namespace FrontEnd.Models.Conversores
             destino.Justificativa = origem.Justificativa;
             destino.Resposta = origem.Resposta;
         }
-
         public override void AplicarValores(FeriasCriar origem, Ferias destino)
         {
             destino.Id = Guid.NewGuid();

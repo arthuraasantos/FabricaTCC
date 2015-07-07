@@ -12,10 +12,13 @@ namespace FrontEnd.Controllers
     public class HorarioDeExpedienteToHorarioDeExpedienteNovo: ConversorBase<HorarioDeExpediente,HorarioDeExpedienteNovo>
     {
         public IEmpresaRepository EmpresaRepository;
+        
+        
         public HorarioDeExpedienteToHorarioDeExpedienteNovo(IEmpresaRepository empresaRepository)
         {
             EmpresaRepository = empresaRepository;
         }
+        
 
         public override void AplicarValores(HorarioDeExpediente origem, HorarioDeExpedienteNovo destino)
         {
@@ -23,7 +26,6 @@ namespace FrontEnd.Controllers
             destino.NumeroHorasPorDia = origem.NumeroHorasPorDia;
            
         }
-
         public override void AplicarValores(HorarioDeExpedienteNovo origem, HorarioDeExpediente destino)
         {
             destino.Descricao = origem.Descricao;

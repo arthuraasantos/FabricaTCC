@@ -14,12 +14,16 @@ namespace FrontEnd.Models.Conversores
         public IEmpresaRepository EmpresaRepository;
         public IPerfilDeAcessoRepository PerfilDeAcesspRepository;
         public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository;
+
+        
         public FuncionarioToFuncionarioEditar(IEmpresaRepository empresaRepository, IPerfilDeAcessoRepository perfilDeAcesspRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
         {
             EmpresaRepository = empresaRepository;
             PerfilDeAcesspRepository = perfilDeAcesspRepository;
             HorarioDeExpedienteRepository = horarioDeExpedienteRepository;
         }
+        
+        
         public override void AplicarValores(Funcionario origem, FuncionarioEditar destino)
         {
             destino.SalarioBase = origem.SalarioBase;
@@ -46,7 +50,6 @@ namespace FrontEnd.Models.Conversores
             destino.Bairro = origem.Bairro;
 
         }
-
         public override void AplicarValores(FuncionarioEditar origem, Funcionario destino)
         {
             destino.SalarioBase = origem.SalarioBase;
