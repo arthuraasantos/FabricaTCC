@@ -7,6 +7,26 @@
 
 @model FrontEnd.Models.EmpresaNovo
 
+@if (@TempData["Mensagem"] != null)
+{
+    <script>MostraSuccess('@TempData["Mensagem"]', false)</script>
+}
+else
+{
+    if (@TempData["MensagemErro"] != null)
+    {
+        <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
+    }
+    else
+    {
+        if (@TempData["MensagemAtencao"] != null)
+        {
+            <script>MostraWarning('@TempData["MensagemAtencao"]', false)</script>
+        }
+
+    }
+}
+
 <h2 class="page-header">Nova Empresa</h2>
 <div class="row">
     <div class="col col-lg-12">

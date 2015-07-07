@@ -49,5 +49,6 @@ namespace FrontEnd.Models.Conversores
             destino.PerfilDeAcesso = PerfilDeAcessoRepository.PesquisarPeloId(origem.IdPerfilDeAcesso);
             destino.HorarioDeExpediente = HorarioDeExpedienteRepository.PesquisarPeloId(origem.IdHorarioDeExpediente);
         }
+
     }
 }

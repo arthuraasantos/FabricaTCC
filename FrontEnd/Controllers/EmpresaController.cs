@@ -56,7 +56,7 @@ namespace FrontEnd.Models
                         if (!SeedWork.Tools.Validacao.IsCNPJValid(novo.Cnpj))
                         {
                             TempData["MensagemAtencao"] = "O CNPJ digitado não é válido! Empresa não cadastrada!";
-                            return RedirectToAction("Index");
+                            return View("Novo",novo);
                         }
                     }
                     var entity = ConversorInsert.Converter(novo);

@@ -22,7 +22,7 @@ namespace FrontEnd.Models
         public IEmpresaRepository EmpresaRepository;
         public IFuncionarioRepository FuncionarioRepository;
         public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository;
-        
+
         private IEnumerable<SelectListItem> ListaPerfis;
         private IEnumerable<SelectListItem> ListaEmpresas;
         private IEnumerable<SelectListItem> ListaHorariosDeExpediente;
@@ -98,7 +98,7 @@ namespace FrontEnd.Models
                                     .ToList()
                                     .Select(p => new SelectListItem() { Text = p.Descricao, Value = p.Id.ToString() });
                     break;
-            }            
+            }
 
         }
 
@@ -125,27 +125,38 @@ namespace FrontEnd.Models
         }
         public override ActionResult Novo()
         {
-
+            FuncionarioNovo novo = new FuncionarioNovo();
             Empresa emp = (Empresa)TempData["Empresa"];
 
-            var novo = new FuncionarioNovo()
+            if (TempData["novoFuncionario"] != null)
             {
-                IdEmpresa = Sessao.EmpresaLogada.Id,
-                Empresas = ListaEmpresas,
-                PerfisDeAcesso = ListaPerfis,
-                HorarioDeExpedientes = ListaHorariosDeExpediente
-            };
-
-
-            // Quando cadastra uma empresa, vem direto para o cadastro do funcionario com a empresa cadastrada
-            if (emp != null)
+                novo = (FuncionarioNovo)TempData["novoFuncionario"];
+                novo.IdEmpresa = Sessao.EmpresaLogada.Id;
+                novo.Empresas = ListaEmpresas;
+                novo.HorarioDeExpedientes = ListaHorariosDeExpediente;
+                novo.PerfisDeAcesso = ListaPerfis;
+            }
+            else
             {
-                TempData["Mensagem"] = "Empresa cadastrada com sucesso!";
-                novo.IdEmpresa = emp.Id;
+                novo = new FuncionarioNovo()
+                {
+                    IdEmpresa = Sessao.EmpresaLogada.Id,
+                    Empresas = ListaEmpresas,
+                    PerfisDeAcesso = ListaPerfis,
+                    HorarioDeExpedientes = ListaHorariosDeExpediente
+                };
+                // Quando cadastra uma empresa, vem direto para o cadastro do funcionario com a empresa cadastrada
+                if (emp != null)
+                {
+                    TempData["Mensagem"] = "Empresa cadastrada com sucesso!";
+                    novo.IdEmpresa = emp.Id;
+                }
             }
 
             return View("Novo", novo);
         }
+
+
         private object PerfilDeAcessoPadrao()
         {
             throw new NotImplementedException();
@@ -161,9 +172,40 @@ namespace FrontEnd.Models
                     {
                         if (!SeedWork.Tools.Validacao.IsCPFValid(novo.Cpf))
                         {
-                            TempData["MensagemAtencao"] = "O CPF digitado não é válido! Funcionário não cadastrado!";
-                            return RedirectToAction("Index");
+                            TempData["MensagemAtencao"] = "O CPF digitado não é válido!";
+                            return RedirectToAction("Novo");
                         }
+                    }
+
+                    if (novo.Cpf == null || novo.Cpf == string.Empty)
+                    {
+                        TempData["MensagemAtencao"] = "Campo CPF obrigatório!";
+                        TempData["novoFuncionario"] = novo;
+                        return RedirectToAction("Novo", novo);
+                    }
+                    else if (novo.Email == string.Empty || novo.Email == null)
+                    {
+                        TempData["MensagemAtencao"] = "Campo Email obrigatório!";
+                        TempData["novoFuncionario"] = novo;
+                        return RedirectToAction("Novo", novo);
+                    }
+                    else if (novo.Senha == string.Empty || novo.Senha == null)
+                    {
+                        TempData["MensagemAtencao"] = "Campo Senha obrigatório!";
+                        TempData["novoFuncionario"] = novo;
+                        return RedirectToAction("Novo", novo);
+                    }
+                    else if (novo.Senha != novo.SenhaConfirmacao)
+                    {
+                        TempData["MensagemAtencao"] = "Campo senha ou confirmação de senha inválidos! As senhas devem ser iguais";
+                        TempData["novoFuncionario"] = novo;
+                        return RedirectToAction("Novo", novo);
+                    }
+                    else if (novo.Nome == string.Empty || novo.Nome == null)
+                    {
+                        TempData["MensagemAtencao"] = "Campo Nome obrigatório! ";
+                        TempData["novoFuncionario"] = novo;
+                        return RedirectToAction("Novo", novo);
                     }
 
                     var entity = ConversorInsert.Converter(novo);
@@ -203,8 +245,8 @@ namespace FrontEnd.Models
         {
             Guid empresaGuid = Guid.Parse(Empresa);
             var lista = HorarioDeExpedienteRepository.Listar().Where(a => a.Empresa.Id == empresaGuid).AsQueryable();
-            
-            return this.Json(lista, JsonRequestBehavior.AllowGet);
+
+            return this.Json((from i in lista select new { Id = i.Id, Nome = i.Descricao}) , JsonRequestBehavior.AllowGet);
         }
         public override ActionResult Index()
         {
@@ -351,7 +393,7 @@ namespace FrontEnd.Models
         }
         [HttpGet]
         public bool ValidaCPF(string aCPF)
-        { 
+        {
             return Validacao.IsCPFValid(aCPF);
         }
 

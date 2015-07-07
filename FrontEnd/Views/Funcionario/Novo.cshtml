@@ -12,12 +12,12 @@
 <script src="~/Scripts/jquery.maskedinput.js"></script>
 <script src="~/Scripts/Horario/funcionarioNovo.js"></script>
 <script type="text/javascript">
-    jQuery(function ($) {
-        //$("#Cpf").mask("999.999.999-99", { placeholder: " " });
-        //$("#Identidade").mask("99.999.999-*", { placeholder: " " });
-        //$("#DataNascimeneto").mask("dd/MM/yyyy", { placeholder: " " });
+    //jQuery(function ($) {
+    //    //$("#Cpf").mask("999.999.999-99", { placeholder: " " });
+    //    //$("#Identidade").mask("99.999.999-*", { placeholder: " " });
+    //    //$("#DataNascimeneto").mask("dd/MM/yyyy", { placeholder: " " });
 
-    });
+    //});
 
     function atualizaEndereco() {
         var cep = document.getElementById('Cep').value;
@@ -61,6 +61,7 @@
     };
 
     
+
     $(document).ready(function () {
         $("#IdEmpresa").change(function (e) {
             atualizaListaHorarios();
@@ -80,7 +81,16 @@ else
     {
         <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
     }
+    else
+    {
+        if (@TempData["MensagemAtencao"] != null)
+        {
+            <script>MostraWarning('@TempData["MensagemAtencao"]', false)</script>
+        }
+
+    }
 }
+
 <h2 class="page-header">Novo funcionário</h2>
 <div class="row">
     <div class="col col-lg-12">
@@ -95,7 +105,7 @@ else
                     </div>
                     <div class="form-group">
                         @Html.Label("CPF ")
-                        @Html.TextBoxFor(f => f.Cpf, new { @class = "form-control", @onBlur = "ValidaCPF()", id = "CPF" })
+                        @Html.TextBoxFor(f => f.Cpf, new { @class = "form-control", @onBlur = "ValidaCPF();", id = "CPF" })
                     </div>
                     <div class="form-group">
                         @Html.Label("Email")
@@ -107,7 +117,7 @@ else
                     </div>
                     <div class="form-group">
                         @Html.Label("Confirmação de senha")
-                        @Html.PasswordFor(f => f.SenhaConfirmacao, new { name = "ConfirmaSenha", @class = "form-control", type = "password", @maxlength = "10" })
+                        @Html.PasswordFor(f => f.SenhaConfirmacao, new { name = "ConfirmaSenha", @class = "form-control", type = "password", @maxlength = "10"   })
                     </div>
                     if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
                     {
@@ -129,7 +139,7 @@ else
                         @Html.DropDownListFor(f => f.IdHorarioDeExpediente, Model.HorarioDeExpedientes, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
+                        <input type="submit" id="btnSalvar" value="Salvar" class="btn btn-outline btn-success" />
                     </div>
                 }
             </div>
