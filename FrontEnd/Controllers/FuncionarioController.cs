@@ -244,9 +244,14 @@ namespace FrontEnd.Models
         public JsonResult AtualizaListaHorarios(string Empresa)
         {
             Guid empresaGuid = Guid.Parse(Empresa);
-            var lista = HorarioDeExpedienteRepository.Listar().Where(a => a.Empresa.Id == empresaGuid).AsQueryable();
-
-            return this.Json((from i in lista select new { Id = i.Id, Nome = i.Descricao}) , JsonRequestBehavior.AllowGet);
+            var listaHorarios = HorarioDeExpedienteRepository.Listar().Where(a => a.Empresa.Id == empresaGuid).AsQueryable();
+            var lista = new List<SelectListItem>();
+            foreach (var x in listaHorarios)
+            {
+                var item = new SelectListItem { Value = x.Id.ToString(), Text = x.Descricao };
+                lista.Add(item);
+            }
+            return this.Json(lista, JsonRequestBehavior.AllowGet);
         }
         public override ActionResult Index()
         {
