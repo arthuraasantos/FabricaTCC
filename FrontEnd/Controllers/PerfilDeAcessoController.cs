@@ -14,11 +14,13 @@ namespace FrontEnd.Models
 {
     public class PerfilDeAcessoController : BaseController<PerfilDeAcesso, PerfilDeAcessoNovo, PerfilDeAcessoEditar>
     {
+
         public PerfilDeAcessoController(MyContext context, IPerfilDeAcessoRepository perfilDeAcessoRepository)
             : base(context, perfilDeAcessoRepository, new PerfilDeAcessoToPerfilDeAcessoNovo(), new PerfilDeAcessoToPerfilDeAcessoEditar())
         {
              
         }       
+
 
         public override ActionResult Excluir(Guid id)
         {

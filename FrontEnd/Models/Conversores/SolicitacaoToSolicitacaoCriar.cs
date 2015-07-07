@@ -18,7 +18,6 @@ namespace FrontEnd.Models.Conversores
             destino.Resposta = origem.Resposta;
             destino.Tipo = origem.Tipo;
         }
-
         public override void AplicarValores(SolicitacaoCriar origem, Solicitacao destino)
         {
             destino.Id = Guid.NewGuid();

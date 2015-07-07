@@ -78,6 +78,14 @@ else
     {
         <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
     }
+    else
+    {
+        if (@TempData["MensagemAtencao"] != null)
+        {
+            <script>MostraWarning('@TempData["MensagemAtencao"]', false)</script>
+        }
+
+    }
 }
 <div class="row">
     <div class="col col-lg-12">

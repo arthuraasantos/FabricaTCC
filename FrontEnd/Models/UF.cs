@@ -39,6 +39,5 @@ namespace FrontEnd.Models
                 new UF{ Valor = "TO", Descricao = "Tocantins"}
             };
         }
-
     }
 }

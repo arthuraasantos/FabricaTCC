@@ -16,6 +16,14 @@ else
     {
         <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
     }
+    else
+    {
+        if (@TempData["MensagemAtencao"] != null)
+        {
+            <script>MostraWarning('@TempData["MensagemAtencao"]', false)</script>
+        }
+
+    }
 }
 
 <script>

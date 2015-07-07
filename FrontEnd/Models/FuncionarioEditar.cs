@@ -17,7 +17,7 @@ namespace FrontEnd.Models
 
         public string Email { get; set; }
 
-         public DateTime? DataNascimento { get; set; }
+        public DateTime? DataNascimento { get; set; }
 
         public string NumeroEndereco { get; set; }
 
@@ -42,7 +42,6 @@ namespace FrontEnd.Models
 
         public Guid IdEmpresa { get; set; }
         public Guid IdPerfilDeAcesso { get; set; }
-
         public Guid IdHorarioDeExpediente { get; set; }
 
     }

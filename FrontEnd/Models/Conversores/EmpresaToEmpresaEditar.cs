@@ -25,7 +25,6 @@ namespace FrontEnd.Models.Conversores
             else
                 destino.Bloqueado = true;
         }
-
         public override void AplicarValores(EmpresaEditar origem, Empresa destino)
         {
             destino.RazaoSocial = origem.RazaoSocial;

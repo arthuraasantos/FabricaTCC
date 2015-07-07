@@ -58,6 +58,7 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
     <Compile Include="Tools\Criptografia.cs" />
+    <Compile Include="Tools\Validacao.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

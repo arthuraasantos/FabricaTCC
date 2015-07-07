@@ -20,12 +20,15 @@ namespace FrontEnd.Models
     {
         public IEmpresaRepository EmpresaRepository { get; set; }
         public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository { get; set; }
+        
+        
         public EmpresaController(MyContext context, IEmpresaRepository empresaRepository, IFuncionarioRepository funcionarioRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
             : base(context, empresaRepository, new EmpresaToEmpresaNovo(), new EmpresaToEmpresaEditar())
         {
             EmpresaRepository = empresaRepository;
             HorarioDeExpedienteRepository = horarioDeExpedienteRepository;
         }
+
 
         public override ActionResult Index()
         {
@@ -42,13 +45,20 @@ namespace FrontEnd.Models
 
             return View("Index", lista);
         }
-
         public override ActionResult Incluir(EmpresaNovo novo)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    if (novo.Cnpj != null)
+                    {
+                        if (!SeedWork.Tools.Validacao.IsCNPJValid(novo.Cnpj))
+                        {
+                            TempData["MensagemAtencao"] = "O CNPJ digitado não é válido! Empresa não cadastrada!";
+                            return RedirectToAction("Index");
+                        }
+                    }
                     var entity = ConversorInsert.Converter(novo);
                     entity.Id = Guid.NewGuid();
                     entity.Bloqueado = "N";
@@ -59,6 +69,7 @@ namespace FrontEnd.Models
 
                     // Cria um horário padrão
                     HorarioDeExpediente horarioPadrao = new HorarioDeExpediente();
+                    horarioPadrao.Id = Guid.NewGuid();
                     horarioPadrao.Empresa = entity;
                     horarioPadrao.Descricao = "Horário Padrão";
                     horarioPadrao.NumeroHorasPorDia = 8;
@@ -74,14 +85,13 @@ namespace FrontEnd.Models
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                TempData["MensagemErro"] = "Erro ao cadastrar empresa!";
+                TempData["MensagemErro"] = "Erro ao cadastrar empresa! " + e.Message;
                 return RedirectToAction("Index");
             }
 
         }
-
         [HttpGet]
         public JsonResult BloquearEmpresa(string Id)
         {
@@ -104,7 +114,6 @@ namespace FrontEnd.Models
                 throw;
             }
         }
-
         [HttpGet]
         public JsonResult DesbloquearEmpresa(string Id)
         {
@@ -130,7 +139,6 @@ namespace FrontEnd.Models
             }
 
         }
-
         public override ActionResult Visualizar(Guid Id)
         {
             try
@@ -145,11 +153,18 @@ namespace FrontEnd.Models
                 return RedirectToAction("Index");
             }
         }
-
         public override ActionResult Editar(EmpresaEditar editar)
         {
             try
             {
+                if (editar.Cnpj != null)
+                {
+                    if (!SeedWork.Tools.Validacao.IsCNPJValid(editar.Cnpj))
+                    {
+                        TempData["MensagemAtencao"] = "O CNPJ digitado não é válido! Empresa não alterada!";
+                        return RedirectToAction("Index");
+                    }
+                }
                 var entity = Repository.PesquisarPeloId(editar.Id);
                 ConversorEdit.AplicarValores(editar, entity);
                 Repository.Salvar(entity);
@@ -165,7 +180,6 @@ namespace FrontEnd.Models
             }
 
         }
-
         public JsonResult AtualizaDadosEndereco(string cep)
         {
             Tools t = new Tools();

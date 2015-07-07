@@ -75,9 +75,22 @@ namespace Infraestrutura.Migrations
 
             #endregion
 
+            #region 'Horarios de Expediente'
+
+            HorarioDeExpediente horarioPadrao = new HorarioDeExpediente()
+            {
+                Id = Guid.Parse("182E32E3-1546-435F-9F00-D509C3161C95"),
+                Empresa = empresa,
+                Descricao = "Horário Padrão",
+                NumeroHorasPorDia = 8
+            };
+            var horario = context.Set<HorarioDeExpediente>().FirstOrDefault(p => p.Id == horarioPadrao.Id);
+            if (horario == null) { context.Set<HorarioDeExpediente>().Add(horarioPadrao); }
+
+            #endregion
+
             #region 'Funcionários'
 
-            
             var funcionarioAdministrador = new Funcionario()
             {
                 Id = Guid.Parse("69d2fad2-9ffe-4f2d-ad85-3ff4b277f805"),
@@ -85,38 +98,13 @@ namespace Infraestrutura.Migrations
                 Email = "administrador@fabricatcc.com",
                 Senha = Criptografia.Encrypt("admin"),
                 Empresa = empresa,
-                PerfilDeAcesso = perfilAdminitrador
+                PerfilDeAcesso = perfilAdminitrador,
+                HorarioDeExpediente = horarioPadrao
             };
-
-            var funcionarioGerente = new Funcionario()
-            {
-                Id = Guid.Parse("26341447-4897-4d49-851d-25890888e463"),
-                Nome = "Gerente",
-                Email = "gerente@fabricatcc.com",
-                Senha = Criptografia.Encrypt("admin"),
-                Empresa = empresa,
-                PerfilDeAcesso = perfilGerente
-            };
-
-            var funcionarioComum = new Funcionario()
-            {
-                Id = Guid.Parse("73ee557e-bd03-469d-8ed4-034266e1e82f"),
-                Nome = "Funcionario",
-                Email = "funcionario@fabricatcc.com",
-                Senha = Criptografia.Encrypt("admin"),
-                Empresa = empresa,
-                PerfilDeAcesso = perfilFuncionario
-            };  
 
 
             var func = context.Set<Funcionario>().FirstOrDefault(p => p.Email == funcionarioAdministrador.Email);
             if (func == null) { context.Set<Funcionario>().Add(funcionarioAdministrador); }
-
-            func = context.Set<Funcionario>().FirstOrDefault(p => p.Email == funcionarioGerente.Email);
-            if (func == null) { context.Set<Funcionario>().Add(funcionarioGerente); }
-
-            func = context.Set<Funcionario>().FirstOrDefault(p => p.Email == funcionarioComum.Email);
-            if (func == null) { context.Set<Funcionario>().Add(funcionarioComum); }
 
             #endregion
         }

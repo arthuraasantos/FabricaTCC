@@ -13,7 +13,6 @@ namespace FrontEnd.Models.Conversores
         {
             throw new NotImplementedException();
         }
-
         public override void AplicarValores(Folga origem, FolgaAprovar destino)
         {
             throw new NotImplementedException();

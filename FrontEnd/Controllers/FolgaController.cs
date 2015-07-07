@@ -15,16 +15,19 @@ namespace FrontEnd.Models
     public class FolgaController : BaseController<Folga, FolgaCriar, FolgaAprovar>
     {
         private IFuncionarioRepository FuncionarioRepository { get; set; }
-
         private IFolgaRepository FolgaRepository { get; set; }
+        private IFeriasRepository FeriasRepository { get; set; }
 
-        public FolgaController(MyContext context, IFuncionarioRepository funcionarioRepository, IFolgaRepository folgaRepository)
+
+        public FolgaController(MyContext context, IFuncionarioRepository funcionarioRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository)
             : base(context, folgaRepository, new FolgaToFolgaCriar(), new FolgaToFolgaAprovar())
         {
             FuncionarioRepository = funcionarioRepository;
             FolgaRepository = folgaRepository;
+            FeriasRepository = feriasRepository;
         }
-        // GET: Folga
+
+        
         public override ActionResult Index()
         {
             if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
@@ -60,7 +63,6 @@ namespace FrontEnd.Models
                 }
             }
         }
-
         public ActionResult Solicitar()
         {
             FolgaCriar _folga = new FolgaCriar();
@@ -70,7 +72,6 @@ namespace FrontEnd.Models
             _folga.Resposta = RespostaSolicitacao.Nenhuma;
             return View(_folga);
         }
-
         public ActionResult AprovarRejeitarFolga(Guid Id, RespostaSolicitacao resposta)
         {
             try
@@ -89,13 +90,29 @@ namespace FrontEnd.Models
 
             return RedirectToAction("Index");
         }
-
         public ActionResult Criar(string Funcionario, DateTime Data, string Justificativa)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    // Valida se já existe folga aprovada para essa data...
+                    bool ExistsFolga = FolgaRepository.Listar().Where(p => p.Data == Data.Date && p.Resposta == RespostaSolicitacao.Aprovado && p.Funcionario.Email == Funcionario).Count() > 0;
+                    if (ExistsFolga)
+                    {
+                        TempData["MensagemAtencao"] = "Já existe uma folga aprovada para este dia! Verifique!";
+                        return RedirectToAction("Solicitar", "Folga");
+                    }
+
+                    // Valida se a folga está dentro de um período de férias
+                    bool ExistsFerias = FeriasRepository.Listar().Where(p => p.Inicio <= Data.Date && p.Fim >= Data.Date && p.Funcionario.Email == Funcionario && p.Resposta == RespostaSolicitacao.Aprovado).Count() > 0;
+                    if (ExistsFerias)
+                    {
+                        TempData["MensagemAtencao"] = "Este dia está dentro de um período de férias! Verifique!";
+                        return RedirectToAction("Solicitar", "Folga");
+                    }
+
+                    // Cria a folga
                     Folga _folga = new Folga();
                     FolgaCriar _folgaCriar = new FolgaCriar();
                     _folgaCriar.Funcionario = Funcionario;

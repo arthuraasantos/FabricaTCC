@@ -20,11 +20,11 @@ namespace FrontEnd.Models
     //[Authorize]
     public class PontoController : Controller
     {
-        // GET: Ponto
         MyContext Context;
         private IPontoRepository PontoRepository { get; set; }
         private IPontoEletronicoService PontoEletronicoService { get; set; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
+
 
         public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService)
         {
@@ -33,6 +33,7 @@ namespace FrontEnd.Models
             PontoEletronicoService = pontoEletronicoService;
             FuncionarioRepository = new FuncionarioRepository(context);
         }
+
 
         public ActionResult Marcar(string email, string senha, string parametro)
         {
@@ -66,6 +67,9 @@ namespace FrontEnd.Models
             string _Email = Sessao.FuncionarioLogado.Email;
             if ((Email != null) && (Email != String.Empty)) { _Email = Email; }
             ViewBag.EmailLogado = _Email;
+            
+            Funcionario _Funcionario = new Funcionario();
+            _Funcionario = FuncionarioRepository.PesquisaPeloEmail(_Email);
 
             // Pega a data, ou default data atual
             DateTime _Data = DateTime.Now;
@@ -115,7 +119,7 @@ namespace FrontEnd.Models
                 }
 
                 Dicionario.Add(_PrimeiraData.AddDays(i), _ListaPorDia);
-                DicionarioHoras.Add(_PrimeiraData.AddDays(i), PontoEletronicoService.QuantidadeDeHorasTrabalhadasPorFuncionarioPorDia(Sessao.FuncionarioLogado, _PrimeiraData.AddDays(i)));
+                DicionarioHoras.Add(_PrimeiraData.AddDays(i), PontoEletronicoService.QuantidadeDeHorasTrabalhadasPorFuncionarioPorDia(_Funcionario, _PrimeiraData.AddDays(i)));
             }
 
 
@@ -129,7 +133,6 @@ namespace FrontEnd.Models
         {
             return View();
         }
-
         public ActionResult RelatorioMarcacoes(DateTime? Data)
         {
             DateTime _Data = DateTime.MinValue;

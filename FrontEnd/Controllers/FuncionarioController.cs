@@ -22,7 +22,7 @@ namespace FrontEnd.Models
         public IEmpresaRepository EmpresaRepository;
         public IFuncionarioRepository FuncionarioRepository;
         public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository;
-
+        
         private IEnumerable<SelectListItem> ListaPerfis;
         private IEnumerable<SelectListItem> ListaEmpresas;
         private IEnumerable<SelectListItem> ListaHorariosDeExpediente;
@@ -123,7 +123,6 @@ namespace FrontEnd.Models
             }
 
         }
-
         public override ActionResult Novo()
         {
 
@@ -147,13 +146,10 @@ namespace FrontEnd.Models
 
             return View("Novo", novo);
         }
-
-
         private object PerfilDeAcessoPadrao()
         {
             throw new NotImplementedException();
         }
-
         public override ActionResult Incluir(FuncionarioNovo novo)
         {
 
@@ -161,6 +157,15 @@ namespace FrontEnd.Models
             {
                 if (ModelState.IsValid)
                 {
+                    if (novo.Cpf != null)
+                    {
+                        if (!SeedWork.Tools.Validacao.IsCPFValid(novo.Cpf))
+                        {
+                            TempData["MensagemAtencao"] = "O CPF digitado não é válido! Funcionário não cadastrado!";
+                            return RedirectToAction("Index");
+                        }
+                    }
+
                     var entity = ConversorInsert.Converter(novo);
                     entity.Id = Guid.NewGuid();
 
@@ -187,14 +192,12 @@ namespace FrontEnd.Models
             }
 
         }
-
         [HttpGet]
         public JsonResult AtualizaDadosEndereco(string cep)
         {
             Tools t = new Tools();
             return this.Json(t.BuscaCep(cep), JsonRequestBehavior.AllowGet);
         }
-
         [HttpGet]
         public JsonResult AtualizaListaHorarios(string Empresa)
         {
@@ -203,7 +206,6 @@ namespace FrontEnd.Models
             
             return this.Json(lista, JsonRequestBehavior.AllowGet);
         }
-
         public override ActionResult Index()
         {
             List<Funcionario> lista = new List<Funcionario>();
@@ -223,7 +225,6 @@ namespace FrontEnd.Models
 
             return View("Index", lista);
         }
-
         [HttpGet]
         public JsonResult BloquearFuncionario(string Id)
         {
@@ -245,7 +246,6 @@ namespace FrontEnd.Models
                 throw;
             }
         }
-
         [HttpGet]
         public JsonResult DesbloquearFuncionario(string Id)
         {
@@ -268,7 +268,6 @@ namespace FrontEnd.Models
                 throw;
             }
         }
-
         public ActionResult AlterarSenha(Guid id)
         {
 
@@ -281,7 +280,6 @@ namespace FrontEnd.Models
 
             return View(modelAlterarSenha);
         }
-
         public ActionResult GravaAlteracaoSenha(FuncionarioAlterarSenha funcSenha)
         {
             try
@@ -296,6 +294,14 @@ namespace FrontEnd.Models
 
                         Repository.Salvar(entity);
                         Context.SaveChanges();
+
+                        // Se funcionario editado for o usuário logado, atualiza a Sessao do usuário logado...
+                        if (entity.Id == Sessao.FuncionarioLogado.Id)
+                        {
+                            Session.Remove("Funcionario");
+                            Session.Add("Funcionario", entity);
+                        }
+
 
                         TempData["Mensagem"] = "Senha alterada com sucesso!";
                     }
@@ -316,7 +322,6 @@ namespace FrontEnd.Models
                 return RedirectToAction("Index");
             }
         }
-
         public override ActionResult Editar(FuncionarioEditar editar)
         {
             try
@@ -325,6 +330,14 @@ namespace FrontEnd.Models
                 ConversorEdit.AplicarValores(editar, entity);
                 Repository.Salvar(entity);
                 Context.SaveChanges();
+
+                // Se funcionario editado for o usuário logado, atualiza a Sessao do usuário logado...
+                if (entity.Id == Sessao.FuncionarioLogado.Id)
+                {
+                    Session.Remove("Funcionario");
+                    Session.Add("Funcionario", entity);
+                }
+
                 TempData["Mensagem"] = "Funcionário alterado com sucesso!";
 
                 return RedirectToAction("Index");
@@ -335,6 +348,11 @@ namespace FrontEnd.Models
                 return RedirectToAction("Index");
             }
 
+        }
+        [HttpGet]
+        public bool ValidaCPF(string aCPF)
+        { 
+            return Validacao.IsCPFValid(aCPF);
         }
 
     }
