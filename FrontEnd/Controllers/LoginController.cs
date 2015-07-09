@@ -19,8 +19,8 @@ namespace FrontEnd.Models
 
         public MyContext Contexto { get; set; }
         public FuncionarioRepository FuncionarioRepository { get; set; }
-        
-        
+
+
         public LoginController()
         {
             Contexto = new MyContext();
@@ -55,32 +55,43 @@ namespace FrontEnd.Models
                 else
                 {
                     var funcionarioParaLogin = new Funcionario();
-                    funcionarioParaLogin = 
+                    funcionarioParaLogin =
                         FuncionarioRepository.
                         PesquisaParaLogin(
-                            model.Email, 
+                            model.Email,
                             Criptografia.Encrypt(model.Senha));
 
                     if (funcionarioParaLogin != null)
                     {
-                        if (funcionarioParaLogin.Bloqueado == "Y") {
-                            TempData["MensagemAlerta"] = "Este funcionário está bloqueado! Entre em contato com o Gerente!";
-                        } else {
-                            if (funcionarioParaLogin.Empresa.Bloqueado == "Y") {
-                                TempData["MensagemAlerta"] = "A empresa deste funcionário está bloqueada! Entre em contato com o Administrador do sistema!";
-                            } else {
-                                if (manterLogado == "S")
-                                {
-                                    Session.Add("Dados", "manterLogado");
-                                }
-                                
-                                FormsAuthentication.SetAuthCookie(model.Email, false);
-                                Session.Add("Funcionario", funcionarioParaLogin);
-
-                                //Redireciona para a mesma view e o tratamento do que vai aparecer será nas views.
-                                return RedirectToAction("Index", "Home");
-                            }
+                        if (funcionarioParaLogin.PerfilDeAcesso.Descricao == Seedwork.Const.PerfilAcesso.Administrador.ToString())
+                        {
+                            TempData["MensagemAlerta"] = "O administrador do sistema está bloqueado! Entre em contato com os responsáveis pelo sistema!";
                         }
+                        else
+                            if (funcionarioParaLogin.Bloqueado == "Y")
+                            {
+                                TempData["MensagemAlerta"] = "Este funcionário está bloqueado! Entre em contato com o Gerente!";
+                            }
+                            else
+                            {
+                                if (funcionarioParaLogin.Empresa.Bloqueado == "Y")
+                                {
+                                    TempData["MensagemAlerta"] = "A empresa deste funcionário está bloqueada! Entre em contato com o Administrador do sistema!";
+                                }
+                                else
+                                {
+                                    if (manterLogado == "S")
+                                    {
+                                        Session.Add("Dados", "manterLogado");
+                                    }
+
+                                    FormsAuthentication.SetAuthCookie(model.Email, false);
+                                    Session.Add("Funcionario", funcionarioParaLogin);
+
+                                    //Redireciona para a mesma view e o tratamento do que vai aparecer será nas views.
+                                    return RedirectToAction("Index", "Home");
+                                }
+                            }
                     }
                     else
                     {
@@ -93,7 +104,7 @@ namespace FrontEnd.Models
                 TempData["MensagemErro"] = "Erro de auteticação." + e.Message;
             }
 
-            return RedirectToAction("Index","Login");
+            return RedirectToAction("Index", "Login");
         }
         public ActionResult Logout()
         {
