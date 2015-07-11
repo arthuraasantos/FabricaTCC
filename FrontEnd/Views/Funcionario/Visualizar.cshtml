@@ -4,6 +4,7 @@
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
 <link href="~/Content/Site.css" rel="stylesheet" />
+<script src="~/Scripts/Horario/funcionarioNovo.js"></script>
 <style>
     .dados {
         float: left;
@@ -31,10 +32,8 @@
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery.maskedinput.js"></script>
 <script type="text/javascript">
-    //jQuery(function ($) {
-    //    $("#Cpf").mask("999.999.999-99", { placeholder: " " });
-    //    $("#DataNascimeneto").mask("dd/MM/yyyy", { placeholder: " " });
-    //});
+
+
 
     function atualizaEndereco() {
         var cep = document.getElementById('Cep').value;
@@ -55,6 +54,14 @@
             },
         });
     };
+
+    $(document).ready(function () {
+        atualizaListaHorarios();
+        $("#IdEmpresa").change(function (e) {
+            atualizaListaHorarios();
+        });
+    });
+
 </script>
 
 @model FrontEnd.Models.FuncionarioEditar

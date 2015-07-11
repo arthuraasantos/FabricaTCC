@@ -166,64 +166,51 @@ namespace FrontEnd.Models
 
             try
             {
-                if (ModelState.IsValid)
+
+                if (novo.Cpf == null || novo.Cpf == string.Empty)
                 {
-                    if (novo.Cpf != null)
-                    {
-                        if (!SeedWork.Tools.Validacao.IsCPFValid(novo.Cpf))
-                        {
-                            TempData["MensagemAtencao"] = "O CPF digitado não é válido!";
-                            return RedirectToAction("Novo");
-                        }
-                    }
-
-                    if (novo.Cpf == null || novo.Cpf == string.Empty)
-                    {
-                        TempData["MensagemAtencao"] = "Campo CPF obrigatório!";
-                        TempData["novoFuncionario"] = novo;
-                        return RedirectToAction("Novo", novo);
-                    }
-                    else if (novo.Email == string.Empty || novo.Email == null)
-                    {
-                        TempData["MensagemAtencao"] = "Campo Email obrigatório!";
-                        TempData["novoFuncionario"] = novo;
-                        return RedirectToAction("Novo", novo);
-                    }
-                    else if (novo.Senha == string.Empty || novo.Senha == null)
-                    {
-                        TempData["MensagemAtencao"] = "Campo Senha obrigatório!";
-                        TempData["novoFuncionario"] = novo;
-                        return RedirectToAction("Novo", novo);
-                    }
-                    else if (novo.Senha != novo.SenhaConfirmacao)
-                    {
-                        TempData["MensagemAtencao"] = "Campo senha ou confirmação de senha inválidos! As senhas devem ser iguais";
-                        TempData["novoFuncionario"] = novo;
-                        return RedirectToAction("Novo", novo);
-                    }
-                    else if (novo.Nome == string.Empty || novo.Nome == null)
-                    {
-                        TempData["MensagemAtencao"] = "Campo Nome obrigatório! ";
-                        TempData["novoFuncionario"] = novo;
-                        return RedirectToAction("Novo", novo);
-                    }
-
-                    var entity = ConversorInsert.Converter(novo);
-                    entity.Id = Guid.NewGuid();
-
-                    ////Quando for cadastrado pelo Gerente
-                    //if (entity.Empresa == null)
-                    //{
-                    //    Empresa emp = new Empresa();
-                    //    emp = Sessao.EmpresaLogada;
-                    //    entity.Empresa = emp;
-                    //}
-
-                    Repository.Salvar(entity);
-                    Context.SaveChanges();
-
-                    TempData["Mensagem"] = "Funcionário cadastrado com sucesso!";
+                    TempData["MensagemAtencao"] = "Campo CPF obrigatório!";
+                    TempData["novoFuncionario"] = novo;
+                    return RedirectToAction("Novo", novo);
                 }
+                else if (!SeedWork.Tools.Validacao.IsCPFValid(novo.Cpf))
+                {
+                    TempData["MensagemAtencao"] = "O CPF digitado não é válido!";
+                    TempData["novoFuncionario"] = novo;
+                    return RedirectToAction("Novo", novo);
+                }
+                else if (novo.Email == string.Empty || novo.Email == null)
+                {
+                    TempData["MensagemAtencao"] = "Campo Email obrigatório!";
+                    TempData["novoFuncionario"] = novo;
+                    return RedirectToAction("Novo", novo);
+                }
+                else if (novo.Senha == string.Empty || novo.Senha == null)
+                {
+                    TempData["MensagemAtencao"] = "Campo Senha obrigatório!";
+                    TempData["novoFuncionario"] = novo;
+                    return RedirectToAction("Novo", novo);
+                }
+                else if (novo.Senha != novo.SenhaConfirmacao)
+                {
+                    TempData["MensagemAtencao"] = "Campo senha ou confirmação de senha inválidos! As senhas devem ser iguais";
+                    TempData["novoFuncionario"] = novo;
+                    return RedirectToAction("Novo", novo);
+                }
+                else if (novo.Nome == string.Empty || novo.Nome == null)
+                {
+                    TempData["MensagemAtencao"] = "Campo Nome obrigatório! ";
+                    TempData["novoFuncionario"] = novo;
+                    return RedirectToAction("Novo", novo);
+                }
+
+                var entity = ConversorInsert.Converter(novo);
+                entity.Id = Guid.NewGuid();
+
+                Repository.Salvar(entity);
+                Context.SaveChanges();
+
+                TempData["Mensagem"] = "Funcionário cadastrado com sucesso!";
                 return RedirectToAction("Index");
 
             }
@@ -373,6 +360,30 @@ namespace FrontEnd.Models
         {
             try
             {
+                if (editar.Cpf == null || editar.Cpf == string.Empty)
+                {
+                    TempData["MensagemAtencao"] = "Campo CPF obrigatório!";
+                    TempData["novoFuncionario"] = editar;
+                    return RedirectToAction("Novo", editar);
+                }
+                else if (!SeedWork.Tools.Validacao.IsCPFValid(editar.Cpf))
+                {
+                    TempData["MensagemAtencao"] = "O CPF digitado não é válido!";
+                    return RedirectToAction("Novo");
+                }
+                else if (editar.Email == string.Empty || editar.Email == null)
+                {
+                    TempData["MensagemAtencao"] = "Campo Email obrigatório!";
+                    TempData["novoFuncionario"] = editar;
+                    return RedirectToAction("Novo", editar);
+                }
+                else if (editar.Nome == string.Empty || editar.Nome == null)
+                {
+                    TempData["MensagemAtencao"] = "Campo Nome obrigatório! ";
+                    TempData["novoFuncionario"] = editar;
+                    return RedirectToAction("Novo", editar);
+                }
+
                 var entity = Repository.PesquisarPeloId(editar.Id);
                 ConversorEdit.AplicarValores(editar, entity);
                 Repository.Salvar(entity);
@@ -386,7 +397,6 @@ namespace FrontEnd.Models
                 }
 
                 TempData["Mensagem"] = "Funcionário alterado com sucesso!";
-
                 return RedirectToAction("Index");
             }
             catch (Exception e)
