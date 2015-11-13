@@ -57,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
+    <Compile Include="Tools\Cookie.cs" />
     <Compile Include="Tools\Criptografia.cs" />
     <Compile Include="Tools\Validacao.cs" />
   </ItemGroup>

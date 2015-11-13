@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -931,8 +932,7 @@
     <Content Include="bower_components\raphael\.bower.json" />
     <Content Include="bower_components\raphael\bower.json" />
     <Content Include="Content\bootstrap-dialog.less" />
-    <None Include="Properties\PublishProfiles\PontoEletronicoTCC.pubxml" />
-    <None Include="Properties\PublishProfiles\PontoEletronico_Local.pubxml" />
+    <None Include="Properties\PublishProfiles\pontoeletronico.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -982,7 +982,7 @@
     <Content Include="Views\PerfilDeAcesso\Novo.cshtml" />
     <Content Include="Views\PerfilDeAcesso\Visualizar.cshtml" />
     <Content Include="Views\PerfilDeAcesso\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\_Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Ponto\Lista.cshtml" />
     <Content Include="Views\Solicitacao\Index.cshtml" />
@@ -1002,6 +1002,7 @@
     <Content Include="Views\Folga\RelatorioFolgasPorMesAno.cshtml" />
     <Content Include="Views\Ferias\RelatorioFeriasPorAno.cshtml" />
     <Content Include="Views\Ponto\RelatorioMarcacoes.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

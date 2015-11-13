@@ -6,21 +6,20 @@
 <script src="~/Scripts/Mensagens.js"></script>
 
 <div class="container">
-    <img src="~/img/ponto.png" class="col-lg-4 col-lg-offset-4 img-responsive" style="text-align:center; height:200px; width:310px;">
+    <img src="/img/ponto.png" class="col-lg-4 col-lg-offset-4 img-responsive" style="text-align:center; height:200px; width:310px;">
     <div class="col-lg-4 col-lg-offset-4">
         <br />
-        @model FrontEnd.Models.FuncionarioLogin
-        @using (Html.BeginForm("Autenticar", "Login", FormMethod.Post))
-        {
-            @Html.TextBoxFor(f => f.Email, new { @type = "email", @class = "form-control", @placeholder = "Email" })<br />
-            @Html.PasswordFor(f => f.Senha, new { @type = "password", @class = "form-control", @placeholder = "Senha", @required = "required"})
+        <form action="/Login/Autenticar" method="post">
+            <input type="email" name="Email" class="form-control" placeholder="Email" />
+            <br />
+            <input type="password" name="Senha" class="form-control" placeholder="Senha" required />
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" id="manterLogado" checked> Manter Logado
+                    <input type="checkbox" id="remember" name="remember" checked> Manter Logado
                 </label>
             </div>
             <input type="submit" value="Entrar" class="btn btn-outline btn-success form-control" />
-        }
+        </form>
     </div>
     <p>
         @if (TempData["MensagemAlerta"] != null)

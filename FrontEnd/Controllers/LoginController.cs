@@ -43,7 +43,7 @@ namespace FrontEnd.Models
             }
         }
         [HttpPost]
-        public ActionResult Autenticar(FuncionarioLogin model, string manterLogado)
+        public ActionResult Autenticar(FuncionarioLogin model, string remember)
         {
             try
             {
@@ -63,35 +63,32 @@ namespace FrontEnd.Models
 
                     if (funcionarioParaLogin != null)
                     {
-                        if (funcionarioParaLogin.PerfilDeAcesso.Descricao == Seedwork.Const.PerfilAcesso.Administrador.ToString())
+                        //if (funcionarioParaLogin.PerfilDeAcesso.Descricao == Seedwork.Const.PerfilAcesso.Administrador.ToString())
+                        //{
+                        //    TempData["MensagemAlerta"] = "O administrador do sistema está bloqueado! Entre em contato com os responsáveis pelo sistema!";
+                        //}
+                        //else
+                        if (funcionarioParaLogin.Bloqueado == "Y")
                         {
-                            TempData["MensagemAlerta"] = "O administrador do sistema está bloqueado! Entre em contato com os responsáveis pelo sistema!";
+                            TempData["MensagemAlerta"] = "Este funcionário está bloqueado! Entre em contato com o Gerente!";
                         }
                         else
-                            if (funcionarioParaLogin.Bloqueado == "Y")
+                        {
+                            if (funcionarioParaLogin.Empresa.Bloqueado == "Y")
                             {
-                                TempData["MensagemAlerta"] = "Este funcionário está bloqueado! Entre em contato com o Gerente!";
+                                TempData["MensagemAlerta"] = "A empresa deste funcionário está bloqueada! Entre em contato com o Administrador do sistema!";
                             }
                             else
                             {
-                                if (funcionarioParaLogin.Empresa.Bloqueado == "Y")
-                                {
-                                    TempData["MensagemAlerta"] = "A empresa deste funcionário está bloqueada! Entre em contato com o Administrador do sistema!";
-                                }
-                                else
-                                {
-                                    if (manterLogado == "S")
-                                    {
-                                        Session.Add("Dados", "manterLogado");
-                                    }
+                                if (remember == "on")
+                                    CreateLoginCookie(model.Email);
 
-                                    FormsAuthentication.SetAuthCookie(model.Email, false);
-                                    Session.Add("Funcionario", funcionarioParaLogin);
-
-                                    //Redireciona para a mesma view e o tratamento do que vai aparecer será nas views.
-                                    return RedirectToAction("Index", "Home");
-                                }
+                                Session.Add("Funcionario", funcionarioParaLogin);
+                                
+                                //Redireciona para a mesma view e o tratamento do que vai aparecer será nas views.
+                                return RedirectToAction("Index", "Home");
                             }
+                        }
                     }
                     else
                     {
@@ -116,6 +113,22 @@ namespace FrontEnd.Models
 
             //redirecionar para a página de Login
             return RedirectToAction("Index", "Login");
+        }
+
+        public bool CreateLoginCookie(string email)
+        {
+            try
+            {
+                HttpCookie myCookie = new HttpCookie("pontoeletronico");
+                myCookie["Email"] = email;
+                myCookie.Expires = DateTime.Now.AddDays(1d);
+                Response.Cookies.Add(myCookie);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
