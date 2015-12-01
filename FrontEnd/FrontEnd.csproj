@@ -628,6 +628,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="bower_components\js\flot-data.js" />
     <Content Include="bower_components\js\morris-data.js" />
+    <Content Include="img\minLogo_black.png" />
+    <Content Include="img\minLogo_gray.png" />
+    <Content Include="img\minLogo_write.png" />
+    <Content Include="img\ponto.gif" />
+    <Content Include="img\ponto.png" />
     <Content Include="img\PontoEletronico.jpg" />
     <Content Include="Scripts\bootstrap-dialog.js" />
     <Content Include="Scripts\bootstrap-dialog.min.js" />
@@ -982,7 +987,6 @@
     <Content Include="Views\PerfilDeAcesso\Novo.cshtml" />
     <Content Include="Views\PerfilDeAcesso\Visualizar.cshtml" />
     <Content Include="Views\PerfilDeAcesso\Index.cshtml" />
-    <Content Include="Views\Login\_Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Ponto\Lista.cshtml" />
     <Content Include="Views\Solicitacao\Index.cshtml" />

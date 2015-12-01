@@ -24,7 +24,7 @@ namespace Infraestrutura.Repositorios
             {
                 return Contexto.Set<Funcionario>().Where(f => f.Email.Equals(email) && f.Senha.Equals(senha)).SingleOrDefault();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

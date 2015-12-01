@@ -17,7 +17,7 @@ namespace FrontEnd.Models
         private static Funcionario _Funcionario;
         private static Empresa _Empresa;
         private static PerfilAcesso _Perfil;
-
+        
         public static Funcionario FuncionarioLogado
         {
             get

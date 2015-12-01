@@ -13,7 +13,9 @@ namespace Infraestrutura
     {
         public MyContext() :base()
         {
-
+            var ensureDllIsCopied =
+                System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+            
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
