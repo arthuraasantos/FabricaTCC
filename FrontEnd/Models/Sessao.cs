@@ -1,13 +1,6 @@
 ﻿using Dominio.Model;
 using Seedwork.Const;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using FrontEnd.Models;
-using SeedWork.Tools;
-using System.Web.Security;
+
 
 namespace FrontEnd.Models
 {
