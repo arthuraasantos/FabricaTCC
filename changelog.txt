@@ -1,2 +1,6 @@
+
+[Subida para o Azure - 1/12/2015]
+- Imagens do login e tela após o login
+- Correção erro entity framework
 - Implementando changelog
 --------- Entrega do TCC
