@@ -8,19 +8,19 @@
 
 @if (@TempData["Mensagem"] != null)
 {
-    <script>MostraSuccess('@TempData["Mensagem"]', false)</script>
+    <script>ShowWarning('@TempData["Mensagem"]', false)</script>
 }
 else
 {
     if (@TempData["MensagemErro"] != null)
     {
-        <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
+        <script>ShowDanger('@TempData["MensagemErro"]', false)</script>
     }
     else
     {
         if (@TempData["MensagemAtencao"] != null)
         {
-            <script>MostraWarning('@TempData["MensagemAtencao"]', false)</script>
+            <script>ShowWarning('@TempData["MensagemAtencao"]', false)</script>
         }
 
     }
@@ -41,12 +41,12 @@ else
             success: function (data) {
                 titulo = "Aviso";
                 msg = "\"" + data + "\" desabilitada com sucesso";
-                MostraSuccess(msg, true);
+                ShowWarning(msg, true);
             },
             error: function (data) {
                 titulo = "Aviso";
                 msg = "Erro ao desabilitar \"" + data + "\" ";
-                MostraDanger(msg, titulo, 'glyphicon glyphicon-remove', "", true);
+                ShowDanger(msg, titulo, 'glyphicon glyphicon-remove', "", true);
             },
         });
     };
@@ -65,12 +65,12 @@ else
             success: function (data) {
                 titulo = "Aviso";
                 msg = " \"" + data + "\" habilitada com sucesso";
-                MostraSuccess(msg, true);
+                ShowWarning(msg, true);
             },
             error: function (data) {
                 titulo = "Aviso";
                 msg = "Erro ao habilitar \"" + data + "\" ";
-                MostraDanger(msg, true);
+                ShowDanger(msg, true);
             },
         });
 

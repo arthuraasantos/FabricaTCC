@@ -10,13 +10,13 @@
 
 @if (@TempData["Mensagem"] != null)
 {
-    <script>MostraSuccess('@TempData["Mensagem"]', false)</script>
+    <script>ShowWarning('@TempData["Mensagem"]', false)</script>
 }
 else
 {
     if (@TempData["MensagemErro"] != null)
     {
-        <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
+        <script>ShowDanger('@TempData["MensagemErro"]', false)</script>
     }
 }
 

@@ -36,7 +36,7 @@ function MostraMensagem(mensagem, reload)
     });
 }
                
-function MostraWarning(mensagem, reload) {
+function ShowWarning(mensagem, reload) {
     BootstrapDialog.show({
         title: 'Atenção!',
         closable: false,
@@ -53,7 +53,7 @@ function MostraWarning(mensagem, reload) {
     });
 }
 
-function MostraSuccess(mensagem, reload) {
+function ShowSuccess(mensagem, reload) {
     BootstrapDialog.show({
         title: 'Sucesso!',
         closable: false,
@@ -70,7 +70,7 @@ function MostraSuccess(mensagem, reload) {
     });
 }
 
-function MostraDanger(mensagem, reload) {
+function ShowDanger(mensagem, reload) {
     BootstrapDialog.show({
         title: 'Erro!',
         closable: false,

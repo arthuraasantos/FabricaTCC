@@ -4,33 +4,35 @@
 <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap-dialog.min.js"></script>
 <script src="~/Scripts/Mensagens.js"></script>
+<script src="~/Scripts/Login/login.js"></script>
 
 <div class="container">
     <img src="http://bit.ly/1Th2Ryi" class="col-lg-4 col-lg-offset-4 img-responsive" style="text-align:center; height:240px; width:310px;">
     <div class="col-lg-4 col-lg-offset-4">
         <br />
-        <form action="/Login/Autenticar" method="post">
+        <form>
             <input type="email" name="Email" class="form-control" placeholder="Email" />
             <br />
-            <input type="password" name="Senha" class="form-control" placeholder="Senha" required />
+            <input type="password" name="Password" class="form-control" placeholder="Senha" required />
             <div class="checkbox">
                 <label>
                     <input type="checkbox" id="remember" name="remember" checked> Manter Logado
                 </label>
             </div>
-            <input type="submit" value="Entrar" class="btn btn-outline btn-success form-control" />
+            <button id="btnLogin" class="btn btn-outline btn-success form-control">Entrar</button>
+            @*<input type="submit" value="Entrar" class="btn btn-outline btn-success form-control" />*@
         </form>
     </div>
     <p>
         @if (TempData["MensagemAlerta"] != null)
         {
-            <script>MostraWarning('@TempData["MensagemAlerta"]', false)</script>
+            <script>ShowWarning('@TempData["MensagemAlerta"]', false)</script>
         }
         else
         {
             if (TempData["MensagemErro"] != null)
             {
-                <script>MostraDanger('@TempData["MensagemErro"]', false)</script>
+                <script>ShowDanger('@TempData["MensagemErro"]', false)</script>
             }
         }
     </p>
