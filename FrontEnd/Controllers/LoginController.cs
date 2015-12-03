@@ -33,8 +33,10 @@ namespace FrontEnd.Models
         {
             string userCookie = GetCookie();
 
-            if (!string.IsNullOrWhiteSpace(userCookie) && Session["Funcionario"] != null)
+            if (!string.IsNullOrWhiteSpace(userCookie))
             {
+                var employee = (Funcionario)FuncionarioRepository.PesquisaPeloEmail(userCookie);
+                ViewBag.Funcionario = employee;
                 return RedirectToAction("Index", "Home");
             }
 
@@ -47,13 +49,13 @@ namespace FrontEnd.Models
             var response = new DefaultJsonResponse();
 
             try
-            { 
+            {
                 var funcionarioParaLogin = new Funcionario();
                 funcionarioParaLogin =
                     EmployeeRepository.
                     PesquisaParaLogin(
-                        email,
-                        Criptografia.Encrypt(password));
+                        model.Email,
+                        Criptografia.Encrypt(model.Password));
 
                 if (funcionarioParaLogin != null)
                 {
@@ -155,6 +157,8 @@ namespace FrontEnd.Models
         [HttpGet]
         public JsonResult LoginValidate(string email, string password, string remember)
         {
+            var response = new JsonResponse();
+
             // Método para validar o login do sistema
             var response = new DefaultJsonResponse();
             
@@ -163,7 +167,7 @@ namespace FrontEnd.Models
             try
             {
                 var invalidMessage = LoginService.IsValid(email,password);
-                
+
                 if (!string.IsNullOrWhiteSpace(invalidMessage))
                 {
                     response.IsValid = false;

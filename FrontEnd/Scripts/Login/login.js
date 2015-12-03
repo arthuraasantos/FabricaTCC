@@ -1,4 +1,4 @@
-$(function () {
+﻿$(function () {
  
     $("#btnlogin").click(function(event) {
         document.getElementById("btnlogin").disabled = true;
