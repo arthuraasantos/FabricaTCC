@@ -30,25 +30,18 @@ namespace FrontEnd.Models
 
         public ActionResult Index()
         {
-            string employeeEmail = GetCookie();
-            Funcionario employee = new Funcionario();
+            string userCookie = GetCookie();
 
-            // TODO Retirar Session
-            //if(employeeEmail.Equals(string.Empty) )
-            employee = (Funcionario)Session["Funcionario"];
-
-            if (employee != null)
-                FormsAuthentication.SetAuthCookie(employee.Email, true);
-
-            if (employee != null)
+            if (!string.IsNullOrWhiteSpace(userCookie))
             {
-                ViewBag.Funcionario = FuncionarioRepository.Listar().Where(f => f.Email == employee.Email);
+                var employee = (Funcionario)FuncionarioRepository.PesquisaPeloEmail(userCookie);
+                ViewBag.Funcionario = employee;
                 return RedirectToAction("Index", "Home");
             }
 
             return View();
-
         }
+
         [HttpPost]
         public ActionResult Autenticar(FuncionarioLogin model, string remember)
         {
@@ -59,7 +52,7 @@ namespace FrontEnd.Models
                     FuncionarioRepository.
                     PesquisaParaLogin(
                         model.Email,
-                        Criptografia.Encrypt(model.Senha));
+                        Criptografia.Encrypt(model.Password));
 
                 if (funcionarioParaLogin != null)
                 {
@@ -152,43 +145,39 @@ namespace FrontEnd.Models
             Response.Cookies.Add(cookie);
         }
 
-        public JsonResult LoginValidate(FuncionarioLogin model)
+        [HttpGet]
+        public JsonResult LoginValidate(string email, string password)
         {
+            var response = new JsonResponse();
+
             // Método para validar o login do sistema
             string errorMessage = string.Empty;
             try
             {
-                if (string.IsNullOrWhiteSpace(model.Email))
+                if (string.IsNullOrWhiteSpace(email))
                     errorMessage = "Preencha o e-mail";
-                else if (string.IsNullOrWhiteSpace(model.Senha))
+                else if (string.IsNullOrWhiteSpace(password))
                     errorMessage = "Preencha o campo senha";
 
                 if (string.IsNullOrEmpty(errorMessage))
                 {
-                    return Json(new
-                    {
-                        IsValid = true,
-                        Message = errorMessage
-                    });
+                    response.IsValid = true;
+                    response.TypeResponse = "Success";
+                    response.Message = string.Empty;
                 }
-
-                return Json(new
-                {
-                    IsValid = false,
-                    Message = errorMessage
-                });
             }
             catch (Exception ex)
             {
-                return Json(new
-                {
-                    IsValid = false,
-                    Message = ex.Message
-                });
+                response.IsValid = false;
+                response.TypeResponse = "Error";
+                response.Message = ex.Message;
             }
 
-
-
+            return this.Json(new
+            {
+                response,
+                JsonRequestBehavior.AllowGet
+            });
 
         }
     }
