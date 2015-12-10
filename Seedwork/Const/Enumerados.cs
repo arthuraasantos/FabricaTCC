@@ -28,4 +28,10 @@ namespace Seedwork.Const
         Reprovado
     }
 
+    public enum TypeResponse
+    {
+        Success,
+        Error
+    }
+
 }

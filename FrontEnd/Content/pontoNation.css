@@ -1,0 +1,22 @@
+/** Arquivo de Css do Ponto
+
+Padronizar classes próprias com o inínio .pN para mantermos um padrão de CSS
+
+**/
+
+
+
+.pn-index-employee-profile-description{
+	font-weight: bold;
+}
+
+.pn-index-employee-email{
+	font-weight: 100; 
+}
+.pn-index-employee-name{
+    font-weight: 100; 
+}
+
+.pn-index-employee-organization{
+    font-weight: 100;
+}

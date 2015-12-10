@@ -1,4 +1,6 @@
-﻿@{
+﻿
+<script src="~/Scripts/Home/Index.js"></script>
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
@@ -26,7 +28,13 @@ else
 
 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Administrador)
 {
-    <h2 class="page-header">@ViewBag.Empresa</h2>
+    
+    <h2 class="page-header">
+        <span>
+            <label class="pn-index-employee-organization"></label>
+            <img class="pn-index-employee-organization-loader" src="~/img/ajax-loader-default.gif" />
+        </span>
+    </h2>
     <!-- Confirmação do ponto em Modal -->
     <div class="row">
         <div class="panel panel-default">
@@ -43,8 +51,8 @@ else
                                 <div class="modal-body">
 
                                     <div class="form-group">
-                                        @Html.Label("Email")
-                                        @Html.TextBox("Email", (string)@ViewBag.EmailFuncionario, new { @type = "email", @class = "form-control", @placeholder = "Email", @readonly = "readonly" })
+                                        <label>Email<label>
+                                        <label class="pt-index-employee-email">    
                                     </div>
                                     <div class="form-group">
                                         @Html.Label("Senha")
@@ -59,7 +67,13 @@ else
                         </div>
                     </div>
                 </div>
-                <div><strong>Funcionário:</strong> @ViewBag.Funcionario</div>
+                <div>
+                    <strong>Funcionário:</strong> 
+                    <span>
+                        <label class="pn-index-employee-name"></label> 
+                        <img class="pn-index-employee-name-loader" src="~/img/ajax-loader-default.gif" />
+                    </span>
+                </div>
                 <div><strong>Saldo de horas:</strong> @ViewBag.HorasTrabalhadas</div>
                 <div>@ViewBag.HorariosMarcadosHoje</div>
                 <div style="color:red">@ViewBag.Aviso</div>
@@ -195,4 +209,7 @@ else
         </div>
     </div>
 }
+
+
+
 

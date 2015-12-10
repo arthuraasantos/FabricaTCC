@@ -1,4 +1,13 @@
 
+- Carregamento assíncrono na tela de início para Nome de Funcionário 
+- Carregamento assíncrono na tela de início para Nome de Empresa 
+- Carregamento assíncrono na tela de início para Perfil de Acesso
+- Carregamento assíncrono na tela de início para Email do Funcionário
+- Implementação de loaders para tudo que for assíncrono
+- Implementação de Css global em Content
+- Retirada de ViewBag e TempData da tela de login
+- Melhoria de performance no login
+- Criação de projeto de serviços
 [Subida para o Azure - 1/12/2015]
 - Imagens do login e tela após o login
 - Correção erro entity framework

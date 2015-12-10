@@ -1,4 +1,5 @@
-﻿using Dominio.Model;
+﻿using Dominio.Interface;
+using Dominio.Model;
 using Seedwork.Entity;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace Dominio.Model
 {
 
-    public class Funcionario : EntityBase
+    public class Funcionario : EntityBase, IEntityBase<Funcionario>
     {
         public string Nome { get; set; }
         public string Email { get; set; }
@@ -29,6 +30,24 @@ namespace Dominio.Model
         public virtual Empresa Empresa { get; set; }
         public virtual PerfilDeAcesso PerfilDeAcesso { get; set; }
         public virtual HorarioDeExpediente HorarioDeExpediente { get; set; }
+
+        /// <summary>
+        /// Método para dizer se o funcionário tem o mínimo de informações para ser considerado válido
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public bool IsValid(Funcionario employee)
+        {
+            var response = true;
+
+            if (employee.HorarioDeExpediente == null || employee.PerfilDeAcesso == null || employee.Empresa == null|| 
+                employee.Bloqueado.Equals("S") || !string.IsNullOrWhiteSpace(employee.Email))
+            {
+                response = false;
+            }
+
+            return response;
+        }
     }
 
 }

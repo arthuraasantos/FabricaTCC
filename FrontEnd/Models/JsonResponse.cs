@@ -1,4 +1,5 @@
 ﻿
+using Seedwork.Const;
 using System.Collections.Generic;
 
 namespace FrontEnd.Models
@@ -7,11 +8,12 @@ namespace FrontEnd.Models
     {
         public JsonResponse()
         {
-
+            IsValid = true;
+            TypeResponse = TypeResponse.Success;
         }
 
         public bool IsValid { get; set; }
-        public string TypeResponse { get; set; }
+        public  TypeResponse TypeResponse { get; set; }
         public string Message { get; set; }
 
     }

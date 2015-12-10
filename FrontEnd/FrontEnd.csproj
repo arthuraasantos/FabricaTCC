@@ -623,12 +623,14 @@
     <Content Include="bower_components\dist\css\sb-admin-2.css" />
     <Content Include="bower_components\dist\css\timeline.css" />
     <Content Include="bower_components\dist\js\sb-admin-2.js" />
+    <Content Include="Content\pontoNation.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="bower_components\js\flot-data.js" />
     <Content Include="bower_components\js\morris-data.js" />
+    <Content Include="img\ajax-loader-default.gif" />
     <Content Include="img\minLogo_black.png" />
     <Content Include="img\minLogo_gray.png" />
     <Content Include="img\minLogo_write.png" />
@@ -947,6 +949,8 @@
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dataAtual.js" />
+    <Content Include="Scripts\Employee\employee.js" />
+    <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\Horario\funcionarioNovo.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.mask.js" />
@@ -1036,6 +1040,10 @@
     <ProjectReference Include="..\Seedwork\Seedwork.csproj">
       <Project>{aa98ae9c-7681-4efa-8628-72f182dec46f}</Project>
       <Name>Seedwork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TCCPontoEletronico.AppService\TCCPontoEletronico.AppService.csproj">
+      <Project>{11dc1820-8a0d-464f-b567-4fbf344db286}</Project>
+      <Name>TCCPontoEletronico.AppService</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

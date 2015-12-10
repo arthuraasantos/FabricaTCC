@@ -26,7 +26,7 @@ conversion automatically.
 #### Can I export the graph? ####
 
 You can grab the image rendered by the canvas element used by Flot
-as a PNG or JPEG (remember to set a background). Note that it won't
+as a pnG or JPEG (remember to set a background). Note that it won't
 include anything not drawn in the canvas (such as the legend). And it
 doesn't work with excanvas which uses VML, but you could try
 Flashcanvas.
