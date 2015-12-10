@@ -16,6 +16,7 @@ namespace FrontEnd.Models
             get
             {
                 _Funcionario = (Funcionario)System.Web.HttpContext.Current.Session["Funcionario"];
+               
                 return _Funcionario;
             }
         }

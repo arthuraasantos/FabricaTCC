@@ -502,7 +502,7 @@ Zone Pacific/Port_Moresby 9:48:40 -	LMT	1880
 # Pitcairn
 # Zone	NAME		GMTOFF	RULES	FORMAT	[UNTIL]
 Zone Pacific/Pitcairn	-8:40:20 -	LMT	1901		# Adamstown
-			-8:30	-	PNT	1998 Apr 27 00:00
+			-8:30	-	pnT	1998 Apr 27 00:00
 			-8:00	-	PST	# Pitcairn Standard Time
 
 # American Samoa
