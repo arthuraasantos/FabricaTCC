@@ -1,56 +1,54 @@
-﻿$(function () {
-    $(".btn-success").click(function () {
-         $.ajax({
+$(function () {
+ 
+    $("#btnlogin").click(function(event) {
+    
+        document.getElementById('btnlogin').disabled;
+            event.preventDefault();
+        $.ajax({
+                       //pegando a url apartir da action do form
             url: "/Login/LoginValidate",
-            data: {
-                email: $("input[type=email][name=Email]").val(),
-                password: $("input[type=password][name=Password]").val()
-            },
-            type: "GET",
-            datatype: "json",
-            async: true ,
-            sucess: function (response) {
-                alert("chegou aqui");
-                if (response.IsValid) {
-                    // Faz login
+            data: { email: $("input[type=email][name=Email]").val(), password: $("input[type=password][name=Password]").val() },
+            type: 'GET',
+            async: false,
+            context: jQuery('#resultado')
+        }).success(function(response){
+                if (response.Message) {
+                    ShowWarning(response.Message);
+                }
+                else {
                     doLogin();
                 }
-                else
-                {
-                    // exibir div de erro
-                    if (response.Type == "Warning") {
-                        ShowWarning(response.Message)
-                    }
-                    else if (data.Type == "Error") {
-                        ShowDanger(response.Message)
-                    }
-                }
-            }, 
-            error: function(response){
-                alert("teste error"+ response);
-            }
-        });
+                
+                document.getElementById('btnlogin').disabled = false;
+
+        }).error(function(response){
+                ShowDanger("Erro ao validar o login. Mensagem: "+response.Message);
+        });     
     });
-});
 
-function doLogin(){
-    alert("chegou no dologin");
-
+    function doLogin(){
     $.ajax({
             url: "/Login/Autenticar",
             data: {
                 email: $("input[type=email][name=Email]").val(),
-                password: $("input[type=password][name=Password]").val()
+                password: $("input[type=password][name=Password]").val(),
+                remember: $("input[type=checkbox][name=Remember]").val()
             },
-            type: "GET",
-            datatype: "json",
-            contenttype: "application/json; charset=utf-8",
-        }).fail(function(response){
-            // erro ao logar
-            ShowDanger(response.Message);
+            type: "POST",
+            async: false,
+            context: jQuery('#resultado'),
+                // erro ao logar
+            error: function(response){
+                    ShowDanger("Erro ao fazer o login. Mensagem: "+response.Message);
+            },
+    }).success(function(response){
+        window.location.href = "Home/Index";
     });
-    
-    alert("terminou sem dar erro");
 }
+
+
+});
+
+
 
 

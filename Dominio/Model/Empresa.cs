@@ -1,9 +1,7 @@
-﻿using Seedwork.Entity;
-using System;
+﻿using Dominio.Interface;
+using Seedwork.Entity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace Dominio.Model
 {
@@ -21,5 +19,6 @@ namespace Dominio.Model
         public string Estado { get; set; }
         public string Pais { get; set; }
         public virtual List<Funcionario> Funcionarios { get; set; }
+
     }
 }

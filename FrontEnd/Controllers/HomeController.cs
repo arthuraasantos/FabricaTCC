@@ -1,13 +1,13 @@
 ﻿using System.Web.Mvc;
 using Infraestrutura;
-using Infraestrutura.Repositorios;
 using System.Linq;
-using FrontEnd.Models;
 using Dominio.Services;
 using System;
 using Dominio.Repository;
 using Dominio.Model;
 using Seedwork.Const;
+using System.Net.Http;
+using TCCPontoEletronico.AppService.Employee;
 
 namespace FrontEnd.Models
 {
@@ -22,9 +22,12 @@ namespace FrontEnd.Models
         private IFolgaRepository FolgaRepository { get; set; }
         private IFeriasRepository FeriasRepository { get; set; }
 
+        private IEmployeeService EmployeeService { get; }
 
 
-        public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pontoService, IPontoRepository pontoRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository)
+
+        public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pontoService, IPontoRepository pontoRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository,
+                      IEmployeeService employeeService)
         {
             PontoRepository = pontoRepository;
             FuncionarioRepository = funcionarioRepository;
@@ -32,18 +35,18 @@ namespace FrontEnd.Models
             Context = context;
             FolgaRepository = folgaRepository;
             FeriasRepository = feriasRepository;
+            EmployeeService = employeeService;
         }
+
 
 
         public ActionResult Index()
         {
-
             if (Sessao.FuncionarioLogado != null)
             {
 
-                ViewBag.EmailFuncionario = Sessao.FuncionarioLogado.Email;
-                ViewBag.Funcionario = Sessao.FuncionarioLogado.Nome;
-                ViewBag.Empresa = Sessao.EmpresaLogada.NomeFantasia;
+                //ViewBag.Funcionario = Sessao.FuncionarioLogado.Nome;
+                //ViewBag.Empresa = Sessao.EmpresaLogada.NomeFantasia;
 
                 if (Sessao.PerfilFuncionarioLogado != PerfilAcesso.Administrador)
                 {
@@ -51,15 +54,16 @@ namespace FrontEnd.Models
                     DateTime UltimoDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
                     ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(Sessao.FuncionarioLogado, PrimeiroDiaDoMes, UltimoDiaDoMes).ToString();
                     ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now);
-                    
-                    
+
+
                     DateTime Hoje = DateTime.Now;
                     ViewBag.Aviso = "";
                     var FeriasFuncionario = FeriasRepository.Listar().Where(p => p.Inicio <= Hoje.Date && p.Fim >= Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
                     if (FeriasFuncionario != null)
                     {
                         ViewBag.Aviso = "Este funcionário está em período de férias entre " + FeriasFuncionario.Inicio.Date.ToString("dd/MM/yyyy") + " e " + FeriasFuncionario.Fim.Date.ToString("dd/MM/yyyy");
-                    } else 
+                    }
+                    else
                     {
                         var FolgasFuncionario = FolgaRepository.Listar().Where(p => p.Data == Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
                         if (FolgasFuncionario != null)
@@ -104,6 +108,7 @@ namespace FrontEnd.Models
                 return RedirectToAction("Index", "Login");
             }
         }
+
         public ActionResult EfetuarMarcacaoDoPonto(PontoMarcar marcarPonto)
         {
             var funcionario = FuncionarioRepository.ListarComPerfil(Sessao.FuncionarioLogado.PerfilDeAcesso).SingleOrDefault(p => p.Email == marcarPonto.Email && p.Senha == marcarPonto.Senha);
@@ -119,6 +124,83 @@ namespace FrontEnd.Models
  
             return RedirectToAction("Index");
         }
+
+        public JsonResult GetEmailEmployee()
+        {
+            var response = new JsonResponse();
+            try
+            {
+                response.Message = EmployeeService.GetEmailEmployeeLogged();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar o e-mail do funcionário logado.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAccessProfileDescription()
+        {
+            var response = new JsonResponse();
+            try
+            {
+                response.Message = EmployeeService.GetAccessProfileDescription();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar o Perfil de Acesso do funcionário logado.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetNameEmployee()
+        {
+            var response = new JsonResponse();
+            try
+            {
+                response.Message = EmployeeService.GetNameEmployeeLogged();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar o Nome do funcionário logado.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetOrganizationName()
+        {
+            var response = new JsonResponse();
+            try
+            {
+                response.Message = EmployeeService.GetOrganizationNameLogged();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar o Nome da empresa do funcionário logado.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

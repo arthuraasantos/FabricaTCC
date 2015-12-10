@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TCCPontoEletronico.AppService.Employee;
 
 namespace FrontEnd.App_Start
 {
@@ -28,8 +29,10 @@ namespace FrontEnd.App_Start
             Bind<IFeriasRepository>().To<FeriasRepository>();
             Bind<IFolgaRepository>().To<FolgaRepository>();
             Bind<IHorarioDeExpedienteRepository>().To<HorarioDeExpedienteRepository>();
+            
             //Servicos
             Bind<IPontoEletronicoService>().To<PontoEletronicoService>();
+            Bind<IEmployeeService>().To<EmployeeService>();
         }
     }
 }

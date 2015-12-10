@@ -5738,7 +5738,7 @@ var
 	cssPrefixes = [ "Webkit", "O", "Moz", "ms" ];
 
 // Return a css property mapped to a potentially vendor prefixed property
-function vendorPropName( style, name ) {
+function vendorPropname( style, name ) {
 
 	// Shortcut for names that are not vendor prefixed
 	if ( name in style ) {
@@ -5746,12 +5746,12 @@ function vendorPropName( style, name ) {
 	}
 
 	// Check for vendor prefixed names
-	var capName = name[0].toUpperCase() + name.slice(1),
+	var capname = name[0].toUpperCase() + name.slice(1),
 		origName = name,
 		i = cssPrefixes.length;
 
 	while ( i-- ) {
-		name = cssPrefixes[ i ] + capName;
+		name = cssPrefixes[ i ] + capname;
 		if ( name in style ) {
 			return name;
 		}
@@ -5954,7 +5954,7 @@ jQuery.extend({
 			origName = jQuery.camelCase( name ),
 			style = elem.style;
 
-		name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropName( style, origName ) );
+		name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropname( style, origName ) );
 
 		// Gets hook for the prefixed version, then unprefixed version
 		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
@@ -6007,7 +6007,7 @@ jQuery.extend({
 			origName = jQuery.camelCase( name );
 
 		// Make sure that we're working with the right name
-		name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropName( elem.style, origName ) );
+		name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropname( elem.style, origName ) );
 
 		// Try prefixed name followed by the unprefixed name
 		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
@@ -7000,18 +7000,18 @@ jQuery.extend({
 	},
 
 	removeAttr: function( elem, value ) {
-		var name, propName,
+		var name, propname,
 			i = 0,
 			attrNames = value && value.match( rnotwhite );
 
 		if ( attrNames && elem.nodeType === 1 ) {
 			while ( (name = attrNames[i++]) ) {
-				propName = jQuery.propFix[ name ] || name;
+				propname = jQuery.propFix[ name ] || name;
 
 				// Boolean attributes get special treatment (#10870)
 				if ( jQuery.expr.match.bool.test( name ) ) {
 					// Set corresponding property to false
-					elem[ propName ] = false;
+					elem[ propname ] = false;
 				}
 
 				elem.removeAttribute( name );

@@ -13,6 +13,7 @@
     <link href="~/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
     <link href="~/bower_components/dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="~/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/pontoNation.css" rel="stylesheet" type="text/css">
 
     @* Jquery e jquery masked input para máscaras *@
     <script src="~/Scripts/jquery.maskedinput.js"></script>
@@ -21,12 +22,12 @@
     @*<script src="Script/jquery-1.10.2.js"></script>
         <link href="Script/bootstrap-dialog.min.css" rel="stylesheet" />
         <script src="Script/bootstrap.min.js"></script>
-        <script src="Script/run_prettify.js"></script>
+        <!-- <script src="Script/run_prettify.js"></script> -->
         <script src="Script/bootstrap-dialog.min.js"></script>*@
 
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/run_prettify.js"></script>
+    <!-- <script src="~/Scripts/run_prettify.js"></script> -->
     <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet" />
     <script src="~/Scripts/bootstrap-dialog.min.js"></script>
     <script src="~/Scripts/Mensagens.js"></script>
@@ -44,6 +45,12 @@
             });
         })
     </script>
+    <script>
+    // Carregar todos os serviços da página de Home(Estatísticas)
+        $(document).ready(function(){
+            loadAdminServices();
+        });
+    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -56,12 +63,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="http://bit.ly/1SsYekE" class="navbar-brand" alt="Ponto Eletrônico 1.0" style="padding : 10px;" />
+                <!--<img src="http://bit.ly/1SsYekE" class="navbar-brand" alt="Ponto Eletrônico 1.0" style="padding : 10px;" /> -->
             </div>
             <!-- Topo a direita -->
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <span><strong>Logado como @FrontEnd.Models.Sessao.FuncionarioLogado.PerfilDeAcesso.Descricao : </strong>@FrontEnd.Models.Sessao.FuncionarioLogado.Email</span>
+
+                    <span>
+                        <strong>
+                            Logado como 
+                            <span>
+                                <label class="pn-index-employee-profile-description"></label> 
+                                <img class="pn-index-employee-profile-description-loader" src="~/img/ajax-loader-default.gif" />
+                            </span>
+                                : 
+                        </strong>
+
+                        <span>
+                            <label class="pn-index-employee-email"></label>
+                            <img class="pn-index-employee-email-loader" src="~/img/ajax-loader-default.gif" />
+                        </span>                                
+                        
                 </li>
                 <li>
                     <a href="@Url.Action("Logout", "Login")"><i class=" glyphicon glyphicon-off"></i> Sair</a>

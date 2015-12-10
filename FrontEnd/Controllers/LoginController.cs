@@ -1,16 +1,14 @@
 ﻿
 using Dominio.Model;
-using FrontEnd.Models;
 using Infraestrutura;
 using Infraestrutura.Repositorios;
+using Seedwork.Const;
 using SeedWork.Tools;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-
+using TCCPontoEletronico.AppService.Password;
 
 namespace FrontEnd.Models
 {
@@ -20,11 +18,14 @@ namespace FrontEnd.Models
         public MyContext Contexto { get; set; }
         public FuncionarioRepository FuncionarioRepository { get; set; }
 
+        public ILoginService LoginService { get; }
+
 
         public LoginController()
         {
             Contexto = new MyContext();
             FuncionarioRepository = new FuncionarioRepository(Contexto);
+            LoginService = new LoginService();
         }
 
 
@@ -32,10 +33,8 @@ namespace FrontEnd.Models
         {
             string userCookie = GetCookie();
 
-            if (!string.IsNullOrWhiteSpace(userCookie))
+            if (!string.IsNullOrWhiteSpace(userCookie) && Session["Funcionario"] != null)
             {
-                var employee = (Funcionario)FuncionarioRepository.PesquisaPeloEmail(userCookie);
-                ViewBag.Funcionario = employee;
                 return RedirectToAction("Index", "Home");
             }
 
@@ -43,16 +42,18 @@ namespace FrontEnd.Models
         }
 
         [HttpPost]
-        public ActionResult Autenticar(FuncionarioLogin model, string remember)
+        public ActionResult Autenticar(string email, string password, string remember)
         {
+            var response = new JsonResponse();
+
             try
-            {
+            { 
                 var funcionarioParaLogin = new Funcionario();
                 funcionarioParaLogin =
                     FuncionarioRepository.
                     PesquisaParaLogin(
-                        model.Email,
-                        Criptografia.Encrypt(model.Password));
+                        email,
+                        Criptografia.Encrypt(password));
 
                 if (funcionarioParaLogin != null)
                 {
@@ -63,39 +64,46 @@ namespace FrontEnd.Models
                     //else
                     if (funcionarioParaLogin.Bloqueado == "Y")
                     {
-                        TempData["MensagemAlerta"] = "Este funcionário está bloqueado! Entre em contato com o Gerente!";
+                        response.Message = "Este funcionário está bloqueado! Entre em contato com o Gerente!";
                     }
                     else
                     {
                         if (funcionarioParaLogin.Empresa.Bloqueado == "Y")
                         {
-                            TempData["MensagemAlerta"] = "A empresa deste funcionário está bloqueada! Entre em contato com o Administrador do sistema!";
+                            response.Message = "A empresa deste funcionário está bloqueada! Entre em contato com o Administrador do sistema!";
                         }
                         else
                         {
                             if (remember == "on")
-                                CreateLoginCookie(model.Email);
+                                CreateLoginCookie(email);
 
                             Session.Add("Funcionario", funcionarioParaLogin);
 
-                            //Redireciona para a mesma view e o tratamento do que vai aparecer será nas views.
+                            // Direciona para a página HOME.
                             return RedirectToAction("Index", "Home");
                         }
                     }
                 }
                 else
                 {
-                    TempData["MensagemAlerta"] = "Usuário ou senha incorreta!";
+                    response.IsValid = false;
+                    response.Message = "Usuário ou senha incorreta";
+                    response.TypeResponse = TypeResponse.Error;
                 }
 
+                return this.Json(response, JsonRequestBehavior.AllowGet);
+
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData["MensagemErro"] = "Erro de auteticação." + e.Message;
+                response.Message = "Erro de auteticação" + ex.Message;
+                return this.Json(response, JsonRequestBehavior.AllowGet);
+
             }
 
-            return RedirectToAction("Index", "Login");
+
         }
+
         public ActionResult Logout()
         {
             //Destruir o Ticket de acesso do usuario...
@@ -146,39 +154,34 @@ namespace FrontEnd.Models
         }
 
         [HttpGet]
-        public JsonResult LoginValidate(string email, string password)
+        public JsonResult LoginValidate(string email, string password, string remember)
         {
-            var response = new JsonResponse();
-
             // Método para validar o login do sistema
+            var response = new JsonResponse();
+            
             string errorMessage = string.Empty;
+
             try
             {
-                if (string.IsNullOrWhiteSpace(email))
-                    errorMessage = "Preencha o e-mail";
-                else if (string.IsNullOrWhiteSpace(password))
-                    errorMessage = "Preencha o campo senha";
-
-                if (string.IsNullOrEmpty(errorMessage))
+                var invalidMessage = LoginService.IsValid(email,password);
+                
+                if (!string.IsNullOrWhiteSpace(invalidMessage))
                 {
-                    response.IsValid = true;
-                    response.TypeResponse = "Success";
-                    response.Message = string.Empty;
+                    response.IsValid = false;
+                    response.TypeResponse = TypeResponse.Error;
+                    response.Message = invalidMessage;
                 }
+                    
             }
             catch (Exception ex)
             {
+                //TODO implementar log de erro e enviar e-mail para nós 3(Arthur,Marlon e Charles)
                 response.IsValid = false;
-                response.TypeResponse = "Error";
+                response.TypeResponse = TypeResponse.Error;
                 response.Message = ex.Message;
             }
 
-            return this.Json(new
-            {
-                response,
-                JsonRequestBehavior.AllowGet
-            });
-
+            return this.Json(response, JsonRequestBehavior.AllowGet);
         }
     }
 }
