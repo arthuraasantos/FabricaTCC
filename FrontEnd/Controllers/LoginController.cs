@@ -8,7 +8,7 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using TCCPontoEletronico.AppService.Password;
+using TCCPontoEletronico.AppService.Interface;
 
 namespace FrontEnd.Models
 {
@@ -16,16 +16,16 @@ namespace FrontEnd.Models
     {
 
         public MyContext Contexto { get; set; }
-        public FuncionarioRepository FuncionarioRepository { get; set; }
+        public FuncionarioRepository EmployeeRepository { get; set; }
 
         public ILoginService LoginService { get; }
 
 
-        public LoginController()
+        public LoginController(ILoginService loginService, MyContext context, FuncionarioRepository employeeRepository)
         {
             Contexto = new MyContext();
-            FuncionarioRepository = new FuncionarioRepository(Contexto);
-            LoginService = new LoginService();
+            EmployeeRepository = employeeRepository;
+            LoginService = loginService;
         }
 
 
@@ -44,13 +44,13 @@ namespace FrontEnd.Models
         [HttpPost]
         public ActionResult Autenticar(string email, string password, string remember)
         {
-            var response = new JsonResponse();
+            var response = new DefaultJsonResponse();
 
             try
             { 
                 var funcionarioParaLogin = new Funcionario();
                 funcionarioParaLogin =
-                    FuncionarioRepository.
+                    EmployeeRepository.
                     PesquisaParaLogin(
                         email,
                         Criptografia.Encrypt(password));
@@ -157,7 +157,7 @@ namespace FrontEnd.Models
         public JsonResult LoginValidate(string email, string password, string remember)
         {
             // Método para validar o login do sistema
-            var response = new JsonResponse();
+            var response = new DefaultJsonResponse();
             
             string errorMessage = string.Empty;
 

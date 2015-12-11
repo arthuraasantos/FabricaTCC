@@ -6,8 +6,8 @@ using System;
 using Dominio.Repository;
 using Dominio.Model;
 using Seedwork.Const;
-using System.Net.Http;
-using TCCPontoEletronico.AppService.Employee;
+using TCCPontoEletronico.AppService.Interface;
+
 
 namespace FrontEnd.Models
 {
@@ -23,11 +23,13 @@ namespace FrontEnd.Models
         private IFeriasRepository FeriasRepository { get; set; }
 
         private IEmployeeService EmployeeService { get; }
+        private IVacationService VacationService { get;}
+        private IClearanceService ClearanceService { get; }
 
 
 
         public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pontoService, IPontoRepository pontoRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository,
-                      IEmployeeService employeeService)
+                      IEmployeeService employeeService, IClearanceService clearanceService, IVacationService vacationService)
         {
             PontoRepository = pontoRepository;
             FuncionarioRepository = funcionarioRepository;
@@ -36,44 +38,40 @@ namespace FrontEnd.Models
             FolgaRepository = folgaRepository;
             FeriasRepository = feriasRepository;
             EmployeeService = employeeService;
+            ClearanceService = clearanceService;
+            VacationService = vacationService;
         }
-
-
 
         public ActionResult Index()
         {
-            if (Sessao.FuncionarioLogado != null)
+            if (EmployeeService.GetEmployeeLogged() != null)
             {
-
-                //ViewBag.Funcionario = Sessao.FuncionarioLogado.Nome;
-                //ViewBag.Empresa = Sessao.EmpresaLogada.NomeFantasia;
-
-                if (Sessao.PerfilFuncionarioLogado != PerfilAcesso.Administrador)
+                if (EmployeeService.GetAccessProfile() != PerfilAcesso.Administrador)
                 {
-                    DateTime PrimeiroDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                    DateTime UltimoDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
-                    ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(Sessao.FuncionarioLogado, PrimeiroDiaDoMes, UltimoDiaDoMes).ToString();
-                    ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now);
+                    //DateTime PrimeiroDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                    //DateTime UltimoDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
+                    //ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(Sessao.FuncionarioLogado, PrimeiroDiaDoMes, UltimoDiaDoMes).ToString();
+                    //ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now);
 
 
-                    DateTime Hoje = DateTime.Now;
-                    ViewBag.Aviso = "";
-                    var FeriasFuncionario = FeriasRepository.Listar().Where(p => p.Inicio <= Hoje.Date && p.Fim >= Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
-                    if (FeriasFuncionario != null)
-                    {
-                        ViewBag.Aviso = "Este funcionário está em período de férias entre " + FeriasFuncionario.Inicio.Date.ToString("dd/MM/yyyy") + " e " + FeriasFuncionario.Fim.Date.ToString("dd/MM/yyyy");
-                    }
-                    else
-                    {
-                        var FolgasFuncionario = FolgaRepository.Listar().Where(p => p.Data == Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
-                        if (FolgasFuncionario != null)
-                        {
-                            ViewBag.Aviso = ViewBag.Aviso + "Este funcionário está cumprindo folga hoje";
-                        }
-                    }
+                    //DateTime Hoje = DateTime.Now;
+                    //ViewBag.Aviso = "";
+                    //var FeriasFuncionario = FeriasRepository.Listar().Where(p => p.Inicio <= Hoje.Date && p.Fim >= Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
+                    //if (FeriasFuncionario != null)
+                    //{
+                    //    ViewBag.Aviso = "Este funcionário está em período de férias entre " + FeriasFuncionario.Inicio.Date.ToString("dd/MM/yyyy") + " e " + FeriasFuncionario.Fim.Date.ToString("dd/MM/yyyy");
+                    //}
+                    //else
+                    //{
+                    //    var FolgasFuncionario = FolgaRepository.Listar().Where(p => p.Data == Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
+                    //    if (FolgasFuncionario != null)
+                    //    {
+                    //        ViewBag.Aviso = ViewBag.Aviso + "Este funcionário está cumprindo folga hoje";
+                    //    }
+                    //}
 
 
-                    if (Sessao.PerfilFuncionarioLogado == PerfilAcesso.Gerente)
+                    if (EmployeeService.GetAccessProfile() == PerfilAcesso.Gerente)
                     {
                         ViewBag.QtdePendentesHoras = Context.Set<Solicitacao>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
                         ViewBag.QtdePendentesFolgas = Context.Set<Folga>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
@@ -127,7 +125,7 @@ namespace FrontEnd.Models
 
         public JsonResult GetEmailEmployee()
         {
-            var response = new JsonResponse();
+            var response = new DefaultJsonResponse();
             try
             {
                 response.Message = EmployeeService.GetEmailEmployeeLogged();
@@ -146,7 +144,7 @@ namespace FrontEnd.Models
 
         public JsonResult GetAccessProfileDescription()
         {
-            var response = new JsonResponse();
+            var response = new DefaultJsonResponse();
             try
             {
                 response.Message = EmployeeService.GetAccessProfileDescription();
@@ -165,7 +163,7 @@ namespace FrontEnd.Models
 
         public JsonResult GetNameEmployee()
         {
-            var response = new JsonResponse();
+            var response = new DefaultJsonResponse();
             try
             {
                 response.Message = EmployeeService.GetNameEmployeeLogged();
@@ -184,7 +182,7 @@ namespace FrontEnd.Models
 
         public JsonResult GetOrganizationName()
         {
-            var response = new JsonResponse();
+            var response = new DefaultJsonResponse();
             try
             {
                 response.Message = EmployeeService.GetOrganizationNameLogged();
@@ -201,6 +199,82 @@ namespace FrontEnd.Models
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetEmployeeWorkHour()
+        {
+            var response = new DefaultJsonResponse();
+            try
+            {
+                DateTime PrimeiroDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                DateTime UltimoDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
+                response.Message =
+                    PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(EmployeeService.GetEmployeeLogged(), PrimeiroDiaDoMes, UltimoDiaDoMes).ToString();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar a quantidade de horas trabalhadas.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
 
+            return Json(response, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+        public JsonResult GetHitHourForDay()
+        {
+            var response = new DefaultJsonResponse();
+            try
+            {
+                response.Message = PontoService.HorasBatidasPorDiaPorFuncionario(EmployeeService.GetEmployeeLogged(), DateTime.Now);
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar o número de batidas por dia";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetNotificationWarning()
+        {
+            //TODO montar lista de retornos na tela para o usuário, o tipo de resposta em Json já retorna uma lista de string
+            
+            var response = new NotificationJsonResponse();
+            DateTime Hoje = DateTime.Now;
+            try
+            {
+                var vacation = VacationService.GetVacationNotificationWarning(Hoje,EmployeeService.GetEmployeeLogged());
+
+                if (vacation != null)
+                    response.Message = "Este funcionário está em período de férias entre " + vacation.Inicio.Date.ToString("dd/MM/yyyy") + " e " + vacation.Fim.Date.ToString("dd/MM/yyyy");
+                else
+                {
+                    var clearance = ClearanceService.GetClearanceNotificationWarning(Hoje,EmployeeService.GetEmployeeLogged());
+                    if (clearance != null)
+                    {
+                        response.Message = "Este funcionário está cumprindo folga hoje";
+                    }
+                }
+
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception ex)
+            {
+                response.Message = "Ocorreu um erro os avisos do funcionário";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+            
+        }
     }
 }

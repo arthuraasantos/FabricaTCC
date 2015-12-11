@@ -1,5 +1,4 @@
 ﻿
-<script src="~/Scripts/Home/Index.js"></script>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
@@ -25,10 +24,9 @@ else
     }
 }
 
+<link href="~/Content/Home/index.css" rel="stylesheet" />
 
-@if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Administrador)
-{
-    
+<div class="pn-index-no-adm" style="display: none">
     <h2 class="page-header">
         <span>
             <label class="pn-index-employee-organization"></label>
@@ -74,10 +72,25 @@ else
                         <img class="pn-index-employee-name-loader" src="~/img/ajax-loader-default.gif" />
                     </span>
                 </div>
-                <div><strong>Saldo de horas:</strong> @ViewBag.HorasTrabalhadas</div>
-                <div>@ViewBag.HorariosMarcadosHoje</div>
-                <div style="color:red">@ViewBag.Aviso</div>
-            </div>
+                <div>
+                    <strong>Saldo de horas:</strong> 
+                    <span>
+                        <label class="pn-index-employee-workhours"></label> 
+                        <img class="pn-index-employee-workhours-loader" src="~/img/ajax-loader-default.gif" />
+                    </span>
+                </div>
+                <div id="employee-hithour" style="display: none">
+                    <span>
+                        <label class="pn-index-employee-hithour"></label> 
+                        <img class="pn-index-employee-hithour-loader" src="~/img/ajax-loader-default.gif" />
+                    </span>
+                </div>
+                <div id="employee-notification-warning" style="display: none">
+                    <span style="color:red">
+                        <label class="pn-index-employee-notification-warning"></label> 
+                        <img class="pn-index-employee-notification-warning-loader" src="~/img/ajax-loader-default.gif" />
+                    </span>
+                </div>
         </div>
     </div>
 
@@ -195,10 +208,8 @@ else
         <div class="col-md-1">
         </div>
     </div>
-
-}
-else
-{
+</div>
+<div class="pn-index-adm" style="display: none">
     <h2 class="page-header">Página Inicial</h2>
     <div class="row">
         <div class="panel panel-default">
@@ -208,7 +219,7 @@ else
             </div>
         </div>
     </div>
-}
+</div>
 
 
 

@@ -43,13 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Email\EmailService.cs" />
-    <Compile Include="Employee\EmployeeService.cs" />
-    <Compile Include="Employee\IEmployeeService.cs" />
-    <Compile Include="Login\ILoginService.cs" />
-    <Compile Include="Login\LoginService.cs" />
-    <Compile Include="Password\PasswordService.cs" />
+    <Compile Include="Entity\ClearanceService.cs" />
+    <Compile Include="Entity\EmailService.cs" />
+    <Compile Include="Entity\EmployeeService.cs" />
+    <Compile Include="Interface\IClearanceService.cs" />
+    <Compile Include="Interface\IEmployeeService.cs" />
+    <Compile Include="Interface\ILoginService.cs" />
+    <Compile Include="Entity\LoginService.cs" />
+    <Compile Include="Entity\PasswordService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Interface\IVacationService.cs" />
+    <Compile Include="Entity\VacationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">

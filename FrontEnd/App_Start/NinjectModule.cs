@@ -4,11 +4,8 @@ using Infraestrutura;
 using Infraestrutura.Repositorios;
 using Ninject.Modules;
 using Ninject.Web.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using TCCPontoEletronico.AppService.Employee;
+using TCCPontoEletronico.AppService.Entity;
+using TCCPontoEletronico.AppService.Interface;
 
 namespace FrontEnd.App_Start
 {
@@ -33,6 +30,10 @@ namespace FrontEnd.App_Start
             //Servicos
             Bind<IPontoEletronicoService>().To<PontoEletronicoService>();
             Bind<IEmployeeService>().To<EmployeeService>();
+            Bind<ILoginService>().To<LoginService>();
+            Bind<IVacationService>().To<VacationService>();
+            Bind<IClearanceService>().To<ClearanceService>();
+
         }
     }
 }

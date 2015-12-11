@@ -1,5 +1,5 @@
 ﻿
-namespace TCCPontoEletronico.AppService.Email
+namespace TCCPontoEletronico.AppService.Entity
 {
     public static class EmailService
     {
