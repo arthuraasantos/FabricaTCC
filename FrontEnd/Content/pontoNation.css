@@ -20,3 +20,7 @@ Padronizar classes próprias com o inínio .pN para mantermos um padrão de CSS
 .pn-index-employee-organization{
     font-weight: 100;
 }
+
+.pn-login-span-loader{
+	margin-right: 0;	
+}

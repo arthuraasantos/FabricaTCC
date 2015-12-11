@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FrontEnd.Models
 {
-    public class JsonResponse
+    public abstract class JsonResponse
     {
         public JsonResponse()
         {

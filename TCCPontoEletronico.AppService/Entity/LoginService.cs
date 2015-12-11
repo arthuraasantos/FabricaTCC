@@ -4,9 +4,9 @@ using Dominio.Repository;
 using Infraestrutura;
 using Infraestrutura.Repositorios;
 using SeedWork.Tools;
-using TCCPontoEletronico.AppService.Email;
+using TCCPontoEletronico.AppService.Interface;
 
-namespace TCCPontoEletronico.AppService.Password
+namespace TCCPontoEletronico.AppService.Entity
 {
     public class LoginService : ILoginService
     {

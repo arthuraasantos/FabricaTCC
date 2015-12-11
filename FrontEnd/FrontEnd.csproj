@@ -132,6 +132,7 @@
     <Compile Include="Controllers\HorarioDeExpedienteController.cs" />
     <Compile Include="Models\Conversores\HorarioDeExpedienteToHorarioDeExpedienteEditar.cs" />
     <Compile Include="Models\Conversores\HorarioDeExpedienteToHorarioDeExpedienteNovo.cs" />
+    <Compile Include="Models\DefaultJsonResponse.cs" />
     <Compile Include="Models\HorarioDeExpedienteEditar.cs" />
     <Compile Include="Models\Conversores\FeriasToFeriasCriar.cs" />
     <Compile Include="Models\Conversores\FolgaToFolgaAprovar.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Models\FuncionarioNovo.cs" />
     <Compile Include="Models\HorarioDeExpedienteNovo.cs" />
     <Compile Include="Models\Mensagem.cs" />
+    <Compile Include="Models\NotificationJsonResponse.cs" />
     <Compile Include="Models\PontoMarcar.cs" />
     <Compile Include="Models\PerfilDeAcessoPadrao.cs" />
     <Compile Include="Models\PerfilDeAcessoNovo.cs" />
@@ -618,6 +620,7 @@
     <Content Include="bower_components\raphael\raphael.js" />
     <Content Include="Content\bootstrap-dialog.css" />
     <Content Include="Content\bootstrap-dialog.min.css" />
+    <Content Include="Content\bootstrap-switch.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="bower_components\dist\css\sb-admin-2.css" />
@@ -639,6 +642,7 @@
     <Content Include="img\PontoEletronico.jpg" />
     <Content Include="Scripts\bootstrap-dialog.js" />
     <Content Include="Scripts\bootstrap-dialog.min.js" />
+    <Content Include="Scripts\bootstrap-switch.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="bower_components\bootstrap-social\.bower.json" />
@@ -959,6 +963,7 @@
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery.maskedinput.js" />
     <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
