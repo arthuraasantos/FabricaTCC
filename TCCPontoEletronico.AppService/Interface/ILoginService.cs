@@ -1,7 +1,7 @@
 ﻿
 using Dominio.Model;
 
-namespace TCCPontoEletronico.AppService.Password
+namespace TCCPontoEletronico.AppService.Interface
 {
     public interface ILoginService
     {

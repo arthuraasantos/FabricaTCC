@@ -1,6 +1,6 @@
 ﻿
 
-namespace TCCPontoEletronico.AppService.Password
+namespace TCCPontoEletronico.AppService.Entity
 {
     public static class PasswordService
     {

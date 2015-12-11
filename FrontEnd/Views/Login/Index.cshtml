@@ -1,9 +1,7 @@
-﻿<script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
+﻿
 <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet" />
-<script src="~/Scripts/bootstrap-dialog.min.js"></script>
-<script src="~/Scripts/Mensagens.js"></script>
-<script src="~/Scripts/Login/login.js"></script>
+<link href="~/Content/Login/login.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-switch.css" rel="stylesheet" />
 
 <div class="container">
     <img src="http://bit.ly/1Th2Ryi" class="col-lg-4 col-lg-offset-4 img-responsive" style="text-align:center; height:240px; width:310px;">
@@ -13,12 +11,39 @@
             <input type="email" name="Email" class="form-control" placeholder="Email" />
             <br />
             <input type="password" name="Password" class="form-control" placeholder="Senha" required />
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" id="remember" name="Remember" checked> Manter Logado
-                </label>
+            <br />
+            <label>Manter Logado? </label>&nbsp;&nbsp;
+            
+            <input class="form-control" type="checkbox" id="remember" name="Remember" checked> 
+            
+             <div style="float:left;">
+                <br />
+                <button id ="btnlogin" type="button" class="btn btn-outline btn-success button-control" value="Entrar" style="float:left;">
+                Entrar
+                <div class="pn-login-span-loader" style="width:30px; float:right;">
+                    <img class="pn-login-loader" src="~/img/ajax-loader-default.gif" />
+                </div>
+                </button>
             </div>
-            <input id ="btnlogin" type="button" class="btn btn-outline btn-success form-control" value="Entrar"/>
         </form>
     </div>
 </div>
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/bootstrap-switch.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/bootstrap-dialog.min.js"></script>
+<script src="~/Scripts/Mensagens.js"></script>
+<script src="~/Scripts/Login/login.js"></script>
+<script>
+    $(function(argument) {
+        var options = { size: "small"};
+      $('[type="checkbox"]').bootstrapSwitch();
+    })
+</script>
+<script>
+        $(document).ready(function(){
+            $(".pn-login-loader").hide();
+        });
+</script>   
+
