@@ -16,5 +16,6 @@ namespace TCCPontoEletronico.AppService.Interface
         Funcionario GetEmployeeLogged();
         int GetCountEmployee();
         
+        
     }
 }
