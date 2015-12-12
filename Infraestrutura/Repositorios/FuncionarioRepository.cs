@@ -12,17 +12,17 @@ namespace Infraestrutura.Repositorios
 {
     public class FuncionarioRepository : RepositoryBase<Funcionario>, IFuncionarioRepository
     {
-        public MyContext Contexto { get; set; }
+        public readonly MyContext Context;
         public FuncionarioRepository(MyContext context) : base(context)
         {
-            Contexto = context;
+            Context = context;
         }
 
         public Funcionario PesquisaParaLogin(string email, string senha)
         {
             try
             {
-                return Contexto.Set<Funcionario>().Where(f => f.Email.Equals(email) && f.Senha.Equals(senha)).SingleOrDefault();
+                return Context.Set<Funcionario>().Where(f => f.Email.Equals(email) && f.Senha.Equals(senha)).SingleOrDefault();
             }
             catch (Exception)
             {
@@ -35,7 +35,7 @@ namespace Infraestrutura.Repositorios
         {
             try
             {
-                return Contexto.Set<Funcionario>().Where(f => f.Email.Equals(email)).SingleOrDefault();
+                return Context.Set<Funcionario>().Where(f => f.Email.Equals(email)).SingleOrDefault();
             }
             catch (Exception)
             {

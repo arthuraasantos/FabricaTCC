@@ -1,19 +1,15 @@
 ﻿using Dominio.Model;
 using Dominio.Repository;
-using Dominio.Services;
 using FrontEnd.Models;
-using FrontEnd.Models.Conversores;
 using Infraestrutura;
 using Infraestrutura.Repositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Seedwork.Entity;
 using Seedwork.Const;
-using System.Web.UI;
 using SeedWork.Tools;
+using TCCPontoEletronico.AppService.Interface;
 
 namespace FrontEnd.Models
 {

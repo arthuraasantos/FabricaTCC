@@ -1,23 +1,21 @@
 ﻿using Dominio.Model;
 using Dominio.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Seedwork;
-using Seedwork.Const;
 using System.Globalization;
+using TCCPontoEletronico.AppService.Interface;
 
-namespace Dominio.Services
+namespace TCCPontoEletronico.AppService.Entity
 {
     public class PontoEletronicoService : IPontoEletronicoService
     {
         private string FormatoHora = "HH:mm";
-        private IPontoRepository PontoRepository { get; set; }
-        public PontoEletronicoService(IPontoRepository pontoRepository)
+        private readonly IPontoRepository PointRepository;
+        
+
+        public PontoEletronicoService(IPontoRepository pointRepository)
         {
-            PontoRepository = pontoRepository;
+            PointRepository = pointRepository;
         }
         public void EfetuarMarcacaoDePonto(Funcionario funcionario)
         {
@@ -34,8 +32,8 @@ namespace Dominio.Services
                Contabilizar = true
            };
 
-            PontoRepository.Salvar(novoPonto);
-            PontoRepository.Executar();
+            PointRepository.Salvar(novoPonto);
+            PointRepository.Executar();
         }
 
         public TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionario(Funcionario funcionario, DateTime diaInicio, DateTime diaFinal, Boolean descontarHoras = true)
@@ -47,7 +45,7 @@ namespace Dominio.Services
                 _horaExpediente = funcionario.HorarioDeExpediente.NumeroHorasPorDia;
             }
 
-            var _marcacoesDoDia = PontoRepository.
+            var _marcacoesDoDia = PointRepository.
                                     Listar().
                                     ToList().
                                     Where(p => p.Funcionario.Id == funcionario.Id).
@@ -89,7 +87,7 @@ namespace Dominio.Services
 
             string hora = string.Empty;
             string separador = " - ";
-            var marcacoesDoDia = PontoRepository.
+            var marcacoesDoDia = PointRepository.
                                     Listar().
                                     ToList().
                                     Where(p => p.DataValida.Date == dia.Date).
@@ -115,3 +113,4 @@ namespace Dominio.Services
         }
     }
 }
+
