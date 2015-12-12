@@ -721,7 +721,7 @@
     $.fn.bootstrapSwitch.Constructor = BootstrapSwitch;
     return $.fn.bootstrapSwitch.defaults = {
       state: false,
-      size: "small",
+      size: "mini",
       animate: true,
       disabled: false,
       readonly: false,
