@@ -1,11 +1,7 @@
 ﻿using Dominio.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Dominio.Services
+namespace TCCPontoEletronico.AppService.Interface
 {
     public interface IPontoEletronicoService
     {        
@@ -16,6 +12,5 @@ namespace Dominio.Services
         TimeSpan QuantidadeDeHorasTrabalhadasPorFuncionarioPorDia(Funcionario funcionario, DateTime dia);
 
         string HorasBatidasPorDiaPorFuncionario(Funcionario funcionario, DateTime dia);
-         
     }
 }

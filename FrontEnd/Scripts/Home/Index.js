@@ -11,6 +11,7 @@ function loadServices(){
     loadEmployeeLoggedWorkHour();
     loadEmployeeHitHourForDay();
     loadEmployeeNotificationWarning();
+    loadCountPendingSolicitation();
 }
 
 function loadEmailLogged(){
@@ -137,6 +138,20 @@ function loadEmployeeNotificationWarning(){
 			});
 }
 
+function loadCountPendingSolicitation(){
+   $.ajax({
+            url: "/Home/GetCountPendingHours",
+            type: "GET",
+            context: jQuery('#resultado'),
+            async: true
+			}).success(function(response){
+			    $(".pn-index-solicitation-hour-pending").text(response.Message);
+			    $(".pn-index-solicitation-hour-pending-loader").hide();
+			}).error(function(response){
+				ShowDanger(response.Messages);
+				// parar load
+			});	
+}
 
 function showLoaders(){
 	$(".pn-index-employee-email-loader").show();									// Loading do email do funcionário logado
@@ -146,7 +161,7 @@ function showLoaders(){
     $(".pn-index-employee-workhours-loader").show();						        // Loading da quantidade de horas trabalhadas do funcionário logado
     $(".pn-index-employee-hithour-loader").show();						       		// Loading da quantidade batidas do funcionário logado no dia
 	$(".pn-index-employee-notification-warning-loader").show();						// Loading da avisos para o funcionário    
-
+	$(".pn-index-solicitation-hour-pending-loader").show();						    // Loading da quantidade de horas pendentes    
 
 }
 
