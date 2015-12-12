@@ -1,4 +1,4 @@
-[Subida de versão Azure - 12/12/2015]
+[Subida de versão Azure - 12/12/2015 - Arthur Augusto]
 - Retirados os ViewBags da tela de Home/Index
 - Alteração default bootstrap switch para mini
 - Carregamento assíncrono na tela de início para Nome de Funcionário 
