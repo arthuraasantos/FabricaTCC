@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using Infraestrutura;
 using System.Linq;
-using Dominio.Services;
 using System;
 using Dominio.Repository;
 using Dominio.Model;
@@ -17,29 +16,32 @@ namespace FrontEnd.Models
 
         private MyContext Context { get; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
-        private IPontoEletronicoService PontoService { get; set; }
+        
         private IPontoRepository PontoRepository { get; set; }
         private IFolgaRepository FolgaRepository { get; set; }
         private IFeriasRepository FeriasRepository { get; set; }
 
-        private IEmployeeService EmployeeService { get; }
-        private IVacationService VacationService { get;}
-        private IClearanceService ClearanceService { get; }
+        private readonly IEmployeeService EmployeeService;
+        private readonly IVacationService VacationService;
+        private readonly IClearanceService ClearanceService;
+        private readonly IPontoEletronicoService PointService;
+        private readonly ISolicitationService SolicitationService;
 
 
 
-        public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pontoService, IPontoRepository pontoRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository,
-                      IEmployeeService employeeService, IClearanceService clearanceService, IVacationService vacationService)
+        public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pointService, IPontoRepository pontoRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository,
+                      IEmployeeService employeeService, IClearanceService clearanceService, IVacationService vacationService, ISolicitationService solicitationService)
         {
             PontoRepository = pontoRepository;
             FuncionarioRepository = funcionarioRepository;
-            PontoService = pontoService;
+            PointService = pointService;
             Context = context;
             FolgaRepository = folgaRepository;
             FeriasRepository = feriasRepository;
             EmployeeService = employeeService;
             ClearanceService = clearanceService;
             VacationService = vacationService;
+            SolicitationService = solicitationService;
         }
 
         public ActionResult Index()
@@ -50,7 +52,7 @@ namespace FrontEnd.Models
                 {
                     if (EmployeeService.GetAccessProfile() == PerfilAcesso.Gerente)
                     {
-                        ViewBag.QtdePendentesHoras =  Context.Set<Solicitacao>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
+                        //ViewBag.QtdePendentesHoras =  Context.Set<Solicitacao>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
                         ViewBag.QtdePendentesFolgas = Context.Set<Folga>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
                         ViewBag.QtdePendentesFerias = Context.Set<Ferias>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
 
@@ -93,7 +95,7 @@ namespace FrontEnd.Models
             }
             else
             {
-                PontoService.EfetuarMarcacaoDePonto(funcionario);
+                PointService.EfetuarMarcacaoDePonto(funcionario);
                 TempData["Mensagem"] = "Ponto marcado com sucesso.";
             }
  
@@ -184,7 +186,7 @@ namespace FrontEnd.Models
                 DateTime PrimeiroDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 DateTime UltimoDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
                 response.Message =
-                    PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(EmployeeService.GetEmployeeLogged(), PrimeiroDiaDoMes, UltimoDiaDoMes).ToString();
+                    PointService.QuantidadeDeHorasTrabalhadasPorFuncionario(EmployeeService.GetEmployeeLogged(), PrimeiroDiaDoMes, UltimoDiaDoMes).ToString();
                 response.IsValid = true;
                 response.TypeResponse = TypeResponse.Success;
             }
@@ -205,7 +207,7 @@ namespace FrontEnd.Models
             var response = new DefaultJsonResponse();
             try
             {
-                response.Message = PontoService.HorasBatidasPorDiaPorFuncionario(EmployeeService.GetEmployeeLogged(), DateTime.Now);
+                response.Message = PointService.HorasBatidasPorDiaPorFuncionario(EmployeeService.GetEmployeeLogged(), DateTime.Now);
                 response.IsValid = true;
                 response.TypeResponse = TypeResponse.Success;
             }
@@ -253,5 +255,26 @@ namespace FrontEnd.Models
             return Json(response, JsonRequestBehavior.AllowGet);
             
         }
+
+        public JsonResult GetCountPendingHours()
+        {
+            var response = new DefaultJsonResponse();
+            try
+            {
+                response.Message = SolicitationService.GetCountPendingHours(EmployeeService.GetEmployeeLogged().Empresa.Id).ToString();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar a quantidade de horas pendentes.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }

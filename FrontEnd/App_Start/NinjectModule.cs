@@ -1,5 +1,4 @@
 ﻿using Dominio.Repository;
-using Dominio.Services;
 using Infraestrutura;
 using Infraestrutura.Repositorios;
 using Ninject.Modules;
@@ -26,13 +25,14 @@ namespace FrontEnd.App_Start
             Bind<IFeriasRepository>().To<FeriasRepository>();
             Bind<IFolgaRepository>().To<FolgaRepository>();
             Bind<IHorarioDeExpedienteRepository>().To<HorarioDeExpedienteRepository>();
-            
+
             //Servicos
             Bind<IPontoEletronicoService>().To<PontoEletronicoService>();
             Bind<IEmployeeService>().To<EmployeeService>();
             Bind<ILoginService>().To<LoginService>();
             Bind<IVacationService>().To<VacationService>();
             Bind<IClearanceService>().To<ClearanceService>();
+            Bind<ISolicitationService>().To<SolicitationService>();
 
         }
     }

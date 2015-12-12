@@ -15,15 +15,15 @@ namespace FrontEnd.Models
     public class LoginController : Controller
     {
 
-        public MyContext Contexto { get; set; }
+        public readonly MyContext Contexto;
         public FuncionarioRepository EmployeeRepository { get; set; }
 
-        public ILoginService LoginService { get; }
+        public readonly ILoginService LoginService ;
 
 
         public LoginController(ILoginService loginService, MyContext context, FuncionarioRepository employeeRepository)
         {
-            Contexto = new MyContext();
+            Contexto = context;
             EmployeeRepository = employeeRepository;
             LoginService = loginService;
         }
@@ -101,7 +101,6 @@ namespace FrontEnd.Models
 
             }
 
-
         }
 
         public ActionResult Logout()
@@ -178,7 +177,7 @@ namespace FrontEnd.Models
                 //TODO implementar log de erro e enviar e-mail para nós 3(Arthur,Marlon e Charles)
                 response.IsValid = false;
                 response.TypeResponse = TypeResponse.Error;
-                response.Message = ex.Message;
+                response.Message = "Erro ao validar o login" + ex.Message;
             }
 
             return this.Json(response, JsonRequestBehavior.AllowGet);

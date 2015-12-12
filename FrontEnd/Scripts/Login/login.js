@@ -37,16 +37,13 @@ $(function () {
                 remember: $("input[type=checkbox][name=Remember]").val()
             },
             type: "POST",
-            async: false,
-            context: jQuery('#resultado'),
-                // erro ao logar
-            error: function(response){
-                    ShowDanger("Erro ao fazer o login. Mensagem: "+response.Message);
-                    document.getElementById("btnlogin").disabled = false;
-                    $(".pn-login-loader").hide();
-            },
+            context: jQuery('#resultado')
     }).success(function(response){
         window.location.href = "Home/Index";
+    }).error(function(response){
+                    ShowDanger(response.Message);
+                    document.getElementById("btnlogin").disabled = false;
+                    $(".pn-login-loader").hide();
     });
 }
 
