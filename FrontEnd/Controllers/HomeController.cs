@@ -53,8 +53,9 @@ namespace FrontEnd.Models
                     if (EmployeeService.GetAccessProfile() == PerfilAcesso.Gerente)
                     {
                         //ViewBag.QtdePendentesHoras =  Context.Set<Solicitacao>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
-                        ViewBag.QtdePendentesFolgas = Context.Set<Folga>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
-                        ViewBag.QtdePendentesFerias = Context.Set<Ferias>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
+                        //ViewBag.QtdePendentesFolgas = Context.Set<Folga>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
+
+                        //ViewBag.QtdePendentesFerias = Context.Set<Ferias>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
 
                         ViewBag.QtdeRespostasHoras = Context.Set<Solicitacao>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
                         ViewBag.QtdeRespostasFolgas = Context.Set<Folga>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
@@ -274,6 +275,44 @@ namespace FrontEnd.Models
 
             return Json(response, JsonRequestBehavior.AllowGet);
 
+        }
+
+        public JsonResult GetCountPendingClearance()
+        {
+            var response = new DefaultJsonResponse();
+            try
+            {
+                response.Message = ClearanceService.GetCountPendingClearance().ToString();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar a quantidade de folgas pendentes.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCountPendingVacation()
+        {
+            var response = new DefaultJsonResponse();
+            try
+            {
+                response.Message = VacationService.GetCountVacationPending().ToString();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar a quantidade de férias pendentes.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
 
     }

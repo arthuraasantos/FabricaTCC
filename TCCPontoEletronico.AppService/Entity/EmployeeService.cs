@@ -37,5 +37,8 @@ namespace TCCPontoEletronico.AppService.Entity
                         return PerfilAcesso.Funcionario;
                 }
         }
+
+        public Guid GetOrganizationIdLogged() => _Employee.Empresa.Id;
+        
     }
 }

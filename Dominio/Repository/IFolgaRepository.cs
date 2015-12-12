@@ -10,6 +10,7 @@ namespace Dominio.Repository
 {
     public interface IFolgaRepository: IRepository<Folga>
     {
-
+        int GetCountPendingClearance(Guid organizationId);
+        
     }
 }
