@@ -26,11 +26,12 @@ namespace FrontEnd.Models
         private readonly IClearanceService ClearanceService;
         private readonly IPontoEletronicoService PointService;
         private readonly ISolicitationService SolicitationService;
+        private readonly IOrganizationService OrganizationService;
 
 
 
         public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pointService, IPontoRepository pontoRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository,
-                      IEmployeeService employeeService, IClearanceService clearanceService, IVacationService vacationService, ISolicitationService solicitationService)
+                      IEmployeeService employeeService, IClearanceService clearanceService, IVacationService vacationService, ISolicitationService solicitationService, IOrganizationService organizationService)
         {
             PontoRepository = pontoRepository;
             FuncionarioRepository = funcionarioRepository;
@@ -42,49 +43,15 @@ namespace FrontEnd.Models
             ClearanceService = clearanceService;
             VacationService = vacationService;
             SolicitationService = solicitationService;
+            OrganizationService = organizationService;
         }
 
         public ActionResult Index()
         {
             if (EmployeeService.GetEmployeeLogged() != null)
-            {
-                if (EmployeeService.GetAccessProfile() != PerfilAcesso.Administrador)
-                {
-                    if (EmployeeService.GetAccessProfile() == PerfilAcesso.Gerente)
-                    {
-                        //ViewBag.QtdePendentesHoras =  Context.Set<Solicitacao>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
-                        //ViewBag.QtdePendentesFolgas = Context.Set<Folga>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
-
-                        //ViewBag.QtdePendentesFerias = Context.Set<Ferias>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
-
-                        ViewBag.QtdeRespostasHoras = Context.Set<Solicitacao>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
-                        ViewBag.QtdeRespostasFolgas = Context.Set<Folga>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
-                        ViewBag.QtdeRespostasFerias = Context.Set<Ferias>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
-                    }
-                    else
-                    {
-                        ViewBag.QtdePendentesHoras = Context.Set<Solicitacao>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Id == Sessao.FuncionarioLogado.Id).Count();
-                        ViewBag.QtdePendentesFolgas = Context.Set<Folga>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Id == Sessao.FuncionarioLogado.Id).Count();
-                        ViewBag.QtdePendentesFerias = Context.Set<Ferias>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Id == Sessao.FuncionarioLogado.Id).Count();
-
-                        ViewBag.QtdeRespostasHoras = Context.Set<Solicitacao>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Id == Sessao.FuncionarioLogado.Id).Count();
-                        ViewBag.QtdeRespostasFolgas = Context.Set<Folga>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Id == Sessao.FuncionarioLogado.Id).Count();
-                        ViewBag.QtdeRespostasFerias = Context.Set<Ferias>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Id == Sessao.FuncionarioLogado.Id).Count();
-                    }
-                }
-                else
-                {
-                    ViewBag.QtdeEmpresas = Context.Set<Empresa>().Count();
-                    ViewBag.QtdeFuncionario = Context.Set<Funcionario>().Count();
-                }
-
                 return View();
-
-            }
             else
-            {
                 return RedirectToAction("Index", "Login");
-            }
         }
 
         public ActionResult EfetuarMarcacaoDoPonto(PontoMarcar marcarPonto)
@@ -315,5 +282,99 @@ namespace FrontEnd.Models
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetCountResponsePendingSolicitation()
+        {
+            var response = new DefaultJsonResponse();
+            try
+            {
+                response.Message = SolicitationService.GetCountResponsePendingHours().ToString();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar a quantidade de respostas de horas pendentes.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCountResponsePendingVacation()
+        {
+            var response = new DefaultJsonResponse();
+            try
+            {
+                response.Message = VacationService.GetCountResponsePendingVacation().ToString();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar a quantidade de respostas de férias pendentes.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCountResponsePendingClearance()
+        {
+            var response = new DefaultJsonResponse();
+            try
+            {
+                response.Message = ClearanceService.GetCountResponsePendingClearance().ToString();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar a quantidade de respostas de folgas pendentes.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCountOrganizations()
+        {
+            var response = new DefaultJsonResponse();
+            try
+            {
+                response.Message = OrganizationService.CountOrganizations().ToString();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar a quantidade de empresas cadastradas.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCountEmployee()
+        {
+            var response = new DefaultJsonResponse();
+            try
+            {
+                response.Message = EmployeeService.GetCountEmployee().ToString();
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+            }
+            catch (Exception)
+            {
+                response.Message = "Ocorreu um erro ao buscar a quantidade de funcionários cadastrados.";
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
     }
 }

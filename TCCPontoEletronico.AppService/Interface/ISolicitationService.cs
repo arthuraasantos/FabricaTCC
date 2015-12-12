@@ -4,6 +4,7 @@ namespace TCCPontoEletronico.AppService.Interface
 {
     public interface ISolicitationService
     {
-        int GetCountPendingHours(Guid organizationLogged);
+        int GetCountPendingHours(Guid organizationId);
+        int GetCountResponsePendingHours();
     }
 }

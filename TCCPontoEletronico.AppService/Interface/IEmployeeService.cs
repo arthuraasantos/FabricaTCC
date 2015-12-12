@@ -14,7 +14,7 @@ namespace TCCPontoEletronico.AppService.Interface
         PerfilAcesso GetAccessProfile();
         string GetAccessProfileDescription();
         Funcionario GetEmployeeLogged();
-        
+        int GetCountEmployee();
         
     }
 }

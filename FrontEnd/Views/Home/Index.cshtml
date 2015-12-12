@@ -132,7 +132,11 @@ else
                                     <span class="pull-left">
                                         Ver respostas das solicitações
                                         <span class="badge">
-                                            @ViewBag.QtdeRespostasHoras</span>
+                                            <span>
+                                                <span class="pn-index-response-solicitation-hours-pending"></span>
+                                                <img class="pn-index-response-solicitation-hours-pending-loader" src="~/img/ajax-loader-default.gif" />
+                                            </span>
+                                        </span>
                                     </span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
@@ -171,7 +175,12 @@ else
                                 <div class="panel-footer">
                                     <span class="pull-left">
                                         Ver respostas das solicitações
-                                        <span class="badge">@ViewBag.QtdeRespostasFolgas</span>
+                                        <span class="badge">
+                                            <span>
+                                                <span class="pn-index-response-solicitation-clearance-pending"></span>
+                                                <img class="pn-index-response-solicitation-clearance-pending-loader" src="~/img/ajax-loader-default.gif" />
+                                            </span>
+                                        </span>
                                     </span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
@@ -210,7 +219,12 @@ else
                                 <div class="panel-footer">
                                     <span class="pull-left">
                                         Ver respostas das solicitações 
-                                        <span class="badge">@ViewBag.QtdeRespostasFerias</span>
+                                        <span class="badge">
+                                            <span>
+                                                <span class="pn-index-response-solicitation-vacation-pending"></span> 
+                                                <img class="pn-index-response-solicitation-vacation-pending-loader" src="~/img/ajax-loader-default.gif" />
+                                            </span>
+                                        </span>
                                     </span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
@@ -224,18 +238,33 @@ else
         <div class="col-md-1">
         </div>
     </div>
+    </div>
 </div>
+
 <div class="pn-index-adm" style="display: none">
     <h2 class="page-header">Página Inicial</h2>
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-body">
-                <div><strong>Quantidade total de Empresas:</strong> @ViewBag.QtdeEmpresas</div>
-                <div><strong>Quantidade total de Funcionários:</strong> @ViewBag.QtdeFuncionario</div>
+                <div>
+                    <strong>Quantidade total de Empresas:</strong> 
+                    <span>
+                        <span class="pn-index-organization-count"></span> 
+                        <img class="pn-index-organization-count-loader" src="~/img/ajax-loader-default.gif" />
+                    </span>
+                </div>
+                <div>
+                    <strong>Quantidade total de Funcionários:</strong>
+                    <span>
+                        <span class="pn-index-employee-count"></span> 
+                        <img class="pn-index-employee-count-loader" src="~/img/ajax-loader-default.gif" />
+                    </span>                     
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 

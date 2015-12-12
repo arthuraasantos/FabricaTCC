@@ -17,9 +17,10 @@ namespace Infraestrutura.Repositorios
             Context = context;
         }
 
-        public int GetCountPendingHours(Guid organizationLogged)
-        {
-            return Context.Set<Solicitacao>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == organizationLogged).Count();
-        }
+        public int GetCountPendingHours(Guid organizationId) =>
+            Context.Set<Solicitacao>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == organizationId).Count();
+
+        public int GetCountResponsePendingHours(Guid organizationId) =>
+            Context.Set<Solicitacao>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == organizationId).Count();
     }
 }
