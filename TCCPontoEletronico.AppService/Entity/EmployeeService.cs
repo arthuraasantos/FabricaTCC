@@ -1,5 +1,6 @@
 ﻿
 using Dominio.Model;
+using Dominio.Repository;
 using Seedwork.Const;
 using System;
 using TCCPontoEletronico.AppService.Interface;
@@ -8,11 +9,13 @@ namespace TCCPontoEletronico.AppService.Entity
 {
     public class EmployeeService : IEmployeeService
     {
-        private Funcionario _Employee { get; set; }
+        private readonly Funcionario _Employee;
+        private readonly IFuncionarioRepository FuncionarioRepository;
 
-        public EmployeeService()
+        public EmployeeService(IFuncionarioRepository funcionarioRepository)
         {
             _Employee = (Funcionario)System.Web.HttpContext.Current.Session["Funcionario"];
+            FuncionarioRepository = funcionarioRepository;
         }
 
         public string GetEmailEmployeeLogged() => _Employee.Email;
@@ -39,6 +42,8 @@ namespace TCCPontoEletronico.AppService.Entity
         }
 
         public Guid GetOrganizationIdLogged() => _Employee.Empresa.Id;
+
+        public int GetCountEmployee() => FuncionarioRepository.GetCount();
         
     }
 }

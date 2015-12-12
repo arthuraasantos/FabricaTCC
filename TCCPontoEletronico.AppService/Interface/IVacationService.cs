@@ -9,5 +9,7 @@ namespace TCCPontoEletronico.AppService.Interface
         Ferias GetVacationNotificationWarning(DateTime now, Funcionario employee);
 
         int GetCountVacationPending();
+        int GetCountResponsePendingVacation();
+
     }
 }

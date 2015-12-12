@@ -33,7 +33,7 @@ namespace FrontEnd.App_Start
             Bind<IVacationService>().To<VacationService>();
             Bind<IClearanceService>().To<ClearanceService>();
             Bind<ISolicitationService>().To<SolicitationService>();
-
+            Bind<IOrganizationService>().To<OrganizationService>();
         }
     }
 }
