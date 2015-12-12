@@ -46,6 +46,7 @@
     <Compile Include="Entity\ClearanceService.cs" />
     <Compile Include="Entity\EmailService.cs" />
     <Compile Include="Entity\EmployeeService.cs" />
+    <Compile Include="Entity\OrganizationService.cs" />
     <Compile Include="Entity\PontoEletronicoService.cs" />
     <Compile Include="Entity\SolicitationService.cs" />
     <Compile Include="Interface\IClearanceService.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Interface\ILoginService.cs" />
     <Compile Include="Entity\LoginService.cs" />
     <Compile Include="Entity\PasswordService.cs" />
+    <Compile Include="Interface\IOrganizationService.cs" />
     <Compile Include="Interface\IPontoEletronicoService.cs" />
     <Compile Include="Interface\ISolicitationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

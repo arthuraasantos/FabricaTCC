@@ -24,8 +24,10 @@ namespace TCCPontoEletronico.AppService.Entity
                         .Where(p => p.Data == now && p.Funcionario.Id == employee.Id && p.Resposta == RespostaSolicitacao.Aprovado)
                         .ToList()
                         .FirstOrDefault();
-        
 
         public int GetCountPendingClearance() => ClearanceRepository.GetCountPendingClearance(EmployeService.GetOrganizationIdLogged());
+
+        public int GetCountResponsePendingClearance() => ClearanceRepository.GetCountResponsePendingClearance(EmployeService.GetOrganizationIdLogged());
+
     }
 }

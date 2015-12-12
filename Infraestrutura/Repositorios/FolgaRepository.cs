@@ -18,9 +18,11 @@ namespace Infraestrutura.Repositorios
             Context = context;
         }
 
-        public int GetCountPendingClearance(Guid organizationId)
-        {
-            return Context.Set<Folga>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == organizationId).Count();
-        }
+        public int GetCountPendingClearance(Guid organizationId) => 
+            Context.Set<Folga>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == organizationId).Count();
+
+        public int GetCountResponsePendingClearance(Guid organizationId) =>
+            Context.Set<Folga>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == organizationId).Count();
+
     }
 }

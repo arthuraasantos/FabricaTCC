@@ -18,6 +18,9 @@ namespace Infraestrutura.Repositorios
 
         public int GetCountPendingVacation(Guid organizationId) =>
             Context.Set<Ferias>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == organizationId).Count();
-        
+
+        public int GetCountResponsePendingVacation(Guid organizationId) =>
+            Context.Set<Ferias>().Where(p => p.Resposta != RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == organizationId).Count();
+            
     }
 }

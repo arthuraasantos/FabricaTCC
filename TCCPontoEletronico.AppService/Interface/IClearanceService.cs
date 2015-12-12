@@ -10,5 +10,7 @@ namespace TCCPontoEletronico.AppService.Interface
         Folga GetClearanceNotificationWarning(DateTime now, Funcionario employee);
 
         int GetCountPendingClearance();
+        int GetCountResponsePendingClearance();
+
     }
 }

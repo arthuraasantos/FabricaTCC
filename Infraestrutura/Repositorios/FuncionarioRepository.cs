@@ -54,5 +54,7 @@ namespace Infraestrutura.Repositorios
             return Lista;
         }
 
+        public int GetCount() => 
+            Context.Set<Funcionario>().Count();
     }
 }

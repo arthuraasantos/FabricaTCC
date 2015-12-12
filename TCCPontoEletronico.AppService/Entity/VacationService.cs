@@ -34,6 +34,7 @@ namespace TCCPontoEletronico.AppService.Entity
         }
 
         public int GetCountVacationPending() => VacationRepository.GetCountPendingVacation(EmployeeService.GetOrganizationIdLogged());
-      
+
+        public int GetCountResponsePendingVacation() => VacationRepository.GetCountResponsePendingVacation(EmployeeService.GetOrganizationIdLogged());
     }
 }
