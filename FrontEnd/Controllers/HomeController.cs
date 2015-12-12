@@ -15,7 +15,7 @@ namespace FrontEnd.Models
     public class HomeController : Controller
     {
 
-        private MyContext Context { get; set; }
+        private MyContext Context { get; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
         private IPontoEletronicoService PontoService { get; set; }
         private IPontoRepository PontoRepository { get; set; }
@@ -48,32 +48,9 @@ namespace FrontEnd.Models
             {
                 if (EmployeeService.GetAccessProfile() != PerfilAcesso.Administrador)
                 {
-                    //DateTime PrimeiroDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                    //DateTime UltimoDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
-                    //ViewBag.HorasTrabalhadas = PontoService.QuantidadeDeHorasTrabalhadasPorFuncionario(Sessao.FuncionarioLogado, PrimeiroDiaDoMes, UltimoDiaDoMes).ToString();
-                    //ViewBag.HorariosMarcadosHoje = PontoService.HorasBatidasPorDiaPorFuncionario(Sessao.FuncionarioLogado, DateTime.Now);
-
-
-                    //DateTime Hoje = DateTime.Now;
-                    //ViewBag.Aviso = "";
-                    //var FeriasFuncionario = FeriasRepository.Listar().Where(p => p.Inicio <= Hoje.Date && p.Fim >= Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
-                    //if (FeriasFuncionario != null)
-                    //{
-                    //    ViewBag.Aviso = "Este funcionário está em período de férias entre " + FeriasFuncionario.Inicio.Date.ToString("dd/MM/yyyy") + " e " + FeriasFuncionario.Fim.Date.ToString("dd/MM/yyyy");
-                    //}
-                    //else
-                    //{
-                    //    var FolgasFuncionario = FolgaRepository.Listar().Where(p => p.Data == Hoje.Date && p.Funcionario.Id == Sessao.FuncionarioLogado.Id && p.Resposta == RespostaSolicitacao.Aprovado).ToList().FirstOrDefault();
-                    //    if (FolgasFuncionario != null)
-                    //    {
-                    //        ViewBag.Aviso = ViewBag.Aviso + "Este funcionário está cumprindo folga hoje";
-                    //    }
-                    //}
-
-
                     if (EmployeeService.GetAccessProfile() == PerfilAcesso.Gerente)
                     {
-                        ViewBag.QtdePendentesHoras = Context.Set<Solicitacao>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
+                        ViewBag.QtdePendentesHoras =  Context.Set<Solicitacao>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
                         ViewBag.QtdePendentesFolgas = Context.Set<Folga>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
                         ViewBag.QtdePendentesFerias = Context.Set<Ferias>().Where(p => p.Resposta == RespostaSolicitacao.Nenhuma && p.Funcionario.Empresa.Id == Sessao.EmpresaLogada.Id).Count();
 
@@ -266,7 +243,7 @@ namespace FrontEnd.Models
                 response.IsValid = true;
                 response.TypeResponse = TypeResponse.Success;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 response.Message = "Ocorreu um erro os avisos do funcionário";
                 response.IsValid = false;

@@ -1,4 +1,4 @@
-
+- Alteração default bootstrap switch para mini
 - Carregamento assíncrono na tela de início para Nome de Funcionário 
 - Carregamento assíncrono na tela de início para Nome de Empresa 
 - Carregamento assíncrono na tela de início para Perfil de Acesso
