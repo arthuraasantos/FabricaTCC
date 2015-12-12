@@ -626,6 +626,8 @@
     <Content Include="bower_components\dist\css\sb-admin-2.css" />
     <Content Include="bower_components\dist\css\timeline.css" />
     <Content Include="bower_components\dist\js\sb-admin-2.js" />
+    <Content Include="Content\Home\index.css" />
+    <Content Include="Content\Login\login.css" />
     <Content Include="Content\pontoNation.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -637,9 +639,7 @@
     <Content Include="img\minLogo_black.png" />
     <Content Include="img\minLogo_gray.png" />
     <Content Include="img\minLogo_write.png" />
-    <Content Include="img\ponto.gif" />
     <Content Include="img\ponto.png" />
-    <Content Include="img\PontoEletronico.jpg" />
     <Content Include="Scripts\bootstrap-dialog.js" />
     <Content Include="Scripts\bootstrap-dialog.min.js" />
     <Content Include="Scripts\bootstrap-switch.js" />
