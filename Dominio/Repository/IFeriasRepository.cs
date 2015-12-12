@@ -10,5 +10,6 @@ namespace Dominio.Repository
 {
     public interface IFeriasRepository : IRepository<Ferias>
     {
+        int GetCountPendingVacation(Guid organizationId);
     }
 }

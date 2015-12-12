@@ -12,11 +12,9 @@ namespace TCCPontoEletronico.AppService.Entity
     public class VacationService : IVacationService
     {
         private MyContext Context { get; set; }
-        private IFuncionarioRepository FuncionarioRepository {get;}
-
-        private IFeriasRepository VacationRepository { get; }
-
-        private IEmployeeService EmployeeService { get; }
+        private readonly IFuncionarioRepository FuncionarioRepository;
+        private readonly IFeriasRepository VacationRepository;
+        private readonly IEmployeeService EmployeeService;
 
         public VacationService(MyContext context, IFuncionarioRepository employeeRepository, IFeriasRepository vacation, IEmployeeService employeeService)
         {
@@ -34,5 +32,8 @@ namespace TCCPontoEletronico.AppService.Entity
                     .ToList()
                     .FirstOrDefault();
         }
+
+        public int GetCountVacationPending() => VacationRepository.GetCountPendingVacation(EmployeeService.GetOrganizationIdLogged());
+      
     }
 }

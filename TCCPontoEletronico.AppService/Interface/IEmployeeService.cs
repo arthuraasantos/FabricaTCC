@@ -1,6 +1,7 @@
 ﻿
 using Dominio.Model;
 using Seedwork.Const;
+using System;
 
 namespace TCCPontoEletronico.AppService.Interface
 {
@@ -9,9 +10,11 @@ namespace TCCPontoEletronico.AppService.Interface
         string GetEmailEmployeeLogged();
         string GetNameEmployeeLogged();
         string GetOrganizationNameLogged();
+        Guid GetOrganizationIdLogged();
         PerfilAcesso GetAccessProfile();
         string GetAccessProfileDescription();
         Funcionario GetEmployeeLogged();
+        
         
     }
 }

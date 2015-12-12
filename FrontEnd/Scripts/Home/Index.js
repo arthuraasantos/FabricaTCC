@@ -3,7 +3,6 @@ function loadServices(){
 	// Iniciar loads "carregando..."
 	showLoaders();
 
-	// Buscar email de funcionário logado
 	loadEmailLogged();
 	loadAccessProfileLogged();
 	loadNameEmployeeLogged();
@@ -12,6 +11,8 @@ function loadServices(){
     loadEmployeeHitHourForDay();
     loadEmployeeNotificationWarning();
     loadCountPendingSolicitation();
+    loadCountPendingClearance();
+    loadCountPendingVacation();
 }
 
 function loadEmailLogged(){
@@ -26,7 +27,6 @@ function loadEmailLogged(){
 			    $(".pn-index-employee-email-loader").hide();
 			}).error(function(response){
 				ShowDanger(response.Message);
-				// parar load
 			});
 }
 
@@ -60,12 +60,10 @@ function loadNameEmployeeLogged(){
             context: jQuery('#resultado'),
             async: true
 			}).success(function(response){
-				// altera label
 			    $(".pn-index-employee-name").text(response.Message);
 			    $(".pn-index-employee-name-loader").hide();
 			}).error(function(response){
 				ShowDanger(response.Message);
-				// parar load
 			});
 }
 
@@ -80,7 +78,6 @@ function loadOrganizationNameEmployeeLogged(){
 			    $(".pn-index-employee-organization-loader").hide();
 			}).error(function(response){
 				ShowDanger(response.Message);
-				// parar load
 			});
 }
 
@@ -95,7 +92,6 @@ function loadEmployeeLoggedWorkHour(){
 			    $(".pn-index-employee-workhours-loader").hide();
 			}).error(function(response){
 				ShowDanger(response.Message);
-				// parar load
 			});
 }
 
@@ -106,7 +102,6 @@ function loadEmployeeHitHourForDay(){
             context: jQuery('#resultado'),
             async: true
 			}).success(function(response){
-				//response.Message = "chegou 1";
 			    $(".pn-index-employee-hithour").text(response.Message);
 			    $(".pn-index-employee-hithour-loader").hide();
 
@@ -115,7 +110,6 @@ function loadEmployeeHitHourForDay(){
 			    };
 			}).error(function(response){
 				ShowDanger(response.Message);
-				// parar load
 			});
 }
 
@@ -134,7 +128,6 @@ function loadEmployeeNotificationWarning(){
 			    };
 			}).error(function(response){
 				ShowDanger(response.Messages);
-				// parar load
 			});
 }
 
@@ -149,7 +142,34 @@ function loadCountPendingSolicitation(){
 			    $(".pn-index-solicitation-hour-pending-loader").hide();
 			}).error(function(response){
 				ShowDanger(response.Messages);
-				// parar load
+			});	
+}
+
+function loadCountPendingClearance(){
+   $.ajax({
+            url: "/Home/GetCountPendingClearance",
+            type: "GET",
+            context: jQuery('#resultado'),
+            async: true
+			}).success(function(response){
+			    $(".pn-index-solicitation-clearance-pending").text(response.Message);
+			    $(".pn-index-solicitation-clearance-pending-loader").hide();
+			}).error(function(response){
+				ShowDanger(response.Messages);
+			});	
+}
+
+function loadCountPendingVacation(){
+   $.ajax({
+            url: "/Home/GetCountPendingVacation",
+            type: "GET",
+            context: jQuery('#resultado'),
+            async: true
+			}).success(function(response){
+			    $(".pn-index-solicitation-vacation-pending").text(response.Message);
+			    $(".pn-index-solicitation-vacation-pending-loader").hide();
+			}).error(function(response){
+				ShowDanger(response.Messages);
 			});	
 }
 
@@ -162,6 +182,8 @@ function showLoaders(){
     $(".pn-index-employee-hithour-loader").show();						       		// Loading da quantidade batidas do funcionário logado no dia
 	$(".pn-index-employee-notification-warning-loader").show();						// Loading da avisos para o funcionário    
 	$(".pn-index-solicitation-hour-pending-loader").show();						    // Loading da quantidade de horas pendentes    
+	$(".pn-index-solicitation-clearance-pending-loader").show();					// Loading da quantidade de folgas pendentes    
+	$(".pn-index-solicitation-vacation-pending-loader").show();					    // Loading da quantidade de férias pendentes    
 
 }
 
