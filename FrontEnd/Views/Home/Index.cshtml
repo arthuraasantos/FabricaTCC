@@ -131,7 +131,8 @@ else
                                 <div class="panel-footer">
                                     <span class="pull-left">
                                         Ver respostas das solicitações
-                                        <span class="badge">@ViewBag.QtdeRespostasHoras</span>
+                                        <span class="badge">
+                                            @ViewBag.QtdeRespostasHoras</span>
                                     </span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
@@ -155,7 +156,12 @@ else
                                 <div class="panel-footer">
                                     <span class="pull-left">
                                         Ver solicitações pendentes
-                                        <span class="badge">@ViewBag.QtdePendentesFolgas</span>
+                                        <span class="badge">
+                                            <span>
+                                                <span class="pn-index-solicitation-hour-pending"></span> 
+                                                <img class="pn-index-solicitation-hour-pending-loader" src="~/img/ajax-loader-default.gif" />
+                                            </span>
+                                        </span>
                                     </span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
@@ -189,7 +195,12 @@ else
                                 <div class="panel-footer">
                                     <span class="pull-left">
                                         Ver solicitações pendentes
-                                        <span class="badge">@ViewBag.QtdePendentesFerias</span>
+                                        <span class="badge">
+                                            <span>
+                                                <span class="pn-index-solicitation-vacation-pending"></span> 
+                                                <img class="pn-index-solicitation-vacation-pending-loader" src="~/img/ajax-loader-default.gif" />
+                                            </span>
+                                        </span>
                                     </span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
