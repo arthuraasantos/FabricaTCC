@@ -1,3 +1,4 @@
+- Criação de teste unitário de serviço de e-mail
 [Subida de versão Azure - 12/12/2015 - Arthur Augusto]
 - Retirados os ViewBags da tela de Home/Index
 - Alteração default bootstrap switch para mini
