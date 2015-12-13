@@ -54,6 +54,13 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EmployeeTest.cs" />
+    <Compile Include="EmailServiceTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TCCPontoEletronico.AppService\TCCPontoEletronico.AppService.csproj">
+      <Project>{11dc1820-8a0d-464f-b567-4fbf344db286}</Project>
+      <Name>TCCPontoEletronico.AppService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
