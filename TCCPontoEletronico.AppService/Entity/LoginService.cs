@@ -1,10 +1,12 @@
 ﻿
+using System;
 using Dominio.Model;
 using Dominio.Repository;
 using Infraestrutura;
 using Infraestrutura.Repositorios;
 using SeedWork.Tools;
 using TCCPontoEletronico.AppService.Interface;
+using TCCPontoEletronico.AppService.Interface.DTOs;
 
 namespace TCCPontoEletronico.AppService.Entity
 {
@@ -13,10 +15,18 @@ namespace TCCPontoEletronico.AppService.Entity
         private MyContext Context { get; }
         private IFuncionarioRepository FuncionarioRepository { get; }
 
-        public LoginService()
+        private readonly IOrganizationService OrganizationService;
+        private readonly IEmployeeService EmployeeService;
+        private readonly IOfficeHoursService OfficeHoursService;
+
+
+        public LoginService(IOrganizationService organizationService, IEmployeeService employeeService, IOfficeHoursService officeHoursService)
         {
             Context = new MyContext();
             FuncionarioRepository = new FuncionarioRepository(Context);
+            OrganizationService = organizationService;
+            EmployeeService = employeeService;
+            OfficeHoursService = officeHoursService;
         }
         public string IsValid(string email, string password)
         {
@@ -46,6 +56,37 @@ namespace TCCPontoEletronico.AppService.Entity
         {
             return (Funcionario)System.Web.HttpContext.Current.Session["Funcionario"];
 
+        }
+
+        public void NewLogin(NewRegisterDTO newRegister)
+        {
+            using (MyContext newContext = new MyContext())
+            {
+                using (var transactionContext = newContext.Database.BeginTransaction())
+                    try
+                    {
+                        //Cria nova empresa 
+                        var organization = OrganizationService.CreateOrganization(newRegister.OrganizationName);
+
+                        // Criar novo horário de expediente
+                        var officeHour = OfficeHoursService.CreateForLogin(organization.Id);
+
+                        //Cria novo funcionário
+                        var newEmployee = EmployeeService.CreateEmployee(newRegister.EmployeeName, newRegister.EmployeeCpf, newRegister.EmployeeEmail, organization.Id, officeHour.Id);
+
+                        // Notifica CEOs
+                        EmailService.NotifyNewUserForCEOs();
+
+                        newContext.SaveChanges();
+                        transactionContext.Commit();
+                    }
+
+                    catch (Exception)
+                    {
+                        transactionContext.Rollback();
+                        throw;
+                    }
+            }
         }
     }
 }
