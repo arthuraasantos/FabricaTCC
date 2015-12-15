@@ -14,6 +14,7 @@ namespace Dominio.Repository
         Funcionario PesquisaPeloEmail(string email);
         IQueryable<Funcionario> ListarComPerfil(PerfilDeAcesso Perfil);
         int GetCount();
+        
 
     }
 }

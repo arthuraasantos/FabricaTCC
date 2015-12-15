@@ -2,6 +2,7 @@
 using Dominio.Repository;
 using Seedwork.Repository;
 using System.Linq;
+using System;
 
 namespace Infraestrutura.Repositorios
 {
@@ -14,5 +15,8 @@ namespace Infraestrutura.Repositorios
         }
 
         public int GetCountOrganizations() => Context.Set<Empresa>().Count();
+
+        public Guid GetOrganizationId(string fantasyName) => Context.Set<Empresa>().FirstOrDefault(e => e.NomeFantasia == fantasyName).Id;
+        
     }
 }

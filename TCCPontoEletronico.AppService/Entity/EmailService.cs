@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace TCCPontoEletronico.AppService.Entity
 {
     public static class EmailService
@@ -21,6 +23,13 @@ namespace TCCPontoEletronico.AppService.Entity
         {
             //TODO implementar método de envio de e-mails
             return false;
+        }
+
+        public static void NotifyNewUserForCEOs()
+        {
+            //TODO implementar
+            // Enviar e-mail para ARTHUR, MARLON e CHARLES
+            throw new NotImplementedException();
         }
     }
 }

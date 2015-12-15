@@ -34,6 +34,8 @@ namespace FrontEnd.App_Start
             Bind<IClearanceService>().To<ClearanceService>();
             Bind<ISolicitationService>().To<SolicitationService>();
             Bind<IOrganizationService>().To<OrganizationService>();
+            Bind<IOfficeHoursService>().To<OfficeHoursService>();
+            
         }
     }
 }

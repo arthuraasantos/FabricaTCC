@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using TCCPontoEletronico.AppService.Interface;
+using TCCPontoEletronico.AppService.Interface.DTOs;
 
 namespace FrontEnd.Models
 {
@@ -18,7 +19,7 @@ namespace FrontEnd.Models
         public readonly MyContext Contexto;
         public FuncionarioRepository EmployeeRepository { get; set; }
 
-        public readonly ILoginService LoginService ;
+        public readonly ILoginService LoginService;
 
 
         public LoginController(ILoginService loginService, MyContext context, FuncionarioRepository employeeRepository)
@@ -27,7 +28,6 @@ namespace FrontEnd.Models
             EmployeeRepository = employeeRepository;
             LoginService = loginService;
         }
-
 
         public ActionResult Index()
         {
@@ -47,7 +47,7 @@ namespace FrontEnd.Models
             var response = new DefaultJsonResponse();
 
             try
-            { 
+            {
                 var funcionarioParaLogin = new Funcionario();
                 funcionarioParaLogin =
                     EmployeeRepository.
@@ -157,20 +157,20 @@ namespace FrontEnd.Models
         {
             // Método para validar o login do sistema
             var response = new DefaultJsonResponse();
-            
+
             string errorMessage = string.Empty;
 
             try
             {
-                var invalidMessage = LoginService.IsValid(email,password);
-                
+                var invalidMessage = LoginService.IsValid(email, password);
+
                 if (!string.IsNullOrWhiteSpace(invalidMessage))
                 {
                     response.IsValid = false;
                     response.TypeResponse = TypeResponse.Error;
                     response.Message = invalidMessage;
                 }
-                    
+
             }
             catch (Exception ex)
             {
@@ -181,6 +181,37 @@ namespace FrontEnd.Models
             }
 
             return this.Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Register(string fantasyName, string employeeName, string employeeCpf, string employeeEmail)
+        {
+            var response = new DefaultJsonResponse();
+
+            try
+            {
+                
+                NewRegisterDTO registerDto = new NewRegisterDTO(fantasyName, employeeName, employeeCpf, employeeEmail);
+
+                // Cria novo login
+                LoginService.NewLogin(registerDto);
+
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Error;
+                response.Message = "";
+            }
+            catch (Exception ex)
+            {
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+                response.Message = "Erro ao criar novo usuário" + ex.Message;
+            }
+
+            return this.Json(response, JsonRequestBehavior.AllowGet);
+
+        }
+        public ActionResult NewRegister()
+        {
+            return View();
         }
     }
 }
