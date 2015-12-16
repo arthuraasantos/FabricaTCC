@@ -49,11 +49,12 @@ else
                                 <div class="modal-body">
 
                                     <div class="form-group">
-                                        <label>Email<label>
-                                        <label class="pt-index-employee-email">    
+                                        <label>E-mail:</label>
+                                        <input name="email" id="pn-email" class="form-control pn-index-employee-email" readonly="readonly" />
+                                        @*@Html.TextBox("Email", "", new { @type = "email", @class = "form-control pn-index-employee- email", @placeholder = "Email", @readonly = "readonly" })*@
                                     </div>
                                     <div class="form-group">
-                                        @Html.Label("Senha")
+                                        @Html.Label("Senha:")
                                         @Html.Password("Senha", "", new { @type = "password", @class = "form-control", @placeholder = "senha" })
                                     </div>
 
