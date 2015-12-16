@@ -27,10 +27,11 @@ namespace TCCPontoEletronico.AppService.Entity
             {
                 HorarioDeExpediente newOfficeHour = new HorarioDeExpediente();
 
-                var organization = OrganizationService.GetOrganization(organizationId);
+                //var organization = OrganizationService.GetOrganization(organizationId);
                 newOfficeHour.Empresa = new Empresa();
+                newOfficeHour.Id = Guid.NewGuid();
                 //newOfficeHour.Empresa = new Empresa { Id = organization.Id, NomeFantasia = organization.Name } ;
-                newOfficeHour.Empresa.Id = organization.Id;
+                newOfficeHour.Empresa.Id = organizationId;
                 newOfficeHour.Descricao = "Horário padrão";
                 newOfficeHour.NumeroHorasPorDia = 8;
 
