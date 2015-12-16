@@ -7,9 +7,8 @@
     <script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/Login/newregister.js"></script>
-    <script src="~/Scripts/angular.js"></script>
-    <script src="~/Scripts/cpf.js"></script>
-    <script src="~/Scripts/ngCpfCnpj.js"></script>
+    <script src="~/Scripts/angular/angular.js"></script>
+
     <style>
         .form-control{
             margin-bottom:3px;
@@ -38,6 +37,22 @@
               height: 100%;
             margin:auto;
         }
+
+        .btn-success{
+            width: 280px;
+        }
+
+        .loader{
+            padding: 10px;
+            margin-top:5%;
+            margin-left: 25%;
+        }
+
+        .alert{
+            margin-top: 5px;
+            width: 280px;
+            height: auto;
+        }
     </style>
 </head>
 <body class="body" ng-app="appRegister" ng-controller="registerCtrl">
@@ -58,24 +73,34 @@
                     
                     <input type="email" class="form-control" id="EmployeeEmail" name="EmployeeEmail" placeholder="E-mail" ng-model="register.EmployeeEmail" ng-required="true" />
                     <br />
-                    <input id="btnlogin" type="submit" class="btn btn-outline btn-success btn-block" ng-click="register()" ng-disabled="!registerForm.$valid" value="Registre-me!">
+                    <button id="btnlogin" type="button" ng-click="registerUser(register)" class="btn btn-outline btn-success btn-block" ng-disabled="!registerForm.$valid">Registre-me</button>
+
                     <div class="loader" style="display: none;">
-                    	<img src="~/img/ajax-loader-sync.gif" />
+                        <h4>Cadastrando...</h4>
+                        <br>
+                    	<img src="~/img/ajax-loader-tower.gif" style="margin-left: 10%;"/>
+                        <br>
                 	</div>
+                    <div class="alert alert-info" style="display: block;"> {{ message }}</div>
+                    <div class="alert alert-danger"  style="display: none;"> {{ message }}</div>                        
                 </div>
             </form>
         </div>
     </div>
-	<div class="alert alert-info" style="display: none;"></div>
-    <div class="alert alert-danger" style="display: none;"></div>    
+
 
     <script>
-        var app = angular.module('appRegister', ['ngCpfCnpj']);
+        var app = angular.module('appRegister',[]);
         app.controller('registerCtrl', function($scope, $http) {
-        
-        $scope.Register = function registerUser(){
-            $http
-        }
+            $scope.message = "";
+
+            $scope.registerUser = function (registerDTO){
+                var response = $http.post("Register",registerDTO);
+                    response.success(function(data, status, headers, config){
+                        alert("teste"+data.Message);
+                        $scope.message = data.Message;
+                }); 
+            }
         });
     </script>
 </body>

@@ -196,8 +196,11 @@ namespace FrontEnd.Models
                 LoginService.NewLogin(registerDto);
 
                 response.IsValid = true;
-                response.TypeResponse = TypeResponse.Error;
-                response.Message = "";
+                response.TypeResponse = TypeResponse.Success;
+
+                var split = employeeName.Split(' ');
+                
+                response.Message = "Sucesso, " + split[0]+ ". Enviamos seus dados de acesso por e-mail.";
             }
             catch (Exception ex)
             {

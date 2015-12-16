@@ -52,6 +52,7 @@ namespace TCCPontoEletronico.AppService.Entity
             try
             {
                 Funcionario employee = new Funcionario();
+                employee.Id = Guid.NewGuid();
                 employee.Nome = employeeName;
                 employee.Cpf = employeeCpf;
                 employee.Email = employeeEmail;

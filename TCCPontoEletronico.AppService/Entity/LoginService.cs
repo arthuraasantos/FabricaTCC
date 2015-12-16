@@ -74,15 +74,15 @@ namespace TCCPontoEletronico.AppService.Entity
                         //Cria novo funcionário
                         var newEmployee = EmployeeService.CreateEmployee(newRegister.EmployeeName, newRegister.EmployeeCpf, newRegister.EmployeeEmail, organization.Id, officeHour.Id);
 
-                        // Notifica CEOs
-                        EmailService.NotifyNewUserForCEOs();
-
+                        // ToDo Notificar CEOs
+                        //EmailService.NotifyNewUserForCEOs();
                         newContext.SaveChanges();
                         transactionContext.Commit();
                     }
 
                     catch (Exception)
                     {
+                        //ToDo Log de Erros
                         transactionContext.Rollback();
                         throw;
                     }
