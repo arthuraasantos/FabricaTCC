@@ -192,9 +192,10 @@ namespace FrontEnd.Models
                 
                 NewRegisterDTO registerDto = new NewRegisterDTO(fantasyName, employeeName, employeeCpf, employeeEmail);
 
+                throw new Exception("teste");
                 // Cria novo login
                 LoginService.NewLogin(registerDto);
-
+                
                 response.IsValid = true;
                 response.TypeResponse = TypeResponse.Success;
 

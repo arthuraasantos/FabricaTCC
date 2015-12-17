@@ -56,6 +56,7 @@ namespace TCCPontoEletronico.AppService.Entity
                 employee.Nome = employeeName;
                 employee.Cpf = employeeCpf;
                 employee.Email = employeeEmail;
+                employee.Senha = "bemvindo";
                 employee.PerfilDeAcesso = new PerfilDeAcesso();
                 employee.PerfilDeAcesso.Id = AccessProfile.GetManagerId();
                 employee.HorarioDeExpediente = new HorarioDeExpediente();

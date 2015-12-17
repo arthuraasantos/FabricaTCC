@@ -25,7 +25,7 @@
         }
 
         .form-data{
-            margin-top:25%;
+            margin-top:15%;
             margin-left: 44%;
         }
 
@@ -53,6 +53,11 @@
             width: 280px;
             height: auto;
         }
+
+        .glyphicon-circle-arrow-left{
+            font-size:30px;
+            margin-left:38%;
+        }
     </style>
 </head>
 <body class="body" ng-app="appRegister" ng-controller="registerCtrl">
@@ -62,7 +67,11 @@
         <div class="col-lg-4 col-lg-offset-4 form-new-register">
             <br />
             <form action="Register" method="post" name="registerForm">
+                
                 <div class="form-data">
+                    <a href="~/Login/Index" class="glyphicon glyphicon-circle-arrow-left"></a>
+                    <br />
+                    <br />
                     <strong><label>Informe os dados da empresa</label></strong>
                     <input type="text" class="form-control" id="FantasyName" name="FantasyName" placeholder="Nome da empresa" ng-model="register.FantasyName" ng-required="true"/>
                     <br />
@@ -81,7 +90,7 @@
                     	<img src="~/img/ajax-loader-tower.gif" style="margin-left: 10%;"/>
                         <br>
                 	</div>
-                    <div class="alert alert-info" style="display: block;"> {{ message }}</div>
+                    <div class="alert alert-info" style="display: none;"> {{ message }}</div>
                     <div class="alert alert-danger"  style="display: none;"> {{ message }}</div>                        
                 </div>
             </form>
@@ -95,11 +104,30 @@
             $scope.message = "";
 
             $scope.registerUser = function (registerDTO){
-                var response = $http.post("Register",registerDTO);
-                    response.success(function(data, status, headers, config){
-                        alert("teste"+data.Message);
+                $(".loader").show();
+                var response = $http.post("Register",registerDTO
+                    ).success(function (data, status, headers, config){
                         $scope.message = data.Message;
-                }); 
+                        if (data.isValid) {
+                            alert('success'+data.Message);
+                            $(".alert alert-info").show();
+                        }
+                        else
+                        {
+                            $(".alert alert-danger").show(); 
+                        }
+                        
+                        $(".loader").hide();
+                    });
+                    response.error(function (data, status, headers, config) {
+                        alert("teste");
+                    });
+
+                    // .       (function (data,status,headers, config){
+                    //     alert('error');
+                    //    $scope.message = data.Message;
+                    //     $(".alert alert-danger").show(); 
+                    // });
             }
         });
     </script>
