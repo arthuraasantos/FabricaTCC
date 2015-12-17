@@ -35,6 +35,8 @@ namespace FrontEnd.App_Start
             Bind<ISolicitationService>().To<SolicitationService>();
             Bind<IOrganizationService>().To<OrganizationService>();
             Bind<IOfficeHoursService>().To<OfficeHoursService>();
+            Bind<IEmailService>().To<EmailService>();
+
             
         }
     }

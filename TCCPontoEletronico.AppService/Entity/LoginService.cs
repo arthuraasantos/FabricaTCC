@@ -18,15 +18,18 @@ namespace TCCPontoEletronico.AppService.Entity
         private readonly IOrganizationService OrganizationService;
         private readonly IEmployeeService EmployeeService;
         private readonly IOfficeHoursService OfficeHoursService;
+        private readonly IEmailService EmailService;
 
 
-        public LoginService(IOrganizationService organizationService, IEmployeeService employeeService, IOfficeHoursService officeHoursService)
+        public LoginService(IOrganizationService organizationService, IEmployeeService employeeService, IOfficeHoursService officeHoursService,
+                            IEmailService emailService)
         {
             Context = new MyContext();
             FuncionarioRepository = new FuncionarioRepository(Context);
             OrganizationService = organizationService;
             EmployeeService = employeeService;
             OfficeHoursService = officeHoursService;
+            EmailService = emailService;
         }
         public string IsValid(string email, string password)
         {
@@ -73,6 +76,9 @@ namespace TCCPontoEletronico.AppService.Entity
 
                         //Cria novo funcionário
                         var newEmployee = EmployeeService.CreateEmployee(newRegister.EmployeeName, newRegister.EmployeeCpf, newRegister.EmployeeEmail, organization.Id, officeHour.Id);
+
+                        // Notifica usuário com dados de acesso
+                        EmailService.SendMailNewUser(newRegister);
 
                         // ToDo Notificar CEOs
                         //EmailService.NotifyNewUserForCEOs();

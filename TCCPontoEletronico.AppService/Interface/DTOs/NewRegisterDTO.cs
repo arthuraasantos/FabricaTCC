@@ -8,6 +8,7 @@ namespace TCCPontoEletronico.AppService.Interface.DTOs
         public string EmployeeName{ get; set; }
         public string EmployeeCpf{ get; set; }
         public string EmployeeEmail{ get; set; }
+        public string EmployeePassword { get; set; }
 
         public NewRegisterDTO(string fantasyName, string employeeName, string employeeCpf, string employeeEmail)
         {

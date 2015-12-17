@@ -1753,6 +1753,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Login\login.js" />
+    <Content Include="Scripts\Login\newregister.js" />
     <Content Include="Scripts\Mensagens.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
