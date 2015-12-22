@@ -29,4 +29,12 @@ namespace Seedwork.Const
         Error
     }
 
+    public enum NotificationType
+    {
+        Information,
+        Error,
+        Success,
+        CEOs,
+        User
+    }
 }

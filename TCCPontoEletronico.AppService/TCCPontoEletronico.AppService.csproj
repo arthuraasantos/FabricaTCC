@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\NotificationService.cs" />
     <Compile Include="Entity\OfficeHoursService.cs" />
     <Compile Include="Interface\DTOs\EmployeeDTO.cs" />
     <Compile Include="Interface\DTOs\NewRegisterDTO.cs" />
@@ -62,12 +63,14 @@
     <Compile Include="Entity\SolicitationService.cs" />
     <Compile Include="Interface\DTOs\OfficeHoursDTO.cs" />
     <Compile Include="Interface\DTOs\OrganizationNewDTO.cs" />
+    <Compile Include="Interface\ICeosNotification.cs" />
     <Compile Include="Interface\IClearanceService.cs" />
     <Compile Include="Interface\IEmailService.cs" />
     <Compile Include="Interface\IEmployeeService.cs" />
     <Compile Include="Interface\ILoginService.cs" />
     <Compile Include="Entity\LoginService.cs" />
     <Compile Include="Entity\PasswordService.cs" />
+    <Compile Include="Interface\INotification.cs" />
     <Compile Include="Interface\IOfficeHoursService.cs" />
     <Compile Include="Interface\IOrganizationService.cs" />
     <Compile Include="Interface\IPontoEletronicoService.cs" />
