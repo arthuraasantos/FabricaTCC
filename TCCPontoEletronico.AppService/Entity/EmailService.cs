@@ -55,7 +55,7 @@ namespace TCCPontoEletronico.AppService.Entity
             {
                 string sender = "pontonationcontato@gmail.com"; // Email fixo para contatos
                 string senderPassword = "pontonation";
-                string senderName = "Ponto Eletrônico";
+                string senderName = "Arthur";
 
                 MailMessage email = new MailMessage();
                 email.From = new MailAddress(sender, senderName);
@@ -79,7 +79,8 @@ namespace TCCPontoEletronico.AppService.Entity
                     "  &nbsp;      Sua opinião é <strong> IMPORTANTÍSSIMA </strong> para nós! <br/> " +
                     "<br/>" +
                     "Atenciosamente,<br/>" +
-                    "Equipe Ponto Nation <br/> "+
+                    "Arthur Augusto <br/> "+
+                    " <br/> " +
                     "</body>" +
                     "</html>";
 

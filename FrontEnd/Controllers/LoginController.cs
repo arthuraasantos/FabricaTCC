@@ -183,17 +183,18 @@ namespace FrontEnd.Models
             return this.Json(response, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Cria um novo usuário do sistema(Nova empresa, novo perfil e gerente)
+        /// </summary>
+        /// <returns></returns>
         public JsonResult Register(string fantasyName, string employeeName, string employeeCpf, string employeeEmail)
         {
             var response = new DefaultJsonResponse();
 
             try
             {
-                
                 NewRegisterDTO registerDto = new NewRegisterDTO(fantasyName, employeeName, employeeCpf, employeeEmail);
 
-                throw new Exception("teste");
-                // Cria novo login
                 LoginService.NewLogin(registerDto);
                 
                 response.IsValid = true;
