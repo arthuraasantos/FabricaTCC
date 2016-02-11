@@ -972,9 +972,9 @@
     <Content Include="bower_components\raphael\.bower.json" />
     <Content Include="bower_components\raphael\bower.json" />
     <Content Include="Content\bootstrap-dialog.less" />
-    <None Include="Properties\PublishProfiles\pontonation - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\pontonation - Web Deploy %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\pontonation - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\pontoeletronico-br.pubxml" />
+    <None Include="Properties\PublishProfiles\pontoeletronico.pubxml" />
+    <None Include="Properties\PublishProfiles\pontonation.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

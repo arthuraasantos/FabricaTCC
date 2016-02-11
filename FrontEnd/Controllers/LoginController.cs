@@ -161,7 +161,7 @@ namespace FrontEnd.Models
 
             // Método para validar o login do sistema
             var response = new DefaultJsonResponse();
-            
+
             string errorMessage = string.Empty;
 
             try
@@ -174,7 +174,7 @@ namespace FrontEnd.Models
                     response.TypeResponse = TypeResponse.Error;
                     response.Message = invalidMessage;
                 }
-                    
+
             }
             catch (Exception ex)
             {
@@ -185,6 +185,41 @@ namespace FrontEnd.Models
             }
 
             return this.Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Register(string fantasyName, string employeeName, string employeeCpf, string employeeEmail)
+        {
+            var response = new DefaultJsonResponse();
+
+            try
+            {
+                
+                NewRegisterDTO registerDto = new NewRegisterDTO(fantasyName, employeeName, employeeCpf, employeeEmail);
+
+                throw new Exception("teste");
+                // Cria novo login
+                LoginService.NewLogin(registerDto);
+                
+                response.IsValid = true;
+                response.TypeResponse = TypeResponse.Success;
+
+                var split = employeeName.Split(' ');
+                
+                response.Message = "Sucesso, " + split[0]+ ". Enviamos seus dados de acesso por e-mail.";
+            }
+            catch (Exception ex)
+            {
+                response.IsValid = false;
+                response.TypeResponse = TypeResponse.Error;
+                response.Message = "Erro ao criar novo usuário" + ex.Message;
+            }
+
+            return this.Json(response, JsonRequestBehavior.AllowGet);
+
+        }
+        public ActionResult NewRegister()
+        {
+            return View();
         }
     }
 }

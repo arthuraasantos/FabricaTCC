@@ -32,20 +32,11 @@ namespace TCCPontoEletronico.AppService.Entity
     {
         public void NotifyNewUser(NotificationType notificationType)
         {
-            try
-            {
-                
-            }
-            catch (Exception ex)
-            {
 
-                throw;
-            }
         }
 
         public void NotifyError(NotificationType notificationType, string message, Exception typeException)
         {
-            //TODO Enviar log para e-mails "Marlon e Arthur"
 
         }
     }

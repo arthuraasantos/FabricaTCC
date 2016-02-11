@@ -12,7 +12,7 @@ namespace FrontEnd.Models
 {
     //[Authorize]
     public class HomeController : Controller
-    {     
+    {
 
         private MyContext Context { get; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
