@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using TCCPontoEletronico.AppService.Interface;
+using TCCPontoEletronico.AppService.Interface.DTOs;
 
 namespace FrontEnd.Models
 {
@@ -18,7 +19,7 @@ namespace FrontEnd.Models
         public readonly MyContext Contexto;
         public FuncionarioRepository EmployeeRepository { get; set; }
 
-        public readonly ILoginService LoginService ;
+        public readonly ILoginService LoginService;
 
 
         public LoginController(ILoginService loginService, MyContext context, FuncionarioRepository employeeRepository)
@@ -28,15 +29,12 @@ namespace FrontEnd.Models
             LoginService = loginService;
         }
 
-
         public ActionResult Index()
         {
             string userCookie = GetCookie();
 
-            if (!string.IsNullOrWhiteSpace(userCookie))
+            if (!string.IsNullOrWhiteSpace(userCookie) && Session["Funcionario"] != null)
             {
-                var employee = (Funcionario)FuncionarioRepository.PesquisaPeloEmail(userCookie);
-                ViewBag.Funcionario = employee;
                 return RedirectToAction("Index", "Home");
             }
 
@@ -54,8 +52,8 @@ namespace FrontEnd.Models
                 funcionarioParaLogin =
                     EmployeeRepository.
                     PesquisaParaLogin(
-                        model.Email,
-                        Criptografia.Encrypt(model.Password));
+                        email,
+                        Criptografia.Encrypt(password));
 
                 if (funcionarioParaLogin != null)
                 {
@@ -166,10 +164,10 @@ namespace FrontEnd.Models
 
             try
             {
-                var invalidMessage = LoginService.IsValid(email,password);
+                var invalidMessage = LoginService.IsValid(email, password);
 
                 if (!string.IsNullOrWhiteSpace(invalidMessage))
-                {
+                    {
                     response.IsValid = false;
                     response.TypeResponse = TypeResponse.Error;
                     response.Message = invalidMessage;
@@ -177,7 +175,7 @@ namespace FrontEnd.Models
 
             }
             catch (Exception ex)
-            {
+                {
                 //TODO implementar log de erro e enviar e-mail para nós 3(Arthur,Marlon e Charles)
                 response.IsValid = false;
                 response.TypeResponse = TypeResponse.Error;
@@ -185,26 +183,27 @@ namespace FrontEnd.Models
             }
 
             return this.Json(response, JsonRequestBehavior.AllowGet);
-        }
+            }
 
+        /// <summary>
+        /// Cria um novo usuário do sistema(Nova empresa, novo perfil e gerente)
+        /// </summary>
+        /// <returns></returns>
         public JsonResult Register(string fantasyName, string employeeName, string employeeCpf, string employeeEmail)
-        {
+            {
             var response = new DefaultJsonResponse();
 
             try
-            {
-                
+                {
                 NewRegisterDTO registerDto = new NewRegisterDTO(fantasyName, employeeName, employeeCpf, employeeEmail);
 
-                throw new Exception("teste");
-                // Cria novo login
                 LoginService.NewLogin(registerDto);
                 
                 response.IsValid = true;
                 response.TypeResponse = TypeResponse.Success;
 
                 var split = employeeName.Split(' ');
-                
+
                 response.Message = "Sucesso, " + split[0]+ ". Enviamos seus dados de acesso por e-mail.";
             }
             catch (Exception ex)

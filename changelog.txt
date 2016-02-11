@@ -1,3 +1,4 @@
+[Subida de versão Azure - 06-01-2015 - Arthur Augusto]
 - Ajuste para a horario brasileiro no ponto
 - Correção do usuário não encontrado ao bater ponto
 - Criação de teste unitário de serviço de e-mail
