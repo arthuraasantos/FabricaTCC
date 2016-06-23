@@ -155,8 +155,6 @@ namespace FrontEnd.Models
         [HttpGet]
         public JsonResult LoginValidate(string email, string password, string remember)
         {
-            var response = new JsonResponse();
-
             // Método para validar o login do sistema
             var response = new DefaultJsonResponse();
 

@@ -1,3 +1,5 @@
+[Subida de versão Azure - 22-06-2016 - Arthur Augusto]
+- Atualizando os dados
 [Subida de versão Azure - 06-01-2015 - Arthur Augusto]
 - Ajuste para a horario brasileiro no ponto
 - Correção do usuário não encontrado ao bater ponto
