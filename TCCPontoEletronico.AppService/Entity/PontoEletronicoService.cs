@@ -21,7 +21,7 @@ namespace TCCPontoEletronico.AppService.Entity
         {
 
             CultureInfo cult = new CultureInfo("pt-BR");
-            string StrData = DateTime.UtcNow.AddHours(-2).ToString("dd/MM/yyyy HH:mm", cult);
+            string StrData = DateTime.UtcNow.AddHours(-3).ToString("dd/MM/yyyy HH:mm", cult);
 
             var novoPonto = new Ponto()
            {
