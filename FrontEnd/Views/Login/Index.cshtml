@@ -8,9 +8,9 @@
     <div class="col-lg-4 col-lg-offset-4">
         <br />
         <form>
-            <input type="email" name="Email" class="form-control" placeholder="Email" />
+            <input type="email" name="Email" class="form-control" placeholder="Email" required="required" />
             <br />
-            <input type="password" name="Password" class="form-control" placeholder="Senha" required />
+            <input id="password" type="password" name="Password" class="form-control" placeholder="Senha" required="required"/>
             <br />
             <label>Manter Logado? </label>&nbsp;&nbsp;
             
@@ -26,10 +26,6 @@
                 </button>
                  <br />
                  <br />
-                     @*<a href="/Login/NewRegister" class="new-register">
-                        Quero fazer meu cadastro
-                        <i class="glyphicon glyphicon-star"></i>
-                     </a>*@
             </div>
         </form>
     </div>
@@ -49,6 +45,12 @@
 <script>
         $(document).ready(function(){
             $(".pn-login-loader").hide();
+
+            $("#password").keypress(function(e) {
+                if(e.which == 13) {
+                $("#btnlogin").click();
+            };
+});
         });
 </script>   
 

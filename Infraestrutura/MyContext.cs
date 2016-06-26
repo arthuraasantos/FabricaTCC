@@ -1,6 +1,7 @@
 ﻿using Infraestrutura.Mapeamento;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Infraestrutura
 {
     public class MyContext : DbContext
     {
-        public MyContext() :base()
+        public MyContext() :base(ConfigurationManager.ConnectionStrings["pontoConn"].ConnectionString)
         {
             var ensureDllIsCopied =
                 System.Data.Entity.SqlServer.SqlProviderServices.Instance;
