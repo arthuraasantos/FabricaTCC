@@ -58,7 +58,7 @@ namespace AppServiceTest
                 EmailService.SendMailNewUser(user);
                 validTest = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

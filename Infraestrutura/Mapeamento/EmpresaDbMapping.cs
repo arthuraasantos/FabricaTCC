@@ -1,4 +1,5 @@
 ﻿using Dominio.Model;
+using Infraestrutura.Mapeamento.Base;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infraestrutura.Mapeamento
 {
-    public class EmpresaDbMapping : EntityTypeConfiguration<Empresa>
+    internal class EmpresaDbMapping : BaseDbMapping<Empresa>
     {
         public EmpresaDbMapping()
         {

@@ -33,15 +33,14 @@ namespace Seedwork.Repository
         {
             try
             {
-                Contexto.Set<TEntidade>().Remove(entidade);
+                Contexto.Entry(entidade).Entity.Exclusao = DateTime.Now;
+                Contexto.Entry(entidade).State = EntityState.Modified;
             }
             catch (Exception)
             {
                 ///Log se for necessario
                 throw;
             }
-            
-            
         }
 
         public void Salvar(TEntidade entidade)
@@ -50,10 +49,16 @@ namespace Seedwork.Repository
             try
             {
                 if (Set.Local.Any(e => e == entidade))
-                    Contexto.Entry<TEntidade>(entidade).State = System.Data.Entity.EntityState.Modified;
+                {
+                    entidade.Alteracao = DateTime.Now;
+                    Contexto.Entry(entidade).State = EntityState.Modified;
+                }
                 else
+                {
+                    entidade.Criacao = DateTime.Now;
+                    entidade.Alteracao = entidade.Criacao;
                     Contexto.Set<TEntidade>().Add(entidade);
-
+                }
             }
             catch(Exception)
             { 

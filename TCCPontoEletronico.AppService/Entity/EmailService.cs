@@ -42,7 +42,7 @@ namespace TCCPontoEletronico.AppService.Entity
                 SmtpClient smpt = new SmtpClient("smtp.gmail.com", 465);
                 smpt.Send(email);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //ToDo Gerar log de erro
                 throw;
@@ -105,7 +105,7 @@ namespace TCCPontoEletronico.AppService.Entity
                 smtp.EnableSsl = true;
                 smtp.Send(email);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //ToDo Gerar log de erro
                 throw;

@@ -27,15 +27,16 @@ namespace FrontEnd.Models.Conversores
         
         public override void AplicarValores(Funcionario origem, FuncionarioNovo destino)
         {
-            destino.Nome = origem.Nome;
-            destino.DataNascimento = origem.DataNascimento;
-            destino.Cpf = origem.Cpf;
-            destino.Identidade = origem.Identidade;
-            destino.Email = origem.Email;
-            destino.Senha = origem.Senha;
-            destino.IdEmpresa = origem.Empresa.Id;
-            destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id;
-            destino.IdHorarioDeExpediente = origem.HorarioDeExpediente.Id;
+            throw new ApplicationException("Método não deve ser utilizado");
+            //destino.Nome = origem.Nome;
+            //destino.DataNascimento = origem.DataNascimento;
+            //destino.Cpf = origem.Cpf;
+            //destino.Identidade = origem.Identidade;
+            //destino.Email = origem.Email;
+            //destino.Senha = origem.Senha;
+            //destino.IdEmpresa = origem.Empresa.Id;
+            //destino.IdPerfilDeAcesso = origem.PerfilDeAcesso.Id;
+            //destino.IdHorarioDeExpediente = origem.HorarioDeExpediente.Id;
         }
         public override void AplicarValores(FuncionarioNovo origem, Funcionario destino)
         {                 
