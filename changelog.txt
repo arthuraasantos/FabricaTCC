@@ -1,3 +1,6 @@
+[Subida de versão Azure - 28-06-2016 - Arthur Augusto]
+- Implementando o campo Criacao,Alteracao e Exclusao
+- Pressionar enter na senha na tela de login
 [Subida de versão Azure - 22-06-2016 - Arthur Augusto]
 - Tirando horário de verão da marcação de horários
 - Alterando limite de caracteres de senha
