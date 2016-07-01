@@ -5,13 +5,7 @@
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
 <script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/jquery.maskedinput.js"></script>
-<script type="text/javascript">
-    jQuery(function ($) {
-        //$("#Cpf").mask("999.999.999-99", { placeholder: " " });
-        $("#DataNascimento").getDate();
-    });
-</script>
+<!--<script src="~/Scripts/jquery.maskedinput.js"></script>-->
 <script>
     function bloquearFuncionario(id) {
         var titulo, msg, tipo;
@@ -94,6 +88,8 @@ else
                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                 {
                     @Html.ActionLink("Adicionar Funcionário", "Novo", "Funcionario", new { @class = "btn btn-primary" })
+                    <a href="#" class="btn btn-primary" ng-click="showDefaultModal('importacaoFuncionarios.html')">Importar funcionários</a>
+                    <br>
                 }
             </div>
             <div class="panel panel-body">
@@ -139,3 +135,71 @@ else
         </div>
     </div>
 </div>
+
+
+
+<script type="text/ng-template" id="importacaoFuncionarios.html">
+         <div class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Importar funcionários</h4>
+              </div>
+              <div class="modal-body">
+                <div class="area step1">
+                    <img class="ipt-step-1"> 
+                    <strong>Copie e cole aqui os dados da planilha excel: </strong>
+                    <p class="description"></p>
+                    <br>
+                    <div>
+                        <textarea id="textoPlanilha" class="form-control ipt-textoPlanilha" cols="60" rows="10" style="display: none; " onblur="exibirTextArea()"></textarea>                        
+                        <textarea id="textoExemplo" class="form-control ipt-textoExemplo" cols="60" rows="10" onfocus="exibirTextArea()">
+Ex: 
+Mariah  000.000.000-00  mariah@email.com
+Mariah  000.000.000-00  mariah@email.com
+Mariah  000.000.000-00  mariah@email.com
+</textarea>
+                    </div>
+                    <br>
+                </div>
+
+                <div class="area step2">
+                    <img class="ipt-step-2"> 
+                    <strong>Relacione a ordem das colunas:</strong>
+                    <br>
+                    <select>
+                    <br>
+                    <hr>
+                </div>
+                <div class="area step3">
+                </div>
+              </div>
+              <div class="modal-footer">
+               
+              </div>
+            </div>
+          </div>
+        </div>
+     </script>
+
+<script>
+function exibirTextArea(){
+    var isTextoExemploVisible = $("#textoExemplo").is(':visible');
+    var txtPlanilhaVisible = $("#textoPlanilha").val();  
+    
+    if(isTextoExemploVisible){
+        $("#textoExemplo").hide();
+        $("#textoPlanilha").show().focus();
+    }
+    else{
+        if(txtPlanilhaVisible == "")
+        {
+            $("#textoPlanilha").hide();
+            $("#textoExemplo").show();
+        }      
+        
+    }
+};
+        
+</script>      

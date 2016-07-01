@@ -27,7 +27,7 @@ function loadEmailLogged(){
             async: true
 			}).success(function(response){
 			    $(".pn-index-employee-email").text(response.Message);
-                document.getElementById("pn-email").value = response.Message;
+                // document.getElementById("pn-email").value = response.Message;
 
 			    $(".pn-index-employee-email-loader").hide();
 			}).error(function(response){

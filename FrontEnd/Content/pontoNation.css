@@ -24,3 +24,25 @@ Padronizar classes próprias com o inínio .pN para mantermos um padrão de CSS
 .pn-login-span-loader{
 	margin-right: 0;	
 }
+
+.ipt-step-1{
+	background-image: url('../../img/step1.png');
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+}
+
+.ipt-step-2{
+	background-image: url('../../img/step2.png');
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+}
+
+.ipt-textoExemplo{
+	background-color: rgb(238, 238, 238);
+}
+
+.ipt-textoPlanilha{
+	font-family: 'Times New Roman', Times, serif;
+}
