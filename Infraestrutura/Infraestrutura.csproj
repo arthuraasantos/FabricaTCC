@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Importacao\IImportacao.cs" />
+    <Compile Include="Importacao\Importacao.cs" />
+    <Compile Include="Importacao\ImportacaoFuncionario.cs" />
     <Compile Include="Mapeamento\Base\BaseDbMapping.cs" />
     <Compile Include="Mapeamento\EmpresaDbMapping.cs" />
     <Compile Include="Mapeamento\EntityTypeCOnfiguration.cs" />

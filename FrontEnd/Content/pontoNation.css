@@ -39,10 +39,27 @@ Padronizar classes próprias com o inínio .pN para mantermos um padrão de CSS
 	height: 32px;
 }
 
+.ipt-step-3{
+	background-image: url('../../img/step3.png');
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+}
+
 .ipt-textoExemplo{
 	background-color: rgb(238, 238, 238);
 }
 
 .ipt-textoPlanilha{
 	font-family: 'Times New Roman', Times, serif;
+}
+
+.ponto, .alert-info{
+	height: 40px;
+	padding: 10px;
+}
+
+.ponto, .alert-danger{
+	height: 40px;
+	padding: 10px;
 }

@@ -53,20 +53,21 @@
   <ItemGroup>
     <Compile Include="Entity\NotificationService.cs" />
     <Compile Include="Entity\OfficeHoursService.cs" />
-    <Compile Include="Interface\DTOs\EmployeeDTO.cs" />
-    <Compile Include="Interface\DTOs\NewRegisterDTO.cs" />
+    <Compile Include="DTOs\EmployeeDTO.cs" />
+    <Compile Include="DTOs\NewRegisterDTO.cs" />
     <Compile Include="Entity\ClearanceService.cs" />
     <Compile Include="Entity\EmailService.cs" />
-    <Compile Include="Entity\EmployeeService.cs" />
+    <Compile Include="Entity\FuncionarioService.cs" />
     <Compile Include="Entity\OrganizationService.cs" />
     <Compile Include="Entity\PontoEletronicoService.cs" />
     <Compile Include="Entity\SolicitationService.cs" />
-    <Compile Include="Interface\DTOs\OfficeHoursDTO.cs" />
-    <Compile Include="Interface\DTOs\OrganizationNewDTO.cs" />
+    <Compile Include="DTOs\OfficeHoursDTO.cs" />
+    <Compile Include="DTOs\OrganizationNewDTO.cs" />
     <Compile Include="Interface\ICeosNotification.cs" />
     <Compile Include="Interface\IClearanceService.cs" />
     <Compile Include="Interface\IEmailService.cs" />
-    <Compile Include="Interface\IEmployeeService.cs" />
+    <Compile Include="Interface\IFuncionarioService.cs" />
+    <Compile Include="Interface\IImportacaoService.cs" />
     <Compile Include="Interface\ILoginService.cs" />
     <Compile Include="Entity\LoginService.cs" />
     <Compile Include="Entity\PasswordService.cs" />

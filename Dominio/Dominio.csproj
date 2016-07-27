@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interface\IEntityBase.cs" />
+    <Compile Include="Model\Documento.cs" />
     <Compile Include="Model\Empresa.cs" />
     <Compile Include="Model\Ferias.cs" />
     <Compile Include="Model\Folga.cs" />

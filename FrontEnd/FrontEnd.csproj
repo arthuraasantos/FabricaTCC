@@ -130,6 +130,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FolgaController.cs" />
     <Compile Include="Controllers\HorarioDeExpedienteController.cs" />
+    <Compile Include="Controllers\ImportacaoController.cs" />
     <Compile Include="Models\Conversores\HorarioDeExpedienteToHorarioDeExpedienteEditar.cs" />
     <Compile Include="Models\Conversores\HorarioDeExpedienteToHorarioDeExpedienteNovo.cs" />
     <Compile Include="Models\DefaultJsonResponse.cs" />
@@ -1742,6 +1743,7 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\importacao\importacao.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.mask.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1761,6 +1763,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\run_prettify.js" />
+    <Content Include="Scripts\services\importacaoService.js" />
+    <Content Include="Scripts\templateSistema\templateSistema.js" />
     <Content Include="Scripts\Validacoes.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -1812,7 +1816,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\funcionario\" />
     <Folder Include="Views\Horarios\" />
+    <Folder Include="Views\Importacao\" />
     <Folder Include="Views\Sessao\" />
   </ItemGroup>
   <ItemGroup>
@@ -1854,15 +1860,14 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2739</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:2616/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://ponto-dev.boma.com.br/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

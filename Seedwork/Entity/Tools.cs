@@ -20,5 +20,7 @@ namespace Seedwork.Entity
             endereco.uf = ds.Tables[0].Rows[0]["uf"].ToString();
             return endereco;
         }
+
+        
     }
 }

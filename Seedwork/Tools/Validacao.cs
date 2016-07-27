@@ -100,5 +100,10 @@ namespace SeedWork.Tools
             return CNPJ.EndsWith(digito);
         }
 
+        public static bool IsNullableType(Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition().Equals(typeof(Nullable<>));
+        }
+
     }
 }

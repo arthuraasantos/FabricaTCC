@@ -21,7 +21,7 @@ namespace FrontEnd.Models
         private IFolgaRepository FolgaRepository { get; set; }
         private IFeriasRepository FeriasRepository { get; set; }
 
-        private readonly IEmployeeService EmployeeService;
+        private readonly IFuncionarioService EmployeeService;
         private readonly IVacationService VacationService;
         private readonly IClearanceService ClearanceService;
         private readonly IPontoEletronicoService PointService;
@@ -31,7 +31,7 @@ namespace FrontEnd.Models
 
 
         public HomeController(MyContext context, IFuncionarioRepository funcionarioRepository, IPontoEletronicoService pointService, IPontoRepository pontoRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository,
-                      IEmployeeService employeeService, IClearanceService clearanceService, IVacationService vacationService, ISolicitationService solicitationService, IOrganizationService organizationService)
+                      IFuncionarioService employeeService, IClearanceService clearanceService, IVacationService vacationService, ISolicitationService solicitationService, IOrganizationService organizationService)
         {
             PontoRepository = pontoRepository;
             FuncionarioRepository = funcionarioRepository;

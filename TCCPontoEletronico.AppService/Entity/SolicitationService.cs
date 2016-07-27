@@ -7,9 +7,9 @@ namespace TCCPontoEletronico.AppService.Entity
     public class SolicitationService : ISolicitationService
     {
         private readonly ISolicitacaoRepository SolicitationRepository;
-        private readonly IEmployeeService EmployeeService;
+        private readonly IFuncionarioService EmployeeService;
 
-        public SolicitationService(ISolicitacaoRepository solicitationRepository, IEmployeeService employeeService)
+        public SolicitationService(ISolicitacaoRepository solicitationRepository, IFuncionarioService employeeService)
         {
             SolicitationRepository = solicitationRepository;
             EmployeeService = employeeService;

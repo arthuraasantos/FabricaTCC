@@ -5,7 +5,9 @@
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 }
 <script src="~/Scripts/jquery-1.10.2.js"></script>
-<!--<script src="~/Scripts/jquery.maskedinput.js"></script>-->
+
+<script src="~/Scripts/importacao/importacao.js"></script>
+<script src="~/Scripts/services/importacaoService.js"></script>
 <script>
     function bloquearFuncionario(id) {
         var titulo, msg, tipo;
@@ -58,6 +60,25 @@
     };
 
 </script>
+
+<style>
+    .step2-colunas{
+        font-size: 9pt;
+        font-family: 'Arial, sans-serif';
+        width: 155px;
+        float:left;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .step2-linhaSerRelacionada{
+        font-size:10pt;
+    }
+
+    .step2{
+        height: 300px;
+    }
+</style>
 
 <h2 class="page-header">Listagem de Funcionários</h2>
 @model List<Funcionario>
@@ -139,7 +160,7 @@ else
 
 
 <script type="text/ng-template" id="importacaoFuncionarios.html">
-         <div class="modal fade">
+         <div class="modal fade" ng-controller="importacaoController">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -147,36 +168,61 @@ else
                 <h4 class="modal-title">Importar funcionários</h4>
               </div>
               <div class="modal-body">
-                <div class="area step1">
+                <div class="step1">
                     <img class="ipt-step-1"> 
                     <strong>Copie e cole aqui os dados da planilha excel: </strong>
                     <p class="description"></p>
                     <br>
                     <div>
-                        <textarea id="textoPlanilha" class="form-control ipt-textoPlanilha" cols="60" rows="10" style="display: none; " onblur="exibirTextArea()"></textarea>                        
+                        <form name="importacao">
+                        <textarea id="textoPlanilha" 
+                        class="form-control ipt-textoPlanilha" cols="60" rows="10" style="display: none; "  
+                        onblur="exibirTextArea()" ng-model="importacao.planilha" ng-required="true"></textarea>                        
                         <textarea id="textoExemplo" class="form-control ipt-textoExemplo" cols="60" rows="10" onfocus="exibirTextArea()">
 Ex: 
 Mariah  000.000.000-00  mariah@email.com
 Mariah  000.000.000-00  mariah@email.com
 Mariah  000.000.000-00  mariah@email.com
-</textarea>
+                        </textarea>
+                        <br>
+                        </form>
+                        <button class="btn btn-default" ng-click="processarPrimeiraLinha(importacao.planilha)" ng-disabled="importacao.$invalid">Processar</button>
                     </div>
-                    <br>
                 </div>
-
-                <div class="area step2">
-                    <img class="ipt-step-2"> 
+                <br>
+                <div class="step2" ng-show="linhaBaseParaRelacionar.length > 1" >
+                    <img class="ipt-step-2">
                     <strong>Relacione a ordem das colunas:</strong>
+                    <div class="controls" style="overflow: auto; max-height:250px;">
+                    
                     <br>
-                    <select>
                     <br>
-                    <hr>
-                </div>
-                <div class="area step3">
+                    <form name="relacaoColunas">
+                    <div ng-repeat="item in linhaBaseParaRelacionar" ng-init="relacaoCol=[]" class="step2-colunas">
+                    <div>
+                        <label>Coluna {{$index + 1}}</label><br>
+                        <label class="step2-linhaSerRelacionada">[{{item}}]</label>
+                    </div>
+                    
+                    <select class="form-control" ng-model="relacaoColunas[$index]" ng-required="true">
+                        <option ng-repeat="coluna in colunasImportacaoFuncionario" >{{coluna}}</option>
+                    </select>
+                    </div>
+                    </form>
                 </div>
               </div>
               <div class="modal-footer">
-               
+                  <div class="alert ponto alert-info text-left description" ng-show="MensagemInfo.length > 0">
+                      <i class="glyphicon glyphicon-asterisk"></i>
+                      <label class="description">{{MensagemInfo}}</label>
+                  </div>
+                  <div class="alert ponto alert-danger text-left" ng-show="MensagemErro.length > 0">
+                      <i class="glyphicon glyphicon-remove"></i>
+                      <label class="description">{{MensagemErro}}</label>
+                      
+                      
+                  </div>
+                  <button class="btn btn-primary" ng-click="validarPlanilha(relacaoColunas, importacao.planilha)" ng-disabled="relacaoColunas.$invalid">Importar</button>
               </div>
             </div>
           </div>
@@ -201,5 +247,21 @@ function exibirTextArea(){
         
     }
 };
-        
+
+function habilitarProcessar(){
+    var planilha = $("#textoPlanilha").val();
+
+    if(planilha ==="")
+        return false;
+    return true;
+};
+
+$(document).ready(function(){
+    $("#textoPlanilha").keypress(function(e) {
+        var planilhaTexto = $(this).val();
+        if(planilhaTexto != "") {
+            $("#btnlogin").click();
+        };
+    });
+});        
 </script>      

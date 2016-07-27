@@ -14,9 +14,9 @@ namespace TCCPontoEletronico.AppService.Entity
         private MyContext Context { get; set; }
         private readonly IFuncionarioRepository FuncionarioRepository;
         private readonly IFeriasRepository VacationRepository;
-        private readonly IEmployeeService EmployeeService;
+        private readonly IFuncionarioService EmployeeService;
 
-        public VacationService(MyContext context, IFuncionarioRepository employeeRepository, IFeriasRepository vacation, IEmployeeService employeeService)
+        public VacationService(MyContext context, IFuncionarioRepository employeeRepository, IFeriasRepository vacation, IFuncionarioService employeeService)
         {
             Context = context;
             FuncionarioRepository = employeeRepository;

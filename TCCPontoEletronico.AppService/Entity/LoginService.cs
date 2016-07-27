@@ -16,12 +16,12 @@ namespace TCCPontoEletronico.AppService.Entity
         private IFuncionarioRepository FuncionarioRepository { get; }
 
         private readonly IOrganizationService OrganizationService;
-        private readonly IEmployeeService EmployeeService;
+        private readonly IFuncionarioService EmployeeService;
         private readonly IOfficeHoursService OfficeHoursService;
         private readonly IEmailService EmailService;
 
 
-        public LoginService(IOrganizationService organizationService, IEmployeeService employeeService, IOfficeHoursService officeHoursService,
+        public LoginService(IOrganizationService organizationService, IFuncionarioService employeeService, IOfficeHoursService officeHoursService,
                             IEmailService emailService)
         {
             Context = new MyContext();

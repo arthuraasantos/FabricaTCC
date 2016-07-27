@@ -11,9 +11,9 @@ namespace TCCPontoEletronico.AppService.Entity
     public class ClearanceService : IClearanceService
     {
         private IFolgaRepository ClearanceRepository { get; }
-        private IEmployeeService EmployeService { get; }
+        private IFuncionarioService EmployeService { get; }
 
-        public ClearanceService(IFolgaRepository clearanceRepository, IEmployeeService employeService)
+        public ClearanceService(IFolgaRepository clearanceRepository, IFuncionarioService employeService)
         {
             ClearanceRepository = clearanceRepository;
             EmployeService = employeService;

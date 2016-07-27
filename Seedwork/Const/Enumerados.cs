@@ -37,4 +37,11 @@ namespace Seedwork.Const
         CEOs,
         User
     }
+
+    public enum TipoImportacao
+    {
+        Funcionario,
+        HorarioDeExpediente,
+        Ponto
+    }
 }

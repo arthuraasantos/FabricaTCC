@@ -28,7 +28,7 @@ namespace FrontEnd.App_Start
 
             //Servicos
             Bind<IPontoEletronicoService>().To<PontoEletronicoService>();
-            Bind<IEmployeeService>().To<EmployeeService>();
+            Bind<IFuncionarioService>().To<FuncionarioService>();
             Bind<ILoginService>().To<LoginService>();
             Bind<IVacationService>().To<VacationService>();
             Bind<IClearanceService>().To<ClearanceService>();
