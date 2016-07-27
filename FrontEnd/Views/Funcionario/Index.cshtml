@@ -6,8 +6,8 @@
 }
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 
-<script src="~/Scripts/importacao/importacao.js"></script>
-<script src="~/Scripts/services/importacaoService.js"></script>
+@*<script src="~/Scripts/importacao/importacao.js"></script>*@
+@*<script src="~/Scripts/services/importacaoService.js"></script>*@
 <script>
     function bloquearFuncionario(id) {
         var titulo, msg, tipo;
@@ -109,8 +109,8 @@ else
                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                 {
                     @Html.ActionLink("Adicionar Funcionário", "Novo", "Funcionario", new { @class = "btn btn-primary" })
-                    <a href="#" class="btn btn-primary" ng-click="showDefaultModal('importacaoFuncionarios.html')">Importar funcionários</a>
-                    <br>
+                    @*<a href="#" class="btn btn-primary" ng-click="showDefaultModal('importacaoFuncionarios.html')">Importar funcionários</a>
+                    <br>*@
                 }
             </div>
             <div class="panel panel-body">
@@ -159,7 +159,7 @@ else
 
 
 
-<script type="text/ng-template" id="importacaoFuncionarios.html">
+@*<script type="text/ng-template" id="importacaoFuncionarios.html">
          <div class="modal fade" ng-controller="importacaoController">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -227,41 +227,41 @@ Mariah  000.000.000-00  mariah@email.com
             </div>
           </div>
         </div>
-     </script>
+     </script>*@
 
 <script>
-function exibirTextArea(){
-    var isTextoExemploVisible = $("#textoExemplo").is(':visible');
-    var txtPlanilhaVisible = $("#textoPlanilha").val();  
+//function exibirTextArea(){
+//    var isTextoExemploVisible = $("#textoExemplo").is(':visible');
+//    var txtPlanilhaVisible = $("#textoPlanilha").val();  
     
-    if(isTextoExemploVisible){
-        $("#textoExemplo").hide();
-        $("#textoPlanilha").show().focus();
-    }
-    else{
-        if(txtPlanilhaVisible == "")
-        {
-            $("#textoPlanilha").hide();
-            $("#textoExemplo").show();
-        }      
+//    if(isTextoExemploVisible){
+//        $("#textoExemplo").hide();
+//        $("#textoPlanilha").show().focus();
+//    }
+//    else{
+//        if(txtPlanilhaVisible == "")
+//        {
+//            $("#textoPlanilha").hide();
+//            $("#textoExemplo").show();
+//        }      
         
-    }
-};
+//    }
+//};
 
-function habilitarProcessar(){
-    var planilha = $("#textoPlanilha").val();
+//function habilitarProcessar(){
+//    var planilha = $("#textoPlanilha").val();
 
-    if(planilha ==="")
-        return false;
-    return true;
-};
+//    if(planilha ==="")
+//        return false;
+//    return true;
+//};
 
-$(document).ready(function(){
-    $("#textoPlanilha").keypress(function(e) {
-        var planilhaTexto = $(this).val();
-        if(planilhaTexto != "") {
-            $("#btnlogin").click();
-        };
-    });
-});        
+//$(document).ready(function(){
+//    $("#textoPlanilha").keypress(function(e) {
+//        var planilhaTexto = $(this).val();
+//        if(planilhaTexto != "") {
+//            $("#btnlogin").click();
+//        };
+//    });
+//});        
 </script>      
