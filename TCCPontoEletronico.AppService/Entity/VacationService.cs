@@ -11,12 +11,12 @@ namespace TCCPontoEletronico.AppService.Entity
 {
     public class VacationService : IVacationService
     {
-        private MyContext Context { get; set; }
+        private PontoContext Context { get; set; }
         private readonly IFuncionarioRepository FuncionarioRepository;
         private readonly IFeriasRepository VacationRepository;
         private readonly IFuncionarioService EmployeeService;
 
-        public VacationService(MyContext context, IFuncionarioRepository employeeRepository, IFeriasRepository vacation, IFuncionarioService employeeService)
+        public VacationService(PontoContext context, IFuncionarioRepository employeeRepository, IFeriasRepository vacation, IFuncionarioService employeeService)
         {
             Context = context;
             FuncionarioRepository = employeeRepository;

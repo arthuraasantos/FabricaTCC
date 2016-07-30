@@ -22,7 +22,7 @@ namespace FrontEnd.Models
         public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository { get; set; }
         
         
-        public EmpresaController(MyContext context, IEmpresaRepository empresaRepository, IFuncionarioRepository funcionarioRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
+        public EmpresaController(PontoContext context, IEmpresaRepository empresaRepository, IFuncionarioRepository funcionarioRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
             : base(context, empresaRepository, new EmpresaToEmpresaNovo(), new EmpresaToEmpresaEditar())
         {
             EmpresaRepository = empresaRepository;

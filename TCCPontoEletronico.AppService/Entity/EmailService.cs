@@ -59,21 +59,21 @@ namespace TCCPontoEletronico.AppService.Entity
 
                 MailMessage email = new MailMessage();
                 email.From = new MailAddress(sender, senderName);
-                email.To.Add(user.EmployeeEmail);
+                email.To.Add(user.EmailFuncionario);
                 email.Priority = MailPriority.Normal;
                 email.IsBodyHtml = true;
                 email.Subject = "Nosso primeiro contato";
                 email.Body =
                     "<html> "+
                     "<body>" +
-                    "Olá + <strong> "+user.EmployeeName+"</strong>, <br/>" +
+                    "Olá + <strong> "+user.NomeFuncionario+"</strong>, <br/>" +
                     "  &nbsp;    Olha que legal, esse é nosso primeiro contato e o motivo dele é seu cadastro. <br/>" +
                     "  &nbsp;    Em nome dos CEOs do Ponto Eletrônico gostaria de agradecer por começar a utilizar nossa ferramenta. <br/> " +
                     "<br/>" +
                     "  &nbsp; Seu cadastro foi criado com sucesso. E os dados para você acessar são: <br/> " +
-                    "  &nbsp;&nbsp; E-mail: " + user.EmployeeEmail + " <br/>" +
-                    "  &nbsp;&nbsp;   Senha: " + user.EmployeePassword + " <br/>" +
-                    "  &nbsp;&nbsp;   Empresa: " + user.OrganizationName + " <br/>" +
+                    "  &nbsp;&nbsp; E-mail: " + user.EmailFuncionario + " <br/>" +
+                    "  &nbsp;&nbsp;   Senha: " + user.SenhaFuncionario + " <br/>" +
+                    "  &nbsp;&nbsp;   Empresa: " + user.NomeFantasiaEmpresa + " <br/>" +
                     "<br/>" +
                     "  &nbsp;   Mais uma vez seja bem vindo, e qualquer coisa faça contato conosco(email para contato: <strong> pontonationcontato@gmail.com</strong>). <br/>" +
                     "  &nbsp;      Sua opinião é <strong> IMPORTANTÍSSIMA </strong> para nós! <br/> " +

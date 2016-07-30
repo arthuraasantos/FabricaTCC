@@ -8,15 +8,15 @@ namespace Infraestrutura.Repositorios
 {
     public class EmpresaRepository : RepositoryBase<Empresa>, IEmpresaRepository
     {
-        private readonly MyContext Context;
-        public EmpresaRepository(MyContext context) : base(context)
+        private readonly PontoContext Contexto;
+        public EmpresaRepository(PontoContext context) : base(context)
         {
-            Context = context;
+            Contexto = context;
         }
 
-        public int GetCountOrganizations() => Context.Set<Empresa>().Count();
+        public int GetCountOrganizations() => Contexto.Set<Empresa>().Count();
 
-        public Guid GetOrganizationId(string fantasyName) => Context.Set<Empresa>().FirstOrDefault(e => e.NomeFantasia == fantasyName).Id;
+        public Guid GetOrganizationId(string fantasyName) => Contexto.Set<Empresa>().FirstOrDefault(e => e.NomeFantasia == fantasyName).Id;
         
     }
 }

@@ -24,13 +24,13 @@ namespace FrontEnd.Models
         where TEditModel : EntityModel
     {
 
-        public MyContext Context { get; set; }
+        public PontoContext Context { get; set; }
         public IRepository<TEntidade> Repository { get; set; }
         public IConversor<TEntidade, TInsertModel> ConversorInsert { get; set; }
         public IConversor<TEntidade, TEditModel> ConversorEdit { get; set; }
 
 
-        public BaseController(MyContext context, IRepository<TEntidade> repository, IConversor<TEntidade, TInsertModel> conversorInsert, IConversor<TEntidade, TEditModel> conversorEdit)
+        public BaseController(PontoContext context, IRepository<TEntidade> repository, IConversor<TEntidade, TInsertModel> conversorInsert, IConversor<TEntidade, TEditModel> conversorEdit)
         {
             Context = context;
             Repository = repository;

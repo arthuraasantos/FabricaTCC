@@ -14,7 +14,7 @@ namespace FrontEnd.Models
         
         public string NomeFantasia { get; set; }
         public string Cnpj { get; set; }
-        public int NumeroEndereco { get; set; }
+        public int? NumeroEndereco { get; set; }
         
         [DisplayName("Bloqueado?")]
         public bool Bloqueado { get; set; }

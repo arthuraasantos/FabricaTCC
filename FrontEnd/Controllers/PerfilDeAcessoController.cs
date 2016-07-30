@@ -15,7 +15,7 @@ namespace FrontEnd.Models
     public class PerfilDeAcessoController : BaseController<PerfilDeAcesso, PerfilDeAcessoNovo, PerfilDeAcessoEditar>
     {
 
-        public PerfilDeAcessoController(MyContext context, IPerfilDeAcessoRepository perfilDeAcessoRepository)
+        public PerfilDeAcessoController(PontoContext context, IPerfilDeAcessoRepository perfilDeAcessoRepository)
             : base(context, perfilDeAcessoRepository, new PerfilDeAcessoToPerfilDeAcessoNovo(), new PerfilDeAcessoToPerfilDeAcessoEditar())
         {
              

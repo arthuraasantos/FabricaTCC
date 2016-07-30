@@ -2,12 +2,20 @@
 <link href="~/Content/bootstrap-dialog.min.css" rel="stylesheet" />
 <link href="~/Content/Login/login.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-switch.css" rel="stylesheet" />
+<link href="~/Content/pontoNation.css" rel="stylesheet" />
 
 <div class="container">
     <img src="~/img/ponto.png" class="col-lg-4 col-lg-offset-4 img-responsive" style="text-align:center; height:240px; width:310px;">
     <div class="col-lg-4 col-lg-offset-4">
         <br />
+        
         <form>
+            <a href="../Login/NewRegister" class="btn btn-outline btn-default text-center new-user-btn" >
+                <strong>Quero me cadastrar agora</strong>
+                <img class="right" src="~/img/icon-new-user.png.png" width="28" height="28">
+            </a>
+            <br />
+            <br />
             <input type="email" name="Email" class="form-control" placeholder="Email" required="required" />
             <br />
             <input id="password" type="password" name="Password" class="form-control" placeholder="Senha" required="required"/>
@@ -20,12 +28,10 @@
                 <br />
                 <button id ="btnlogin" type="button" class="btn btn-outline btn-success button-control" value="Entrar"      style="float:left;">
                     Entrar
-                    <div class="pn-login-span-loader" style="width:30px; float:right;">
-                        <img class="pn-login-loader" src="~/img/ajax-loader-default.gif" />
-                    </div>
                 </button>
                  <br />
                  <br />
+                 <img class="pn-login-span-loader" src="~/img/ajax-loader-login.gif" />
             </div>
         </form>
     </div>
@@ -44,7 +50,7 @@
 </script>
 <script>
         $(document).ready(function(){
-            $(".pn-login-loader").hide();
+            $(".pn-login-span-loader").hide();
 
             $("#password").keypress(function(e) {
                 if(e.which == 13) {

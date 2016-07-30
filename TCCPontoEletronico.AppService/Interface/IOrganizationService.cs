@@ -5,11 +5,11 @@ using TCCPontoEletronico.AppService.Interface.DTOs;
 
 namespace TCCPontoEletronico.AppService.Interface
 {
-    public interface IOrganizationService
+    public interface IEmpresaService
     {
         int CountOrganizations();
-        OrganizationNewDTO CreateOrganization(string fantasyName);
+        EmpresaNovoDto CreateOrganization(string fantasyName,string cnpj);
         Guid GetOrganizationId(string organizationName);
-        OrganizationNewDTO GetOrganization(Guid Id);
+        EmpresaNovoDto GetOrganization(Guid Id);
     }
 }

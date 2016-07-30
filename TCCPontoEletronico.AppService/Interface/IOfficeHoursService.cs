@@ -4,8 +4,8 @@ using TCCPontoEletronico.AppService.Interface.DTOs;
 
 namespace TCCPontoEletronico.AppService.Interface
 {
-    public interface IOfficeHoursService
+    public interface IHorarioDeExpedienteService
     {
-        OfficeHoursDTO CreateForLogin(Guid organizationId);
+        HorarioDeExpedienteDto CreateForLogin(Guid organizationId);
     }
 }

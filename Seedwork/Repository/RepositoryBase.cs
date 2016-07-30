@@ -59,8 +59,10 @@ namespace Seedwork.Repository
                     entidade.Alteracao = entidade.Criacao;
                     Contexto.Set<TEntidade>().Add(entidade);
                 }
+
+                Executar();
             }
-            catch(Exception)
+            catch(Exception ex)
             { 
                 //Log se for necessario
                 throw;

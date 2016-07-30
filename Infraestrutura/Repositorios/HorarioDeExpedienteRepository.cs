@@ -11,9 +11,9 @@ namespace Infraestrutura.Repositorios
 {
     public class HorarioDeExpedienteRepository: RepositoryBase<HorarioDeExpediente>, IHorarioDeExpedienteRepository
     {
-        private readonly MyContext Context;
+        private readonly PontoContext Context;
 
-        public HorarioDeExpedienteRepository(MyContext context) : base(context)
+        public HorarioDeExpedienteRepository(PontoContext context) : base(context)
         {
             Context = context;        
         }

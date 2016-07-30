@@ -8,140 +8,110 @@
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/Login/newregister.js"></script>
     <script src="~/Scripts/angular/angular.js"></script>
-
+    <script src="~/Scripts/jquery-1.10.2.mask.js"></script>
+    <link href="~/Content/pontoNation.css" rel="stylesheet">
     <style>
-        .form-control{
-            margin-bottom:3px;
+        .formulario{
+            width:600px;
+            background-color:#ff0000;
+            text-align:center;
+            margin-left:auto;
+            margin-right:auto;
         }
 
-        
-        .form-new-register{
-              background-image: url(../../img/iphone6-dedo.png);
-              background-size: 350px;
-              background-repeat:no-repeat;
-              height:auto;
-              width:600px;
-              margin-left: 30%;
-        }
-
-        .form-data{
-            margin:auto;
-            margin-left:26%;
-            margin-right:47%
-
-        }
-
-        .body ng-scope{
-              background-image: url(../../img/background-new-register);
-              background-size: 700px;
-              background-repeat:no-repeat;
-            margin:auto;
-        }
-
-        .pn-img-new-register {
-            background-image: url(../../img/background-1.jpg);
-            background-repeat:no-repeat;
-            background-size: 1400px;
-            width: 100%;
-            height:100%;   
-            margin:auto;
-              
-        }
-
-        .btn-success{
-            width: 243px;
-        }
-
-        .loader{
-            padding: 10px;
+        .conteudo{
+            margin-left:auto;
+            margin-right:auto;
             margin-top:5%;
-            margin-left: 25%;
-        }
-
-        .alert{
-            margin-top: 5px;
-            width: 280px;
-            height: auto;
-        }
-
-        .glyphicon-circle-arrow-left{
-            font-size:30px;
-            margin-left:38%;
+            
         }
     </style>
 </head>
 <body class="pn-img-new-register" ng-app="appRegister" ng-controller="registerCtrl">
+
     <div class="container">
         
-        
-            <h1>Opa, que bom vê-lo aqui. O cadastro é rápido, vamos lá... </h1>
-            <br />
-            <div class="col-lg-4 col-lg-offset-4 form-new-register">
+        <img src="/img/ponto.png" class="col-lg-4 col-lg-offset-4 img-responsive" style="text-align:center; height:240px; width:310px;">
+        <br>
+        <div class="col-lg-4 col-lg-offset-4">
+            <h4 class="center"> Amigo(a), só preciso de alguns<br> dados mas é rápidinho!</h4>
+
+            <br>
+            <form name="formEmpresa">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nome da empresa" ng-model="formEmpresa.nomeFantasia" ng-required="true"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="Cnpj" class="form-control" placeholder="Cnpj" ng-model="formEmpresa.cnpj" ng-required="true"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nome funcionário" ng-model="formEmpresa.nomeFuncionario" ng-required="true" />
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email de acesso" ng-model="formEmpresa.emailFuncionario" ng-required="true"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Senha" ng-model="formEmpresa.senha" ng-required="true"/>
+                </div>
+                <button class="btn btn-success button-control" ng-disabled="formEmpresa.$invalid" ng-click="registrarEmpresa(formEmpresa)">Criar meu cadastro</button>
+                <div class="alert alert-success" style="width:100%;" ng-if="feedback.length > 0">
+                    <label>{{feedback}}</label>
+                </div>
                 <br />
-                <form action="Register" method="post" name="registerForm">
-
-                    <div class="form-data">
-                        <a href="~/Login/Index" class="glyphicon glyphicon-circle-arrow-left"></a>
-                        <br />
-                        <br />
-                        <strong><label>Informe os dados da empresa</label></strong>
-                        <input type="text" class="form-control" id="FantasyName" name="FantasyName" placeholder="Nome da empresa" ng-model="register.FantasyName" ng-required="true" />
-                        <input type="text" class="form-control" id="CnpjOrganization" name="CnpjOrganization" placeholder="Cnpj da empresa" ng-model="register.CnpjOrganization" ng-required="true" />
-                        <br />
-                        <br />
-                        <strong><label>Dados para acesso</label></strong>
-                        <input type="text" class="form-control" id="EmployeeName" name="EmployeeName" placeholder="Nome" ng-model="register.EmployeeName" ng-required="true" />
-                        <input type="text" class="form-control" id="EmployeeCPF" name="EmployeeCPF" placeholder="Cpf" ng-model="register.EmployeeCPF" ng-required="true" />
-
-                        <input type="email" class="form-control" id="EmployeeEmail" name="EmployeeEmail" placeholder="E-mail" ng-model="register.EmployeeEmail" ng-required="true" />
-                        <br />
-                        <button id="btnlogin" type="button" ng-click="registerUser(register)" class="btn btn-outline btn-success btn-block" ng-disabled="!registerForm.$valid">Registre-me</button>
-                        <div class="loader" style="display: none;">
-                            <h4>Cadastrando...</h4>
-                            <br>
-                            <img src="~/img/ajax-loader-tower.gif" style="margin-left: 10%;" />
-                            <br>
-                        </div>
-                        <div class="alert alert-info" style="display: none;"> {{ message }}</div>
-                        <div class="alert alert-danger" style="display: none;"> {{ message }}</div>
-                    </div>
-                </form>
-            </div>
+                <img class="pn-login-span-loader" src="~/img/ajax-loader-login.gif" width="60" height="50" style="margin-left:30%;" />
+            </form>
         </div>
+        
+        
+    </div>
     
 
+    <script>
+        jQuery(function ($) {
+            $("#Cnpj").mask("99.999.999/9999-99");
+            $(".pn-login-span-loader").hide();
+        });
+    </script>
 
     <script>
         var app = angular.module('appRegister',[]);
         app.controller('registerCtrl', function($scope, $http) {
-            $scope.message = "";
+             $scope.feedback = "";
 
-            $scope.registerUser = function (registerDTO){
+
+            $scope.registrarEmpresa = function(formEmpresa){
                 $(".loader").show();
-                var response = $http.post("Register",registerDTO
+                var response = $http.post("Register",formEmpresa
                     ).success(function (data, status, headers, config){
-                        $scope.message = data.Message;
-                        if (data.isValid) {
-                            alert('success'+data.Message);
-                            $(".alert alert-info").show();
+                         $scope.feedback = data.Message;
+                        if (data.IsValid) {
+                        var funcionarioParaLogin = {
+                            'email': formEmpresa.emailFuncionario,
+                            'senha': formEmpresa.senha
+                        };
+                            $scope.redirecionarParaHome(funcionarioParaLogin);
                         }
                         else
                         {
+                            $scope.feedback = data.Message;
                             $(".alert alert-danger").show(); 
                         }
                         
                         $(".loader").hide();
+                    }).error(function (data) {
+                        $(".loader").hide();
+                        $scope.feedback = "Ops!..esse erro nós não esperavamos! Já foi enviado um e-mail para nossa equipe. Erro: "+data.Message;
                     });
-                    response.error(function (data, status, headers, config) {
-                        alert("teste");
-                    });
+            };
 
-                    // .       (function (data,status,headers, config){
-                    //     alert('error');
-                    //    $scope.message = data.Message;
-                    //     $(".alert alert-danger").show(); 
-                    // });
-            }
+            $scope.redirecionarParaHome = function(funcionarioParaLogin){
+                $http.post("Autenticar", funcionarioParaLogin)
+                    .success(function (data) {
+                        window.location.href = "../Home/Index";
+                    }).error(function (data) {
+                    $scope.feedback = "Erro ao fazer login";
+                });
+            };
         });
     </script>
 </body>

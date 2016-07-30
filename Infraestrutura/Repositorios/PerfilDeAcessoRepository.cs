@@ -7,9 +7,9 @@ namespace Infraestrutura.Repositorios
 {
     public class PerfilDeAcessoRepository : RepositoryBase<PerfilDeAcesso>, IPerfilDeAcessoRepository
     {
-        private readonly MyContext Context;
+        private readonly PontoContext Context;
 
-        public PerfilDeAcessoRepository(MyContext context) : base(context)
+        public PerfilDeAcessoRepository(PontoContext context) : base(context)
         {
             Context = context;
         }

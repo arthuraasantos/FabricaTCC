@@ -4,16 +4,16 @@ using System;
 
 namespace TCCPontoEletronico.AppService.Interface.DTOs
 {
-    public class OrganizationNewDTO
+    public class EmpresaNovoDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public OrganizationNewDTO()
+        public EmpresaNovoDto()
         {
 
         }
-        public OrganizationNewDTO(Guid organizationId, string name)
+        public EmpresaNovoDto(Guid organizationId, string name)
         {
             Id = organizationId;
             Name = name;

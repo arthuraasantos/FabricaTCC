@@ -19,7 +19,7 @@ namespace FrontEnd.Models
         private IFeriasRepository FeriasRepository { get; set; }
 
 
-        public FolgaController(MyContext context, IFuncionarioRepository funcionarioRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository)
+        public FolgaController(PontoContext context, IFuncionarioRepository funcionarioRepository, IFolgaRepository folgaRepository, IFeriasRepository feriasRepository)
             : base(context, folgaRepository, new FolgaToFolgaCriar(), new FolgaToFolgaAprovar())
         {
             FuncionarioRepository = funcionarioRepository;

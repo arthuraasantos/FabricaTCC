@@ -16,13 +16,13 @@ namespace FrontEnd.Models
     //[Authorize]
     public class PontoController : Controller
     {
-        MyContext Context;
+        PontoContext Context;
         private IPontoRepository PontoRepository { get; set; }
         private IPontoEletronicoService PontoEletronicoService { get; set; }
         private IFuncionarioRepository FuncionarioRepository { get; set; }
 
 
-        public PontoController(MyContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService)
+        public PontoController(PontoContext context, IPontoRepository pontoRepository, IPontoEletronicoService pontoEletronicoService)
         {
             Context = context;
             PontoRepository = pontoRepository;

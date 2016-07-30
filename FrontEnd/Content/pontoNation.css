@@ -63,3 +63,14 @@ Padronizar classes próprias com o inínio .pN para mantermos um padrão de CSS
 	height: 40px;
 	padding: 10px;
 }
+
+.btn-secondary{
+    color: #000000;
+    background-color: #fff;
+    border-color: #000000;
+    border-radius: 15px;
+}
+
+.button-control{
+	width: 280px;
+}

@@ -19,7 +19,7 @@ namespace Dominio.Model
         public string NumeroEndereco { get; set; }
         public string Cpf { get; set; }
         public string Identidade { get; set; }
-        public decimal SalarioBase { get; set; }
+        public decimal? SalarioBase { get; set; }
         public string Cep { get; set; }
         public string Logradouro { get; set; }
         public string Bairro { get; set; }

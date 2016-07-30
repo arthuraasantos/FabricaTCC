@@ -9,7 +9,7 @@ using SeedWork.Tools;
 namespace Infraestrutura.Migrations
 {
  
-    internal sealed class Configuration : DbMigrationsConfiguration<Infraestrutura.MyContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Infraestrutura.PontoContext>
     {
         public Configuration()
         {
@@ -18,7 +18,7 @@ namespace Infraestrutura.Migrations
             
         }
 
-        protected override void Seed(Infraestrutura.MyContext context)
+        protected override void Seed(Infraestrutura.PontoContext context)
         {
             #region 'Perfil de Acesso'
             

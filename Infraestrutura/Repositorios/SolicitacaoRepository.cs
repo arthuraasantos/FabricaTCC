@@ -10,9 +10,9 @@ namespace Infraestrutura.Repositorios
 {
     public class SolicitacaoRepository : RepositoryBase<Solicitacao>, ISolicitacaoRepository
     {
-        private readonly MyContext Context;
+        private readonly PontoContext Context;
 
-        public SolicitacaoRepository(MyContext context) : base(context)
+        public SolicitacaoRepository(PontoContext context) : base(context)
         {
             Context = context;
         }

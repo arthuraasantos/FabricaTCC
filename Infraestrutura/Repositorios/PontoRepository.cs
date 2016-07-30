@@ -6,9 +6,9 @@ namespace Infraestrutura.Repositorios
 {
     public class PontoRepository : RepositoryBase<Ponto>, IPontoRepository
     {
-        private MyContext Context { get; set; }
+        private PontoContext Context { get; set; }
 
-        public PontoRepository(MyContext context) : base(context)
+        public PontoRepository(PontoContext context) : base(context)
         {
             Context = context;
         }

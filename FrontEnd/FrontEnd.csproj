@@ -636,9 +636,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="bower_components\js\flot-data.js" />
     <Content Include="bower_components\js\morris-data.js" />
+    <Content Include="img\ajax-loader-login.gif" />
     <Content Include="img\ajax-loader-tower.gif" />
     <Content Include="img\ajax-loader-default.gif" />
     <Content Include="img\ajax-loader-sync.gif" />
+    <Content Include="img\icon-new-user.png.png" />
     <Content Include="img\iphone.jpg" />
     <Content Include="img\minLogo_black.png" />
     <Content Include="img\minLogo_gray.png" />
@@ -973,7 +975,11 @@
     <Content Include="bower_components\raphael\.bower.json" />
     <Content Include="bower_components\raphael\bower.json" />
     <Content Include="Content\bootstrap-dialog.less" />
+    <None Include="Properties\PublishProfiles\iponto - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\iponto - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\iponto - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\iponto - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\iponto - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\iponto - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\pontonation - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pontonation - Web Deploy %282%29.pubxml" />

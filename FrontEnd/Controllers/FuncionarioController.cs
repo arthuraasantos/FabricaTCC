@@ -28,7 +28,7 @@ namespace FrontEnd.Models
         private IEnumerable<SelectListItem> ListaHorariosDeExpediente;
 
 
-        public FuncionarioController(MyContext context, IFuncionarioRepository funcionarioRepository, IPerfilDeAcessoRepository perfildeacessoRepository, IEmpresaRepository empresaRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
+        public FuncionarioController(PontoContext context, IFuncionarioRepository funcionarioRepository, IPerfilDeAcessoRepository perfildeacessoRepository, IEmpresaRepository empresaRepository, IHorarioDeExpedienteRepository horarioDeExpedienteRepository)
             : base(context, funcionarioRepository, new FuncionarioToFuncionarioNovo(perfildeacessoRepository, empresaRepository, horarioDeExpedienteRepository), new FuncionarioToFuncionarioEditar(empresaRepository, perfildeacessoRepository, horarioDeExpedienteRepository))
         {
             PerfildeacessoRepository = perfildeacessoRepository;

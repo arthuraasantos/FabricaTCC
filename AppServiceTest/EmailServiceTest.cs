@@ -45,25 +45,6 @@ namespace AppServiceTest
             Assert.IsTrue(isValid);
         }
 
-        [TestMethod]
-        public void SendEmailNewUserTest()
-        {
-            bool validTest = false;
-            IEmailService EmailService = new EmailService();
-            NewRegisterDTO user = new NewRegisterDTO("Empresa Teste", "Funcionário Nome", "0236525895", "pontonationcontato@gmail.com");
-            user.EmployeePassword = "senhaTeste";
-
-            try
-            {
-                EmailService.SendMailNewUser(user);
-                validTest = true;
-            }
-            catch (Exception)
-            {
-
-            }
-
-            Assert.IsTrue(validTest);
-        }
+        
     }
 }

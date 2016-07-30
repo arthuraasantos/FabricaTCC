@@ -7,29 +7,30 @@ using TCCPontoEletronico.AppService.Interface.DTOs;
 
 namespace TCCPontoEletronico.AppService.Entity
 {
-    public class OrganizationService : IOrganizationService
+    public class EmpresaService : IEmpresaService
     {
         private readonly IEmpresaRepository OrganizationRepository;
 
-        public OrganizationService(IEmpresaRepository organizationRepository)
+        public EmpresaService(IEmpresaRepository organizationRepository)
         {
             OrganizationRepository = organizationRepository;
         }
         public int CountOrganizations() => OrganizationRepository.GetCountOrganizations();
 
-        public OrganizationNewDTO CreateOrganization(string fantasyName)
+        public EmpresaNovoDto CreateOrganization(string fantasyName, string cnpj)
         {
-            OrganizationNewDTO organizationDTO = new OrganizationNewDTO();
+            EmpresaNovoDto organizationDTO = new EmpresaNovoDto();
             try
             {
                 Empresa organization = new Empresa();
                 organization.Id = Guid.NewGuid();
                 organization.NomeFantasia = fantasyName;
+                organization.Cnpj = cnpj;
                 OrganizationRepository.Salvar(organization);
-                organizationDTO = new OrganizationNewDTO(organization.Id,organization.NomeFantasia);
+                organizationDTO = new EmpresaNovoDto(organization.Id,organization.NomeFantasia);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //ToDo Implementar Log de erros
                 throw;
@@ -38,12 +39,12 @@ namespace TCCPontoEletronico.AppService.Entity
             return organizationDTO;
         }
 
-        public OrganizationNewDTO GetOrganization(Guid id)
+        public EmpresaNovoDto GetOrganization(Guid id)
         {
             try
             {
                 var organization = OrganizationRepository.PesquisarPeloId(id);
-                return new OrganizationNewDTO
+                return new EmpresaNovoDto
                 {
                     Id = organization.Id,
                     Name = organization.NomeFantasia
@@ -59,6 +60,7 @@ namespace TCCPontoEletronico.AppService.Entity
         }
 
         public Guid GetOrganizationId(string organizationName) => OrganizationRepository.GetOrganizationId(organizationName);
+        
         
     }
 }

@@ -10,3 +10,16 @@
     font-size:11px !important;
 }
 
+.pn-login-span-loader{
+    width: 120px;
+    height:100px;
+    margin-left:25%;
+}
+
+.new-user-btn{
+    text-align: center; 
+    width:279px;
+    height:40px;
+}
+
+

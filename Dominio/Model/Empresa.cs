@@ -10,7 +10,8 @@ namespace Dominio.Model
         public string RazaoSocial { get; set; }
         public string NomeFantasia { get; set; }
         public string Cnpj { get; set; }
-        public int NumeroEndereco { get; set; }
+
+        public int? NumeroEndereco { get; set; }
         public string Bloqueado { get; set; }
         public string Cep { get; set; }
         public string Logradouro { get; set; }

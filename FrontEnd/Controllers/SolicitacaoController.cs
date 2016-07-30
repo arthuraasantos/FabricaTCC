@@ -19,7 +19,7 @@ namespace FrontEnd.Models
         private IFuncionarioRepository FuncionarioRepository { get; set; }
 
 
-        public SolicitacaoController(MyContext context, ISolicitacaoRepository solicitacaoRepository, IPontoRepository pontoRepository, IFuncionarioRepository funcionarioRepository)
+        public SolicitacaoController(PontoContext context, ISolicitacaoRepository solicitacaoRepository, IPontoRepository pontoRepository, IFuncionarioRepository funcionarioRepository)
             : base(context, solicitacaoRepository, new SolicitacaoToSolicitacaoCriar(), new SolicitacaoToSolicitacaoAjustar())
         {
             PontoRepository = pontoRepository;

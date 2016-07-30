@@ -14,7 +14,7 @@ namespace FrontEnd.App_Start
         public override void Load()
         {
             //Contexto
-            Bind<MyContext>().ToSelf().InRequestScope();
+            Bind<PontoContext>().ToSelf().InRequestScope();
 
             //Repositorios
             Bind<IEmpresaRepository>().To<EmpresaRepository>();
@@ -33,8 +33,8 @@ namespace FrontEnd.App_Start
             Bind<IVacationService>().To<VacationService>();
             Bind<IClearanceService>().To<ClearanceService>();
             Bind<ISolicitationService>().To<SolicitationService>();
-            Bind<IOrganizationService>().To<OrganizationService>();
-            Bind<IOfficeHoursService>().To<OfficeHoursService>();
+            Bind<IEmpresaService>().To<EmpresaService>();
+            Bind<IHorarioDeExpedienteService>().To<HorarioDeExpedienteService>();
             Bind<IEmailService>().To<EmailService>();
 
             

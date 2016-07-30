@@ -10,8 +10,8 @@ namespace Infraestrutura.Repositorios
 {
     public class FeriasRepository : RepositoryBase<Ferias>, IFeriasRepository
     {
-        private readonly MyContext Context;
-        public FeriasRepository(MyContext context): base(context)
+        private readonly PontoContext Context;
+        public FeriasRepository(PontoContext context): base(context)
         {
             Context = context;
         }

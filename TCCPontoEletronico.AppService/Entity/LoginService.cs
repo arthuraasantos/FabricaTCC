@@ -12,23 +12,23 @@ namespace TCCPontoEletronico.AppService.Entity
 {
     public class LoginService : ILoginService
     {
-        private MyContext Context { get; }
-        private IFuncionarioRepository FuncionarioRepository { get; }
+        private PontoContext Contexto;
+        private IFuncionarioRepository _funcionarioRepositorio { get; }
 
-        private readonly IOrganizationService OrganizationService;
-        private readonly IFuncionarioService EmployeeService;
-        private readonly IOfficeHoursService OfficeHoursService;
+        private readonly IEmpresaService _empresaServico;
+        private readonly IFuncionarioService _funcionarioServico;
+        private readonly IHorarioDeExpedienteService _horarioDeExpedienteServico;
         private readonly IEmailService EmailService;
 
 
-        public LoginService(IOrganizationService organizationService, IFuncionarioService employeeService, IOfficeHoursService officeHoursService,
-                            IEmailService emailService)
+        public LoginService(IEmpresaService organizationService, IFuncionarioService employeeService, IHorarioDeExpedienteService officeHoursService,
+                            IEmailService emailService, PontoContext contexto)
         {
-            Context = new MyContext();
-            FuncionarioRepository = new FuncionarioRepository(Context);
-            OrganizationService = organizationService;
-            EmployeeService = employeeService;
-            OfficeHoursService = officeHoursService;
+            Contexto = contexto;
+            _funcionarioRepositorio = new FuncionarioRepository(Contexto);
+            _empresaServico = organizationService;
+            _funcionarioServico = employeeService;
+            _horarioDeExpedienteServico = officeHoursService;
             EmailService = emailService;
         }
         public string IsValid(string email, string password)
@@ -42,7 +42,7 @@ namespace TCCPontoEletronico.AppService.Entity
 
             var funcionarioParaLogin = new Funcionario();
             funcionarioParaLogin =
-                FuncionarioRepository.
+                _funcionarioRepositorio.
                 PesquisaParaLogin(
                     email,
                     Criptografia.Encrypt(password));
@@ -63,36 +63,26 @@ namespace TCCPontoEletronico.AppService.Entity
 
         public void NewLogin(NewRegisterDTO newRegister)
         {
-            using (MyContext newContext = new MyContext())
-            {
-                using (var transactionContext = newContext.Database.BeginTransaction())
-                    try
-                    {
-                        //Cria nova empresa 
-                        var organization = OrganizationService.CreateOrganization(newRegister.OrganizationName);
+            using (var transacao = Contexto.Database.BeginTransaction())
+                try
+                {
+                    //Cria nova empresa 
+                    var empresa = _empresaServico.CreateOrganization(newRegister.NomeFantasiaEmpresa, newRegister.CnpjEmpresa);
+                    
+                    // Criar novo horário de expediente
+                    var horarioDeExpediente = _horarioDeExpedienteServico.CreateForLogin(empresa.Id);
+                    
+                    //Cria novo funcionário
+                    var funcionario = _funcionarioServico.CriarFuncionario(newRegister.NomeFuncionario, newRegister.EmailFuncionario, empresa.Id, horarioDeExpediente.Id, newRegister.SenhaFuncionario);
 
-                        // Criar novo horário de expediente
-                        var officeHour = OfficeHoursService.CreateForLogin(organization.Id);
-
-                        //Cria novo funcionário
-                        var newEmployee = EmployeeService.CreateEmployee(newRegister.EmployeeName, newRegister.EmployeeCpf, newRegister.EmployeeEmail, organization.Id, officeHour.Id);
-
-                        // Notifica usuário com dados de acesso
-                        EmailService.SendMailNewUser(newRegister);
-
-                        // ToDo Notificar CEOs
-                        //EmailService.NotifyNewUserForCEOs();
-                        newContext.SaveChanges();
-                        transactionContext.Commit();
-                    }
-
-                    catch (Exception)
-                    {
-                        //ToDo Log de Erros
-                        transactionContext.Rollback();
-                        throw;
-                    }
-            }
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    //ToDo Log de Erros
+                    transacao.Rollback();
+                    throw;
+                }
         }
     }
 }

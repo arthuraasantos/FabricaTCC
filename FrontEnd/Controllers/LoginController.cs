@@ -16,13 +16,13 @@ namespace FrontEnd.Models
     public class LoginController : Controller
     {
 
-        public readonly MyContext Contexto;
+        public readonly PontoContext Contexto;
         public FuncionarioRepository EmployeeRepository { get; set; }
 
         public readonly ILoginService LoginService;
 
 
-        public LoginController(ILoginService loginService, MyContext context, FuncionarioRepository employeeRepository)
+        public LoginController(ILoginService loginService, PontoContext context, FuncionarioRepository employeeRepository)
         {
             Contexto = context;
             EmployeeRepository = employeeRepository;
@@ -42,7 +42,7 @@ namespace FrontEnd.Models
         }
 
         [HttpPost]
-        public ActionResult Autenticar(string email, string password, string remember)
+        public ActionResult Autenticar(string email, string senha, string remember)
         {
             var response = new DefaultJsonResponse();
 
@@ -53,7 +53,7 @@ namespace FrontEnd.Models
                     EmployeeRepository.
                     PesquisaParaLogin(
                         email,
-                        Criptografia.Encrypt(password));
+                        Criptografia.Encrypt(senha));
 
                 if (funcionarioParaLogin != null)
                 {
@@ -148,8 +148,11 @@ namespace FrontEnd.Models
         public void DestroyCookie()
         {
             HttpCookie cookie = Request.Cookies["pontoeletronico"];
-            cookie.Expires = DateTime.Now.AddDays(-2);
-            Response.Cookies.Add(cookie);
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddDays(-2);
+                Response.Cookies.Add(cookie);
+            }
         }
 
         [HttpGet]
@@ -165,7 +168,7 @@ namespace FrontEnd.Models
                 var invalidMessage = LoginService.IsValid(email, password);
 
                 if (!string.IsNullOrWhiteSpace(invalidMessage))
-                    {
+                {
                     response.IsValid = false;
                     response.TypeResponse = TypeResponse.Error;
                     response.Message = invalidMessage;
@@ -173,7 +176,7 @@ namespace FrontEnd.Models
 
             }
             catch (Exception ex)
-                {
+            {
                 //TODO implementar log de erro e enviar e-mail para nós 3(Arthur,Marlon e Charles)
                 response.IsValid = false;
                 response.TypeResponse = TypeResponse.Error;
@@ -181,28 +184,33 @@ namespace FrontEnd.Models
             }
 
             return this.Json(response, JsonRequestBehavior.AllowGet);
-            }
+        }
 
         /// <summary>
         /// Cria um novo usuário do sistema(Nova empresa, novo perfil e gerente)
         /// </summary>
         /// <returns></returns>
-        public JsonResult Register(string fantasyName, string employeeName, string employeeCpf, string employeeEmail)
-            {
+        public JsonResult Register(string nomeFantasia, string cnpj, string emailFuncionario, string nomeFuncionario, string senha)
+        {
             var response = new DefaultJsonResponse();
 
             try
+            {
+                NewRegisterDTO register = new NewRegisterDTO(nomeFantasia, cnpj, emailFuncionario, nomeFuncionario, senha);
+
+                if (register.IsValid())
                 {
-                NewRegisterDTO registerDto = new NewRegisterDTO(fantasyName, employeeName, employeeCpf, employeeEmail);
+                    LoginService.NewLogin(register);
 
-                LoginService.NewLogin(registerDto);
-                
-                response.IsValid = true;
-                response.TypeResponse = TypeResponse.Success;
-
-                var split = employeeName.Split(' ');
-
-                response.Message = "Sucesso, " + split[0]+ ". Enviamos seus dados de acesso por e-mail.";
+                    response.IsValid = true;
+                    response.TypeResponse = TypeResponse.Success;
+                }
+                else
+                {
+                    response.IsValid = false;
+                    response.TypeResponse = TypeResponse.Error;
+                    response.Message = "Dados inválidos para o registro. Envie um e-mail para : contato@boma.com.br";
+                }
             }
             catch (Exception ex)
             {
@@ -211,7 +219,7 @@ namespace FrontEnd.Models
                 response.Message = "Erro ao criar novo usuário" + ex.Message;
             }
 
-            return this.Json(response, JsonRequestBehavior.AllowGet);
+            return Json(response, JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult NewRegister()

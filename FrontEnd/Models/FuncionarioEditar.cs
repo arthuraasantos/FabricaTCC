@@ -25,7 +25,7 @@ namespace FrontEnd.Models
 
         public string Identidade { get; set; }
 
-        public decimal SalarioBase { get; set; }
+        public decimal? SalarioBase { get; set; }
 
         public string Cep { get; set; }
 

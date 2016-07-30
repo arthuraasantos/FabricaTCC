@@ -19,7 +19,7 @@ namespace FrontEnd.Models
         private IFeriasRepository FeriasRepository { get; set; }
 
 
-        public FeriasController(MyContext context, IFeriasRepository feriasRepository, IFuncionarioRepository funcionarioRepository)
+        public FeriasController(PontoContext context, IFeriasRepository feriasRepository, IFuncionarioRepository funcionarioRepository)
             : base(context, feriasRepository, new FeriasToFeriasCriar(), new FeriasToFeriasAjustar())
         {
             FuncionarioRepository = funcionarioRepository;
