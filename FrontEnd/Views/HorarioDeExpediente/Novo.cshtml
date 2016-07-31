@@ -35,13 +35,7 @@
                     <div class="form-group">
                         @Html.Label("Descrição")
                         <input type="text" id="Descricao" name="Descricao" class="form-control" aria-describedby="basic-addon" required oninvalid="setCustomValidity('A descrição para o Horário de Expediente é obrigatória!')">
-                        @*@Html.TextBoxFor(e => e.Descricao, new { @class = "form-control", @required="true", @oninvalid="setCustomValidity('A descrição é obrigatória!')" })*@
                     </div>
-                    <div class="form-group">
-                        @Html.Label("Número de Horas Por Dia")
-                        @Html.TextBoxFor(e => e.NumeroHorasPorDia, new { @class = "form-control", @type = "number", @min = "1", @max = "24" })
-                    </div>
-
                     <div class="form-group">
                         <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
                     </div>

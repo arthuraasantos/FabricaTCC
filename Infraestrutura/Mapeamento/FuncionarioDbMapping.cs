@@ -1,5 +1,6 @@
 ﻿using Dominio;
 using Dominio.Model;
+using Infraestrutura.Mapeamento.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Infraestrutura.Mapeamento
 {
-    public class FuncionarioDbMapping : EntityTypeConfiguration<Funcionario>
+    internal class FuncionarioDbMapping : BaseDbMapping<Funcionario>
     {
         public FuncionarioDbMapping()
         {

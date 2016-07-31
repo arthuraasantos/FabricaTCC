@@ -72,7 +72,7 @@ namespace FrontEnd.Models
                     horarioPadrao.Id = Guid.NewGuid();
                     horarioPadrao.Empresa = entity;
                     horarioPadrao.Descricao = "Horário Padrão";
-                    horarioPadrao.NumeroHorasPorDia = 8;
+                    //horarioPadrao.NumeroHorasPorDia = 8;
                     HorarioDeExpedienteRepository.Salvar(horarioPadrao);
                     Context.SaveChanges();
 

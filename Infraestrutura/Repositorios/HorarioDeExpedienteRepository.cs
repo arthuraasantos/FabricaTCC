@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Infraestrutura.Repositorios
 {
-    public class HorarioDeExpedienteRepository: RepositoryBase<HorarioDeExpediente>, IHorarioDeExpedienteRepository
+    public class HorarioDeExpedienteRepository : RepositoryBase<HorarioDeExpediente>, IHorarioDeExpedienteRepository
     {
         private readonly PontoContext Context;
 
         public HorarioDeExpedienteRepository(PontoContext context) : base(context)
         {
-            Context = context;        
+            Context = context;
         }
     }
 }

@@ -42,10 +42,9 @@ else
                         <thead>
                             <tr>
                                 <th>Descrição</th>
-                                <th>Horas por Dia</th>
                                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                 {
-                                    <th>Operações</th>
+                                    <th class="col-lg-3" >Operações</th>
                                 }
                             </tr>
                         </thead>
@@ -54,11 +53,11 @@ else
                             {
                                 <tr>
                                     <td> @item.Descricao </td>
-                                    <td> @item.NumeroHorasPorDia</td>
 
                                     @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                     {
                                         <td>
+                                            @Html.ActionLink("Horários", "Index", "ItemHorarioDeExpediente", new { idHorario = item.Id }, new { @class = "btn btn-outline btn-xs btn-info" })
                                             @Html.ActionLink("Editar", "Visualizar", new { id = item.Id }, new { @class = "btn btn-outline btn-xs btn-info" })
                                             @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
                                             {

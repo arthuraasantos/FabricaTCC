@@ -9,9 +9,7 @@ namespace Dominio.Model
 {
     public class HorarioDeExpediente : EntityBase
     {
-        public int NumeroHorasPorDia { get; set; }
         public string Descricao { get; set; }
-        public Empresa Empresa { get; set; }
-        
+        public Empresa Empresa { get; set; }        
     }
 }
