@@ -19,7 +19,6 @@ namespace FrontEnd.Models
         public IEmpresaRepository EmpresaRepository;
         private IEnumerable<SelectListItem> ListaEmpresas;
 
-
         public HorarioDeExpedienteController(MyContext context, IHorarioDeExpedienteRepository horarioDeExpedienteRepository, IEmpresaRepository empresaRepository)
             : base(context, horarioDeExpedienteRepository, new HorarioDeExpedienteToHorarioDeExpedienteNovo(empresaRepository), new HorarioDeExpedienteToHorarioDeExpedienteEditar(empresaRepository))
         {

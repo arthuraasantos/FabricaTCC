@@ -33,11 +33,7 @@
                             @Html.TextBoxFor(e => e.Descricao, new { @class = "form-control", required = "required", oninvalid = "A descrição para o Horário de Expediente é obrigatória!" })
                             @*<input type="text"  id="Descricao" name="Descricao" class="form-control" required oninvalid="setCustomValidity('A descrição para o Horário de Expediente é obrigatória!')" />*@
                         </div>
-                        <div class="form-group">
-                            <label>Número de Horas Por Dia</label>
-                            @Html.TextBoxFor(e => e.NumeroHorasPorDia,new { htmlAttributes = new { min = 1, max = 24 }, type = "number", required = "required", oninvalid = "O número de horas por dia é obrigatório!", @class="form-control" })
-                            @*<input type="text" id="NumeroHorasPorDia" name="NumeroHorasPorDia" class="form-control" min="1" max="1" required oninvalid="setCustomValidity('O número de horas por dia é obrigatório!')" />*@
-                        </div>
+
                         <div class="form-group">
                             <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
                         </div>

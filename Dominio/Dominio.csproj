@@ -44,6 +44,7 @@
     <Compile Include="Model\Ferias.cs" />
     <Compile Include="Model\Folga.cs" />
     <Compile Include="Model\Funcionario.cs" />
+    <Compile Include="Model\ItemHorarioDeExpediente.cs" />
     <Compile Include="Model\HorarioDeExpediente.cs" />
     <Compile Include="Model\PerfilDeAcesso.cs" />
     <Compile Include="Model\Ponto.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Repository\IEmpresaRepository.cs" />
     <Compile Include="Repository\IFeriasRepository.cs" />
     <Compile Include="Repository\IFolgaRepository.cs" />
+    <Compile Include="Repository\IItemHorarioDeExpedienteRepository.cs" />
     <Compile Include="Repository\IHorarioDeExpedienteRepository.cs" />
     <Compile Include="Repository\ISolicitacaoRepository.cs" />
     <Compile Include="Repository\IPontoRepository.cs" />

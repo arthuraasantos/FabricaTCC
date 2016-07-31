@@ -23,13 +23,11 @@ namespace FrontEnd.Controllers
         public override void AplicarValores(HorarioDeExpediente origem, HorarioDeExpedienteEditar destino)
         {
             destino.Descricao = origem.Descricao;
-            destino.NumeroHorasPorDia = origem.NumeroHorasPorDia;
             destino.IdEmpresa = origem.Empresa.Id;
         }
         public override void AplicarValores(HorarioDeExpedienteEditar origem, HorarioDeExpediente destino)
         {
             destino.Descricao = origem.Descricao;
-            destino.NumeroHorasPorDia = origem.NumeroHorasPorDia;
         }
     }
 }

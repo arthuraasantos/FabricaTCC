@@ -1,4 +1,5 @@
 ﻿using Dominio.Model;
+using Infraestrutura.Mapeamento.Base;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infraestrutura.Mapeamento
 {
-    public class HorarioDeExpedienteDBMapping: EntityTypeConfiguration<HorarioDeExpediente>
+    internal class HorarioDeExpedienteDBMapping: BaseDbMapping<HorarioDeExpediente>
     {
         public HorarioDeExpedienteDBMapping()
         {

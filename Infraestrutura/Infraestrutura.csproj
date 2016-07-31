@@ -52,6 +52,7 @@
     <Compile Include="Mapeamento\EntityTypeCOnfiguration.cs" />
     <Compile Include="Mapeamento\FeriasDbMapping.cs" />
     <Compile Include="Mapeamento\FolgaDbMapping.cs" />
+    <Compile Include="Mapeamento\ItemHorarioDeExpedienteDBMapping.cs" />
     <Compile Include="Mapeamento\HorarioDeExpedienteDBMapping.cs" />
     <Compile Include="Mapeamento\PontoDbMapping.cs" />
     <Compile Include="Mapeamento\PerfilDeAcessoDbMapping.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Repositorios\EmpresaRepository.cs" />
     <Compile Include="Repositorios\FeriasRepository.cs" />
     <Compile Include="Repositorios\FolgaRepository.cs" />
+    <Compile Include="Repositorios\ItemHorarioDeExpedienteRepository.cs" />
     <Compile Include="Repositorios\HorarioDeExpedienteRepository.cs" />
     <Compile Include="Repositorios\SolicitacaoRepository.cs" />
     <Compile Include="Repositorios\PontoRepository.cs" />

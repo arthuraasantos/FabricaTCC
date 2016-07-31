@@ -130,9 +130,12 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FolgaController.cs" />
     <Compile Include="Controllers\HorarioDeExpedienteController.cs" />
+    <Compile Include="Controllers\ItemHorarioDeExpedienteController.cs" />
+    <Compile Include="Models\Conversores\ItemHorarioDeExpedienteToItemHorarioDeExpedienteEditar.cs" />
     <Compile Include="Models\Conversores\HorarioDeExpedienteToHorarioDeExpedienteEditar.cs" />
     <Compile Include="Models\Conversores\HorarioDeExpedienteToHorarioDeExpedienteNovo.cs" />
     <Compile Include="Models\DefaultJsonResponse.cs" />
+    <Compile Include="Models\ItemHorarioDeExpedienteEditar.cs" />
     <Compile Include="Models\HorarioDeExpedienteEditar.cs" />
     <Compile Include="Models\Conversores\FeriasToFeriasCriar.cs" />
     <Compile Include="Models\Conversores\FolgaToFolgaAprovar.cs" />
@@ -1809,10 +1812,10 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\NewRegister.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\ItemHorarioDeExpediente\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Horarios\" />
     <Folder Include="Views\Sessao\" />
   </ItemGroup>
   <ItemGroup>

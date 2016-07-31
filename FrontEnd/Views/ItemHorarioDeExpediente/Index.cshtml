@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Horários";
+    Layout = "~/Views/Templates/_TemplateSistema.cshtml";
+}
+
+@model FrontEnd.Models.ItemHorarioDeExpedienteEditar
+
+<div class="panel-body">
+    <div class="row">
+        <div class="col col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel panel-body">
+                    @using (Html.BeginForm("Salvar", "ItemHorarioDeExpediente", FormMethod.Post))
+                    {
+
+                        @Html.HiddenFor(e => e.IdHorarioDeExpediente)
+
+                        <div class="form-group">
+                            <label>Domingo</label>
+                            @Html.TextBoxFor(e => e.HorasDia0, new { @class = "form-control", required = "required", oninvalid = "Preenchimento obrigatório!" })
+                        </div>
+                        <div class="form-group">
+                            <label>Segunda</label>
+                            @Html.TextBoxFor(e => e.HorasDia1, new { @class = "form-control", required = "required", oninvalid = "Preenchimento obrigatório!" })
+                        </div>
+                        <div class="form-group">
+                            <label>Terça</label>
+                            @Html.TextBoxFor(e => e.HorasDia2, new { @class = "form-control", required = "required", oninvalid = "Preenchimento obrigatório!" })
+                        </div>
+                        <div class="form-group">
+                            <label>Quarta</label>
+                            @Html.TextBoxFor(e => e.HorasDia3, new { @class = "form-control", required = "required", oninvalid = "Preenchimento obrigatório!" })
+                        </div>
+                        <div class="form-group">
+                            <label>Quinta</label>
+                            @Html.TextBoxFor(e => e.HorasDia4, new { @class = "form-control", required = "required", oninvalid = "Preenchimento obrigatório!" })
+                        </div>
+                        <div class="form-group">
+                            <label>Sexta</label>
+                            @Html.TextBoxFor(e => e.HorasDia5, new { @class = "form-control", required = "required", oninvalid = "Preenchimento obrigatório!" })
+                        </div>
+                        <div class="form-group">
+                            <label>Sábado</label>
+                            @Html.TextBoxFor(e => e.HorasDia6, new { @class = "form-control", required = "required", oninvalid = "Preenchimento obrigatório!" })
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Salvar" class="btn btn-outline btn-success" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

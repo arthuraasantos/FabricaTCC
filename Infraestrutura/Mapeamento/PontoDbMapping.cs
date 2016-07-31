@@ -1,5 +1,6 @@
 ﻿using Dominio;
 using Dominio.Model;
+using Infraestrutura.Mapeamento.Base;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infraestrutura.Mapeamento
 {
-    public class PontoDbMapping : EntityTypeConfiguration<Ponto>
+    internal class PontoDbMapping : BaseDbMapping<Ponto>
     {
         public PontoDbMapping()
         {

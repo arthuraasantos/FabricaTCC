@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace Infraestrutura.Mapeamento
 {
-    internal class FolgaDbMapping: BaseDbMapping<Folga>
+    internal class ItemHorarioDeExpedienteDBMapping: BaseDbMapping<ItemHorarioDeExpediente>
     {
-        public FolgaDbMapping()
+        public ItemHorarioDeExpedienteDBMapping()
         {
-            HasKey(f => f.Id);
+            HasKey(p => p.Id);
+            HasRequired(p => p.HorarioDeExpediente);
         }
     }
 }
