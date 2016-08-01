@@ -1,11 +1,9 @@
 ﻿@using Dominio.Model
-
 @{
     ViewBag.Title = "Novo";
     Layout = "~/Views/Templates/_TemplateSistema.cshtml";
 
 }
-
 
 <link href="~/Content/Site.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-1.10.2.js"></script>
@@ -35,25 +33,26 @@
 
     function ValidaCPF() {
         var cpf = document.getElementById('CPF').value;
+        if (cpf.length > 0) {
+            $.ajax({
+                url: "/Funcionario/ValidaCPF",
+                data: {
+                    aCPF: cpf
+                },
+                type: "GET",
+                datatype: "bool",
+                contenttype: "application/json; charset=utf-8",
+                success:
+                    function (data) {
+                        if (msg == "TRUE") {
 
-        $.ajax({
-            url: "/Funcionario/ValidaCPF",
-            data: {
-                aCPF: cpf
-            },
-            type: "GET",
-            datatype: "bool",
-            contenttype: "application/json; charset=utf-8",
-            success:
-                function (data) {
-                    if (msg == "TRUE") {
-                        
-                    }
-            },
-        });
+                        }
+                    },
+            });
+        }
     };
 
-    
+
     $(document).ready(function () {
         atualizaListaHorarios();
         $("#IdEmpresa").change(function (e) {
@@ -62,7 +61,6 @@
     });
 
 </script>
-
 @model FrontEnd.Models.FuncionarioNovo
 @if (@TempData["Mensagem"] != null)
 {
@@ -83,7 +81,6 @@ else
 
     }
 }
-
 <h2 class="page-header">Novo funcionário</h2>
 <div class="row">
     <div class="col col-lg-12">
@@ -110,7 +107,7 @@ else
                     </div>
                     <div class="form-group">
                         @Html.Label("Confirmação de senha")
-                        @Html.PasswordFor(f => f.SenhaConfirmacao, new { name = "ConfirmaSenha", @class = "form-control", type = "password", @maxlength = "30"   })
+                        @Html.PasswordFor(f => f.SenhaConfirmacao, new { name = "ConfirmaSenha", @class = "form-control", type = "password", @maxlength = "30" })
                     </div>
                     if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
                     {

@@ -56,10 +56,10 @@
     };
 
     $(document).ready(function () {
-        atualizaListaHorarios();
-        $("#IdEmpresa").change(function (e) {
-            atualizaListaHorarios();
-        });
+        //atualizaListaHorarios();
+        //$("#IdEmpresa").change(function (e) {
+        //    atualizaListaHorarios();
+        //});
     });
 
 </script>
@@ -75,7 +75,7 @@
                 @{
                     var listaDePerfis = (IEnumerable<SelectListItem>)ViewBag.ListagemdePerfis;
                     var listaDeEmpresas = (IEnumerable<SelectListItem>)ViewBag.ListagemdeEmpresas;
-                    var listaDeHorariosDeExpedietne = (IEnumerable<SelectListItem>)ViewBag.ListagemdeHorariosDeExpediente;
+                    var listaDeHorariosDeExpediente = (IEnumerable<SelectListItem>)ViewBag.ListagemdeHorariosDeExpediente;
                     var listaUf = (IEnumerable<SelectListItem>)ViewBag.ListagemdeUF;
                     using (Html.BeginForm("Editar", "Funcionario", FormMethod.Post))
                     {
@@ -114,8 +114,8 @@
                                     @Html.DropDownListFor(e => e.IdPerfilDeAcesso, listaDePerfis, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
-                                    @Html.Label("Horário de Expediente")
-                                    @Html.DropDownListFor(e => e.IdHorarioDeExpediente, listaDeHorariosDeExpedietne, new { @class = "form-control" })
+                                    @Html.LabelFor(e => e.IdHorarioDeExpediente)
+                                    @Html.DropDownListFor(e => e.IdHorarioDeExpediente, listaDeHorariosDeExpediente, new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-1">
