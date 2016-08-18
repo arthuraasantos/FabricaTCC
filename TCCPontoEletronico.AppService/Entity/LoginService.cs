@@ -70,7 +70,7 @@ namespace TCCPontoEletronico.AppService.Entity
                     var empresa = _empresaServico.CreateOrganization(newRegister.NomeFantasiaEmpresa, newRegister.CnpjEmpresa);
                     
                     // Criar novo horário de expediente
-                    var horarioDeExpediente = _horarioDeExpedienteServico.CreateForLogin(empresa.Id);
+                    var horarioDeExpediente = _horarioDeExpedienteServico.Create(empresa.Id, "Horário padrão");
                     
                     //Cria novo funcionário
                     var funcionario = _funcionarioServico.CriarFuncionario(newRegister.NomeFuncionario, newRegister.EmailFuncionario, empresa.Id, horarioDeExpediente.Id, newRegister.SenhaFuncionario);

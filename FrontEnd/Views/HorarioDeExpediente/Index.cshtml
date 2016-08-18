@@ -44,7 +44,7 @@ else
                                 <th>Descrição</th>
                                 @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                 {
-                                    <th class="col-lg-3" >Operações</th>
+                                    <th class="col-lg-3">Operações</th>
                                 }
                             </tr>
                         </thead>
@@ -52,7 +52,17 @@ else
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td> @item.Descricao </td>
+                                    <td>
+                                        @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
+                                        {
+                                            @item.Descricao @item.Empresa.NomeFantasia
+                                        }
+                                        else
+                                        {
+                                            @item.Descricao
+                                        }
+
+                                    </td>
 
                                     @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado != Seedwork.Const.PerfilAcesso.Funcionario)
                                     {
@@ -61,7 +71,7 @@ else
                                             @Html.ActionLink("Editar", "Visualizar", new { id = item.Id }, new { @class = "btn btn-outline btn-xs btn-info" })
                                             @if (FrontEnd.Models.Sessao.PerfilFuncionarioLogado == Seedwork.Const.PerfilAcesso.Administrador)
                                             {
-                                                    <input type="button" class="btn btn-outline btn-xs btn-danger" value="Excluir" />
+                                                <input type="button" class="btn btn-outline btn-xs btn-danger" value="Excluir" />
                                             }
                                         </td>
                                     }

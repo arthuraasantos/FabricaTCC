@@ -78,6 +78,7 @@ else
                                 <th>Data</th>
                                 <th>Movimentações do dia</th>
                                 <th>Horas trabalhadas</th>
+                                <th>Horas do dia</th>
                                 <th>Operações</th>
                             </tr>
                         </thead>
@@ -87,7 +88,7 @@ else
                             {
                                 <tr>
 
-                                    <td>@data.Key.ToString("dd/MM/yyyy")</td>
+                                    <td>@data.Key.ToString("dd/MM/yyyy") - @data.Key.DayOfWeek</td>
                                     <td>
                                         @foreach (var hr in data.Value)
                                         {
@@ -96,6 +97,9 @@ else
                                                 @hr.DataValida.ToString("HH:mm - ");
                                             }
                                         }
+                                    </td>
+                                    <td>
+                                        @DicionarioHoras[data.Key]
                                     </td>
                                     <td>
                                         @DicionarioHoras[data.Key]

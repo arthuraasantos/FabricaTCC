@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using FrontEnd.Controllers;
 using Seedwork.Const;
+using TCCPontoEletronico.AppService.Interface;
 
 namespace FrontEnd.Models
 {
@@ -19,11 +20,14 @@ namespace FrontEnd.Models
         public IEmpresaRepository EmpresaRepository;
         private IEnumerable<SelectListItem> ListaEmpresas;
 
-        public HorarioDeExpedienteController(PontoContext context, IHorarioDeExpedienteRepository horarioDeExpedienteRepository, IEmpresaRepository empresaRepository)
+        private readonly IHorarioDeExpedienteService _horarioDeExpedienteServico;
+
+        public HorarioDeExpedienteController(PontoContext context, IHorarioDeExpedienteRepository horarioDeExpedienteRepository, IEmpresaRepository empresaRepository, IHorarioDeExpedienteService officeHoursService)
             : base(context, horarioDeExpedienteRepository, new HorarioDeExpedienteToHorarioDeExpedienteNovo(empresaRepository), new HorarioDeExpedienteToHorarioDeExpedienteEditar(empresaRepository))
         {
             HorarioDeExpedienteRepository = horarioDeExpedienteRepository;
             EmpresaRepository = empresaRepository;
+            _horarioDeExpedienteServico = officeHoursService;
 
             switch (Sessao.PerfilFuncionarioLogado)
             {
@@ -111,8 +115,7 @@ namespace FrontEnd.Models
                         entity.Empresa = emp;
                     }
 
-                    Repository.Salvar(entity);
-                    Context.SaveChanges();
+                    _horarioDeExpedienteServico.Create(entity.Empresa.Id, entity.Descricao);
 
                     TempData["Mensagem"] = "Horário de Expediente cadastrado com sucesso!";
                 }

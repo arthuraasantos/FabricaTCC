@@ -22,6 +22,7 @@ namespace Infraestrutura
 
         private IEmpresaRepository _empresas;
         private IHorarioDeExpedienteRepository _horarioDeExpediente;
+        private IItemHorarioDeExpedienteRepository _itemHorarioDeExpediente;
         private IFuncionarioRepository _funcionarios;
         private IFeriasRepository _ferias;
         private IFolgaRepository _folgas;
@@ -44,6 +45,15 @@ namespace Infraestrutura
             {
                 if (_horarioDeExpediente == null) _horarioDeExpediente = new HorarioDeExpedienteRepository(_contexto);
                 return _horarioDeExpediente;
+            }
+        }
+
+        public IItemHorarioDeExpedienteRepository ItemHorarioDeExpediente
+        {
+            get
+            {
+                if (_itemHorarioDeExpediente == null) _itemHorarioDeExpediente = new ItemHorarioDeExpedienteRepository(_contexto);
+                return _itemHorarioDeExpediente;
             }
         }
 
@@ -106,6 +116,7 @@ namespace Infraestrutura
             modelBuilder.Configurations.Add(new FeriasDbMapping());
             modelBuilder.Configurations.Add(new FolgaDbMapping());
             modelBuilder.Configurations.Add(new HorarioDeExpedienteDBMapping());
+            modelBuilder.Configurations.Add(new ItemHorarioDeExpedienteDBMapping());
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);

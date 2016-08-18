@@ -16,11 +16,11 @@ namespace FrontEnd.Controllers
         // GET: ItemHorarioDeExpediente
         public IItemHorarioDeExpedienteRepository ItemHorarioDeExpedienteRepository { get; set; }
         public IHorarioDeExpedienteRepository HorarioDeExpedienteRepository { get; set; }
-        public MyContext Context { get; set; }
+        public PontoContext Context { get; set; }
         public ItemHorarioDeExpedienteToItemHorarioDeExpedienteEditar Converter { get; set; }
         public List<ItemHorarioDeExpediente> lista { get; set; }
 
-        public ItemHorarioDeExpedienteController(MyContext context)
+        public ItemHorarioDeExpedienteController(PontoContext context)
         {
             Context = context;
             ItemHorarioDeExpedienteRepository = new ItemHorarioDeExpedienteRepository(context);
